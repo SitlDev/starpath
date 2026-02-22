@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FollowUp Operator</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      width: 420px;
+      min-height: 500px;
+      max-height: 600px;
+      font-family: 'Courier New', monospace;
+      background: #0a0a0a;
+      color: #ffffff;
+      overflow-y: auto;
+    }
+
+    .header {
+      padding: 20px;
+      border-bottom: 1px solid #222;
+      background: #111;
+    }
+
+    h1 {
+      font-size: 18px;
+      font-weight: bold;
+      color: #00ff41;
+      margin-bottom: 4px;
+      letter-spacing: -0.5px;
+    }
+
+    .tagline {
+      font-size: 11px;
+      color: #666;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      padding: 16px 20px;
+      background: #0d0d0d;
+      border-bottom: 1px solid #222;
+    }
+
+    .stat {
+      text-align: center;
+    }
+
+    .stat-value {
+      font-size: 24px;
+      font-weight: bold;
+      color: #00ff41;
+      margin-bottom: 4px;
+    }
+
+    .stat-label {
+      font-size: 9px;
+      color: #666;
+      text-transform: uppercase;
+      letter-spacing: 0.3px;
+    }
+
+    .tabs {
+      display: flex;
+      border-bottom: 1px solid #222;
+      background: #0d0d0d;
+    }
+
+    .tab {
+      flex: 1;
+      padding: 12px;
+      background: transparent;
+      border: none;
+      color: #666;
+      font-family: 'Courier New', monospace;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.3px;
+      cursor: pointer;
+      border-bottom: 2px solid transparent;
+      transition: all 0.2s;
+    }
+
+    .tab:hover {
+      color: #999;
+    }
+
+    .tab.active {
+      color: #00ff41;
+      border-bottom-color: #00ff41;
+    }
+
+    .leads {
+      max-height: 400px;
+      overflow-y: auto;
+    }
+
+    .lead {
+      padding: 16px 20px;
+      border-bottom: 1px solid #1a1a1a;
+      transition: all 0.2s;
+    }
+
+    .lead:hover {
+      background: #111;
+      border-left: 2px solid #00ff41;
+      padding-left: 18px;
+    }
+
+    .lead-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 8px;
+    }
+
+    .lead-name {
+      font-size: 13px;
+      font-weight: bold;
+      color: #fff;
+      margin-bottom: 2px;
+    }
+
+    .lead-email {
+      font-size: 11px;
+      color: #666;
+    }
+
+    .urgency {
+      padding: 3px 8px;
+      border-radius: 2px;
+      font-size: 9px;
+      text-transform: uppercase;
+      letter-spacing: 0.3px;
+      font-weight: bold;
+    }
+
+    .urgency-high {
+      background: rgba(255, 51, 102, 0.2);
+      color: #ff3366;
+      border: 1px solid #ff3366;
+    }
+
+    .urgency-medium {
+      background: rgba(255, 200, 0, 0.2);
+      color: #ffc800;
+      border: 1px solid #ffc800;
+    }
+
+    .urgency-low {
+      background: rgba(0, 255, 65, 0.2);
+      color: #00ff41;
+      border: 1px solid #00ff41;
+    }
+
+    .lead-meta {
+      display: flex;
+      gap: 12px;
+      font-size: 10px;
+      color: #666;
+      margin-bottom: 10px;
+    }
+
+    .lead-actions {
+      display: flex;
+      gap: 8px;
+    }
+
+    .btn {
+      flex: 1;
+      padding: 8px 12px;
+      background: transparent;
+      border: 1px solid #333;
+      color: #999;
+      font-family: 'Courier New', monospace;
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.3px;
+      cursor: pointer;
+      transition: all 0.2s;
+      border-radius: 2px;
+    }
+
+    .btn:hover {
+      border-color: #00ff41;
+      color: #00ff41;
+    }
+
+    .btn-primary {
+      background: #00ff41;
+      border-color: #00ff41;
+      color: #0a0a0a;
+    }
+
+    .btn-primary:hover {
+      background: #00cc34;
+      border-color: #00cc34;
+    }
+
+    .btn-danger {
+      border-color: #ff3366;
+      color: #ff3366;
+    }
+
+    .btn-danger:hover {
+      background: #ff3366;
+      color: white;
+    }
+
+    .empty {
+      padding: 60px 20px;
+      text-align: center;
+      color: #666;
+    }
+
+    .empty-icon {
+      font-size: 48px;
+      margin-bottom: 12px;
+      opacity: 0.3;
+    }
+
+    .empty-text {
+      font-size: 12px;
+    }
+
+    .footer {
+      padding: 16px 20px;
+      border-top: 1px solid #222;
+      background: #0d0d0d;
+      text-align: center;
+    }
+
+    .footer-btn {
+      width: 100%;
+      padding: 10px;
+      background: transparent;
+      border: 1px solid #00ff41;
+      color: #00ff41;
+      font-family: 'Courier New', monospace;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.3px;
+      cursor: pointer;
+      transition: all 0.2s;
+      border-radius: 2px;
+    }
+
+    .footer-btn:hover {
+      background: #00ff41;
+      color: #0a0a0a;
+    }
+
+    ::-webkit-scrollbar {
+      width: 8px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background: #0a0a0a;
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: #222;
+      border-radius: 4px;
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+      background: #333;
+    }
+
+    .loading {
+      padding: 40px;
+      text-align: center;
+      color: #666;
+    }
+
+    .spinner {
+      display: inline-block;
+      width: 24px;
+      height: 24px;
+      border: 3px solid #222;
+      border-top-color: #00ff41;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <h1>FollowUp Operator</h1>
+    <div class="tagline">No lead forgotten</div>
+  </div>
+
+  <div class="stats">
+    <div class="stat">
+      <div class="stat-value" id="activeCount">0</div>
+      <div class="stat-label">Active</div>
+    </div>
+    <div class="stat">
+      <div class="stat-value" id="urgentCount">0</div>
+      <div class="stat-label">Urgent</div>
+    </div>
+    <div class="stat">
+      <div class="stat-value" id="totalCount">0</div>
+      <div class="stat-label">Total</div>
+    </div>
+  </div>
+
+  <div class="tabs">
+    <button class="tab active" data-tab="urgent">Urgent</button>
+    <button class="tab" data-tab="active">Active</button>
+    <button class="tab" data-tab="all">All</button>
+  </div>
+
+  <div id="leads" class="leads">
+    <div class="loading">
+      <div class="spinner"></div>
+    </div>
+  </div>
+
+  <div class="footer">
+    <button class="footer-btn" id="openDashboard">Open Full Dashboard</button>
+  </div>
+
+  <script src="popup.js"></script>
+</body>
+</html>

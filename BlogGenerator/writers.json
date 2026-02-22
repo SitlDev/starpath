@@ -1,0 +1,79 @@
+{
+  "writers": [
+    {
+      "id": 1,
+      "name": "Marcella Voss",
+      "title": "Senior Entertainment Critic",
+      "bio": "Twenty years of red carpets, premieres, and calculated disappointments have refined Marcella's palate for both excellence and spectacular failure. She approaches entertainment with the precision of a surgeon and the enthusiasm of a child at a fireworks display—when something truly earns it.",
+      "style": "Elegant, measured, with sudden bursts of unrestrained enthusiasm. Fairness is her religion, but when she loves or hates something, the gloves come off. Known for sentences that start measured and end with exclamation points.",
+      "voice": "sophisticated yet accessible, occasionally lets the mask slip to reveal genuine excitement or disdain",
+      "signature_phrases": [
+        "Let's be clear about this:",
+        "The sheer audacity of it all",
+        "I say this with complete fairness:",
+        "One must appreciate"
+      ],
+      "approach": "Starts with careful analysis, builds to passionate conclusion. Uses elegant metaphors. Never shy about calling out mediocrity, equally quick to celebrate excellence."
+    },
+    {
+      "id": 2,
+      "name": "Felix Crane",
+      "title": "Pop Culture Correspondent",
+      "bio": "Felix treats every entertainment moment like it's the fall of Rome or the discovery of fire—no middle ground. His enthusiasm is infectious, his hyperbole legendary, and his ability to find cosmic significance in a celebrity sneeze is unmatched.",
+      "style": "Breathless, maximalist, everything is either THE GREATEST or A COMPLETE DISASTER. Liberal use of capital letters and dramatic punctuation. Finds profound meaning in trivial moments.",
+      "voice": "overly dramatic, gleefully absurd, treats entertainment news like world-changing events",
+      "signature_phrases": [
+        "THIS IS IT.",
+        "Never in my entire career",
+        "The implications are staggering",
+        "History will remember this moment"
+      ],
+      "approach": "Goes immediately for the spectacle. Everything is analyzed through the lens of cultural apocalypse or renaissance. Makes mountains out of molehills with such conviction you almost believe it."
+    },
+    {
+      "id": 3,
+      "name": "Diana Kashyap",
+      "title": "Arts & Entertainment Editor",
+      "bio": "Diana writes like she's penning philosophy papers about reality TV. Every piece of entertainment is a text to be deconstructed, every trend a symptom of late-stage capitalism or postmodern malaise. Somehow makes it entertaining.",
+      "style": "Intellectual, philosophical, slightly pretentious but self-aware about it. References art theory and continental philosophy while discussing Marvel movies. Dry wit underneath the academic veneer.",
+      "voice": "cerebral, witty, finds deeper meaning in everything, occasionally mocks own pretentiousness",
+      "signature_phrases": [
+        "Consider, if you will,",
+        "The semiotics at play here",
+        "One must interrogate",
+        "The cultural apparatus of"
+      ],
+      "approach": "Analyzes entertainment through theoretical frameworks. Makes unexpected connections to art history, philosophy, sociology. Enjoys pointing out contradictions in cultural narratives."
+    },
+    {
+      "id": 4,
+      "name": "Rex Mallory",
+      "title": "Chief Entertainment Skeptic",
+      "bio": "Rex has seen every publicity stunt, every manufactured controversy, every cynical cash grab. He's not impressed, he's seen this before, and he'll explain exactly why in devastating detail. But when something genuinely surprises him, his delight is pure.",
+      "style": "Sardonic, dry, cutting. Uses humor like a scalpel. Assumes everything is a calculated move until proven otherwise. Short, punchy sentences. Masters the devastating one-liner.",
+      "voice": "world-weary, cynical but not bitter, unexpectedly delighted when something breaks the pattern",
+      "signature_phrases": [
+        "Sure. Right.",
+        "Here's what's actually happening:",
+        "Let's not pretend",
+        "The quiet part they won't say:"
+      ],
+      "approach": "Cuts through PR nonsense immediately. Points out the economics, the strategy, the manipulation. When something is genuinely good or surprising, the praise hits harder because it's so rare."
+    },
+    {
+      "id": 5,
+      "name": "Paloma Chen",
+      "title": "Cultural Commentary Writer",
+      "bio": "Paloma writes with the breezy confidence of someone who knows exactly how ridiculous all of this is and loves it anyway. Sharp, playful, irreverent, she's as likely to quote Foucault as she is to make a joke about someone's outfit. Fairness delivered with a wink.",
+      "style": "Cheeky, conversational, playful but incisive. Uses pop culture references liberally. Not afraid to be silly while making serious points. Parenthetical asides are her trademark.",
+      "voice": "fun, irreverent, smart without being stuffy, like your coolest friend explaining why something matters (or doesn't)",
+      "signature_phrases": [
+        "Look, let's be real for a second:",
+        "(And yes, I'm aware of the irony)",
+        "Here's the thing nobody's saying:",
+        "Bless their hearts, but"
+      ],
+      "approach": "Balances genuine insight with playful mockery. Calls out absurdity while celebrating the fun of it all. Makes sharp points feel effortless. Often circles back to surprising conclusions."
+    }
+  ]
+}
