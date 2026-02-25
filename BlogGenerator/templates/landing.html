@@ -139,7 +139,7 @@
                 </div>
             </div>
             <div class="flex items-center gap-6">
-                <a href="/blog"
+                <a href="/dashboard"
                     class="px-5 py-2.5 bg-slate-900 text-white text-[10px] font-black rounded-full hover:bg-brand-primary transition-all uppercase tracking-widest">Writer
                     Dashboard</a>
             </div>
@@ -226,35 +226,65 @@
                         <p class="text-xs text-slate-500 mb-6 font-medium leading-relaxed">Join 45,000+ readers getting
                             the daily viral intelligence briefing.</p>
                         <div class="flex gap-2">
-                            <input type="text" placeholder="Your work email"
+                            <input type="email" id="subscriber-email" placeholder="Your work email"
                                 class="flex-1 bg-white border border-slate-200 rounded-xl px-4 py-3 text-xs outline-none focus:border-brand-primary">
-                            <button class="bg-brand-primary text-white p-3 rounded-xl hover:shadow-lg transition-all">
+                            <button onclick="handleSubscribe()"
+                                class="bg-brand-primary text-white p-3 rounded-xl hover:shadow-lg transition-all">
                                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3"
                                         d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
                                 </svg>
                             </button>
                         </div>
+                        <p id="subscribe-status" class="text-[10px] mt-3 hidden font-bold"></p>
+
+                        <script>
+                            async function handleSubscribe() {
+                                const emailInput = document.getElementById('subscriber-email');
+                                const status = document.getElementById('subscribe-status');
+                                const email = emailInput.value.trim();
+
+                                if (!email || !email.includes('@')) {
+                                    alert('Please enter a valid email address.');
+                                    return;
+                                }
+
+                                try {
+                                    const res = await fetch('/api/subscribe', {
+                                        method: 'POST',
+                                        headers: { 'Content-Type': 'application/json' },
+                                        body: JSON.stringify({ email })
+                                    });
+                                    const data = await res.json();
+
+                                    status.innerText = data.message || 'Thank you for subscribing!';
+                                    status.classList.remove('hidden', 'text-red-500');
+                                    status.classList.add('text-brand-primary');
+                                    emailInput.value = '';
+                                } catch (err) {
+                                    status.innerText = 'failed to subscribe. try again.';
+                                    status.classList.remove('hidden');
+                                    status.classList.add('text-red-500');
+                                }
+                            }
+                        </script>
                     </div>
                 </div>
             </div>
         </div>
 
         <!-- High Density Grid Portal -->
-        {% for cat_id, posts in categories.items() %}
-        {% if posts %}
+        {% for cat_id, data in categories.items() %}
+        {% if data.active or data.archived %}
         <section id="cat-{{ cat_id }}" class="mb-24">
             <div class="flex items-center gap-6 mb-12">
                 <h2 class="font-serif text-4xl font-black italic whitespace-nowrap">{{ cat_info[cat_id].name }}
                     Intelligence</h2>
                 <div class="h-px bg-slate-200 flex-1"></div>
-                <a href="#"
-                    class="text-[10px] font-black uppercase tracking-[0.2em] text-slate-400 hover:text-brand-primary transition-colors">See
-                    All &rarr;</a>
             </div>
 
             <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-                {% for post in posts[:4] %}
+                {% for post in data.active[:8] %}
                 <article class="bg-white rounded-3xl overflow-hidden card-shadow group">
                     <a href="/post/{{ post.filename }}">
                         <div class="aspect-[4/3] relative overflow-hidden bg-slate-100">
@@ -295,6 +325,30 @@
                 </article>
                 {% endfor %}
             </div>
+
+            <!-- Archive Block -->
+            {% if data.archived %}
+            <div class="mt-12 p-8 bg-slate-50 rounded-[2.5rem] border border-slate-200">
+                <h3
+                    class="text-[10px] font-black uppercase tracking-[0.3em] text-slate-400 mb-6 flex items-center gap-2">
+                    <span class="w-2 h-2 bg-slate-300 rounded-full"></span>
+                    {{ cat_info[cat_id].name }} Archive
+                </h3>
+                <div class="grid md:grid-cols-2 gap-x-12 gap-y-4">
+                    {% for post in data.archived %}
+                    <a href="/post/{{ post.filename }}"
+                        class="group flex items-center justify-between py-2 border-b border-slate-200/50 hover:border-brand-primary transition-colors">
+                        <span
+                            class="text-sm font-bold text-slate-600 group-hover:text-black transition-colors line-clamp-1 flex-1">{{
+                            post.title }}</span>
+                        <span
+                            class="text-[9px] font-black text-slate-400 uppercase tracking-widest ml-4 whitespace-nowrap">{{
+                            post.date }}</span>
+                    </a>
+                    {% endfor %}
+                </div>
+            </div>
+            {% endif %}
         </section>
         {% endif %}
         {% endfor %}
@@ -343,7 +397,7 @@
                     class="text-[11px] font-black uppercase tracking-[0.2em] text-brand-primary mb-8 underline underline-offset-8 decoration-white/20">
                     Portal Ops</h5>
                 <ul class="space-y-4 text-sm font-bold text-slate-400">
-                    <li><a href="/blog" class="hover:text-white transition-colors">Writer Command Center</a></li>
+                    <li><a href="/dashboard" class="hover:text-white transition-colors">Writer Command Center</a></li>
                     <li><a href="#" class="hover:text-white transition-colors">Editorial Guidelines</a></li>
                     <li><a href="#" class="hover:text-white transition-colors">Affiliate Revenue Model</a></li>
                     <li><a href="/sitemap.xml" class="hover:text-white transition-colors">Sitemap</a></li>

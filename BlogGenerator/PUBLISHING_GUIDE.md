@@ -5,13 +5,18 @@ To host your new Viral Media Intelligence portal as a subdomain (e.g., `intel.kn
 ## 1. Hosting the Backend (Flask + React)
 Squarespace does not natively host Python/Flask applications. You should host this repository on a cloud platform that supports Python.
 
-### Option A: Render.com (Easiest)
-1. **Connect GitHub**: Connect this repository to Render.
-2. **Build Settings**:
-   - **Environment**: Python
-   - **Build Command**: `pip install -r requirements.txt`
-   - **Start Command**: `gunicorn dashboard_app:app`
-3. **Environment Variables**: Add your `ANTHROPIC_API_KEY`, `OPENAI_API_KEY`, and `GEMINI_API_KEY`.
+### Option A: Railway (Recommended for this project)
+1. **Connect GitHub**: Connect this repository to Railway.
+2. **Automatic Configuration**: I have provided a `railway.json` and a `Dockerfile`. Railway will detect these and automatically use the **Docker Builder**.
+3. **Multi-Stage Build**: The deployment will:
+   - Build your React frontend using Node 20.
+   - Package the built files into a Python 3.11 environment.
+   - Serve everything via Gunicorn.
+4. **Environment Variables**: In the Railway "Variables" tab, add your API keys:
+   - `ANTHROPIC_API_KEY`
+   - `OPENAI_API_KEY`
+   - `GEMINI_API_KEY`
+5. **Static Assets**: Ensure you check the "Service Role" or similar settings if Railway has trouble finding files, but the `Dockerfile` handles this by default.
 
 ## 2. Setting Up the Subdomain on Squarespace
 Once your app is live on a host (e.g., `knotstranded-portal.onrender.com`), you need to point your Squarespace subdomain to it.
@@ -37,3 +42,4 @@ You mentioned already having a frontend/backend team. You can simply:
 
 ---
 **Status**: The codebase is now fully optimized with the "Viral Media Intelligence" aesthetic and is ready for production deployment.
+gif

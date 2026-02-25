@@ -72,9 +72,10 @@ const App = () => {
     setStatus('Searching the web...');
     try {
       const res = await axios.post('/api/search', {
-        provider: aiProvider,
-        num_results: numArticles,
-        categories: selectedCategories,
+        ...config,
+        ai_provider: aiProvider,
+        num_articles: numArticles,
+        selected_categories: selectedCategories,
         query_filter: '',
         api_key: aiProvider === 'claude' ? config.anthropic_api_key : (aiProvider === 'gemini' ? config.gemini_api_key : config.openai_api_key)
       });
@@ -307,7 +308,7 @@ const App = () => {
               <div>
                 <label className="text-xs font-bold text-slate-400 mb-3 block">Categories</label>
                 <div className="grid grid-cols-2 gap-2">
-                  {['movies', 'tv', 'music', 'celebrity', 'awards', 'streaming', 'books', 'gaming', 'local'].map(cat => (
+                  {['movies', 'tv', 'music', 'celebrity', 'awards', 'streaming', 'books', 'gaming', 'local', 'tech', 'finance', 'health', 'lifestyle', 'science', 'sports'].map(cat => (
                     <button
                       key={cat}
                       onClick={() => toggleCategory(cat)}

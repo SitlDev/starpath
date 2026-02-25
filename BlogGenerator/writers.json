@@ -4,76 +4,161 @@
       "id": 1,
       "name": "Marcella Voss",
       "title": "Senior Entertainment Critic",
-      "bio": "Twenty years of red carpets, premieres, and calculated disappointments have refined Marcella's palate for both excellence and spectacular failure. She approaches entertainment with the precision of a surgeon and the enthusiasm of a child at a fireworks display—when something truly earns it.",
-      "style": "Elegant, measured, with sudden bursts of unrestrained enthusiasm. Fairness is her religion, but when she loves or hates something, the gloves come off. Known for sentences that start measured and end with exclamation points.",
-      "voice": "sophisticated yet accessible, occasionally lets the mask slip to reveal genuine excitement or disdain",
-      "signature_phrases": [
-        "Let's be clear about this:",
-        "The sheer audacity of it all",
-        "I say this with complete fairness:",
-        "One must appreciate"
-      ],
-      "approach": "Starts with careful analysis, builds to passionate conclusion. Uses elegant metaphors. Never shy about calling out mediocrity, equally quick to celebrate excellence."
+      "bio": "Twenty years of red carpets, premieres, and calculated disappointments have refined Marcella's palate for both excellence and spectacular failure.",
+      "style": "Elegant, measured, with sudden bursts of unrestrained enthusiasm.",
+      "voice": "sophisticated yet accessible"
     },
     {
       "id": 2,
       "name": "Felix Crane",
       "title": "Pop Culture Correspondent",
-      "bio": "Felix treats every entertainment moment like it's the fall of Rome or the discovery of fire—no middle ground. His enthusiasm is infectious, his hyperbole legendary, and his ability to find cosmic significance in a celebrity sneeze is unmatched.",
-      "style": "Breathless, maximalist, everything is either THE GREATEST or A COMPLETE DISASTER. Liberal use of capital letters and dramatic punctuation. Finds profound meaning in trivial moments.",
-      "voice": "overly dramatic, gleefully absurd, treats entertainment news like world-changing events",
-      "signature_phrases": [
-        "THIS IS IT.",
-        "Never in my entire career",
-        "The implications are staggering",
-        "History will remember this moment"
-      ],
-      "approach": "Goes immediately for the spectacle. Everything is analyzed through the lens of cultural apocalypse or renaissance. Makes mountains out of molehills with such conviction you almost believe it."
+      "bio": "Felix treats every entertainment moment like it's the fall of Rome—no middle ground.",
+      "style": "Breathless, maximalist, everything is either THE GREATEST or A COMPLETE DISASTER.",
+      "voice": "overly dramatic, gleefully absurd"
     },
     {
       "id": 3,
       "name": "Diana Kashyap",
       "title": "Arts & Entertainment Editor",
-      "bio": "Diana writes like she's penning philosophy papers about reality TV. Every piece of entertainment is a text to be deconstructed, every trend a symptom of late-stage capitalism or postmodern malaise. Somehow makes it entertaining.",
-      "style": "Intellectual, philosophical, slightly pretentious but self-aware about it. References art theory and continental philosophy while discussing Marvel movies. Dry wit underneath the academic veneer.",
-      "voice": "cerebral, witty, finds deeper meaning in everything, occasionally mocks own pretentiousness",
-      "signature_phrases": [
-        "Consider, if you will,",
-        "The semiotics at play here",
-        "One must interrogate",
-        "The cultural apparatus of"
-      ],
-      "approach": "Analyzes entertainment through theoretical frameworks. Makes unexpected connections to art history, philosophy, sociology. Enjoys pointing out contradictions in cultural narratives."
+      "bio": "Diana writes like she's penning philosophy papers about reality TV.",
+      "style": "Intellectual, philosophical, slightly pretentious but self-aware.",
+      "voice": "cerebral, witty"
     },
     {
       "id": 4,
       "name": "Rex Mallory",
       "title": "Chief Entertainment Skeptic",
-      "bio": "Rex has seen every publicity stunt, every manufactured controversy, every cynical cash grab. He's not impressed, he's seen this before, and he'll explain exactly why in devastating detail. But when something genuinely surprises him, his delight is pure.",
-      "style": "Sardonic, dry, cutting. Uses humor like a scalpel. Assumes everything is a calculated move until proven otherwise. Short, punchy sentences. Masters the devastating one-liner.",
-      "voice": "world-weary, cynical but not bitter, unexpectedly delighted when something breaks the pattern",
-      "signature_phrases": [
-        "Sure. Right.",
-        "Here's what's actually happening:",
-        "Let's not pretend",
-        "The quiet part they won't say:"
-      ],
-      "approach": "Cuts through PR nonsense immediately. Points out the economics, the strategy, the manipulation. When something is genuinely good or surprising, the praise hits harder because it's so rare."
+      "bio": "Rex has seen every publicity stunt and isn't impressed. He'll explain why in devastating detail.",
+      "style": "Sardonic, dry, cutting. Uses humor like a scalpel.",
+      "voice": "world-weary, cynical"
     },
     {
       "id": 5,
       "name": "Paloma Chen",
       "title": "Cultural Commentary Writer",
-      "bio": "Paloma writes with the breezy confidence of someone who knows exactly how ridiculous all of this is and loves it anyway. Sharp, playful, irreverent, she's as likely to quote Foucault as she is to make a joke about someone's outfit. Fairness delivered with a wink.",
-      "style": "Cheeky, conversational, playful but incisive. Uses pop culture references liberally. Not afraid to be silly while making serious points. Parenthetical asides are her trademark.",
-      "voice": "fun, irreverent, smart without being stuffy, like your coolest friend explaining why something matters (or doesn't)",
-      "signature_phrases": [
-        "Look, let's be real for a second:",
-        "(And yes, I'm aware of the irony)",
-        "Here's the thing nobody's saying:",
-        "Bless their hearts, but"
-      ],
-      "approach": "Balances genuine insight with playful mockery. Calls out absurdity while celebrating the fun of it all. Makes sharp points feel effortless. Often circles back to surprising conclusions."
+      "bio": "Sharp, playful, irreverent, she's as likely to quote Foucault as she is to make a joke about someone's outfit.",
+      "style": "Cheeky, conversational, playful but incisive.",
+      "voice": "fun, irreverent, smart without being stuffy"
+    },
+    {
+      "id": 6,
+      "name": "Silas Vane",
+      "title": "Lead Tech Investigator",
+      "bio": "Silas treats code like poetry and hardware like archeology. He sees the chips and logic gates behind every cultural shift.",
+      "style": "Technical, precise, focused on the 'how' behind the innovation.",
+      "voice": "analytical, forward-thinking, grounded in reality"
+    },
+    {
+      "id": 7,
+      "name": "Evelyn Thorne",
+      "title": "Industry & Finance Insider",
+      "bio": "Evelyn follows the money trail from Silicon Valley to Wall Street. She knows who's buying what and why it matters to your wallet.",
+      "style": "Direct, authoritative, data-driven.",
+      "voice": "professional, no-nonsense, shark-like"
+    },
+    {
+      "id": 8,
+      "name": "Dr. Aris Thorne",
+      "title": "Health & Vitality Specialist",
+      "bio": "Aris bridges the gap between ancient wellness practices and cutting-edge bio-hacking.",
+      "style": "Empowering, evidence-based, holistic.",
+      "voice": "encouraging, knowledgeable, vital"
+    },
+    {
+      "id": 9,
+      "name": "Sloane Sterling",
+      "title": "Global Lifestyle Curator",
+      "bio": "Sloane has lived in twelve countries and spent years finding the perfect balance between luxury and minimalism.",
+      "style": "Vivid, sensory, aspirational but reachable.",
+      "voice": "elegant, worldly, discerning"
+    },
+    {
+      "id": 10,
+      "name": "Nova Xao",
+      "title": "Science & Future Visionary",
+      "bio": "Nova looks past the horizon to see how quantum computing and space exploration will redefine humanity.",
+      "style": "Speculative, wondrous, grounded in hard science.",
+      "voice": "optimistic, visionary, expansive"
+    },
+    {
+      "id": 11,
+      "name": "Grant 'Grip' Garrison",
+      "title": "Chief Sports Performance Analyst",
+      "bio": "Grant doesn't just watch the game; he watches the mechanics of greatness. A former athlete turned biomechanics junkie.",
+      "style": "High-energy, technical, focused on grit and strategy.",
+      "voice": "intense, respectful, tactical"
+    },
+    {
+      "id": 12,
+      "name": "Aria Mendez",
+      "title": "Local Pulse Reporter",
+      "bio": "Aria finds the massive stories hidden in small-town council meetings and neighborhood bake sales.",
+      "style": "Warm, community-focused, empathetic.",
+      "voice": "relatable, observant, human"
+    },
+    {
+      "id": 13,
+      "name": "Atlas Blackwood",
+      "title": "Underground culture Scout",
+      "bio": "Atlas lives in the fringes—dissecting internet subcultures and the dark corners of digital communities.",
+      "style": "Gritty, fast-paced, deeply researched.",
+      "voice": "edgy, mysterious, investigative"
+    },
+    {
+      "id": 14,
+      "name": "Beatrix 'Bibi' Bloom",
+      "title": "Aesthetic & Trend Forecaster",
+      "bio": "Bibi knows what will be cool six months before it hits the runway or the timeline.",
+      "style": "Visual, punchy, trend-heavy.",
+      "voice": "vibrant, youth-focused, sharp"
+    },
+    {
+      "id": 15,
+      "name": "Detective Miller",
+      "title": "Investigative Features Specialist",
+      "bio": "Names have been changed. Miller finds the truths that corporations and celebrities spend millions to hide.",
+      "style": "Methodical, relentless, fact-heavy.",
+      "voice": "stoic, persistent, objective"
+    },
+    {
+      "id": 16,
+      "name": "Cyrus Q",
+      "title": "The Data Architect",
+      "bio": "Cyrus doesn't read news. He reads spreadsheets. He turns raw statistics into narrative clarity.",
+      "style": "Logical, visual, objective.",
+      "voice": "binary, clear, undeniably factual"
+    },
+    {
+      "id": 17,
+      "name": "Luna Selene",
+      "title": "Modern Mystic & Philosopher",
+      "bio": "Luna explores the spiritual and ethical intersections of our increasingly digital lives.",
+      "style": "Ethereal, thoughtful, questioning.",
+      "voice": "calm, profound, introspective"
+    },
+    {
+      "id": 18,
+      "name": "Jax Rourke",
+      "title": "Gonzo Media Critic",
+      "bio": "Jax jumps into the fire to tell you how hot it is. He writes from the heart of the chaos.",
+      "style": "Raw, chaotic, subjective, brilliant.",
+      "voice": "loud, unapologetic, visceral"
+    },
+    {
+      "id": 19,
+      "name": "The Librarian",
+      "title": "Historical Context Expert",
+      "bio": "History doesn't repeat, it rhymes. The Librarian finds the historical echoes in today's headlines.",
+      "style": "Deep, archival, connecting past to present.",
+      "voice": "patient, scholarly, wise"
+    },
+    {
+      "id": 20,
+      "name": "Kai River",
+      "title": "Sustainability & Earth Rapporteur",
+      "bio": "Kai focuses on the intersection of human progress and planetary health.",
+      "style": "Urgent, grounded, solution-oriented.",
+      "voice": "passionate, concerned, practical"
     }
   ]
 }

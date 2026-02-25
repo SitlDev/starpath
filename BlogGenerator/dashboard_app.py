@@ -4,7 +4,8 @@ KnotStranded Blog Generator - Complete Ultimate Edition
 Categories + ChatGPT + Images + ClickBank + Squarespace Posting
 """
 
-from flask import Flask, render_template, request, jsonify, send_file, send_from_directory
+from flask import Flask, render_template, request, jsonify, send_file, send_from_directory, session, redirect, url_for
+from functools import wraps
 import os
 import json
 from datetime import datetime
@@ -14,10 +15,28 @@ import re
 import time
 import random
 import requests
-from flask import request
+from dotenv import load_dotenv
+
+load_dotenv()
 
 app = Flask(__name__)
+app.secret_key = os.environ.get('SECRET_KEY', 'knotstranded-secret-key-9988')
+ADMIN_PASSWORD = os.environ.get('ADMIN_PASSWORD', 'admin123')
 CONFIG_FILE = 'config.json'
+SUBSCRIBERS_FILE = 'subscribers.json'
+
+@app.route('/robots.txt')
+def robots_txt():
+    """Build a search-engine friendly robots.txt"""
+    content = [
+        "User-agent: *",
+        "Allow: /",
+        "Disallow: /dashboard",
+        "Disallow: /api/",
+        "Disallow: /login",
+        f"Sitemap: {request.host_url.rstrip('/')}/sitemap.xml"
+    ]
+    return "\n".join(content), 200, {'Content-Type': 'text/plain'}
 
 # ============================================================================
 # CATEGORIES
@@ -66,8 +85,43 @@ NEWS_CATEGORIES = {
     },
     "local": {
         "name": "Local Pulse",
-        "keywords": ["local news", "community", "city council", "regional", "hometown"],
+        "keywords": ["local news", "community", "city council", "regional", "hometown", "church", "business news", "programs", "city events"],
         "tags": ["local", "community", "regional", "hometown", "local news"]
+    },
+    "tech": {
+        "name": "Tech & AI",
+        "keywords": ["artificial intelligence", "gadgets", "software", "tech news", "innovation", "silicon valley"],
+        "tags": ["technology", "ai", "gadgets", "future", "software"]
+    },
+    "finance": {
+        "name": "Finance & Business",
+        "keywords": ["stocks", "crypto", "economy", "entrepreneurship", "markets", "investing"],
+        "tags": ["finance", "business", "investing", "crypto", "stocks"]
+    },
+    "health": {
+        "name": "Health & Wellness",
+        "keywords": ["fitness", "mental health", "nutrition", "biohacking", "wellness", "medical"],
+        "tags": ["health", "wellness", "fitness", "lifestyle", "mental health"]
+    },
+    "lifestyle": {
+        "name": "Lifestyle & Travel",
+        "keywords": ["travel", "home decor", "food", "fashion", "luxury", "diy"],
+        "tags": ["lifestyle", "travel", "food", "fashion", "home"]
+    },
+    "science": {
+        "name": "Science & Nature",
+        "keywords": ["space", "environment", "discoveries", "biology", "physics", "climate"],
+        "tags": ["science", "space", "nature", "environment", "discovery"]
+    },
+    "sports": {
+        "name": "Sports World",
+        "keywords": ["nba", "nfl", "soccer", "mlb", "olympics", "racing"],
+        "tags": ["sports", "athletes", "games", "competition", "teams"]
+    },
+    "politics": {
+        "name": "Global Politics",
+        "keywords": ["politics", "election", "government", "policy", "senate", "white house", "congress"],
+        "tags": ["politics", "government", "elections", "policy", "world news"]
     }
 }
 
@@ -79,102 +133,167 @@ NEWS_CATEGORIES = {
 
 CLICKBANK_PRODUCTS = {
     "movies": [
-        {"title": "Ultimate Streaming Guide", "url": "https://YOURVENDOR.hop.clickbank.net/?affiliate=YOURID", "description": "comprehensive streaming platform guide"},
-        {"title": "Cinematography Masterclass", "url": "https://YOURVENDOR.hop.clickbank.net/?affiliate=YOURID", "description": "film appreciation course"},
-        {"title": "Home Theater Setup", "url": "https://YOURVENDOR.hop.clickbank.net/?affiliate=YOURID", "description": "home entertainment system"}
+        {"title": "Ultimate Streaming Guide", "url": "https://YOURVENDOR.hop.clickbank.net/?affiliate=l4j4n", "description": "comprehensive streaming platform guide"},
+        {"title": "Cinematography Masterclass", "url": "https://YOURVENDOR.hop.clickbank.net/?affiliate=l4j4n", "description": "film appreciation course"},
+        {"title": "Home Theater Setup", "url": "https://YOURVENDOR.hop.clickbank.net/?affiliate=l4j4n", "description": "home entertainment system"}
     ],
     "tv": [
-        {"title": "TV Series Database", "url": "https://YOURVENDOR.hop.clickbank.net/?affiliate=YOURID", "description": "complete series guide"},
-        {"title": "Streaming Optimizer", "url": "https://YOURVENDOR.hop.clickbank.net/?affiliate=YOURID", "description": "streaming service comparison"},
-        {"title": "Binge Guide Pro", "url": "https://YOURVENDOR.hop.clickbank.net/?affiliate=YOURID", "description": "TV recommendation engine"}
+        {"title": "TV Series Database", "url": "https://YOURVENDOR.hop.clickbank.net/?affiliate=l4j4n", "description": "complete series guide"},
+        {"title": "Streaming Optimizer", "url": "https://YOURVENDOR.hop.clickbank.net/?affiliate=l4j4n", "description": "streaming service comparison"},
+        {"title": "Binge Guide Pro", "url": "https://YOURVENDOR.hop.clickbank.net/?affiliate=l4j4n", "description": "TV recommendation engine"}
     ],
     "music": [
-        {"title": "Music Production Mastery", "url": "https://YOURVENDOR.hop.clickbank.net/?affiliate=YOURID", "description": "music creation course"},
-        {"title": "Concert Finder Pro", "url": "https://YOURVENDOR.hop.clickbank.net/?affiliate=YOURID", "description": "live music tracker"},
-        {"title": "Music Theory Complete", "url": "https://YOURVENDOR.hop.clickbank.net/?affiliate=YOURID", "description": "music education"}
+        {"title": "Music Production Mastery", "url": "https://YOURVENDOR.hop.clickbank.net/?affiliate=l4j4n", "description": "music creation course"},
+        {"title": "Concert Finder Pro", "url": "https://YOURVENDOR.hop.clickbank.net/?affiliate=l4j4n", "description": "live music tracker"},
+        {"title": "Music Theory Complete", "url": "https://YOURVENDOR.hop.clickbank.net/?affiliate=l4j4n", "description": "music education"}
     ],
     "celebrity": [
-        {"title": "Celebrity Style Guide", "url": "https://YOURVENDOR.hop.clickbank.net/?affiliate=YOURID", "description": "fashion course"},
-        {"title": "Entertainment News Pro", "url": "https://YOURVENDOR.hop.clickbank.net/?affiliate=YOURID", "description": "news aggregator"},
-        {"title": "Social Influence Course", "url": "https://YOURVENDOR.hop.clickbank.net/?affiliate=YOURID", "description": "influencer training"}
+        {"title": "Celebrity Style Guide", "url": "https://YOURVENDOR.hop.clickbank.net/?affiliate=l4j4n", "description": "fashion course"},
+        {"title": "Entertainment News Pro", "url": "https://YOURVENDOR.hop.clickbank.net/?affiliate=l4j4n", "description": "news aggregator"},
+        {"title": "Social Influence Course", "url": "https://YOURVENDOR.hop.clickbank.net/?affiliate=l4j4n", "description": "influencer training"}
     ],
     "awards": [
-        {"title": "Red Carpet Styling", "url": "https://YOURVENDOR.hop.clickbank.net/?affiliate=YOURID", "description": "fashion analysis tool"},
-        {"title": "Event Planning Pro", "url": "https://YOURVENDOR.hop.clickbank.net/?affiliate=YOURID", "description": "ceremony guide"},
-        {"title": "Industry Insider Access", "url": "https://YOURVENDOR.hop.clickbank.net/?affiliate=YOURID", "description": "exclusive event reports"}
+        {"title": "Red Carpet Styling", "url": "https://YOURVENDOR.hop.clickbank.net/?affiliate=l4j4n", "description": "fashion analysis tool"},
+        {"title": "Event Planning Pro", "url": "https://YOURVENDOR.hop.clickbank.net/?affiliate=l4j4n", "description": "ceremony guide"},
+        {"title": "Industry Insider Access", "url": "https://YOURVENDOR.hop.clickbank.net/?affiliate=l4j4n", "description": "exclusive event reports"}
     ],
     "streaming": [
-        {"title": "VPN for Streaming", "url": "https://YOURVENDOR.hop.clickbank.net/?affiliate=YOURID", "description": "unlock global content"},
-        {"title": "Smart DNS Setup", "url": "https://YOURVENDOR.hop.clickbank.net/?affiliate=YOURID", "description": "high-speed streaming tool"},
-        {"title": "Content Discovery App", "url": "https://YOURVENDOR.hop.clickbank.net/?affiliate=YOURID", "description": "find trending shows fast"}
+        {"title": "VPN for Streaming", "url": "https://YOURVENDOR.hop.clickbank.net/?affiliate=l4j4n", "description": "unlock global content"},
+        {"title": "Smart DNS Setup", "url": "https://YOURVENDOR.hop.clickbank.net/?affiliate=l4j4n", "description": "high-speed streaming tool"},
+        {"title": "Content Discovery App", "url": "https://YOURVENDOR.hop.clickbank.net/?affiliate=l4j4n", "description": "find trending shows fast"}
     ],
     "books": [
-        {"title": "Author Success Blueprint", "url": "https://YOURVENDOR.hop.clickbank.net/?affiliate=YOURID", "description": "writing and publishing course"},
-        {"title": "Speed Reading Mastery", "url": "https://YOURVENDOR.hop.clickbank.net/?affiliate=YOURID", "description": "read more books faster"},
-        {"title": "Literary Analysis Pro", "url": "https://YOURVENDOR.hop.clickbank.net/?affiliate=YOURID", "description": "deep book study tool"}
+        {"title": "Author Success Blueprint", "url": "https://YOURVENDOR.hop.clickbank.net/?affiliate=l4j4n", "description": "writing and publishing course"},
+        {"title": "Speed Reading Mastery", "url": "https://YOURVENDOR.hop.clickbank.net/?affiliate=l4j4n", "description": "read more books faster"},
+        {"title": "Literary Analysis Pro", "url": "https://YOURVENDOR.hop.clickbank.net/?affiliate=l4j4n", "description": "deep book study tool"}
     ],
     "gaming": [
-        {"title": "Pro Gamer Reflexes", "url": "https://YOURVENDOR.hop.clickbank.net/?affiliate=YOURID", "description": "competitive gaming training"},
-        {"title": "Game Dev Fundamentals", "url": "https://YOURVENDOR.hop.clickbank.net/?affiliate=YOURID", "description": "create your own games"},
-        {"title": "E-sports Betting Guide", "url": "https://YOURVENDOR.hop.clickbank.net/?affiliate=YOURID", "description": "gaming analysis resource"}
+        {"title": "Pro Gamer Reflexes", "url": "https://YOURVENDOR.hop.clickbank.net/?affiliate=l4j4n", "description": "competitive gaming training"},
+        {"title": "Game Dev Fundamentals", "url": "https://YOURVENDOR.hop.clickbank.net/?affiliate=l4j4n", "description": "create your own games"},
+        {"title": "E-sports Betting Guide", "url": "https://YOURVENDOR.hop.clickbank.net/?affiliate=l4j4n", "description": "gaming analysis resource"}
+    ],
+    "local": [
+        {"title": "Home Security Mastery", "url": "https://YOURVENDOR.hop.clickbank.net/?affiliate=l4j4n", "description": "protect your local residence"},
+        {"title": "Organic Gardening Guide", "url": "https://YOURVENDOR.hop.clickbank.net/?affiliate=l4j4n", "description": "grow your own local food"},
+        {"title": "Emergency Preparedness Pro", "url": "https://YOURVENDOR.hop.clickbank.net/?affiliate=l4j4n", "description": "stay safe in your region"}
     ],
     "default": [
-        {"title": "Entertainment Insider", "url": "https://YOURVENDOR.hop.clickbank.net/?affiliate=YOURID", "description": "industry guide"},
-        {"title": "Pop Culture Toolkit", "url": "https://YOURVENDOR.hop.clickbank.net/?affiliate=YOURID", "description": "analysis resource"},
-        {"title": "Media Discovery Tool", "url": "https://YOURVENDOR.hop.clickbank.net/?affiliate=YOURID", "description": "content finder"}
+        {"title": "Entertainment Insider", "url": "https://YOURVENDOR.hop.clickbank.net/?affiliate=l4j4n", "description": "industry guide"},
+        {"title": "Pop Culture Toolkit", "url": "https://YOURVENDOR.hop.clickbank.net/?affiliate=l4j4n", "description": "analysis resource"},
+        {"title": "Media Discovery Tool", "url": "https://YOURVENDOR.hop.clickbank.net/?affiliate=l4j4n", "description": "content finder"}
+    ],
+    "tech": [
+        {"title": "AI Profit Masterclass", "url": "https://YOURVENDOR.hop.clickbank.net/?affiliate=l4j4n", "description": "leverage AI for business"},
+        {"title": "Smart Home Automation", "url": "https://YOURVENDOR.hop.clickbank.net/?affiliate=l4j4n", "description": "complete automation guide"},
+        {"title": "Coding Bootcamp Pro", "url": "https://YOURVENDOR.hop.clickbank.net/?affiliate=l4j4n", "description": "professional dev training"}
+    ],
+    "finance": [
+        {"title": "Crypto Wealth Secrets", "url": "https://YOURVENDOR.hop.clickbank.net/?affiliate=l4j4n", "description": "cryptocurrency trading course"},
+        {"title": "Passive Income Blueprint", "url": "https://YOURVENDOR.hop.clickbank.net/?affiliate=l4j4n", "description": "build wealth automatically"},
+        {"title": "Forex Trading Pro", "url": "https://YOURVENDOR.hop.clickbank.net/?affiliate=l4j4n", "description": "expert market analysis"}
+    ],
+    "health": [
+        {"title": "Custom Keto Plan", "url": "https://YOURVENDOR.hop.clickbank.net/?affiliate=l4j4n", "description": "personalized nutrition"},
+        {"title": "Mindfulness Mastery", "url": "https://YOURVENDOR.hop.clickbank.net/?affiliate=l4j4n", "description": "mental wellness training"},
+        {"title": "21-Day Workout Challenge", "url": "https://YOURVENDOR.hop.clickbank.net/?affiliate=l4j4n", "description": "fitness transformation"}
+    ],
+    "lifestyle": [
+        {"title": "Vagabond Travel Guide", "url": "https://YOURVENDOR.hop.clickbank.net/?affiliate=l4j4n", "description": "budget luxury travel"},
+        {"title": "Interior Design Course", "url": "https://YOURVENDOR.hop.clickbank.net/?affiliate=l4j4n", "description": "transform your space"},
+        {"title": "Gourmet Home Cooking", "url": "https://YOURVENDOR.hop.clickbank.net/?affiliate=l4j4n", "description": "chef-level recipes"}
+    ],
+    "science": [
+        {"title": "Astronomy Essentials", "url": "https://YOURVENDOR.hop.clickbank.net/?affiliate=l4j4n", "description": "guide to the cosmos"},
+        {"title": "Sustainability Handbook", "url": "https://YOURVENDOR.hop.clickbank.net/?affiliate=l4j4n", "description": "green living guide"},
+        {"title": "Bio-Age Optimizer", "url": "https://YOURVENDOR.hop.clickbank.net/?affiliate=l4j4n", "description": "science of longevity"}
+    ],
+    "sports": [
+        {"title": "Vertical Jump Training", "url": "https://YOURVENDOR.hop.clickbank.net/?affiliate=l4j4n", "description": "explosive athletic power"},
+        {"title": "Golf Swing Secret", "url": "https://YOURVENDOR.hop.clickbank.net/?affiliate=l4j4n", "description": "pro-level golf training"},
+        {"title": "Sports Nutrition Pro", "url": "https://YOURVENDOR.hop.clickbank.net/?affiliate=l4j4n", "description": "fuel for performance"}
     ]
 }
 
 AMAZON_PRODUCTS = {
     "movies": [
-        {"title": "4K Projector for Home Cinema", "url": "https://amazon.com/dp/B00EXAMPLES?tag=YOURTAG-20", "description": "bring the theater home"},
-        {"title": "Movie Poster Collection", "url": "https://amazon.com/dp/B00EXAMPLES?tag=YOURTAG-20", "description": "decorate your film room"},
-        {"title": "Classic Cinema Blu-ray Box Set", "url": "https://amazon.com/dp/B00EXAMPLES?tag=YOURTAG-20", "description": "must-see film collection"}
+        {"title": "4K Projector for Home Cinema", "url": "https://amazon.com/dp/B00EXAMPLES?tag=knotstranded-20", "description": "bring the theater home"},
+        {"title": "Movie Poster Collection", "url": "https://amazon.com/dp/B00EXAMPLES?tag=knotstranded-20", "description": "decorate your film room"},
+        {"title": "Classic Cinema Blu-ray Box Set", "url": "https://amazon.com/dp/B00EXAMPLES?tag=knotstranded-20", "description": "must-see film collection"}
     ],
     "tv": [
-        {"title": "OLED Smart TV 65-inch", "url": "https://amazon.com/dp/B00EXAMPLES?tag=YOURTAG-20", "description": "ultimate binge watching experience"},
-        {"title": "Universal Remote Control", "url": "https://amazon.com/dp/B00EXAMPLES?tag=YOURTAG-20", "description": "manage all your devices"},
-        {"title": "TV Backlight Ambient Lighting", "url": "https://amazon.com/dp/B00EXAMPLES?tag=YOURTAG-20", "description": "immersive viewing setup"}
+        {"title": "OLED Smart TV 65-inch", "url": "https://amazon.com/dp/B00EXAMPLES?tag=knotstranded-20", "description": "ultimate binge watching experience"},
+        {"title": "Universal Remote Control", "url": "https://amazon.com/dp/B00EXAMPLES?tag=knotstranded-20", "description": "manage all your devices"},
+        {"title": "TV Backlight Ambient Lighting", "url": "https://amazon.com/dp/B00EXAMPLES?tag=knotstranded-20", "description": "immersive viewing setup"}
     ],
     "music": [
-        {"title": "Noise Cancelling Headphones", "url": "https://amazon.com/dp/B00EXAMPLES?tag=YOURTAG-20", "description": "pure audio bliss"},
-        {"title": "Vinyl Record Player", "url": "https://amazon.com/dp/B00EXAMPLES?tag=YOURTAG-20", "description": "classic sound experience"},
-        {"title": "Portable Bluetooth Speaker", "url": "https://amazon.com/dp/B00EXAMPLES?tag=YOURTAG-20", "description": "music wherever you go"}
+        {"title": "Noise Cancelling Headphones", "url": "https://amazon.com/dp/B00EXAMPLES?tag=knotstranded-20", "description": "pure audio bliss"},
+        {"title": "Vinyl Record Player", "url": "https://amazon.com/dp/B00EXAMPLES?tag=knotstranded-20", "description": "classic sound experience"},
+        {"title": "Portable Bluetooth Speaker", "url": "https://amazon.com/dp/B00EXAMPLES?tag=knotstranded-20", "description": "music wherever you go"}
     ],
     "celebrity": [
-        {"title": "Designer Sunglasses", "url": "https://amazon.com/dp/B00EXAMPLES?tag=YOURTAG-20", "description": "star-quality eye protection"},
-        {"title": "Luxury Skincare Kit", "url": "https://amazon.com/dp/B00EXAMPLES?tag=YOURTAG-20", "description": "red carpet ready skin"},
-        {"title": "Professional Ring Light", "url": "https://amazon.com/dp/B00EXAMPLES?tag=YOURTAG-20", "description": "look like an influencer"}
+        {"title": "Designer Sunglasses", "url": "https://amazon.com/dp/B00EXAMPLES?tag=knotstranded-20", "description": "star-quality eye protection"},
+        {"title": "Luxury Skincare Kit", "url": "https://amazon.com/dp/B00EXAMPLES?tag=knotstranded-20", "description": "red carpet ready skin"},
+        {"title": "Professional Ring Light", "url": "https://amazon.com/dp/B00EXAMPLES?tag=knotstranded-20", "description": "look like an influencer"}
     ],
     "awards": [
-        {"title": "Evening Gown Designer Book", "url": "https://amazon.com/dp/B00EXAMPLES?tag=YOURTAG-20", "description": "history of red carpet fashion"},
-        {"title": "Crystal Trophy Award Decor", "url": "https://amazon.com/dp/B00EXAMPLES?tag=YOURTAG-20", "description": "elegant shelf piece"},
-        {"title": "Smart Watch for Event Tracking", "url": "https://amazon.com/dp/B00EXAMPLES?tag=YOURTAG-20", "description": "stay on schedule in style"}
+        {"title": "Evening Gown Designer Book", "url": "https://amazon.com/dp/B00EXAMPLES?tag=knotstranded-20", "description": "history of red carpet fashion"},
+        {"title": "Crystal Trophy Award Decor", "url": "https://amazon.com/dp/B00EXAMPLES?tag=knotstranded-20", "description": "elegant shelf piece"},
+        {"title": "Smart Watch for Event Tracking", "url": "https://amazon.com/dp/B00EXAMPLES?tag=knotstranded-20", "description": "stay on schedule in style"}
     ],
     "streaming": [
-        {"title": "Streaming Media Player Pro", "url": "https://amazon.com/dp/B00EXAMPLES?tag=YOURTAG-20", "description": "fastest content access"},
-        {"title": "Ethernet Adapter for TV", "url": "https://amazon.com/dp/B00EXAMPLES?tag=YOURTAG-20", "description": "lag-free 4K streaming"},
-        {"title": "Ergonomic Binge Pillow", "url": "https://amazon.com/dp/B00EXAMPLES?tag=YOURTAG-20", "description": "ultimate comfort for marathons"}
+        {"title": "Streaming Media Player Pro", "url": "https://amazon.com/dp/B00EXAMPLES?tag=knotstranded-20", "description": "fastest content access"},
+        {"title": "Ethernet Adapter for TV", "url": "https://amazon.com/dp/B00EXAMPLES?tag=knotstranded-20", "description": "lag-free 4K streaming"},
+        {"title": "Ergonomic Binge Pillow", "url": "https://amazon.com/dp/B00EXAMPLES?tag=knotstranded-20", "description": "ultimate comfort for marathons"}
     ],
     "books": [
-        {"title": "Kindle Paperwhite", "url": "https://amazon.com/dp/B00EXAMPLES?tag=YOURTAG-20", "description": "read thousands of books anywhere"},
-        {"title": "Adjustable Book Stand", "url": "https://amazon.com/dp/B00EXAMPLES?tag=YOURTAG-20", "description": "comfortable reading posture"},
-        {"title": "Reading Lamp with Eye Protection", "url": "https://amazon.com/dp/B00EXAMPLES?tag=YOURTAG-20", "description": "perfect night-time lighting"}
+        {"title": "Kindle Paperwhite", "url": "https://amazon.com/dp/B00EXAMPLES?tag=knotstranded-20", "description": "read thousands of books anywhere"},
+        {"title": "Adjustable Book Stand", "url": "https://amazon.com/dp/B00EXAMPLES?tag=knotstranded-20", "description": "comfortable reading posture"},
+        {"title": "Reading Lamp with Eye Protection", "url": "https://amazon.com/dp/B00EXAMPLES?tag=knotstranded-20", "description": "perfect night-time lighting"}
     ],
     "gaming": [
-        {"title": "Mechanical Gaming Keyboard", "url": "https://amazon.com/dp/B00EXAMPLES?tag=YOURTAG-20", "description": "ultra-fast response time"},
-        {"title": "High-Precision Gaming Mouse", "url": "https://amazon.com/dp/B00EXAMPLES?tag=YOURTAG-20", "description": "perfect accuracy in game"},
-        {"title": "Gaming Headset with 7.1 Surround", "url": "https://amazon.com/dp/B00EXAMPLES?tag=YOURTAG-20", "description": "hear everything in the game"}
+        {"title": "Mechanical Gaming Keyboard", "url": "https://amazon.com/dp/B00EXAMPLES?tag=knotstranded-20", "description": "ultra-fast response time"},
+        {"title": "High-Precision Gaming Mouse", "url": "https://amazon.com/dp/B00EXAMPLES?tag=knotstranded-20", "description": "perfect accuracy in game"},
+        {"title": "Gaming Headset with 7.1 Surround", "url": "https://amazon.com/dp/B00EXAMPLES?tag=knotstranded-20", "description": "hear everything in the game"}
     ],
     "local": [
-        {"title": "Home Security Mastery", "url": "https://YOURVENDOR.hop.clickbank.net/?affiliate=YOURID", "description": "protect your local residence"},
-        {"title": "Organic Gardening Guide", "url": "https://YOURVENDOR.hop.clickbank.net/?affiliate=YOURID", "description": "grow your own local food"},
-        {"title": "Emergency Preparedness Pro", "url": "https://YOURVENDOR.hop.clickbank.net/?affiliate=YOURID", "description": "stay safe in your region"}
+        {"title": "Local Smart Home Security", "url": "https://amazon.com/dp/B00EXAMPLES?tag=knotstranded-20", "description": "top-rated local protection"},
+        {"title": "Regional Weather Station", "url": "https://amazon.com/dp/B00EXAMPLES?tag=knotstranded-20", "description": "precise local climate tracking"},
+        {"title": "Neighborhood Crisis Radio", "url": "https://amazon.com/dp/B00EXAMPLES?tag=knotstranded-20", "description": "stay informed in your area"}
     ],
     "default": [
-        {"title": "Digital Content Creator Kit", "url": "https://amazon.com/dp/B00EXAMPLES?tag=YOURTAG-20", "description": "everything you need to start"},
-        {"title": "Ergonomic Workspace Desk", "url": "https://amazon.com/dp/B00EXAMPLES?tag=YOURTAG-20", "description": "write in comfort"},
-        {"title": "Portable Power Bank", "url": "https://amazon.com/dp/B00EXAMPLES?tag=YOURTAG-20", "description": "stay charged on the move"}
+        {"title": "Digital Content Creator Kit", "url": "https://amazon.com/dp/B00EXAMPLES?tag=knotstranded-20", "description": "everything you need to start"},
+        {"title": "Ergonomic Workspace Desk", "url": "https://amazon.com/dp/B00EXAMPLES?tag=knotstranded-20", "description": "write in comfort"},
+        {"title": "Portable Power Bank", "url": "https://amazon.com/dp/B00EXAMPLES?tag=knotstranded-20", "description": "stay charged on the move"}
+    ],
+    "tech": [
+        {"title": "Latest Mechanical Keyboard", "url": "https://amazon.com/dp/B00EXAMPLES?tag=knotstranded-20", "description": "premium typing experience"},
+        {"title": "Smart Home Hub", "url": "https://amazon.com/dp/B00EXAMPLES?tag=knotstranded-20", "description": "center of your smart home"},
+        {"title": "Noise Cancelling Earbuds", "url": "https://amazon.com/dp/B00EXAMPLES?tag=knotstranded-20", "description": "pure audio focus"}
+    ],
+    "finance": [
+        {"title": "Hardcover Ledger Nano", "url": "https://amazon.com/dp/B00EXAMPLES?tag=knotstranded-20", "description": "secure your crypto assets"},
+        {"title": "Dual Screen Monitor Setup", "url": "https://amazon.com/dp/B00EXAMPLES?tag=knotstranded-20", "description": "maximize trading productivity"},
+        {"title": "Finance Management Journal", "url": "https://amazon.com/dp/B00EXAMPLES?tag=knotstranded-20", "description": "track your wealth building"}
+    ],
+    "health": [
+        {"title": "Smart Fitness Watch", "url": "https://amazon.com/dp/B00EXAMPLES?tag=knotstranded-20", "description": "track every heartbeat"},
+        {"title": "Premium Yoga Mat", "url": "https://amazon.com/dp/B00EXAMPLES?tag=knotstranded-20", "description": "ultimate comfort for practice"},
+        {"title": "High-Speed Nutrient Blender", "url": "https://amazon.com/dp/B00EXAMPLES?tag=knotstranded-20", "description": "perfect smoothies every time"}
+    ],
+    "lifestyle": [
+        {"title": "Carry-on Travel Backpack", "url": "https://amazon.com/dp/B00EXAMPLES?tag=knotstranded-20", "description": "organized travel perfection"},
+        {"title": "Aesthetic Coffee Maker", "url": "https://amazon.com/dp/B00EXAMPLES?tag=knotstranded-20", "description": "morning ritual upgrade"},
+        {"title": "Organic Essential Oil Diffuser", "url": "https://amazon.com/dp/B00EXAMPLES?tag=knotstranded-20", "description": "relaxing home atmosphere"}
+    ],
+    "science": [
+        {"title": "Reflector Telescope Kit", "url": "https://amazon.com/dp/B00EXAMPLES?tag=knotstranded-20", "description": "explore the night sky"},
+        {"title": "Microscope for Hobbyists", "url": "https://amazon.com/dp/B00EXAMPLES?tag=knotstranded-20", "description": "discover hidden worlds"},
+        {"title": "Weather Monitoring Station", "url": "https://amazon.com/dp/B00EXAMPLES?tag=knotstranded-20", "description": "professional climate data"}
+    ],
+    "sports": [
+        {"title": "Adjustable Dumbbell Set", "url": "https://amazon.com/dp/B00EXAMPLES?tag=knotstranded-20", "description": "versatile home strength training"},
+        {"title": "Portable Basketball Hoop", "url": "https://amazon.com/dp/B00EXAMPLES?tag=knotstranded-20", "description": "game on anywhere"},
+        {"title": "Agility Training Kit", "url": "https://amazon.com/dp/B00EXAMPLES?tag=knotstranded-20", "description": "improve your performance"}
     ]
 }
 
@@ -197,12 +316,18 @@ DAILY_TIPS = {
     "streaming": "Restart your router weekly to clear the cache and maintain 4K bitrate without buffering dips.",
     "books": "Try the 'pomodoro' reading method: 25 minutes of reading followed by a 5-minute break to increase retention.",
     "gaming": "Lower your mouse DPI to 800 for better muscle memory and precision in competitive shooters.",
-    "local": "Join your local 'Buy Nothing' group to save money and strengthen community ties in your zip code."
+    "local": "Join your local 'Buy Nothing' group to save money and strengthen community ties in your zip code.",
+    "tech": "Enable Two-Factor Authentication (2FA) on all devices today to protect your digital identity from leaks.",
+    "finance": "Review your automated subscriptions monthly; cancelling just two forgotten services can save you $300/year.",
+    "health": "Drink 500ml of water immediately upon waking to kickstart your metabolism and cognitive functions.",
+    "lifestyle": "Roll your clothes instead of folding them when packing—it saves 30% more space and prevents deep wrinkles.",
+    "science": "Use a specialized blue-light filter in the evening to maintain your natural circadian rhythm for deeper sleep.",
+    "sports": "Dynamic stretching before a workout is 40% more effective at preventing injury than static stretching."
 }
 
 def generate_tags(category):
     """Generate 3 tags for category"""
-    tags = NEWS_CATEGORIES.get(category, {}).get("tags", ["entertainment", "news", "culture"])
+    tags = NEWS_CATEGORIES.get(category, {}).get("tags", ["news", "intelligence", "trends"])
     return random.sample(tags, min(3, len(tags)))
 
 # ============================================================================
@@ -226,14 +351,34 @@ def select_random_writer():
 # ============================================================================
 
 def load_config():
-    """Load config"""
+    """Load config with Environment Variable priority for Railway/Production"""
+    config = {}
     if os.path.exists(CONFIG_FILE):
         try:
             with open(CONFIG_FILE, 'r') as f:
-                return json.loads(f.read().strip() or '{}')
+                config = json.loads(f.read().strip() or '{}')
         except:
-            return {}
-    return {}
+            config = {}
+    
+    # Environment Variable Overrides (Cloud Deployment)
+    env_map = {
+        'anthropic_api_key': 'ANTHROPIC_API_KEY',
+        'gemini_api_key': 'GEMINI_API_KEY',
+        'openai_api_key': 'OPENAI_API_KEY',
+        'clickbank_affiliate_id': 'CLICKBANK_ID',
+        'squarespace_api_key': 'SQUARESPACE_API_KEY',
+        'squarespace_site_id': 'SQUARESPACE_SITE_ID',
+        'squarespace_collection_id': 'SQUARESPACE_COLLECTION_ID',
+        'amazon_tag': 'AMAZON_TAG',
+        'admin_password': 'ADMIN_PASSWORD'
+    }
+    
+    for config_key, env_key in env_map.items():
+        val = os.environ.get(env_key)
+        if val:
+            config[config_key] = val
+            
+    return config
 
 def save_config(config):
     """Save config"""
@@ -272,7 +417,7 @@ def get_location_from_ip():
 # SEARCH - GEMINI
 # ============================================================================
 
-def search_with_gemini(api_key, num_results, query_filter, categories):
+def search_with_gemini(api_key, num_results, query_filter, categories, config=None):
     """Search with Gemini"""
     try:
         import google.generativeai as genai
@@ -286,15 +431,18 @@ def search_with_gemini(api_key, num_results, query_filter, categories):
             keywords.extend(NEWS_CATEGORIES.get(cat, {}).get("keywords", []))
         
         if query_filter:
-            query = f"Find {num_results} recent entertainment news about {query_filter} related to {', '.join(keywords[:5])}"
+            query = f"Find {num_results} recent news stories about {query_filter}. Focus on high-authority sources."
+        elif len(categories) >= 6:
+            # Trending Mode
+            query = f"Find {num_results} top trending news stories today across various global topics. Include breaking news, viral science discoveries, tech innovation, major sports events, financial shifts, and entertainment headlines. Focus on what's currently trending globally."
         elif 'local' in categories:
             loc = get_location_from_ip()
             # Use custom location if provided in config
-            location_info = config.get('custom_location') or loc['description']
-            postal_info = config.get('custom_zip') or loc['postal']
-            query = f"Find {num_results} recent community news, city council decisions, and local events for {location_info} (around zip {postal_info}). If sparse, expand to the county and {loc['region']} state level. Return as high-content data points."
+            location_info = (config or {}).get('custom_location') or loc['description']
+            postal_info = (config or {}).get('custom_zip') or loc['postal']
+            query = f"Find {num_results} recent community news, city council decisions, city events and programs, local church events, and local business news/events for {location_info} (around zip {postal_info}). If news is sparse, expand search to the county and {loc['region']} state level. Include local business updates and cultural happenings."
         else:
-            query = f"Find {num_results} recent entertainment news about {', '.join(keywords[:5])}"
+            query = f"Find {num_results} recent news about {', '.join(keywords[:5])}"
         
         model = genai.GenerativeModel('gemini-1.5-flash', tools='google_search')
         response = model.generate_content(query)
@@ -359,7 +507,7 @@ def search_with_gemini(api_key, num_results, query_filter, categories):
 # SEARCH - CLAUDE
 # ============================================================================
 
-def search_with_claude(api_key, num_results, query_filter, categories):
+def search_with_claude(api_key, num_results, query_filter, categories, config=None):
     """Search with Claude"""
     try:
         print(f"[Claude] Searching {num_results} articles in: {categories}")
@@ -371,12 +519,17 @@ def search_with_claude(api_key, num_results, query_filter, categories):
             keywords.extend(NEWS_CATEGORIES.get(cat, {}).get("keywords", []))
         
         if query_filter:
-            query = f"Find {num_results} recent entertainment news articles about {query_filter} related to {', '.join(keywords[:5])}. For each article, provide the title and URL."
+            query = f"Find {num_results} recent high-authority news articles about {query_filter}. Provide titles and URLs."
+        elif len(categories) >= 6:
+            # Trending Mode
+            query = f"Find {num_results} top trending news stories today globally. Include major headlines in Tech, Finance, Science, Sports, Health, and Entertainment. Focus on stories that are viral or have significant impact. Provide titles and URLs for each story."
         elif 'local' in categories:
             loc = get_location_from_ip()
-            query = f"Find {num_results} recent community news and local headlines for {loc['description']} (Zip: {loc['postal']}). If news is sparse, expand search to {loc['region']} state level. Provide titles and URLs."
+            location_info = (config or {}).get('custom_location') or loc['description']
+            postal_info = (config or {}).get('custom_zip') or loc['postal']
+            query = f"Find {num_results} recent community news, city council headlines, city events and programs, local church events, and local business news/events for {location_info} (around zip {postal_info}). If news is sparse, expand search to {loc['region']} state level. Provide titles and URLs for each significant story."
         else:
-            query = f"Find {num_results} recent entertainment news articles about {', '.join(keywords[:5])}. For each article, provide the title and URL."
+            query = f"Find {num_results} recent news articles about {', '.join(keywords[:5])}. For each article, provide the title and URL."
         
         print(f"[Claude] Query: {query}")
         
@@ -588,22 +741,23 @@ def generate_blog_with_claude(api_key, news_item, temperature, max_tokens, write
         amz_text = "\n".join([f"[AMZ{i+1}] {l['title']} - {l['description']}" for i, l in enumerate(links['amazon'])])
         
         prompt = f"""You are {writer['name']}, {writer['title']} at KnotStranded.
-SEO TASK:
-1. Target keywords: {news_item['title']} and related trending terms.
-2. Structure with H2/H3 for readability and indexing.
-3. Write a 1500-word authoritative opinion and research piece.
-4. Naturally weave in affiliate links.
+SEO TASK (AGGRESSIVE):
+1. TARGET KEYWORDS: Identify and use the most high-volume terms for "{news_item['title']}".
+2. SEMANTIC STRUCTURE: Use H2/H3 tags. Include at least 3 bulleted lists for Google snippets.
+3. ENTITY LINKING: Reference other major entities (actors, companies, locations) to build a knowledge graph.
+4. WORD COUNT: Write a complete 2000-word authoritative guide.
+5. INTERNAL RELEVANCE: Mention other KnotStranded categories (Tech, Finance, Health) where relevant.
 
 Topic: {news_item['title']}
 Snippet: {news_item['snippet']}
 
-AFFILIATE PRODUCTS (Insert naturally - 3 of each):
+AFFILIATE PRODUCTS (Insert as 'Recommended Intelligence Resources'):
 CLICKBANK: {cb_text}
 AMAZON: {amz_text}
 
 FORMAT:
-TITLE: [Headline]
-CONTENT: [1500 words. Weave in [CB1..3] and [AMZ1..3]. Use semantic HTML tags for structure.]"""
+TITLE: [High-CTR Headline]
+CONTENT: [Complete 2000-word research guide. Weave in [CB1..3] and [AMZ1..3].]"""
         
         message = client.messages.create(
             model="claude-3-5-sonnet-20240620",
@@ -701,15 +855,31 @@ CONTENT: [500-700 words with 3 links: "For readers, [LINK1]..." Be opinionated.]
 # IMAGE GENERATION
 # ============================================================================
 
-def generate_featured_image(api_key, title, blog_id):
-    """Generate image with DALL-E"""
+def generate_featured_image(api_key, title, blog_id, category='entertainment'):
+    """Generate image with DALL-E with category-aware prompts"""
     try:
         import openai
         
-        print(f"[Image {blog_id}] Generating...")
+        print(f"[Image {blog_id}] Generating ({category})...")
         openai.api_key = api_key
         
-        prompt = f"Professional editorial illustration for entertainment blog: '{title}'. Cinematic, elegant style. No text."
+        # Category-specific visual styles
+        styles = {
+            "tech": "Futuristic, sleek, digital innovation aesthetic, high-tech neon accents",
+            "finance": "Professional, data-driven, clean minimalism, sophisticated corporate colors",
+            "health": "Natural, organic, bright and airy, wellness-focused sanctuary vibes",
+            "lifestyle": "Vibrant, trendy, warm lighting, cozy and aesthetic arrangement",
+            "science": "Cosmic, micro-detailed, scientific discovery atmosphere, intriguing and accurate",
+            "sports": "Action-oriented, dynamic motion blur, high-energy stadium atmosphere",
+            "local": "Community-focused, warm neighborhood vibe, authentic and welcoming",
+            "gaming": "Cyberpunk, immersive, high-contrast gaming environment, vibrant RGB lighting",
+            "books": "Classic, literary, deep wood textures, cozy library or artistic cover style",
+            "movies": "Cinematic, film-noir or blockbuster lighting, dramatic composition",
+            "music": "Rhythmic, audio-visual, abstract sound waves or artistic performance style"
+        }
+        
+        style_desc = styles.get(category, "Cinematic, elegant editorial style")
+        prompt = f"Professional editorial illustration for a {category} article: '{title}'. Style: {style_desc}. High-resolution, artistic, no text."
         
         response = openai.images.generate(
             model="dall-e-3",
@@ -735,177 +905,381 @@ def generate_featured_image(api_key, title, blog_id):
             return filepath
         
         return None
+    except Exception as e:
+        print(f"[Image {blog_id}] ✗ Error: {str(e)}")
+        return None
+# ============================================================================
+# SQUARESPACE INTEGRATION
+# ============================================================================
+
+def post_to_squarespace(config, blog_data):
+    """Post to Squarespace"""
+    try:
+        api_key = config.get('squarespace_api_key')
+        site_id = config.get('squarespace_site_id')
+        collection_id = config.get('squarespace_collection_id')
+        
+        if not all([api_key, site_id, collection_id]):
+            return False, "Missing Squarespace config"
+        
+        print(f"[Squarespace] Posting: {blog_data['title'][:50]}...")
+        
+        # Squarespace Blog Post API
+        # endpoint: POST /1.0/sites/{siteId}/blog/{collectionId}/posts
+        url = f"https://api.squarespace.com/1.0/sites/{site_id}/blog/{collection_id}/posts"
+        
+        headers = {
+            "Authorization": f"Bearer {api_key}",
+            "Content-Type": "application/json",
+            "User-Agent": "KnotStranded-Generator/1.0"
+        }
+        
+        # Format the body for Squarespace
+        post_data = {
+            "title": blog_data['title'],
+            "body": blog_data['html_content'],
+            "categories": [blog_data.get('category', 'News')],
+            "tags": blog_data.get('tags', []),
+            "publishOn": datetime.now().isoformat()
+        }
+        
+        # If we have an image URL from DALL-E, Squarespace can fetch it
+        if blog_data.get('featured_image'):
+            # Convert local path to temporary public URL if needed, 
+            # but usually Squarespace wants a public URL.
+            # Local images won't work unless the site is live.
+            pass
+            
+        response = requests.post(url, headers=headers, json=post_data, timeout=30)
+        
+        if response.status_code in [200, 201]:
+            full_url = response.json().get('fullUrl', 'Posted')
+            print(f"[Squarespace] ✓ Posted!")
+            return True, full_url
+        else:
+            error = f"API {response.status_code}: {response.text[:200]}"
+            print(f"[Squarespace] ✗ {error}")
+            return False, error
+            
+    except Exception as e:
+        print(f"[Squarespace] ✗ Error: {str(e)}")
+        return False, str(e)
+
 # ============================================================================
 # HTML GENERATION
 # ============================================================================
 
 def create_styled_html(blog_data, news_metadata, provider_name, featured_image=None):
-    """Create a premium styled HTML page for the blog post"""
+    """Create a world-class editorial HTML page for the blog post"""
     title = blog_data['title']
     content = blog_data['content']
     writer = blog_data['writer']
     
     writer_name = writer['name']
     writer_title = writer['title']
+    writer_bio = writer.get('bio', 'Senior Correspondent at KnotStranded.')
     
-    # Convert markdown-style content to HTML if needed
+    # Convert markdown-style content to HTML
     formatted_content = content
     if "<p>" not in content:
-        # Simple markdown to HTML
         paragraphs = content.split('\n\n')
         formatted_content = "".join([f"<p>{p.strip()}</p>" for p in paragraphs if p.strip()])
     
-    # Ensure headings are styled
-    formatted_content = re.sub(r'<h2>(.*?)</h2>', r'<h2 class="section-title">\1</h2>', formatted_content)
-    formatted_content = re.sub(r'### (.*?)(\n|$)', r'<h3>\1</h3>', formatted_content)
+    # Advanced Typography & Callouts
+    formatted_content = re.sub(r'<h2>(.*?)</h2>', r'<h2 class="editorial-heading">\1</h2>', formatted_content)
+    formatted_content = re.sub(r'<h3>(.*?)</h3>', r'<h3 class="editorial-subheading">\1</h3>', formatted_content)
     
-    img_html = f'<div class="featured-image-wrapper"><img src="{featured_image}" class="featured-image" alt="{title}"></div>' if featured_image else ''
+    # Style affiliate links as native recommendation cards
+    formatted_content = re.sub(
+        r'<a href="(.*?)" class="affiliate-link (.*?)">(.*?)</a>',
+        r'''<div class="product-recommendation">
+                <div class="rec-label">Editor's Choice</div>
+                <div class="rec-content">
+                    <div class="rec-info">
+                        <span class="rec-title">\3</span>
+                    </div>
+                    <a href="\1" target="_blank" class="rec-button">Check Price</a>
+                </div>
+            </div>''',
+        formatted_content
+    )
+
+    img_html = f'<div class="hero-image-container"><img src="{featured_image}" class="hero-image" alt="{title}"></div>' if featured_image else ''
 
     base_url = request.host_url.rstrip('/')
     meta_description = re.sub(r'<.*?>', '', formatted_content)[:160].replace('"', "'")
     post_slug = title.lower().replace(' ', '-')
-    canonical_url = f"{base_url}/post/{post_slug}.html"
+    canonical_url = f"{base_url}/post/{blog_data.get('filename', post_slug + '.html')}"
+    publish_date = datetime.now().strftime('%Y-%m-%dT%H:%M:%S+00:00')
+
+    # SEO SCHEMA (JSON-LD)
+    schema_json = json.dumps({
+        "@context": "https://schema.org",
+        "@type": "BlogPosting",
+        "headline": title,
+        "image": [f"{base_url}/{featured_image}" if featured_image else f"{base_url}/assets/banner.jpg"],
+        "datePublished": publish_date,
+        "dateModified": publish_date,
+        "author": [{
+            "@type": "Person",
+            "name": writer_name,
+            "jobTitle": writer_title,
+            "url": base_url
+        }],
+        "publisher": {
+            "@type": "Organization",
+            "name": "KnotStranded Intelligence",
+            "logo": {
+                "@type": "ImageObject",
+                "url": f"{base_url}/assets/logo.png"
+            }
+        },
+        "description": meta_description,
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": canonical_url
+        }
+    })
 
     html = f"""<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{title} | KnotStranded Intelligence</title>
+    <title>{title} | KnotStranded</title>
     <meta name="description" content="{meta_description}">
-    <meta name="keywords" content="{', '.join(NEWS_CATEGORIES.get(blog_data.get('category', 'entertainment'), {}).get('tags', []))}">
+    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1">
     <link rel="canonical" href="{canonical_url}">
     
-    <!-- Open Graph / Facebook -->
-    <meta property="og:type" content="article">
-    <meta property="og:url" content="{canonical_url}">
-    <meta property="og:title" content="{title}">
-    <meta property="og:description" content="{meta_description}">
-    {f'<meta property="og:image" content="{base_url}/{featured_image}">' if featured_image else ''}
-
-    <!-- Twitter -->
-    <meta property="twitter:card" content="summary_large_image">
-    <meta property="twitter:title" content="{title}">
-    <meta property="twitter:description" content="{meta_description}">
-    
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,700;0,900;1,700&display=swap" rel="stylesheet">
+    <!-- JSON-LD Structured Data -->
+    <script type="application/ld+json">
+    {schema_json}
+    </script>
     <style>
         :root {{
-            --brand: #4f46e5;
-            --hot: #ff4500;
-            --text: #0f172a;
-            --bg: #ffffff;
-            --subtle: #f8fafc;
+            --primary: #000000;
+            --accent: #4f46e5;
+            --text-main: #1a1a1a;
+            --text-body: #2c2c2c;
+            --bg-body: #ffffff;
+            --max-width: 740px;
         }}
+        
         * {{ margin: 0; padding: 0; box-sizing: border-box; }}
         body {{ 
-            font-family: 'Plus Jakarta Sans', sans-serif; 
-            line-height: 1.8; 
-            color: var(--text); 
-            background: var(--bg);
-            padding-bottom: 100px;
+            font-family: 'Inter', -apple-system, blinkmacsystemfont, sans-serif;
+            background: var(--bg-body);
+            color: var(--text-main);
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
         }}
-        .container {{ max-width: 800px; margin: 0 auto; padding: 40px 20px; }}
-        
-        .header-meta {{ margin-bottom: 40px; text-align: center; }}
-        .badge-row {{ display: flex; gap: 10px; justify-content: center; margin-bottom: 20px; }}
-        .badge {{ 
-            font-size: 10px; 
-            font-weight: 800; 
-            text-transform: uppercase; 
-            letter-spacing: 0.1em; 
-            padding: 6px 14px; 
-            border-radius: 50px; 
-            color: white;
+
+        /* Header / Nav Area */
+        .site-nav {{
+            padding: 2rem;
+            display: flex;
+            justify-content: center;
+            border-bottom: 1px solid #eee;
+            margin-bottom: 4rem;
         }}
-        .badge-hot {{ background: linear-gradient(90deg, #ff4500 0%, #ff8c00 100%); }}
-        .badge-intel {{ background: linear-gradient(90deg, #4f46e5 0%, #7c3aed 100%); }}
-        
-        h1 {{ 
-            font-family: 'Playfair Display', serif; 
-            font-size: 3.5rem; 
-            font-weight: 900; 
-            line-height: 1.1; 
-            margin-bottom: 24px;
-            font-style: italic;
+        .site-logo {{
+            font-family: 'Fraunces', serif;
+            font-weight: 900;
+            font-size: 1.5rem;
+            text-decoration: none;
+            color: black;
+            font-variant: small-caps;
+            letter-spacing: -1px;
         }}
-        .meta-line {{ 
-            font-size: 12px; 
-            font-weight: 700; 
-            text-transform: uppercase; 
-            letter-spacing: 0.15em; 
-            color: #64748b;
-            border-top: 1px solid #e2e8f0;
-            padding-top: 20px;
-        }}
-        
-        .featured-image-wrapper {{ 
-            margin: 40px 0; 
-            border-radius: 32px; 
-            overflow: hidden; 
-            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.15);
-        }}
-        .featured-image {{ width: 100%; height: auto; display: block; }}
-        
-        .content {{ font-size: 1.25rem; font-weight: 400; }}
-        .content p {{ margin-bottom: 32px; }}
-        .content h2 {{ 
-            font-family: 'Playfair Display', serif; 
-            font-size: 2.2rem; 
-            margin: 60px 0 24px; 
-            font-style: italic;
-            border-left: 4px solid var(--brand);
-            padding-left: 20px;
-        }}
-        .content h3 {{ font-size: 1.5rem; margin: 40px 0 20px; color: var(--brand); }}
-        
-        .affiliate-link {{ 
-            font-weight: 800; 
-            color: var(--brand); 
-            text-decoration: none; 
-            border-bottom: 2px solid rgba(79, 70, 229, 0.2); 
-            padding: 0 4px;
-            transition: all 0.2s;
-        }}
-        .affiliate-link:hover {{ background: var(--brand); color: white; border-radius: 4px; }}
-        .cb-link::after {{ content: ' [Intelligence Tool]'; font-size: 0.6rem; opacity: 0.6; }}
-        .amz-link::after {{ content: ' [Expert Choice]'; font-size: 0.6rem; opacity: 0.6; }}
-        
-        .footer {{ 
-            margin-top: 80px; 
-            padding-top: 40px; 
-            border-top: 2px solid #000;
+
+        /* Main Article Layout */
+        .article-header {{
+            max-width: 900px;
+            margin: 0 auto 4rem;
+            padding: 0 2rem;
             text-align: center;
         }}
-        .footer-logo {{ font-family: 'Playfair Display', serif; font-size: 1.5rem; font-weight: 900; font-style: italic; }}
+
+        .kicker {{
+            font-size: 12px;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.2em;
+            color: var(--accent);
+            margin-bottom: 1.5rem;
+        }}
+
+        h1 {{
+            font-family: 'Fraunces', serif;
+            font-size: clamp(2.5rem, 8vw, 4.5rem);
+            font-weight: 800;
+            line-height: 0.95;
+            letter-spacing: -3px;
+            margin-bottom: 2rem;
+            color: #000;
+        }}
+
+        .author-meta {{
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 2rem;
+            font-size: 13px;
+            font-weight: 600;
+            color: #666;
+        }}
+        .author-meta span {{ color: #000; font-weight: 800; }}
+
+        .hero-image-container {{
+            max-width: 1200px;
+            margin: 0 auto 5rem;
+            padding: 0 2rem;
+        }}
+        .hero-image {{
+            width: 100%;
+            height: auto;
+            border-radius: 8px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.05);
+        }}
+
+        .article-content {{
+            max-width: var(--max-width);
+            margin: 0 auto;
+            padding: 0 2rem;
+            font-family: 'Inter', sans-serif;
+            font-size: 1.25rem;
+            color: var(--text-body);
+            line-height: 1.8;
+        }}
+
+        .article-content p {{ margin-bottom: 2.5rem; }}
+
+        .editorial-heading {{
+            font-family: 'Fraunces', serif;
+            font-size: 2.25rem;
+            font-weight: 800;
+            margin: 5rem 0 2rem;
+            line-height: 1.1;
+            letter-spacing: -1px;
+        }}
+
+        .editorial-subheading {{
+            font-family: 'Fraunces', serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin: 3rem 0 1.5rem;
+        }}
+
+        /* High-End Affiliate Callouts */
+        .product-recommendation {{
+            background: #fdf6f0;
+            border: 2px solid #000;
+            margin: 4rem 0;
+            padding: 2rem;
+            position: relative;
+        }}
+        .rec-label {{
+            position: absolute;
+            top: -12px;
+            left: 24px;
+            background: #000;
+            color: #fff;
+            padding: 4px 12px;
+            font-size: 10px;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }}
+        .rec-content {{
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 2rem;
+        }}
+        .rec-title {{
+            font-family: 'Fraunces', serif;
+            font-size: 1.25rem;
+            font-weight: 800;
+        }}
+        .rec-button {{
+            background: #000;
+            color: #fff;
+            text-decoration: none;
+            padding: 12px 24px;
+            font-size: 13px;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            transition: transform 0.2s;
+        }}
+        .rec-button:hover {{ transform: translateY(-2px); }}
+
+        /* Author Bio Block */
+        .author-card {{
+            max-width: var(--max-width);
+            margin: 8rem auto;
+            padding: 4rem 2rem;
+            border-top: 1px solid #eee;
+            display: flex;
+            gap: 2rem;
+            align-items: flex-start;
+        }}
+        .author-avatar {{
+            width: 80px;
+            height: 80px;
+            background: #000;
+            color: #fff;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Fraunces', serif;
+            font-size: 2rem;
+            font-weight: 900;
+            flex-shrink: 0;
+        }}
+        .author-info h4 {{ font-size: 14px; font-weight: 800; text-transform: uppercase; margin-bottom: 0.5rem; }}
+        .author-info p {{ font-size: 15px; color: #666; line-height: 1.5; }}
+
+        /* Responsive */
+        @media (max-width: 640px) {{
+            h1 {{ font-size: 3rem; letter-spacing: -2px; }}
+            .rec-content {{ flex-direction: column; align-items: flex-start; gap: 1rem; }}
+        }}
     </style>
 </head>
 <body>
-    <div class="container">
-        <div class="header-meta">
-            <div class="badge-row">
-                <span class="badge badge-hot">Viral Intelligence</span>
-                <span class="badge badge-intel">1500w Deep Dive</span>
-            </div>
+    <nav class="site-nav"><a href="/" class="site-logo">KnotStranded</a></nav>
+
+    <article>
+        <header class="article-header">
+            <div class="kicker">Viral Intelligence Report</div>
             <h1>{title}</h1>
-            <div class="meta-line">
-                By {writer_name} • {writer_title} • {datetime.now().strftime('%B %d, %Y')}
+            <div class="author-meta">
+                <span>{writer_name}</span> &centerdot; {datetime.now().strftime('%B %d, %Y')} &centerdot; 5 min read
             </div>
-        </div>
+        </header>
 
         {img_html}
 
-        <div class="content">
+        <div class="article-content">
             {formatted_content}
         </div>
 
-        <div class="footer">
-            <div class="footer-logo">KnotStranded</div>
-            <p style="font-size: 10px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.2em; margin-top: 10px; color: #64748b;">
-                &copy; 2026 Viral Media Intelligence Group
-            </p>
-        </div>
-    </div>
+        <section class="author-card">
+            <div class="author-avatar">{writer_name[0]}</div>
+            <div class="author-info">
+                <h4>Written by {writer_name}</h4>
+                <p>{writer_bio}</p>
+            </div>
+        </section>
+    </article>
+
+    <footer style="padding: 10rem 2rem; text-align: center; background: #fafafa; border-top: 1px solid #eee;">
+        <div class="site-logo" style="margin-bottom: 1.5rem;">KnotStranded</div>
+        <p style="font-size: 12px; color: #999; text-transform: uppercase; letter-spacing: 0.1em;">© 2026 Viral Intelligence Group. All rights reserved.</p>
+    </footer>
 </body>
 </html>"""
     return html
@@ -924,9 +1298,9 @@ def search_with_retry(config, max_retries=2):
     for attempt in range(max_retries):
         try:
             if provider == 'gemini':
-                return search_with_gemini(config['gemini_api_key'], num, query, cats)
+                return search_with_gemini(config['gemini_api_key'], num, query, cats, config)
             else:
-                return search_with_claude(config['anthropic_api_key'], num, query, cats)
+                return search_with_claude(config['anthropic_api_key'], num, query, cats, config)
         except:
             if attempt < max_retries - 1:
                 time.sleep(5)
@@ -956,6 +1330,142 @@ def generate_blog_with_retry(config, news_item, writer, clickbank_links, max_ret
                 raise
 
 # ============================================================================
+# DUPLICATE PREVENTION SYSTEM
+# ============================================================================
+
+def get_recent_history(days=7):
+    """Scan generated posts from the last N days to build a topic database"""
+    history = []
+    if not os.path.exists('generated_posts'):
+        return []
+        
+    cutoff = datetime.now() - timedelta(days=days)
+    
+    for filename in os.listdir('generated_posts'):
+        if filename.endswith('.html'):
+            filepath = os.path.join('generated_posts', filename)
+            mtime = datetime.fromtimestamp(os.path.getmtime(filepath))
+            
+            if mtime > cutoff:
+                try:
+                    with open(filepath, 'r', encoding='utf-8') as f:
+                        content = f.read()
+                        title_match = re.search(r'<h1>(.*?)</h1>', content)
+                        if title_match:
+                            history.append({
+                                'title': title_match.group(1).lower(),
+                                'date': mtime
+                            })
+                except:
+                    continue
+    return history
+
+def is_duplicate_subject(new_title, history):
+    """
+    Checks if a new title overlaps significantly with recent history.
+    Uses basic keyword overlap (excluding common stop words).
+    """
+    new_title = new_title.lower()
+    stop_words = {'the', 'a', 'an', 'and', 'or', 'but', 'in', 'on', 'at', 'to', 'for', 'with', 'about', 'is', 'are', 'was', 'were', 'new', 'latest', 'recent', 'exclusive'}
+    
+    new_words = set(re.findall(r'\w+', new_title)) - stop_words
+    
+    if len(new_words) < 2: return False # Title too short to reliably check
+    
+    for record in history:
+        old_words = set(re.findall(r'\w+', record['title'])) - stop_words
+        overlap = new_words.intersection(old_words)
+        
+        # If 60% of keywords match, it's probably the same subject
+        if len(overlap) >= (len(new_words) * 0.6):
+            return True
+            
+    return False
+
+# ============================================================================
+# AUTO-PILOT SCHEDULER (Daily Updates)
+# ============================================================================
+
+def auto_pilot_worker():
+    """Background task that runs on a schedule: 
+    - Politics: 6 AM and 12 PM
+    - Others: 6 AM
+    """
+    print("\n[Auto-Pilot] Scheduled Engine Initialized.")
+    print("[Auto-Pilot] Monitoring: Politics (06:00, 12:00) | All Others (06:00)")
+    
+    last_run_hour = -1
+    
+    while True:
+        try:
+            now = datetime.now()
+            current_hour = now.hour
+            current_minute = now.minute
+            
+            config = load_config()
+            if config.get('auto_pilot') == 'enabled':
+                run_categories = []
+                
+                # Check for 6 AM trigger
+                if current_hour == 6 and last_run_hour != current_hour:
+                    print(f"\n[Auto-Pilot] {now.strftime('%H:%M')} - Triggering Full Daily Update (All Categories)...")
+                    run_categories = config.get('selected_categories', list(NEWS_CATEGORIES.keys()))
+                    last_run_hour = current_hour
+                
+                # Check for 12 PM trigger (Politics only)
+                elif current_hour == 12 and last_run_hour != current_hour:
+                    print(f"\n[Auto-Pilot] {now.strftime('%H:%M')} - Triggering Mid-Day Political Update...")
+                    if 'politics' in config.get('selected_categories', []):
+                        run_categories = ['politics']
+                    last_run_hour = current_hour
+
+                if run_categories:
+                    # 1. Search for trending news for these categories
+                    provider = config.get('ai_provider', 'claude')
+                    num = int(config.get('num_articles', 3))
+                    
+                    if provider == 'claude':
+                        items, err = search_with_claude(config['anthropic_api_key'], num, "", run_categories, config)
+                    elif provider == 'gemini':
+                        items, err = search_with_gemini(config['gemini_api_key'], num, "", run_categories, config)
+                    else:
+                        items, err = search_with_gpt(config['openai_api_key'], num, "", run_categories)
+                    
+                    if items:
+                        print(f"[Auto-Pilot] Found {len(items)} trending stories. Filtering duplicates...")
+                        history = get_recent_history(days=7)
+                        filtered_items = []
+                        for item in items:
+                            if not is_duplicate_subject(item['title'], history):
+                                filtered_items.append(item)
+                            else:
+                                print(f"[Auto-Pilot] ⚠ Skipping Duplicate: {item['title'][:40]}...")
+                        
+                        if filtered_items:
+                            generation_state['news_items'] = filtered_items
+                            ids = [item['id'] for item in filtered_items]
+                            generation_worker(config, ids) 
+                            
+                            if config.get('auto_post_squarespace') == 'enabled':
+                                for file_data in generation_state['generated_files'][-len(filtered_items):]:
+                                    post_to_squarespace(config, file_data)
+                            
+                            print(f"[Auto-Pilot] ✓ Scheduled Update Complete.")
+                        else:
+                            print("[Auto-Pilot] No new stories found after deduplication.")
+            else:
+                # Reset last_run_hour if disabled so it can run immediately when re-enabled if in time
+                if last_run_hour != -2:
+                    print("[Auto-Pilot] Sleeping (Mode: Disabled)")
+                    last_run_hour = -2
+                
+        except Exception as e:
+            print(f"[Auto-Pilot] Error in scheduler: {str(e)}")
+            
+        # Wait 60 seconds before checking again
+        time.sleep(60)
+
+# ============================================================================
 # GENERATION WORKER
 # ============================================================================
 
@@ -966,9 +1476,27 @@ generation_state = {
     'current_article': '',
     'news_items': [],
     'generated_files': [],
+    'posting_status': {}, # filename: {success, url, error}
     'error': None,
     'ai_used': None
 }
+
+def load_subscribers():
+    if os.path.exists(SUBSCRIBERS_FILE):
+        with open(SUBSCRIBERS_FILE, 'r') as f:
+            return json.load(f)
+    return []
+
+def save_subscribers(subs):
+    with open(SUBSCRIBERS_FILE, 'w') as f:
+        json.dump(subs, f, indent=2)
+
+def send_demo_email(to_email, subject, body):
+    """Placeholder for real email sending logic (SendGrid/SMTP)"""
+    print(f"\n[EMAIL SIMULATOR] To: {to_email}")
+    print(f"[EMAIL SIMULATOR] Subject: {subject}")
+    print(f"[EMAIL SIMULATOR] Content: {body[:100]}...")
+    return True
 
 def generation_worker(config, selected_ids):
     """Background generation"""
@@ -1002,7 +1530,6 @@ def generation_worker(config, selected_ids):
             print(f"[{i}/{len(items)}] Writer: {writer['name']}")
             
             category = news_item.get('category', 'entertainment')
-            clickbank_links = get_clickbank_links(category, 3)
             
             try:
                 links = get_affiliate_links(category)
@@ -1010,7 +1537,7 @@ def generation_worker(config, selected_ids):
                 
                 featured_image = None
                 if config.get('openai_api_key'):
-                    featured_image = generate_featured_image(config['openai_api_key'], blog_result['title'], news_item['id'])
+                    featured_image = generate_featured_image(config['openai_api_key'], blog_result['title'], news_item['id'], category)
                 
                 html = create_styled_html(blog_result, news_item, provider.title(), featured_image)
                 tags = generate_tags(category)
@@ -1026,10 +1553,10 @@ def generation_worker(config, selected_ids):
                     'filename': filename,
                     'title': blog_result['title'],
                     'filepath': filepath,
+                    'html_content': html,
                     'writer': writer['name'],
                     'category': category,
                     'tags': tags,
-                    'html_content': html,
                     'featured_image': featured_image
                 })
                 
@@ -1056,14 +1583,49 @@ def generation_worker(config, selected_ids):
         print(f"\n✗ Error: {str(e)}\n")
 
 # ============================================================================
+# AUTHENTICATION
+# ============================================================================
+
+def login_required(f):
+    @wraps(f)
+    def decorated_function(*args, **kwargs):
+        if not session.get('logged_in'):
+            if request.path.startswith('/api/'):
+                return jsonify({'error': 'Unauthorized'}), 401
+            return redirect(url_for('login', next=request.url))
+        return f(*args, **kwargs)
+    return decorated_function
+
+@app.route('/login', methods=['GET', 'POST'])
+def login():
+    error = None
+    if request.method == 'POST':
+        if request.form['password'] == ADMIN_PASSWORD:
+            session['logged_in'] = True
+            next_url = request.args.get('next') or url_for('dashboard_portal')
+            return redirect(next_url)
+        else:
+            error = 'Invalid password. Please try again.'
+    return render_template('login.html', error=error)
+
+@app.route('/logout')
+def logout():
+    session.pop('logged_in', None)
+    return redirect(url_for('home'))
+
+# ============================================================================
 # FLASK ROUTES
 # ============================================================================
 
 @app.route('/')
 def home():
-    """Serve a clean blog index as a portal"""
-    posts_by_category = {cat: [] for cat in NEWS_CATEGORIES.keys()}
+    """Serve a clean blog index as a portal with 48h archiving logic"""
+    # Structure: categories[cat_id] = {'active': [], 'archived': []}
+    posts_by_category = {cat: {'active': [], 'archived': []} for cat in NEWS_CATEGORIES.keys()}
     latest_posts = []
+    
+    archive_threshold = 48 * 3600 # 48 hours in seconds
+    now_ts = time.time()
     
     if os.path.exists('generated_posts'):
         filenames = sorted(os.listdir('generated_posts'), key=lambda x: os.path.getmtime(os.path.join('generated_posts', x)), reverse=True)
@@ -1072,18 +1634,22 @@ def home():
             if filename.endswith('.html'):
                 filepath = os.path.join('generated_posts', filename)
                 try:
+                    mtime = os.path.getmtime(filepath)
+                    age = now_ts - mtime
+                    is_archived = age > archive_threshold
+                    
                     with open(filepath, 'r') as f:
                         content = f.read()
                         title = re.search(r'<h1>(.*?)</h1>', content).group(1) if re.search(r'<h1>(.*?)</h1>', content) else filename
-                        date = re.search(r'<div class="meta">(.*?) •', content).group(1) if re.search(r'<div class="meta">(.*?) •', content) else "Recent"
+                        date_match = re.search(r'• (.*?) &centerdot;', content)
+                        date = date_match.group(1) if date_match else "Recent"
                         
                         # Extract featured image
                         img_match = re.search(r'src="(static/img/.*?)"', content)
                         img = img_match.group(1) if img_match else None
                         
-                        # Find category (stored in generation log or inferred)
-                        # For now, let's try to infer from filename if possible or default
-                        cat = "movies" # default
+                        # Find category
+                        cat = "movies"
                         for c in NEWS_CATEGORIES.keys():
                             if c in filename.lower():
                                 cat = c
@@ -1098,11 +1664,13 @@ def home():
                             'category_name': NEWS_CATEGORIES[cat]['name']
                         }
                         
-                        if len(latest_posts) < 6:
+                        if not is_archived and len(latest_posts) < 6:
                             latest_posts.append(post_data)
                         
-                        if len(posts_by_category[cat]) < 5:
-                            posts_by_category[cat].append(post_data)
+                        if is_archived:
+                            posts_by_category[cat]['archived'].append(post_data)
+                        else:
+                            posts_by_category[cat]['active'].append(post_data)
                 except:
                     continue
     
@@ -1116,9 +1684,10 @@ def home():
 def send_hero():
     return send_from_directory('.', 'blog_generator_hero.png')
 
-@app.route('/blog')
-def admin_dashboard():
-    return send_from_directory('webapp/dist', 'index.html')
+@app.route('/dashboard')
+@login_required
+def dashboard_portal():
+    return render_template('dashboard_v2.html')
 
 @app.route('/assets/<path:path>')
 def send_assets(path):
@@ -1160,6 +1729,8 @@ def sitemap():
     sitemap_xml += '</urlset>'
     
     return sitemap_xml, 200, {'Content-Type': 'application/xml'}
+@app.route('/api/config', methods=['GET'])
+@login_required
 def get_config():
     config = load_config()
     # Add geolocation hints if not present
@@ -1169,14 +1740,17 @@ def get_config():
     return jsonify(config)
 
 @app.route('/api/config', methods=['POST'])
+@login_required
 def save_config_route():
     return jsonify({'success': save_config(request.json)})
 
 @app.route('/api/categories', methods=['GET'])
+@login_required
 def get_categories():
     return jsonify({'categories': [{"id": k, "name": v["name"]} for k, v in NEWS_CATEGORIES.items()]})
 
 @app.route('/api/clickbank-products', methods=['GET'])
+@login_required
 def get_clickbank_products():
     """Get ClickBank products organized by category"""
     products_by_category = {}
@@ -1187,7 +1761,7 @@ def get_clickbank_products():
         # Check if products are placeholders
         products_with_status = []
         for product in products:
-            is_placeholder = "YOURVENDOR" in product["url"] or "YOURID" in product["url"]
+            is_placeholder = "YOURVENDOR" in product["url"] or "l4j4n" in product["url"]
             products_with_status.append({
                 "title": product["title"],
                 "description": product["description"],
@@ -1203,6 +1777,7 @@ def get_clickbank_products():
     return jsonify(products_by_category)
 
 @app.route('/api/search', methods=['POST'])
+@login_required
 def search():
     config = request.json
     save_config(config)
@@ -1219,6 +1794,7 @@ def search():
     return jsonify({'news_items': articles, 'ai_used': config.get('ai_provider', 'claude').title()})
 
 @app.route('/api/generate', methods=['POST'])
+@login_required
 def generate():
     data = request.json
     save_config(data['config'])
@@ -1235,8 +1811,39 @@ def generate():
     return jsonify({'status': 'started'})
 
 @app.route('/api/status', methods=['GET'])
+@login_required
 def status():
     return jsonify(generation_state)
+
+@app.route('/api/post-to-squarespace', methods=['POST'])
+@login_required
+def api_post_to_squarespace():
+    """Post to Squarespace API endpoint"""
+    try:
+        data = request.json
+        filename = data['filename']
+        config = data['config']
+        
+        blog_data = next((f for f in generation_state['generated_files'] if f['filename'] == filename), None)
+        if not blog_data:
+            return jsonify({'success': False, 'error': 'Blog not found locally'}), 404
+        
+        success, result = post_to_squarespace(config, blog_data)
+        
+        # Save status
+        generation_state['posting_status'][filename] = {
+            'success': success,
+            'url': result if success else None,
+            'error': result if not success else None
+        }
+        
+        return jsonify({
+            'success': success,
+            'url': result if success else None,
+            'error': result if not success else None
+        })
+    except Exception as e:
+        return jsonify({'success': False, 'error': str(e)}), 500
 
 @app.route('/api/download/<filename>')
 def download(filename):
@@ -1253,6 +1860,64 @@ def view(filename):
     return jsonify({'error': 'Not found'}), 404
 
 
+# ============================================================================
+# NEWSLETTER & SUBSCRIBERS
+# ============================================================================
+
+@app.route('/api/subscribe', methods=['POST'])
+def subscribe():
+    data = request.json
+    email = data.get('email')
+    if not email or '@' not in email:
+        return jsonify({'success': False, 'error': 'Invalid email'}), 400
+    
+    subs = load_subscribers()
+    if email in [s['email'] for s in subs]:
+        return jsonify({'success': True, 'message': 'Already subscribed'})
+    
+    subs.append({
+        'email': email,
+        'date': datetime.now().strftime('%Y-%m-%d %H:%M:%S'),
+        'status': 'active'
+    })
+    save_subscribers(subs)
+    return jsonify({'success': True, 'message': 'Subscribed successfully'})
+
+@app.route('/api/subscribers')
+@login_required
+def get_subscribers():
+    return jsonify({'subscribers': load_subscribers()})
+
+@app.route('/api/push-newsletter', methods=['POST'])
+@login_required
+def push_newsletter():
+    """Generate and 'send' a daily recap newsletter to all subscribers"""
+    subs = load_subscribers()
+    if not subs:
+        return jsonify({'success': False, 'error': 'No subscribers found'})
+    
+    # Get latest articles
+    history = get_recent_history(days=1)
+    if not history:
+        return jsonify({'success': False, 'error': 'No new articles to recap today'})
+    
+    recap_html = "<h1>Today's Intelligence Briefing</h1><ul>"
+    for item in history[:5]:
+        recap_html += f"<li><strong>{item['title']}</strong></li>"
+    recap_html += "</ul><p>Read more at KnotStranded.com</p>"
+    
+    success_count = 0
+    for sub in subs:
+        if sub['status'] == 'active':
+            if send_demo_email(sub['email'], "KnotStranded Daily Recap", recap_html):
+                success_count += 1
+                
+    return jsonify({
+        'success': True, 
+        'message': f'Newsletter pushed to {success_count} subscribers',
+        'articles_recapitulated': len(history[:5])
+    })
+
 if __name__ == '__main__':
     port = int(os.environ.get('PORT', 5000))
     print("\n" + "="*70)
@@ -1260,5 +1925,9 @@ if __name__ == '__main__':
     print("="*70)
     print(f"\n🌐 Server: http://0.0.0.0:{port}")
     print("="*70 + "\n")
+    
+    # Start Auto-Pilot Thread
+    ap_thread = threading.Thread(target=auto_pilot_worker, daemon=True)
+    ap_thread.start()
     
     app.run(debug=False, host='0.0.0.0', port=port)

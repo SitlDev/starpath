@@ -1,0 +1,18 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+venv/
+local_packages/
+.env
+
+# Application Data (Avoid committing secrets and generated content)
+config.json
+subscribers.json
+generated_posts/*.html
+static/img/*.png
+static/img/*.jpg
+
+# System files
+.DS_Store
+*.log
