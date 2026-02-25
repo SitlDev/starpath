@@ -211,6 +211,46 @@ CLICKBANK_PRODUCTS = {
         {"title": "Vertical Jump Training", "url": "https://YOURVENDOR.hop.clickbank.net/?affiliate=l4j4n", "description": "explosive athletic power"},
         {"title": "Golf Swing Secret", "url": "https://YOURVENDOR.hop.clickbank.net/?affiliate=l4j4n", "description": "pro-level golf training"},
         {"title": "Sports Nutrition Pro", "url": "https://YOURVENDOR.hop.clickbank.net/?affiliate=l4j4n", "description": "fuel for performance"}
+    ],
+    "politics": [
+        {"title": "Political Intelligence Brief", "url": "https://YOURVENDOR.hop.clickbank.net/?affiliate=l4j4n", "description": "insider power reports"},
+        {"title": "Crisis Management Course", "url": "https://YOURVENDOR.hop.clickbank.net/?affiliate=l4j4n", "description": "leadership in turmoil"},
+        {"title": "Debate Mastery Pro", "url": "https://YOURVENDOR.hop.clickbank.net/?affiliate=l4j4n", "description": "advanced persuasion tactics"}
+    ]
+}
+
+# ============================================================================
+# NEW: SUBSCRIPTION & SaaS OFFERS (Impact/Rakuten Networks)
+# ============================================================================
+
+SUBSCRIPTION_OFFERS = {
+    "tech": [
+        {"title": "Jasper AI Writing", "url": "https://jasper.ai/?fpr=knotstranded", "description": "top-rated AI content assistant"},
+        {"title": "NordVPN Security", "url": "https://nordvpn.com/knotstranded", "description": "industry-leading privacy protection"},
+        {"title": "SEMrush SEO Tool", "url": "https://semrush.sjv.io/knotstranded", "description": "professional market intelligence"}
+    ],
+    "finance": [
+        {"title": "Coinbase Trading", "url": "https://coinbase.com/join/knotstranded", "description": "secure crypto exchange"},
+        {"title": "Robinhood Investing", "url": "https://robinhood.com/referral/knotstranded", "description": "commission-free stock trading"},
+        {"title": "eToro Social Trading", "url": "https://etoro.com/knotstranded", "description": "copy top-performing investors"}
+    ],
+    "health": [
+        {"title": "Performance Lab Nucleus", "url": "https://performancelab.com/knotstranded", "description": "world's cleanest supplements"},
+        {"title": "Fitbit Premium", "url": "https://fitbit.com/knotstranded", "description": "advanced health metrics"},
+        {"title": "Peloton App", "url": "https://onepeloton.com/knotstranded", "description": "expert-led fitness classes"}
+    ],
+    "entertainment": [
+        {"title": "Disney+ Bundle", "url": "https://disneyplus.com/knotstranded", "description": "Disney, Pixar, Marvel, & Star Wars"},
+        {"title": "Paramount+ Global", "url": "https://paramountplus.com/knotstranded", "description": "live sports & breaking news"},
+        {"title": "Apple One", "url": "https://apple.com/knotstranded", "description": "all Apple services in one simplified plan"}
+    ],
+    "politics": [
+        {"title": "NYT Digital Subscription", "url": "https://nytimes.com/knotstranded", "description": "independent journalism & analysis"},
+        {"title": "Bookshop.org", "url": "https://bookshop.org/shop/knotstranded", "description": "support local independent bookstores"},
+        {"title": "WSJ Digital Access", "url": "https://wsj.com/knotstranded", "description": "business and political intelligence"}
+    ],
+    "default": [
+        {"title": "KnotStranded VIP", "url": "https://knotstranded.com/vip", "description": "exclusive membership & reports"}
     ]
 }
 
@@ -294,18 +334,33 @@ AMAZON_PRODUCTS = {
         {"title": "Adjustable Dumbbell Set", "url": "https://amazon.com/dp/B00EXAMPLES?tag=knotstranded-20", "description": "versatile home strength training"},
         {"title": "Portable Basketball Hoop", "url": "https://amazon.com/dp/B00EXAMPLES?tag=knotstranded-20", "description": "game on anywhere"},
         {"title": "Agility Training Kit", "url": "https://amazon.com/dp/B00EXAMPLES?tag=knotstranded-20", "description": "improve your performance"}
+    ],
+    "politics": [
+        {"title": "Political Strategy Hardcover", "url": "https://amazon.com/dp/B00EXAMPLES?tag=knotstranded-20", "description": "essential reading for leaders"},
+        {"title": "Noise-Cancelling Privacy Booth", "url": "https://amazon.com/dp/B00EXAMPLES?tag=knotstranded-20", "description": "secure workspace for sensitive work"},
+        {"title": "World History Encyclopedia", "url": "https://amazon.com/dp/B00EXAMPLES?tag=knotstranded-20", "description": "context for modern global events"}
     ]
 }
 
-def get_affiliate_links(category, num_cb=3, num_amz=3):
-    """Get ClickBank and Amazon links for category"""
+def get_affiliate_links(category, num_cb=2, num_amz=2, num_sub=2):
+    """Get ClickBank, Amazon, and Subscription links for category"""
     cb_products = CLICKBANK_PRODUCTS.get(category, CLICKBANK_PRODUCTS["default"])
     amz_products = AMAZON_PRODUCTS.get(category, AMAZON_PRODUCTS["default"])
     
+    # Map high-level niches for subscriptions
+    sub_map = {
+        "tech": "tech", "finance": "finance", "health": "health", "politics": "politics",
+        "movies": "entertainment", "tv": "entertainment", "music": "entertainment", 
+        "celebrity": "entertainment", "streaming": "entertainment"
+    }
+    sub_cat = sub_map.get(category, "default")
+    sub_products = SUBSCRIPTION_OFFERS.get(sub_cat, SUBSCRIPTION_OFFERS["default"])
+    
     cb_sample = random.sample(cb_products, min(num_cb, len(cb_products)))
     amz_sample = random.sample(amz_products, min(num_amz, len(amz_products)))
+    sub_sample = random.sample(sub_products, min(num_sub, len(sub_products)))
     
-    return {"clickbank": cb_sample, "amazon": amz_sample}
+    return {"clickbank": cb_sample, "amazon": amz_sample, "subscriptions": sub_sample}
 
 DAILY_TIPS = {
     "movies": "Master the art of color grading in your home theater by adjusting the 'Warm 2' preset for a cinematic look.",
@@ -673,6 +728,7 @@ def generate_blog_with_gemini(api_key, news_item, temperature, max_tokens, write
         
         cb_text = "\n".join([f"[CB{i+1}] {l['title']} - {l['description']}" for i, l in enumerate(links['clickbank'])])
         amz_text = "\n".join([f"[AMZ{i+1}] {l['title']} - {l['description']}" for i, l in enumerate(links['amazon'])])
+        sub_text = "\n".join([f"[SUB{i+1}] {l['title']} - {l['description']}" for i, l in enumerate(links['subscriptions'])])
         
         prompt = f"""You are {writer['name']}, {writer['title']} at KnotStranded.
 STYLE: {writer.get('style', 'Expert')} | VOICE: {writer.get('voice', 'Professional')}
@@ -684,19 +740,17 @@ SEO INSTRUCTIONS:
 4. Include a 150-word summary at the start (Meta info).
 5. Weave in affiliate links naturally within high-value paragraphs.
 
-Write a 1500-word deep-dive research article based on: "{news_item['title']}"
+Write a 2000-word deep-dive research article based on: "{news_item['title']}"
 Snippet: {news_item['snippet']}
 
-MONETIZATION (Mention naturally 3 of each):
-CLICKBANK:
-{cb_text}
-
-AMAZON:
-{amz_text}
+MONETIZATION (Mention each at least once):
+CLICKBANK: {cb_text}
+AMAZON: {amz_text}
+PREMIUM SUBSCRIPTIONS: {sub_text}
 
 Format:
 TITLE: [Provocative Title]
-CONTENT: [1500 words of research and opinion. Naturally weave in [CB1], [CB2], [CB3] and [AMZ1], [AMZ2], [AMZ3]. Use headings and lists.]"""
+CONTENT: [2000 words. Naturally weave in [CB1], [CB2], [AMZ1], [AMZ2], [SUB1], [SUB2]. Use headings.]"""
         
         model = genai.GenerativeModel('gemini-1.5-flash-latest')
         config = genai.GenerationConfig(temperature=float(temperature), max_output_tokens=4000)
@@ -713,6 +767,8 @@ CONTENT: [1500 words of research and opinion. Naturally weave in [CB1], [CB2], [
             content = content.replace(f"[CB{i+1}]", f'<a href="{link["url"]}" class="affiliate-link cb-link">{link["title"]}</a>')
         for i, link in enumerate(links['amazon']):
             content = content.replace(f"[AMZ{i+1}]", f'<a href="{link["url"]}" class="affiliate-link amz-link">{link["title"]}</a>')
+        for i, link in enumerate(links['subscriptions']):
+            content = content.replace(f"[SUB{i+1}]", f'<a href="{link["url"]}" class="affiliate-link sub-link">{link["title"]}</a>')
             
         print(f"[Gemini Blog {news_item['id']}] ✓ Generated by {writer['name']}")
 
@@ -739,6 +795,7 @@ def generate_blog_with_claude(api_key, news_item, temperature, max_tokens, write
         
         cb_text = "\n".join([f"[CB{i+1}] {l['title']} - {l['description']}" for i, l in enumerate(links['clickbank'])])
         amz_text = "\n".join([f"[AMZ{i+1}] {l['title']} - {l['description']}" for i, l in enumerate(links['amazon'])])
+        sub_text = "\n".join([f"[SUB{i+1}] {l['title']} - {l['description']}" for i, l in enumerate(links['subscriptions'])])
         
         prompt = f"""You are {writer['name']}, {writer['title']} at KnotStranded.
 SEO TASK (AGGRESSIVE):
@@ -754,10 +811,11 @@ Snippet: {news_item['snippet']}
 AFFILIATE PRODUCTS (Insert as 'Recommended Intelligence Resources'):
 CLICKBANK: {cb_text}
 AMAZON: {amz_text}
+SUBSCRIPTIONS: {sub_text}
 
 FORMAT:
 TITLE: [High-CTR Headline]
-CONTENT: [Complete 2000-word research guide. Weave in [CB1..3] and [AMZ1..3].]"""
+CONTENT: [Complete 2000-word research guide. Weave in [CB1..3], [AMZ1..3], and [SUB1..3].]"""
         
         message = client.messages.create(
             model="claude-3-5-sonnet-20240620",
@@ -773,6 +831,8 @@ CONTENT: [Complete 2000-word research guide. Weave in [CB1..3] and [AMZ1..3].]""
             content = content.replace(f"[CB{i+1}]", f'<a href="{link["url"]}" class="affiliate-link cb-link">{link["title"]}</a>')
         for i, link in enumerate(links['amazon']):
             content = content.replace(f"[AMZ{i+1}]", f'<a href="{link["url"]}" class="affiliate-link amz-link">{link["title"]}</a>')
+        for i, link in enumerate(links['subscriptions']):
+            content = content.replace(f"[SUB{i+1}]", f'<a href="{link["url"]}" class="affiliate-link sub-link">{link["title"]}</a>')
             
         print(f"[Claude Blog {news_item['id']}] ✓ Generated by {writer['name']}")
 
@@ -990,17 +1050,23 @@ def create_styled_html(blog_data, news_metadata, provider_name, featured_image=N
     formatted_content = re.sub(r'<h3>(.*?)</h3>', r'<h3 class="editorial-subheading">\1</h3>', formatted_content)
     
     # Style affiliate links as native recommendation cards
-    formatted_content = re.sub(
-        r'<a href="(.*?)" class="affiliate-link (.*?)">(.*?)</a>',
-        r'''<div class="product-recommendation">
-                <div class="rec-label">Editor's Choice</div>
+    def replace_affiliate_card(match):
+        url, classes, title = match.groups()
+        btn_text = "Get Access" if "sub-link" in classes else "Check Price"
+        label = "Premium Access" if "sub-link" in classes else "Editor's Choice"
+        return f'''<div class="product-recommendation {"subscription-card" if "sub-link" in classes else ""}">
+                <div class="rec-label">{label}</div>
                 <div class="rec-content">
                     <div class="rec-info">
-                        <span class="rec-title">\3</span>
+                        <span class="rec-title">{title}</span>
                     </div>
-                    <a href="\1" target="_blank" class="rec-button">Check Price</a>
+                    <a href="{url}" target="_blank" class="rec-button">{btn_text}</a>
                 </div>
-            </div>''',
+            </div>'''
+
+    formatted_content = re.sub(
+        r'<a href="(.*?)" class="affiliate-link (.*?)">(.*?)</a>',
+        replace_affiliate_card,
         formatted_content
     )
 
@@ -1213,7 +1279,14 @@ def create_styled_html(blog_data, news_metadata, provider_name, featured_image=N
             letter-spacing: 0.1em;
             transition: transform 0.2s;
         }}
-        .rec-button:hover {{ transform: translateY(-2px); }}
+        .rec-button:hover { transform: translateY(-2px); }
+
+        .subscription-card {
+            background: #f0f4ff;
+            border-color: #4f46e5;
+        }
+        .subscription-card .rec-label { background: #4f46e5; }
+        .subscription-card .rec-button { background: #4f46e5; }
 
         /* Author Bio Block */
         .author-card {{
