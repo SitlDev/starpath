@@ -1,0 +1,58 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --bg-base: #0d0d0f;
+  --bg-surface: #141416;
+  --bg-elevated: #1c1c1f;
+  --border: rgba(255, 255, 255, 0.07);
+  --border-hover: rgba(245, 158, 11, 0.4);
+  --accent: #f59e0b;
+  --accent-dim: #78350f;
+  --text-primary: #faf9f5;
+  --text-secondary: #9ca3af;
+  --text-muted: #4b5563;
+  --success: #10b981;
+  --error: #ef4444;
+}
+
+body {
+  background-color: var(--bg-base);
+  color: var(--text-primary);
+  font-family: var(--font-syne), sans-serif;
+}
+
+@layer components {
+  .btn-primary {
+    @apply bg-accent text-base px-4 py-2 font-mono uppercase tracking-widest text-sm hover:opacity-90 transition-opacity;
+    border-radius: 4px;
+  }
+
+  .btn-secondary {
+    @apply border border-accent text-accent px-4 py-2 font-mono uppercase tracking-widest text-sm hover:bg-accent hover:text-base transition-all;
+    border-radius: 4px;
+  }
+
+  .card {
+    @apply bg-surface border border-[var(--border)] rounded-lg hover:border-[var(--border-hover)] transition-all;
+  }
+
+  .skeleton {
+    @apply bg-elevated animate-pulse rounded;
+  }
+}
+
+@keyframes shimmer {
+  0% {
+    opacity: 0.5;
+  }
+
+  50% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0.5;
+  }
+}

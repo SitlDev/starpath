@@ -1,0 +1,22 @@
+{
+  "name": "tailwind-os-backend",
+  "version": "1.0.0",
+  "description": "TailwindOS Backend",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "dev": "nodemon index.js",
+    "seed": "node prisma/seed.js"
+  },
+  "dependencies": {
+    "@prisma/client": "^5.0.0",
+    "cors": "^2.8.5",
+    "dotenv": "^16.3.1",
+    "express": "^4.18.2",
+    "pg": "^8.11.3"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.1",
+    "prisma": "^5.0.0"
+  }
+}

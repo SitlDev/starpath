@@ -1,0 +1,1222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Worn Pages Club | Premium Curated Book Subscriptions</title>
+    <meta name="description" content="A luxury curation service for bibliophiles. Handpicked vintage books, personalized gifts, and rare finds delivered to your sanctuary.">
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=EB+Garamond:ital,wght@0,400..800;1,400..800&family=Inter:wght@300;400;500;600&family=Caveat:wght@400..700&display=swap" rel="stylesheet">
+
+    <!-- Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    
+    <!-- Stripe.js -->
+    <script src="https://js.stripe.com/v3/"></script>
+
+    <style>
+        :root {
+            --forest-green: #1B3022;
+            --forest-light: #2A4533;
+            --burgundy: #6B1D1D;
+            --burgundy-light: #8E2C2C;
+            --cream: #FDFBF7;
+            --cream-dark: #F5F1E9;
+            --aged-paper: #E9DCC9;
+            --gold: #C5A059;
+            --text-dark: #2C2C2C;
+            --text-muted: #666;
+            --glass: rgba(255, 255, 255, 0.85);
+            --transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: var(--cream);
+            color: var(--text-dark);
+            font-family: 'EB Garamond', serif;
+            font-size: 1.2rem;
+            line-height: 1.7;
+            overflow-x: hidden;
+            background-image: url("https://www.transparenttextures.com/patterns/natural-paper.png");
+        }
+
+        h1, h2, h3, h4 {
+            font-family: 'Playfair Display', serif;
+            font-weight: 700;
+            line-height: 1.1;
+            color: var(--forest-green);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        section {
+            padding: 120px 0;
+            opacity: 0;
+            transform: translateY(40px);
+            transition: var(--transition);
+        }
+
+        section.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 1.2rem 2.8rem;
+            border-radius: 4px;
+            text-decoration: none;
+            font-family: 'Inter', sans-serif;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-size: 0.85rem;
+            cursor: pointer;
+            transition: var(--transition);
+            border: none;
+        }
+
+        .btn-primary {
+            background: var(--forest-green);
+            color: white;
+            box-shadow: 0 10px 30px rgba(27, 48, 34, 0.2);
+        }
+
+        .btn-primary:hover {
+            background: var(--forest-light);
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(27, 48, 34, 0.3);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            border: 1px solid var(--forest-green);
+            color: var(--forest-green);
+        }
+
+        .btn-secondary:hover {
+            background: var(--forest-green);
+            color: white;
+        }
+
+        /* Nav */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 90px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 4rem;
+            background: rgba(253, 251, 247, 0.85);
+            backdrop-filter: blur(15px);
+            z-index: 1000;
+            border-bottom: 1px solid rgba(27, 48, 34, 0.05);
+            transition: var(--transition);
+        }
+
+        nav.scrolled {
+            height: 70px;
+            background: rgba(253, 251, 247, 0.95);
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.05);
+        }
+
+        .logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.4rem;
+            font-weight: 900;
+            color: var(--forest-green);
+            text-decoration: none;
+            letter-spacing: 1px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 3rem;
+            align-items: center;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-dark);
+            font-family: 'Inter', sans-serif;
+            font-weight: 400;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            transition: var(--transition);
+        }
+
+        .nav-links a:hover {
+            color: var(--gold);
+        }
+
+        /* Quiz Modal */
+        .modal {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(27, 48, 34, 0.95);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 2000;
+            backdrop-filter: blur(10px);
+        }
+
+        .modal-content {
+            background: var(--cream);
+            width: 90%;
+            max-width: 600px;
+            padding: 4rem;
+            border-radius: 8px;
+            position: relative;
+            text-align: center;
+            box-shadow: 0 30px 60px rgba(0,0,0,0.4);
+        }
+
+        .close-modal {
+            position: absolute;
+            top: 1.5rem;
+            right: 1.5rem;
+            cursor: pointer;
+            color: var(--forest-green);
+        }
+
+        .quiz-option {
+            display: block;
+            width: 100%;
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+            border: 1px solid var(--aged-paper);
+            background: white;
+            border-radius: 4px;
+            font-family: 'EB Garamond', serif;
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .quiz-option:hover {
+            border-color: var(--gold);
+            background: var(--cream-dark);
+            transform: scale(1.02);
+        }
+
+        /* FAQ Styling */
+        .faq-item {
+            border-bottom: 1px solid var(--aged-paper);
+            padding: 2rem 0;
+            cursor: pointer;
+        }
+
+        .faq-question {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            color: var(--forest-green);
+        }
+
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: var(--transition);
+            color: var(--text-muted);
+            font-size: 1.1rem;
+            margin-top: 0;
+        }
+
+        .faq-item.active .faq-answer {
+            max-height: 200px;
+            margin-top: 1.5rem;
+        }
+        
+        .faq-item.active i {
+            transform: rotate(45deg);
+        }
+
+        /* Checkout Modal */
+        .checkout-modal {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(27, 48, 34, 0.98);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 3000;
+            backdrop-filter: blur(20px);
+        }
+
+        .checkout-container {
+            background: var(--cream);
+            width: 95%;
+            max-width: 900px;
+            display: grid;
+            grid-template-columns: 1fr 1.2fr;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 50px 100px rgba(0,0,0,0.5);
+            position: relative;
+        }
+
+        .checkout-sidebar {
+            background: var(--forest-green);
+            color: white;
+            padding: 4rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            background-image: url("https://www.transparenttextures.com/patterns/dark-leather.png");
+        }
+
+        .checkout-main {
+            padding: 4rem;
+            position: relative;
+        }
+
+        .checkout-step {
+            display: none;
+        }
+
+        .checkout-step.active {
+            display: block;
+        }
+
+        .checkout-input {
+            width: 100%;
+            padding: 1.2rem;
+            margin-bottom: 1.5rem;
+            border: 1px solid var(--aged-paper);
+            border-radius: 4px;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.9rem;
+        }
+
+        .checkout-input:focus {
+            border-color: var(--gold);
+            outline: none;
+        }
+
+        .checkout-btn {
+            width: 100%;
+            padding: 1.2rem;
+            background: var(--forest-green);
+            color: white;
+            border: none;
+            border-radius: 4px;
+            font-family: 'Playfair Display', serif;
+            font-weight: bold;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .checkout-btn:hover {
+            background: var(--gold);
+            color: var(--forest-green);
+        }
+
+        .card-row {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 1rem;
+        }
+
+        .plan-summary {
+            background: rgba(255,255,255,0.05);
+            padding: 2rem;
+            border-radius: 8px;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .summary-item {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 1rem;
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+
+        .summary-total {
+            border-top: 1px solid rgba(255,255,255,0.2);
+            padding-top: 1rem;
+            margin-top: 1rem;
+            display: flex;
+            justify-content: space-between;
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+
+        @media (max-width: 768px) {
+            .checkout-container { grid-template-columns: 1fr; }
+            .checkout-sidebar { display: none; }
+        }
+
+        /* Hero */
+        #hero {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            position: relative;
+            padding: 0;
+            background: var(--forest-green);
+            color: white;
+            overflow: hidden;
+            opacity: 1;
+            transform: none;
+        }
+
+        .hero-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url("/Users/amn/.gemini/antigravity/brain/968d5237-c776-4474-a6af-25af292b1b9f/vintage_library_hero_1773256707409.png");
+            background-size: cover;
+            background-position: center;
+            opacity: 0.7;
+            transform: scale(1.1);
+            animation: slowZoom 20s infinite alternate;
+        }
+
+        @keyframes slowZoom {
+            from { transform: scale(1.1); }
+            to { transform: scale(1); }
+        }
+
+        .hero-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to right, rgba(27, 48, 34, 0.9) 20%, transparent 80%);
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 700px;
+            padding: 0 4rem;
+        }
+
+        .hero-content h1 {
+            font-size: 5rem;
+            color: white;
+            margin-bottom: 2rem;
+            line-height: 1.1;
+        }
+
+        .hero-content p {
+            font-size: 1.6rem;
+            margin-bottom: 3rem;
+            font-style: italic;
+            color: var(--aged-paper);
+            opacity: 0.9;
+        }
+
+        /* Pricing Section */
+        #pricing {
+            background: var(--cream);
+            position: relative;
+        }
+
+        .section-header {
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto 5rem;
+        }
+
+        .handwritten {
+            font-family: 'Caveat', cursive;
+            color: var(--burgundy);
+            font-size: 2.2rem;
+            display: block;
+            margin-bottom: 1rem;
+        }
+
+        .section-header h2 {
+            font-size: 3.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        /* Term Toggle */
+        .term-toggle {
+            display: flex;
+            background: var(--cream-dark);
+            padding: 0.5rem;
+            border-radius: 100px;
+            width: fit-content;
+            margin: 0 auto 4rem;
+            border: 1px solid var(--aged-paper);
+            box-shadow: inset 0 2px 5px rgba(0,0,0,0.05);
+        }
+
+        .term-btn {
+            padding: 0.8rem 2rem;
+            border-radius: 100px;
+            border: none;
+            background: transparent;
+            font-family: 'Inter', sans-serif;
+            font-weight: 600;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            cursor: pointer;
+            transition: var(--transition);
+            position: relative;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .term-btn.active {
+            background: var(--forest-green);
+            color: white;
+            box-shadow: 0 5px 15px rgba(27, 48, 34, 0.2);
+        }
+
+        .discount-badge {
+            position: absolute;
+            top: -15px;
+            right: 0;
+            background: var(--burgundy);
+            color: white;
+            font-size: 0.65rem;
+            padding: 3px 10px;
+            border-radius: 20px;
+            font-weight: bold;
+        }
+
+        /* Pricing Cards */
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2.5rem;
+            align-items: stretch;
+        }
+
+        .plan-card {
+            background: var(--glass);
+            border: 1px solid var(--aged-paper);
+            padding: 4rem 3rem;
+            border-radius: 12px;
+            display: flex;
+            flex-direction: column;
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .plan-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: var(--aged-paper);
+            transition: var(--transition);
+        }
+
+        .plan-card:hover {
+            transform: translateY(-15px);
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.1);
+            border-color: var(--gold);
+        }
+
+        .plan-card:hover::before {
+            background: var(--gold);
+        }
+
+        .plan-card.featured {
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.08);
+            border-color: var(--burgundy);
+        }
+
+        .plan-card.featured::before {
+            background: var(--burgundy);
+        }
+
+        .featured-tag {
+            position: absolute;
+            top: 25px;
+            right: -35px;
+            background: var(--burgundy);
+            color: white;
+            padding: 5px 40px;
+            transform: rotate(45deg);
+            font-size: 0.7rem;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .plan-name {
+            font-size: 2.2rem;
+            margin-bottom: 2rem;
+            height: 2.5em;
+            display: flex;
+            align-items: center;
+        }
+
+        .plan-price-wrapper {
+            margin-bottom: 3rem;
+        }
+
+        .plan-price {
+            font-size: 4rem;
+            font-weight: 700;
+            color: var(--forest-green);
+            line-height: 1;
+        }
+
+        .plan-price span {
+            font-size: 1.2rem;
+            color: var(--text-muted);
+            font-weight: 400;
+            font-family: 'EB Garamond', serif;
+        }
+
+        .plan-features {
+            list-style: none;
+            margin-bottom: 4rem;
+            flex-grow: 1;
+        }
+
+        .plan-features li {
+            margin-bottom: 1.2rem;
+            display: flex;
+            gap: 1rem;
+            font-size: 1.1rem;
+            color: var(--text-dark);
+            align-items: flex-start;
+        }
+
+        .plan-features i {
+            color: var(--gold);
+            width: 20px;
+            margin-top: 5px;
+        }
+
+        /* Testimonials */
+        #testimonials {
+            background: var(--forest-green);
+            color: white;
+            text-align: center;
+        }
+
+        #testimonials h2 { color: white; }
+
+        .testimonial-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 3rem;
+            margin-top: 5rem;
+        }
+
+        .testimonial-card {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 3rem;
+            border-radius: 8px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .quote {
+            font-style: italic;
+            font-size: 1.4rem;
+            margin-bottom: 2rem;
+        }
+
+        .author {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1rem;
+        }
+
+        .author img {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--cream-dark);
+            padding: 100px 0 50px;
+            border-top: 1px solid var(--aged-paper);
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 4rem;
+        }
+
+        .footer-logo {
+            font-size: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-col h4 {
+            margin-bottom: 2rem;
+            font-size: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .footer-col ul {
+            list-style: none;
+        }
+
+        .footer-col ul li {
+            margin-bottom: 1rem;
+        }
+
+        .footer-col a {
+            text-decoration: none;
+            color: var(--text-muted);
+            transition: var(--transition);
+        }
+
+        .footer-col a:hover { color: var(--burgundy); }
+
+        @media (max-width: 1024px) {
+            .pricing-grid, .testimonial-grid {
+                grid-template-columns: 1fr;
+                max-width: 600px;
+                margin-left: auto;
+                margin-right: auto;
+            }
+            .hero-content h1 { font-size: 3.5rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav id="navbar">
+        <a href="#" class="logo">THE WORN PAGES CLUB</a>
+        <div class="nav-links">
+            <a href="#pricing">The Offers</a>
+            <a href="#experience">The Experience</a>
+            <a href="#testimonials">Stories</a>
+            <a href="#pricing" class="btn btn-secondary" style="padding: 0.8rem 1.8rem; border-width: 2px;">Sign In</a>
+        </div>
+    </nav>
+
+    <section id="hero">
+        <div class="hero-bg"></div>
+        <div class="hero-overlay"></div>
+        <div class="hero-content">
+            <h1>Curating the World’s Most Loved Stories.</h1>
+            <p>A luxury subscription for the modern collector. Hand-selected, pre-loved vintage treasures delivered to your door.</p>
+            <a href="#pricing" class="btn btn-primary">Begin Your Journey <i data-lucide="arrow-right" style="margin-left: 1rem; width: 18px;"></i></a>
+        </div>
+    </section>
+
+    <section id="pricing" class="container">
+        <div class="section-header">
+            <span class="handwritten">Exquisite Memberships</span>
+            <h2>Select Your Tier</h2>
+            <p style="color: var(--text-muted); font-size: 1.3rem;">Choose the volume of your library. Longer subscriptions offer the most value for the dedicated reader.</p>
+        </div>
+
+        <div class="term-toggle">
+            <button class="term-btn active" data-term="3">3 Months</button>
+            <button class="term-btn" data-term="6">6 Months <span class="discount-badge">Save 5%</span></button>
+            <button class="term-btn" data-term="12">1 Year <span class="discount-badge">Save 15%</span></button>
+        </div>
+
+        <div class="pricing-grid">
+            <!-- Standard -->
+            <div class="plan-card">
+                <h3 class="plan-name">The Standard Member</h3>
+                <div class="plan-price-wrapper">
+                    <div class="plan-price" id="price-standard" data-base="59">$59<span>/month</span></div>
+                </div>
+                <ul class="plan-features">
+                    <li><i data-lucide="check-circle"></i> 2 Hand-selected pre-loved books</li>
+                    <li><i data-lucide="check-circle"></i> Monthly mood pairing cards</li>
+                    <li><i data-lucide="check-circle"></i> Luxury gift wrapping</li>
+                    <li><i data-lucide="check-circle"></i> Standard shipping included</li>
+                    <li><i data-lucide="minus-circle" style="color: #ccc;"></i> Personalized monthly gifts</li>
+                </ul>
+                <a href="javascript:void(0)" class="btn btn-secondary" onclick="openCheckout('Standard Member', 59)">Join Standard</a>
+            </div>
+
+            <!-- Premium -->
+            <div class="plan-card featured">
+                <div class="featured-tag">Recommended</div>
+                <h3 class="plan-name">The Premium Experience</h3>
+                <div class="plan-price-wrapper">
+                    <div class="plan-price" id="price-premium" data-base="89">$89<span>/month</span></div>
+                </div>
+                <ul class="plan-features">
+                    <li><i data-lucide="star"></i> 3 Sourced vintage editions</li>
+                    <li><i data-lucide="star"></i> Personalized Monthly Gifts</li>
+                    <li><i data-lucide="star"></i> Wax-sealed handwritten notes</li>
+                    <li><i data-lucide="star"></i> Premium leather bookmark</li>
+                    <li><i data-lucide="star"></i> Monthly themes & mood maps</li>
+                </ul>
+                <a href="javascript:void(0)" class="btn btn-primary" onclick="openCheckout('Premium Experience', 89)">Start Premium</a>
+            </div>
+
+            <!-- Collector -->
+            <div class="plan-card">
+                <h3 class="plan-name">The Collector’s Vault</h3>
+                <div class="plan-price-wrapper">
+                    <div class="plan-price" id="price-collector" data-base="145">$145<span>/month</span></div>
+                </div>
+                <ul class="plan-features">
+                    <li><i data-lucide="zap"></i> 3 Curated vintage books</li>
+                    <li><i data-lucide="zap"></i> 1 Brand-new hardcover release</li>
+                    <li><i data-lucide="zap"></i> Personalized Monthly Gifts</li>
+                    <li><i data-lucide="zap"></i> Full access to the digital vault</li>
+                    <li><i data-lucide="zap"></i> Priority concierge support</li>
+                </ul>
+                <a href="javascript:void(0)" class="btn btn-secondary" onclick="openCheckout('Collector’s Vault Member', 145)">Join the Vault</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section: Process -->
+    <section id="process" class="container">
+        <div class="section-header">
+            <span class="handwritten">From shelf to sanctuary</span>
+            <h2>The Curator’s Journey</h2>
+            <p style="color: var(--text-muted); font-size: 1.3rem;">How we source and deliver the magic of history to your door.</p>
+        </div>
+        <div class="pricing-grid" style="gap: 4rem;">
+            <div style="text-align: center;">
+                <div style="font-size: 3.5rem; color: var(--gold); font-family: 'Playfair Display', serif; margin-bottom: 1rem;">01</div>
+                <h4>Scouting the Archives</h4>
+                <p style="font-size: 1rem; color: var(--text-muted); margin-top: 1rem;">We scour estate sales, private collections, and obscure shops for the finest pre-loved editions.</p>
+            </div>
+            <div style="text-align: center;">
+                <div style="font-size: 3.5rem; color: var(--gold); font-family: 'Playfair Display', serif; margin-bottom: 1rem;">02</div>
+                <h4>Mapping Your Taste</h4>
+                <p style="font-size: 1rem; color: var(--text-muted); margin-top: 1rem;">Our curators study your vault preferences to match you with stories that resonate.</p>
+            </div>
+            <div style="text-align: center;">
+                <div style="font-size: 3.5rem; color: var(--gold); font-family: 'Playfair Display', serif; margin-bottom: 1rem;">03</div>
+                <h4>Bespoke Wrapping</h4>
+                <p style="font-size: 1rem; color: var(--text-muted); margin-top: 1rem;">Each selection is wrapped in archival linen paper and sealed with our signature wax logo.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section: Gift -->
+    <section id="gift" style="background: var(--burgundy); color: white; padding: 100px 0; background-image: url('https://www.transparenttextures.com/patterns/dark-leather.png');">
+        <div class="container" style="display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center;">
+            <div>
+                <span class="handwritten" style="color: var(--gold);">Spread the magic</span>
+                <h2 style="color: white; font-size: 3rem; margin-bottom: 1.5rem;">Give the Gift of<br>Literature</h2>
+                <p style="font-size: 1.25rem; font-style: italic; margin-bottom: 2rem; opacity: 0.9;">Choose a membership for a loved one. We'll send a beautiful physical certificate sealed in wax to announce their new sanctuary.</p>
+                <a href="#" class="btn btn-primary" style="background: var(--gold); color: var(--forest-green);">Send a Gift Box</a>
+            </div>
+            <div>
+                <img src="./assets/mood-pairing.png" alt="Gift Box" style="width: 100%; border-radius: 8px; box-shadow: 0 30px 60px rgba(0,0,0,0.5);">
+            </div>
+        </div>
+    </section>
+
+    <section id="the-charm" class="container" style="padding-top: 0;">
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 6rem; align-items: center;">
+            <div style="border: 1px solid var(--aged-paper); padding: 5px; border-radius: 8px;">
+                <img src="./assets/treasure.png" alt="Vintage Book Detail" style="width: 100%; border-radius: 4px; display: block;">
+            </div>
+            <div>
+                <span class="handwritten">A circular library</span>
+                <h2 style="margin-bottom: 2rem;">The Charm of a<br>Lived-In Story</h2>
+                <p style="margin-bottom: 2rem; font-size: 1.3rem;">At The Worn Pages Club, we believe that a brand-new book hasn't yet learned how to speak. We source only the finest **pre-loved editions**—books that have been held, cherished, and perhaps even marked with a gentle thought in the margins by a previous owner.</p>
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem;">
+                    <div>
+                        <h4 style="color: var(--gold); margin-bottom: 0.5rem; text-transform: uppercase; font-size: 0.9rem;">Sustainability</h4>
+                        <p style="font-size: 1rem; color: var(--text-muted);">Giving exquisite paper a second life for a lower footprint.</p>
+                    </div>
+                    <div>
+                        <h4 style="color: var(--gold); margin-bottom: 0.5rem; text-transform: uppercase; font-size: 0.9rem;">History</h4>
+                        <p style="font-size: 1rem; color: var(--text-muted);">Every crease and scent tells a story before you even turn page one.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="testimonials" class="container" style="border-radius: 20px; padding: 100px 4rem;">
+        <h2 style="font-size: 3rem; margin-bottom: 2rem;">Member Stories</h2>
+        <div class="testimonial-grid">
+            <div class="testimonial-card">
+                <p class="quote">"Finally a service that treats used books with the luxury they deserve."</p>
+                <div class="author">
+                    <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330" alt="Elena">
+                    <span>Elena Rossi, Florence</span>
+                </div>
+            </div>
+            <div class="testimonial-card">
+                <p class="quote">"The Premium experience is like receiving a gift from my past self every month."</p>
+                <div class="author">
+                    <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d" alt="Mark">
+                    <span>Mark Thompson, London</span>
+                </div>
+            </div>
+            <div class="testimonial-card">
+                <p class="quote">"The condition of the books is breathtaking. Truly hand-picked excellence."</p>
+                <div class="author">
+                    <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80" alt="Sarah">
+                    <span>Sarah Jenkins, Portland</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section: FAQ -->
+    <section id="faq" class="container">
+        <div class="section-header">
+            <span class="handwritten">Common Inquiries</span>
+            <h2>The Bibliophile’s Guide</h2>
+        </div>
+        <div style="max-width: 800px; margin: 0 auto;">
+            <div class="faq-item">
+                <div class="faq-question">What is the condition of the books? <i data-lucide="plus"></i></div>
+                <div class="faq-answer">We source high-quality pre-loved books. While they may have minor creases or the "scent of history," we ensure no structural damage, heavy markings, or missing pages.</div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-question">Can I specify my preferred genres? <i data-lucide="plus"></i></div>
+                <div class="faq-answer">Yes. All members gain access to the Collector’s Vault, where you can "Express Interest" in specific genres or titles to guide our curation process.</div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-question">How does shipping work? <i data-lucide="plus"></i></div>
+                <div class="faq-answer">Standard shipping is included in all memberships. We ship in the first week of every month. Each box is tracked and insured for its historical value.</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Quiz Modal -->
+    <div id="quiz-modal" class="modal">
+        <div class="modal-content">
+            <i data-lucide="x" class="close-modal" id="close-modal"></i>
+            <span class="handwritten" style="margin-bottom: 0.5rem;">Discover your profile</span>
+            <div id="quiz-step">
+                <h2 style="margin-bottom: 2rem;">What is your ideal afternoon?</h2>
+                <button class="quiz-option" onclick="nextQuizStep('Rainy library with a candle')">Rainy library with a fireplace</button>
+                <button class="quiz-option" onclick="nextQuizStep('Misty coastline with a journal')">Misty coastline with a journal</button>
+                <button class="quiz-option" onclick="nextQuizStep('Ancient ruins under the sun')">Ancient ruins under the sun</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Checkout Modal -->
+    <div id="checkout-modal" class="checkout-modal">
+        <div class="checkout-container">
+            <i data-lucide="x" class="close-modal" id="close-checkout" style="color: var(--text-dark); z-index: 100;"></i>
+            
+            <div class="checkout-sidebar">
+                <div>
+                    <span class="handwritten" style="color: var(--gold); font-size: 1.5rem;">The Worn Pages Club</span>
+                    <h2 style="color: white; margin: 1rem 0 2rem;">Confirm Your Archive</h2>
+                    <div class="plan-summary" id="checkout-summary">
+                        <h4 style="color: var(--gold); margin-bottom: 1rem; text-transform: uppercase; font-size: 0.7rem;">Your Selection</h4>
+                        <div class="summary-item">
+                            <span id="summary-name">Standard Membership</span>
+                            <span id="summary-price">$59.00</span>
+                        </div>
+                        <div class="summary-item">
+                            <span>Billing Frequency</span>
+                            <span id="summary-term">3 Months</span>
+                        </div>
+                        <div class="summary-total">
+                            <span>Total Due Today</span>
+                            <span id="summary-total">$59.00</span>
+                        </div>
+                    </div>
+                </div>
+                <p style="font-size: 0.8rem; opacity: 0.6;">Subscriptions renew automatically. You may cancel your archive membership at any time from your dashboard.</p>
+            </div>
+
+            <div class="checkout-main">
+                <!-- Step 1: Auth -->
+                <div id="checkout-step-1" class="checkout-step active">
+                    <span class="handwritten" style="color: var(--burgundy);">Step 01</span>
+                    <h2 style="margin-bottom: 1rem;">Create Your Archive</h2>
+                    <p style="color: var(--text-muted); margin-bottom: 2rem;">Every collection needs a keeper. Sign up to track your preferences and rare find requests.</p>
+                    
+                    <input type="email" placeholder="Email Address" class="checkout-input" id="auth-email">
+                    <input type="password" placeholder="Create a Security Code" class="checkout-input" id="auth-password">
+                    
+                    <button class="checkout-btn" onclick="goToCheckoutStep(2)">Secure My Membership <i data-lucide="shield-check" style="margin-left: 0.5rem; width: 18px;"></i></button>
+                    <p style="text-align: center; margin-top: 1.5rem; font-size: 0.85rem;">Already have an archive? <a href="#" style="color: var(--burgundy); font-weight: bold;">Sign In</a></p>
+                </div>
+
+                <!-- Step 2: Payment -->
+                <div id="checkout-step-2" class="checkout-step">
+                    <span class="handwritten" style="color: var(--burgundy);">Step 02</span>
+                    <h2 style="margin-bottom: 1rem;">Finalize Curation</h2>
+                    <p style="color: var(--text-muted); margin-bottom: 2rem;">Secure your first shipment of curated history. Powered by Stripe.</p>
+                    
+                    <form id="payment-form">
+                        <div id="card-element" class="checkout-input" style="padding: 1.2rem; min-height: 52px;">
+                            <!-- Stripe Element will be inserted here -->
+                        </div>
+                        <div id="card-errors" role="alert" style="color: var(--burgundy); font-size: 0.85rem; margin-top: -1rem; margin-bottom: 1.5rem;"></div>
+                        
+                        <button id="stripe-submit" class="checkout-btn" style="background: var(--burgundy);">
+                            <span id="button-text">Begin My Journey</span>
+                            <div class="spinner hidden" id="spinner"></div>
+                        </button>
+                    </form>
+                    
+                    <p style="text-align: center; margin-top: 1.5rem; font-size: 0.85rem; opacity: 0.5;"><i data-lucide="lock" style="width: 12px; vertical-align: middle;"></i> Secure, end-to-end encrypted payment via Stripe</p>
+                </div>
+            </div>
+        </div>
+    </div>
+        <div class="container footer-grid">
+            <div>
+                <a href="#" class="logo footer-logo">THE WORN PAGES CLUB</a>
+                <p style="color: var(--text-muted); margin-bottom: 2rem;">Curating the world's most loved stories for the modern reader. Based in a small shop with big shelves.</p>
+                <div style="display: flex; gap: 1.5rem; color: var(--forest-green);">
+                    <i data-lucide="instagram"></i>
+                    <i data-lucide="facebook"></i>
+                    <i data-lucide="twitter"></i>
+                </div>
+            </div>
+            <div class="footer-col">
+                <h4>Shop</h4>
+                <ul>
+                    <li><a href="#pricing">The Offers</a></li>
+                    <li><a href="vault.html">The Vault</a></li>
+                    <li><a href="#">Guest Checkout</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Join the Dispatch</h4>
+                <p style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 1.5rem;">Weekly literary news, rare find alerts, and first dibs on special editions.</p>
+                <form action="https://formspree.io/f/your-id" method="POST" style="display: flex;">
+                    <input type="email" name="email" placeholder="Email address" required
+                        style="padding: 0.8rem; border: 1px solid var(--aged-paper); border-radius: 4px 0 0 4px; flex-grow: 1; font-family: 'Inter', sans-serif; font-size: 0.85rem;">
+                    <button type="submit" class="btn btn-primary" style="padding: 0 1.5rem; border-radius: 0 4px 4px 0; font-size: 0.75rem;">Join</button>
+                </form>
+            </div>
+            <div class="footer-col">
+                <h4>Legal</h4>
+                <ul>
+                    <li><a href="mailto:hello@thewornpages.com">Contact Us</a></li>
+                    <li><a href="#">Privacy Policy</a></li>
+                    <li><a href="#">Terms & Conditions</a></li>
+                </ul>
+            </div>
+        </div>
+        <div style="text-align: center; margin-top: 6rem; padding-top: 2rem; border-top: 1px solid rgba(0,0,0,0.05); color: var(--text-muted); font-size: 0.8rem;">
+            &copy; 2024 The Worn Pages Club. All rights reserved.
+        </div>
+    </footer>
+
+    <script>
+        // Initialize Lucide Icons
+        lucide.createIcons();
+
+        // Scroll Observer
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, { threshold: 0.15 });
+
+        document.querySelectorAll('section').forEach(section => observer.observe(section));
+
+        // Sticky Nav Logic
+        window.addEventListener('scroll', () => {
+            const nav = document.getElementById('navbar');
+            if (window.scrollY > 50) nav.classList.add('scrolled');
+            else nav.classList.remove('scrolled');
+        });
+
+        // FAQ Functionality
+        document.querySelectorAll('.faq-item').forEach(item => {
+            item.onclick = () => {
+                item.classList.toggle('active');
+            };
+        });
+
+        // Quiz Modal Logic
+        function openQuiz() {
+            document.getElementById('quiz-modal').style.display = 'flex';
+        }
+        
+        document.getElementById('close-modal').onclick = () => {
+            document.getElementById('quiz-modal').style.display = 'none';
+        }
+
+        function nextQuizStep(choice) {
+            const profile = choice.includes('library') ? 'Gothic Scholar' : (choice.includes('coastline') ? 'Maritime Dreamer' : 'Historical Explorer');
+            document.getElementById('quiz-step').innerHTML = `
+                <h2 style="margin-bottom: 1rem;">The ${profile}</h2>
+                <p style="margin-bottom: 2rem;">Fascinating. Your preferences suggest a deep appreciation for stories that have stood the test of time. Save this profile to your membership to begin your curation.</p>
+                <form action="https://formspree.io/f/mleyrpwa" method="POST" style="text-align: left;">
+                    <input type="hidden" name="literary_profile" value="${profile}">
+                    <input type="hidden" name="initial_preference" value="${choice}">
+                    <div style="margin-bottom: 1.5rem;">
+                        <input type="email" name="email" placeholder="Your email address" required 
+                               style="width: 100%; padding: 1rem; border: 1px solid var(--aged-paper); border-radius: 4px; font-family: 'Inter', sans-serif;">
+                    </div>
+                    <button type="submit" class="btn btn-primary" style="width: 100%; border: none; cursor: pointer;">Save Profile & View Tiers</button>
+                    <p style="text-align: center; margin-top: 1rem; font-size: 0.8rem; color: var(--text-muted);">By clicking, you'll be redirected to selection.</p>
+                </form>
+            `;
+        }
+
+        // Add Quiz trigger to hero
+        document.querySelector('.hero-content a').onclick = (e) => {
+            if (window.innerWidth > 768) {
+                e.preventDefault();
+                openQuiz();
+            }
+        };
+
+        // Checkout Logic
+        let selectedPlan = { name: '', price: 0 };
+
+        function openCheckout(name, price) {
+            // Get current frequency from toggle
+            const activeTermBtn = document.querySelector('.term-btn.active');
+            const term = activeTermBtn ? activeTermBtn.innerText : '3 Months';
+            
+            // Re-calculate price based on discount (if any)
+            const basePriceEl = document.getElementById(`price-${name.toLowerCase().split(' ')[0]}`);
+            const finalPrice = basePriceEl ? basePriceEl.innerText.split('/')[0] : `$${price}`;
+
+            selectedPlan = { name, price: finalPrice, term };
+
+            document.getElementById('summary-name').innerText = name;
+            document.getElementById('summary-price').innerText = finalPrice;
+            document.getElementById('summary-total').innerText = finalPrice;
+            document.getElementById('summary-term').innerText = term;
+
+            document.getElementById('checkout-modal').style.display = 'flex';
+            goToCheckoutStep(1);
+        }
+
+        document.getElementById('close-checkout').onclick = () => {
+            document.getElementById('checkout-modal').style.display = 'none';
+        }
+
+        function goToCheckoutStep(step) {
+            document.querySelectorAll('.checkout-step').forEach(el => el.classList.remove('active'));
+            document.getElementById(`checkout-step-${step}`).classList.add('active');
+        }
+
+        // Stripe Integration Logic
+        const stripe = Stripe('pk_test_TYooMQauvdEDq54NiTphI7jx'); // Placeholder key
+        const elements = stripe.elements();
+        const style = {
+            base: {
+                color: "#1B3022",
+                fontFamily: "'EB Garamond', serif",
+                fontSmoothing: "antialiased",
+                fontSize: "18px",
+                "::placeholder": {
+                    color: "#999"
+                }
+            },
+            invalid: {
+                color: "#6B1D1D",
+                iconColor: "#6B1D1D"
+            }
+        };
+
+        const card = elements.create("card", { style: style });
+        card.mount("#card-element");
+
+        card.on('change', ({error}) => {
+            const displayError = document.getElementById('card-errors');
+            if (error) {
+                displayError.textContent = error.message;
+            } else {
+                displayError.textContent = '';
+            }
+        });
+
+        const form = document.getElementById('payment-form');
+        form.addEventListener('submit', async (event) => {
+            event.preventDefault();
+            const submitBtn = document.getElementById('stripe-submit');
+            submitBtn.disabled = true;
+            document.getElementById('button-text').innerText = 'Securing...';
+
+            // In a real app, you would fetch a clientSecret from your server here
+            // const {clientSecret} = await fetch("/create-payment-intent", {...}).then(r => r.json());
+            
+            // Simulating a brief delay for the "Premium" feel
+            setTimeout(() => {
+                completeCheckout();
+                submitBtn.disabled = false;
+                document.getElementById('button-text').innerText = 'Begin My Journey';
+            }, 1500);
+        });
+
+        function completeCheckout() {
+            const email = document.getElementById('auth-email').value || 'a member';
+            alert(`Welcome to the Club!\n\nYour payment was successful. We have initialized your archive for ${email}. Check your inbox for your first curation roadmap.`);
+            document.getElementById('checkout-modal').style.display = 'none';
+        }
+
+        // Pricing Toggle Logic
+        const termBtns = document.querySelectorAll('.term-btn');
+        const priceEls = {
+            standard: document.getElementById('price-standard'),
+            premium: document.getElementById('price-premium'),
+            collector: document.getElementById('price-collector')
+        };
+
+        const discounts = {
+            3: 1,
+            6: 0.95,
+            12: 0.85
+        };
+
+        termBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                termBtns.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+
+                const term = parseInt(btn.dataset.term);
+                const discount = discounts[term];
+
+                Object.keys(priceEls).forEach(key => {
+                    const el = priceEls[key];
+                    const base = parseInt(el.dataset.base);
+                    const finalPrice = Math.round(base * discount);
+                    el.innerHTML = `$${finalPrice}<span>/month</span>`;
+                });
+            });
+        });
+    </script>
+</body>
+</html>

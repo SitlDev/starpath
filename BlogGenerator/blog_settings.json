@@ -37,5 +37,11 @@
   "is_trending": true,
   "word_count": 500,
   "auto_pilot": "enabled",
-  "image_provider": "gemini"
+  "image_provider": "gemini",
+  "ollama_model": "llama3",
+  "squarespace_api_key": "",
+  "squarespace_site_id": "",
+  "squarespace_collection_id": "",
+  "timezone": "",
+  "auto_update_homepage": "disabled"
 }

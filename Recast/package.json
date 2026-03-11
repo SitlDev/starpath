@@ -1,0 +1,43 @@
+{
+  "name": "recast",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint",
+    "worker": "tsx worker.ts"
+  },
+  "dependencies": {
+    "@anthropic-ai/sdk": "^0.78.0",
+    "@ffmpeg-installer/ffmpeg": "^1.1.0",
+    "@stripe/stripe-js": "^8.9.0",
+    "@supabase/ssr": "^0.5.2",
+    "@supabase/supabase-js": "^2.48.1",
+    "anthropic": "latest",
+    "clsx": "latest",
+    "dotenv": "^17.3.1",
+    "fluent-ffmpeg": "^2.1.3",
+    "lucide-react": "latest",
+    "next": "latest",
+    "openai": "latest",
+    "react": "latest",
+    "react-dom": "latest",
+    "stripe": "^20.4.0",
+    "tailwind-merge": "latest"
+  },
+  "devDependencies": {
+    "@types/fluent-ffmpeg": "^2.1.28",
+    "@types/node": "^20.12.7",
+    "@types/react": "^18.3.1",
+    "@types/react-dom": "^18.3.1",
+    "autoprefixer": "^10.4.19",
+    "eslint": "^8.57.0",
+    "eslint-config-next": "14.2.3",
+    "postcss": "^8.4.38",
+    "tailwindcss": "^3.4.3",
+    "tsx": "^4.21.0",
+    "typescript": "^5.4.5"
+  }
+}

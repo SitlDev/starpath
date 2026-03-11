@@ -1,4 +1,40 @@
-Crawled Articles (2026-03-02 05:43:35)
-Total Found: 0
+Crawled Articles (2026-03-07 05:59:45)
+Total Found: 6
 ============================================================
 
+Title: NC Strawberry Festival 2026: What to know about this year’s events
+Category: general
+Source: WECT
+Link: https://www.wect.com/2026/03/02/nc-strawberry-festival-2026-what-know-about-this-years-events/
+Snippet: Trending: strawberry festival 2026
+------------------------------------------------------------
+Title: Cold front to bring hail, flood threat to South Texas on Saturday. Here's what to know.
+Category: general
+Source: San Antonio Express-News
+Link: https://www.expressnews.com/san-antonio-weather/forecast/article/severe-hail-wind-weather-san-antonio-texas-21957363.php
+Snippet: Trending: austin weather
+------------------------------------------------------------
+Title: Hail, heavy rain, and storms: When to expect it in S.A. this weekend
+Category: general
+Source: MySA
+Link: https://www.mysanantonio.com/news/weather/article/hail-san-antonio-weather-21956811.php
+Snippet: Trending: austin weather
+------------------------------------------------------------
+Title: Rain and storms ramp up Saturday; ramp down Sunday
+Category: general
+Source: KXAN Austin
+Link: https://www.kxan.com/weather/forecast/increased-risk-of-strong-storms-saturday/
+Snippet: Trending: austin weather
+------------------------------------------------------------
+Title: Mamdani Defends Wife Amid Criticism of Her Support for Palestinian Cause
+Category: general
+Source: The New York Times
+Link: https://www.nytimes.com/2026/03/06/nyregion/mamdani-rama-wife-israel.html
+Snippet: Trending: mamdani wife
+------------------------------------------------------------
+Title: Zohran Mamdani’s wife liked social media posts celebrating Oct. 7 attacks
+Category: general
+Source: Jewish Insider
+Link: https://jewishinsider.com/2026/03/zohran-mamdani-wife-rama-duwaji-social-media-oct-7/
+Snippet: Trending: mamdani wife
+------------------------------------------------------------

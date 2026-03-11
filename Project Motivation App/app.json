@@ -1,0 +1,51 @@
+{
+  "expo": {
+    "name": "Idea Tracker",
+    "slug": "idea-tracker",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "userInterfaceStyle": "dark",
+    "splash": {
+      "image": "./assets/splash.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#0F0F0F"
+    },
+    "assetBundlePatterns": [
+      "**/*"
+    ],
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.yourname.ideatracker",
+      "infoPlist": {
+        "UIBackgroundModes": [
+          "remote-notification"
+        ]
+      }
+    },
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/adaptive-icon.png",
+        "backgroundColor": "#0F0F0F"
+      },
+      "package": "com.yourname.ideatracker",
+      "permissions": [
+        "RECEIVE_BOOT_COMPLETED",
+        "VIBRATE"
+      ]
+    },
+    "web": {
+      "favicon": "./assets/favicon.png"
+    },
+    "plugins": [
+      [
+        "expo-notifications",
+        {
+          "icon": "./assets/notification-icon.png",
+          "color": "#FF6B35",
+          "sounds": []
+        }
+      ]
+    ]
+  }
+}
