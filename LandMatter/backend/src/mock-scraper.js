@@ -14,6 +14,8 @@ async function generateMockListings() {
     ...generateHUDListings(),
     // NYC Tax Auctions (NYC Specific)
     ...generateNYCListings(),
+    // County Deed Recordings (Public Deed Records)
+    ...generateCountyDeedListings(),
   ];
 
   console.log(`📊 Generated ${mockListings.length} mock listings`);
@@ -150,6 +152,44 @@ function generateNYCListings() {
         action: 'Monitor',
         lat: borough.lat + (Math.random() - 0.5) * 0.1,
         lng: borough.lng + (Math.random() - 0.5) * 0.1,
+      };
+    })
+  );
+}
+
+function generateCountyDeedListings() {
+  const counties = [
+    { county: 'Cook', state: 'IL', lat: 41.8781, lng: -87.6298 },
+    { county: 'Los Angeles', state: 'CA', lat: 34.0522, lng: -118.2437 },
+    { county: 'Harris', state: 'TX', lat: 29.7604, lng: -95.3698 },
+    { county: 'Maricopa', state: 'AZ', lat: 33.4484, lng: -112.074 },
+    { county: 'San Diego', state: 'CA', lat: 32.7157, lng: -117.1611 },
+  ];
+
+  return counties.flatMap((county, idx) =>
+    [...Array(3)].map((_, i) => {
+      const acreage = 0.2 + Math.random() * 3;
+      const assessedValue = 200000 + Math.random() * 600000;
+      const salePrice = assessedValue * (0.7 + Math.random() * 0.6);
+      return {
+        title: `County Deed - ${county.county} County Recording #${idx * 100 + i}`,
+        county: county.county,
+        state: county.state,
+        auctionType: 'Recorded Deed Sale',
+        source: 'County Deed Recordings',
+        sourceUrl: `https://www.county-recorder.gov/${county.state}/${county.county}`,
+        auctionDate: new Date(Date.now() - Math.random() * 15 * 24 * 60 * 60 * 1000),
+        closingDays: Math.floor(Math.random() * 15),
+        price: salePrice,
+        pricePerAcre: salePrice / acreage,
+        acreage: acreage,
+        summary: `Recorded deed in ${county.county} County. Sale price: $${Math.floor(salePrice).toLocaleString()}. From public records.`,
+        score: Math.floor(60 + Math.random() * 35),
+        flags: ['Warranty Deed', `Recorded ${Math.floor(Math.random() * 15)} days ago`, 'Public Record'],
+        risks: ['Title search recommended'],
+        action: 'Monitor',
+        lat: county.lat + (Math.random() - 0.5) * 0.15,
+        lng: county.lng + (Math.random() - 0.5) * 0.15,
       };
     })
   );

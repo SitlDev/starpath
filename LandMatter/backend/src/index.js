@@ -51,6 +51,7 @@ const PDFFileScraper = require('./scrapers/PDFFileScraper');
 const GSAAuctionsScraper = require('./scrapers/GSAAuctionsScraper');
 const HUDForeclosureScraper = require('./scrapers/HUDForeclosureScraper');
 const NYCTaxAuctionScraper = require('./scrapers/NYCTaxAuctionScraper');
+const CountyDeedRecordingScraper = require('./scrapers/CountyDeedRecordingScraper');
 const DataAggregationManager = require('./DataAggregationManager');
 
 // --- SCRAPER ENDPOINTS ---
@@ -179,6 +180,17 @@ app.post('/api/scrapers/nyc/run', async (req, res) => {
   }
 });
 
+// County Deed Recording Scraper (Recorded Deeds from County Assessors)
+app.post('/api/scrapers/deeds/run', async (req, res) => {
+  try {
+    const scraper = new CountyDeedRecordingScraper();
+    scraper.scrape().then(() => console.log('◈ COUNTY DEED RECORDING JOB COMPLETE'));
+    res.json({ status: 'Job started', source: 'County Deed Recordings' });
+  } catch (error) {
+    res.status(500).json({ error: 'Failed to start deed scraper' });
+  }
+});
+
 // Data Aggregation - Run ALL scrapers at once
 app.post('/api/aggregation/run-all', async (req, res) => {
   try {
@@ -251,6 +263,7 @@ app.get('/api/scrapers', (req, res) => {
       { name: 'GSA Auctions', endpoint: '/api/scrapers/gsa/run', type: 'Federal', auth: false },
       { name: 'HUD Foreclosures', endpoint: '/api/scrapers/hud/run', type: 'Federal', auth: false },
       { name: 'NYC Tax Auctions', endpoint: '/api/scrapers/nyc/run', type: 'Municipal', auth: false },
+      { name: 'County Deed Recordings', endpoint: '/api/scrapers/deeds/run', type: 'County Records', auth: false },
       { name: 'GovEase', endpoint: '/api/scrapers/govease/run', type: 'Third-Party', auth: false },
       { name: 'Bid4Assets', endpoint: '/api/scrapers/bid4assets/run', type: 'Third-Party', auth: false },
       { name: 'Auction.com', endpoint: '/api/scrapers/auctioncom/run', type: 'Third-Party', auth: false },
