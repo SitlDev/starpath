@@ -1,0 +1,33 @@
+{
+  "name": "landwatch-backend",
+  "version": "1.0.0",
+  "description": "Scraper engine and API for LandWatch Pro",
+  "main": "src/index.js",
+  "scripts": {
+    "start": "node src/index.js",
+    "worker": "node src/worker.js",
+    "seed": "node src/seed-db.js",
+    "seed:counties": "node src/seed-counties.js",
+    "seed:mock": "node src/mock-scraper.js",
+    "dev": "nodemon src/index.js",
+    "db:push": "prisma db push",
+    "db:studio": "prisma studio"
+  },
+  "dependencies": {
+    "@prisma/client": "^6.0.0",
+    "axios": "latest",
+    "bullmq": "latest",
+    "cors": "latest",
+    "dotenv": "latest",
+    "exceljs": "^4.4.0",
+    "express": "latest",
+    "ioredis": "latest",
+    "pdf-parse": "^2.4.5",
+    "playwright": "latest",
+    "xlsx": "latest"
+  },
+  "devDependencies": {
+    "nodemon": "latest",
+    "prisma": "^6.0.0"
+  }
+}

@@ -1,0 +1,161 @@
+const { PrismaClient } = require('@prisma/client');
+
+const prisma = new PrismaClient();
+
+/**
+ * Generate mock auction listings for demo/testing
+ * Simulates what real scrapers would fetch from public APIs
+ */
+async function generateMockListings() {
+  const mockListings = [
+    // GSA Auctions (Federal Properties)
+    ...generateGSAListings(),
+    // HUD Foreclosures (Government Foreclosures)
+    ...generateHUDListings(),
+    // NYC Tax Auctions (NYC Specific)
+    ...generateNYCListings(),
+  ];
+
+  console.log(`📊 Generated ${mockListings.length} mock listings`);
+  console.log('💾 Saving to database...\n');
+
+  let saved = 0;
+  for (const listing of mockListings) {
+    try {
+      await prisma.listing.upsert({
+        where: { title: listing.title },
+        update: listing,
+        create: listing,
+      });
+      saved++;
+    } catch (error) {
+      console.error(`❌ Failed to save: ${listing.title}`, error.message);
+    }
+  }
+
+  console.log(`✅ Saved ${saved} listings to database\n`);
+  await prisma.$disconnect();
+}
+
+function generateGSAListings() {
+  const states = [
+    { state: 'CA', county: 'Alameda', lat: 37.7749, lng: -122.4194 },
+    { state: 'CA', county: 'Los Angeles', lat: 34.0522, lng: -118.2437 },
+    { state: 'TX', county: 'Harris', lat: 29.7604, lng: -95.3698 },
+    { state: 'TX', county: 'Dallas', lat: 32.7767, lng: -96.797 },
+    { state: 'FL', county: 'Miami-Dade', lat: 25.7617, lng: -80.1918 },
+    { state: 'NY', county: 'New York', lat: 40.7128, lng: -74.006 },
+    { state: 'PA', county: 'Philadelphia', lat: 39.9526, lng: -75.1652 },
+    { state: 'IL', county: 'Cook', lat: 41.8781, lng: -87.6298 },
+    { state: 'OH', county: 'Cuyahoga', lat: 41.4993, lng: -81.6944 },
+    { state: 'GA', county: 'Fulton', lat: 33.749, lng: -84.388 },
+  ];
+
+  return states.flatMap((loc, idx) => {
+    const acreage = 0.5 + Math.random() * 5;
+    const price = 50000 + Math.random() * 400000;
+    return [{
+      title: `Federal Building - ${loc.county} County, ${loc.state} (GSA ${idx + 1})`,
+      county: loc.county,
+      state: loc.state,
+      auctionType: 'Government Auction',
+      source: 'GSA Auctions',
+      sourceUrl: `https://gsaauctions.gov/property/${idx + 1}`,
+      auctionDate: new Date(Date.now() + Math.random() * 30 * 24 * 60 * 60 * 1000),
+      closingDays: 7 + Math.floor(Math.random() * 30),
+      price: price,
+      pricePerAcre: price / acreage,
+      acreage: acreage,
+      summary: `Federal property in ${loc.county} County, ${loc.state}. Former government facility.`,
+      score: Math.floor(65 + Math.random() * 35),
+      flags: ['Government title', 'Federal property'],
+      risks: ['Title may need clearing'],
+      action: 'Investigate',
+      lat: loc.lat + (Math.random() - 0.5) * 0.1,
+      lng: loc.lng + (Math.random() - 0.5) * 0.1,
+    }];
+  });
+}
+
+function generateHUDListings() {
+  const properties = [
+    { state: 'AZ', county: 'Maricopa', city: 'Phoenix', price: 120000, beds: 3 },
+    { state: 'AZ', county: 'Pima', city: 'Tucson', price: 95000, beds: 2 },
+    { state: 'CA', county: 'San Diego', city: 'San Diego', price: 350000, beds: 4 },
+    { state: 'CA', county: 'Kern', city: 'Bakersfield', price: 115000, beds: 3 },
+    { state: 'FL', county: 'Hillsborough', city: 'Tampa', price: 145000, beds: 3 },
+    { state: 'FL', county: 'Broward', city: 'Fort Lauderdale', price: 210000, beds: 2 },
+    { state: 'GA', county: 'DeKalb', city: 'Atlanta', price: 155000, beds: 3 },
+    { state: 'IL', county: 'Cook', city: 'Chicago', price: 135000, beds: 2 },
+    { state: 'TX', county: 'Bexar', city: 'San Antonio', price: 110000, beds: 3 },
+    { state: 'TX', county: 'Travis', city: 'Austin', price: 235000, beds: 3 },
+    { state: 'TX', county: 'Harris', city: 'Houston', price: 125000, beds: 2 },
+  ];
+
+  return properties.map((prop, idx) => {
+    const acreage = 0.25 + Math.random() * 0.35;
+    const price = prop.price * (0.8 + Math.random() * 0.2);
+    return {
+      title: `HUD Home - ${prop.beds}BR in ${prop.city}, ${prop.state} (HUD ${idx + 1})`,
+      county: prop.county,
+      state: prop.state,
+      auctionType: 'HUD Foreclosure',
+      source: 'HUD Foreclosures',
+      sourceUrl: `https://www.hud.gov/property/${idx + 1}`,
+      auctionDate: new Date(Date.now() + Math.random() * 25 * 24 * 60 * 60 * 1000),
+      closingDays: 14 + Math.floor(Math.random() * 45),
+      price: price,
+      pricePerAcre: price / acreage,
+      acreage: acreage,
+      summary: `HUD-owned ${prop.beds}-bedroom home in ${prop.city}. Ready for occupancy.`,
+      score: Math.floor(72 + Math.random() * 28),
+      flags: ['HUD owned', 'Below market'],
+      risks: ['As-is sale'],
+      action: 'Monitor',
+      lat: 35 + Math.random() * 10,
+      lng: -95 - Math.random() * 10,
+    };
+  });
+}
+
+function generateNYCListings() {
+  const boroughs = [
+    { name: 'Manhattan', fips: '36061', lat: 40.7831, lng: -73.9712 },
+    { name: 'Brooklyn', fips: '36047', lat: 40.6782, lng: -73.9442 },
+    { name: 'Queens', fips: '36081', lat: 40.7282, lng: -73.7949 },
+    { name: 'Bronx', fips: '36005', lat: 40.8448, lng: -73.8648 },
+    { name: 'Staten Island', fips: '36085', lat: 40.5795, lng: -74.1502 },
+  ];
+
+  return boroughs.flatMap((borough, idx) =>
+    [...Array(3)].map((_, i) => {
+      const acreage = 0.05 + Math.random() * 0.25;
+      const price = 50000 + Math.random() * 500000;
+      return {
+        title: `NYC Tax Lien - ${borough.name} (Lot ${idx * 100 + i})`,
+        county: 'New York',
+        state: 'NY',
+        auctionType: 'Tax Lien',
+        source: 'NYC Tax Auctions',
+        sourceUrl: `https://www1.nyc.gov/site/finance/taxes/property-tax-sales.page?lot=${idx * 100 + i}`,
+        auctionDate: new Date(Date.now() + Math.random() * 20 * 24 * 60 * 60 * 1000),
+        closingDays: 30 + Math.floor(Math.random() * 60),
+        price: price,
+        pricePerAcre: price / acreage,
+        acreage: acreage,
+        summary: `NYC tax lien in ${borough.name}. Tax assessment year 2023-2024.`,
+        score: Math.floor(68 + Math.random() * 32),
+        flags: ['NYC property', 'Tax lien'],
+        risks: ['Urban redemption possible'],
+        action: 'Monitor',
+        lat: borough.lat + (Math.random() - 0.5) * 0.1,
+        lng: borough.lng + (Math.random() - 0.5) * 0.1,
+      };
+    })
+  );
+}
+
+// Run if called directly
+generateMockListings().catch(console.error);
+
+module.exports = { generateMockListings };
