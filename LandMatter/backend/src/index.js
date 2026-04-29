@@ -287,12 +287,39 @@ app.post('/api/seed/mock', async (req, res) => {
 
 // --- SERVER START ---
 const PORT = process.env.PORT || 3001;
-app.listen(PORT, '0.0.0.0', () => {
-  console.log(`
+
+// Auto-seed database if empty (on startup)
+async function initializeDatabase() {
+  try {
+    const prisma = new (require('@prisma/client').PrismaClient)();
+    const count = await prisma.listing.count();
+    await prisma.$disconnect();
+    
+    if (count === 0) {
+      console.log('◈ Database is empty. Auto-seeding with mock data...');
+      const { generateMockListings } = require('./mock-scraper');
+      await generateMockListings();
+      console.log('✓ Database seeded successfully');
+    } else {
+      console.log(`◈ Database already populated with ${count} listings`);
+    }
+  } catch (error) {
+    console.error('❌ Database initialization error:', error.message);
+  }
+}
+
+// Start server
+initializeDatabase().then(() => {
+  app.listen(PORT, '0.0.0.0', () => {
+    console.log(`
   ◈ LANDWATCH PRO BACKEND ACTIVE
   ◈ ENGINE: Node.js / Express
   ◈ PORT: ${PORT}
   ◈ DATABASE: PostgreSQL
   ◈ WORKER READY
   `);
+  });
+}).catch(err => {
+  console.error('Failed to start server:', err);
+  process.exit(1);
 });
