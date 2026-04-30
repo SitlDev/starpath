@@ -35,17 +35,44 @@ async function init() {
     el.onclick = () => setPage(el.dataset.pg);
   });
 
-  // Try to load live listings from Railway API
+  // Try to load live listings from API (production first, then fallback to localhost)
+  let loaded = false;
+  
+  // Try primary API endpoint
   try {
     const res = await fetch(`${API_BASE}/listings`);
     if (res.ok) {
       const data = await res.json();
       if (Array.isArray(data) && data.length > 0) {
         LISTINGS = data;
+        loaded = true;
+        console.log(`◈ Loaded ${data.length} listings from API`);
       }
     }
   } catch (e) {
-    console.warn('◈ API unavailable — using seed data', e);
+    console.warn('◈ Primary API unavailable:', e.message);
+  }
+  
+  // If primary failed and not localhost, try localhost as fallback
+  if (!loaded && window.location.hostname !== 'localhost' && window.location.hostname !== '127.0.0.1') {
+    try {
+      console.log('◈ Trying localhost fallback...');
+      const res = await fetch('http://localhost:3001/api/listings');
+      if (res.ok) {
+        const data = await res.json();
+        if (Array.isArray(data) && data.length > 0) {
+          LISTINGS = data;
+          loaded = true;
+          console.log(`◈ Loaded ${data.length} listings from localhost`);
+        }
+      }
+    } catch (e) {
+      console.warn('◈ Localhost fallback unavailable:', e.message);
+    }
+  }
+  
+  if (!loaded) {
+    console.warn('◈ Using seed data fallback (10 listings)');
   }
 
   // Poll for updates every 30 seconds
@@ -65,7 +92,15 @@ async function refreshListings() {
   }
 
   try {
-    const res = await fetch(`${API_BASE}/listings`);
+    // Try primary API first
+    let res = await fetch(`${API_BASE}/listings`);
+    
+    // If primary fails and not localhost, try localhost
+    if (!res.ok && window.location.hostname !== 'localhost' && window.location.hostname !== '127.0.0.1') {
+      console.log('◈ Primary API failed, trying localhost...');
+      res = await fetch('http://localhost:3001/api/listings');
+    }
+    
     if (res.ok) {
       const data = await res.json();
       if (Array.isArray(data) && data.length > 0) {
@@ -86,7 +121,7 @@ async function refreshListings() {
         console.log('◈ Dashboard updated from database');
       }
     } else {
-      throw new Error('Server error');
+      throw new Error('Server error: ' + res.status);
     }
   } catch (e) {
     console.error('◈ Background refresh failed', e);
@@ -215,6 +250,7 @@ function renderDash(root) {
 
     <div style="display:flex; justify-content:flex-end; margin-bottom:12px; gap:8px">
       <button class="btn btn-s" style="padding:6px 12px; font-size:9px" id="trigger-scrape">Trigger Source Scrape →</button>
+      <button class="btn btn-s" style="padding:6px 12px; font-size:9px" id="trigger-sync">Sync Parcel Data ⊞</button>
       <button class="btn btn-p" style="padding:6px 12px; font-size:9px" id="manual-sync">Sync Database ↻</button>
     </div>
     
@@ -376,6 +412,28 @@ function renderDash(root) {
     setTimeout(() => {
       btn.disabled = false;
       btn.textContent = 'Trigger Source Scrape →';
+    }, 3000);
+  };
+
+  document.getElementById('trigger-sync').onclick = async () => {
+    const btn = document.getElementById('trigger-sync');
+    btn.disabled = true;
+    btn.textContent = 'SYNCING PARCELS...';
+    try {
+      const res = await fetch(`${API_BASE}/sync/parcels`, { method: 'POST' });
+      if (res.ok) {
+        const data = await res.json();
+        btn.textContent = `SYNCED ${data.synced || 0} ✓`;
+        setTimeout(refreshListings, 1500);
+      } else {
+        btn.textContent = 'SYNC FAILED ✖';
+      }
+    } catch (e) {
+      btn.textContent = 'SYNC ERROR ✖';
+    }
+    setTimeout(() => {
+      btn.disabled = false;
+      btn.textContent = 'Sync Parcel Data ⊞';
     }, 3000);
   };
 
