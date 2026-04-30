@@ -53,6 +53,10 @@ const HUDForeclosureScraper = require('./scrapers/HUDForeclosureScraper');
 const NYCTaxAuctionScraper = require('./scrapers/NYCTaxAuctionScraper');
 const CountyDeedRecordingScraper = require('./scrapers/CountyDeedRecordingScraper');
 const DataAggregationManager = require('./DataAggregationManager');
+const WeeklyScheduler = require('./WeeklyScheduler');
+
+// Initialize scheduler (will start on server startup)
+let scheduler = null;
 
 // --- SCRAPER ENDPOINTS ---
 
@@ -194,9 +198,16 @@ app.post('/api/scrapers/deeds/run', async (req, res) => {
 // Data Aggregation - Run ALL scrapers at once
 app.post('/api/aggregation/run-all', async (req, res) => {
   try {
+    console.log('◈ MANUAL DATA REFRESH TRIGGERED - ALL SOURCES');
     const manager = new DataAggregationManager();
     const results = await manager.aggregateAllData();
     await manager.close();
+    
+    // Reset weekly scheduler on manual refresh
+    if (scheduler) {
+      scheduler.scheduleNextRun();
+    }
+    
     res.json(results);
   } catch (error) {
     res.status(500).json({ error: 'Failed to run aggregation', details: error.message });
@@ -210,9 +221,16 @@ app.post('/api/aggregation/run', async (req, res) => {
     if (!sources || !Array.isArray(sources)) {
       return res.status(400).json({ error: 'sources array required' });
     }
+    console.log(`◈ MANUAL DATA REFRESH: ${sources.join(', ')}`);
     const manager = new DataAggregationManager();
     const results = await manager.runSpecificSources(sources);
     await manager.close();
+    
+    // Reset weekly scheduler on manual refresh
+    if (scheduler) {
+      scheduler.scheduleNextRun();
+    }
+    
     res.json(results);
   } catch (error) {
     res.status(500).json({ error: 'Failed to run aggregation', details: error.message });
@@ -228,6 +246,40 @@ app.get('/api/aggregation/report', async (req, res) => {
     res.json(report);
   } catch (error) {
     res.status(500).json({ error: 'Failed to generate report', details: error.message });
+  }
+});
+
+// Manual data refresh endpoint (on-demand, triggers immediate fetch and resets weekly schedule)
+app.post('/api/data/refresh', async (req, res) => {
+  try {
+    console.log('◈ MANUAL DATA REFRESH REQUESTED');
+    const manager = new DataAggregationManager();
+    const results = await manager.aggregateAllData();
+    await manager.close();
+    
+    // Reset weekly scheduler on manual refresh
+    if (scheduler) {
+      scheduler.scheduleNextRun();
+    }
+    
+    res.json({ 
+      status: 'success', 
+      message: 'Data refreshed successfully',
+      recordsProcessed: results.totalFound,
+      refreshedAt: new Date().toISOString(),
+      nextScheduledRun: scheduler ? scheduler.nextRun : null
+    });
+  } catch (error) {
+    res.status(500).json({ error: 'Failed to refresh data', details: error.message });
+  }
+});
+
+// Scheduler status endpoint (view current and next scheduled runs)
+app.get('/api/scheduler/status', (req, res) => {
+  if (scheduler) {
+    res.json(scheduler.getStatus());
+  } else {
+    res.json({ status: 'Scheduler not initialized' });
   }
 });
 
@@ -275,7 +327,9 @@ app.get('/api/scrapers', (req, res) => {
     aggregation: {
       runAll: 'POST /api/aggregation/run-all (runs all scrapers)',
       runSpecific: 'POST /api/aggregation/run (runs specific sources)',
-      report: 'GET /api/aggregation/report (data quality metrics)'
+      report: 'GET /api/aggregation/report (data quality metrics)',
+      manualRefresh: 'POST /api/data/refresh (manual on-demand fetch)',
+      schedulerStatus: 'GET /api/scheduler/status (view schedule)'
     }
   });
 });
@@ -331,6 +385,12 @@ initializeDatabase().then(() => {
   ◈ DATABASE: PostgreSQL
   ◈ WORKER READY
   `);
+    
+    // Start weekly scheduler
+    scheduler = new WeeklyScheduler();
+    scheduler.start().catch(err => {
+      console.error('❌ Failed to start scheduler:', err);
+    });
   });
 }).catch(err => {
   console.error('Failed to start server:', err);
