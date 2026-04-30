@@ -12,7 +12,8 @@ let state = {
   page: 'dash',
   mdlId: null,
   saved: new Set(),
-  fltrs: { search: '', state: '', type: '', minSc: 0, sort: 'sc' }
+  fltrs: { search: '', state: '', type: '', minSc: 0, sort: 'sc' },
+  sync: { status: 'connected', last: new Date().toISOString() }
 };
 
 const PAGES = {
@@ -47,8 +48,53 @@ async function init() {
     console.warn('◈ API unavailable — using seed data', e);
   }
 
+  // Poll for updates every 30 seconds
+  setInterval(refreshListings, 30000);
+
   render();
   updateBadges();
+}
+
+async function refreshListings() {
+  const statusEl = document.getElementById('sync-status');
+  const timeEl = document.getElementById('sync-time');
+  
+  if (statusEl) {
+    statusEl.textContent = '○ SYNCING...';
+    statusEl.style.color = 'var(--am-tx)';
+  }
+
+  try {
+    const res = await fetch(`${API_BASE}/listings`);
+    if (res.ok) {
+      const data = await res.json();
+      if (Array.isArray(data) && data.length > 0) {
+        LISTINGS = data;
+        state.sync.status = 'connected';
+        state.sync.last = new Date().toISOString();
+        
+        render();
+        updateBadges();
+        
+        if (statusEl) {
+          statusEl.textContent = '● LIVE CONNECTED';
+          statusEl.style.color = 'var(--gr-tx)';
+        }
+        if (timeEl) {
+          timeEl.textContent = `LAST SYNC: ${new Date().toLocaleTimeString()}`;
+        }
+        console.log('◈ Dashboard updated from database');
+      }
+    } else {
+      throw new Error('Server error');
+    }
+  } catch (e) {
+    console.error('◈ Background refresh failed', e);
+    if (statusEl) {
+      statusEl.textContent = '✖ DISCONNECTED';
+      statusEl.style.color = 'var(--rd-tx)';
+    }
+  }
 }
 
 function setPage(pg) {
@@ -166,6 +212,11 @@ function renderDash(root) {
       ${mCard('DEEP DISCOUNTS', deep, '≥ 50% below FMV', 'am')}
       ${mCard('HIGH TITLE RISK', risk, 'Needs review', 'rd')}
     </div>
+
+    <div style="display:flex; justify-content:flex-end; margin-bottom:12px; gap:8px">
+      <button class="btn btn-s" style="padding:6px 12px; font-size:9px" id="trigger-scrape">Trigger Source Scrape →</button>
+      <button class="btn btn-p" style="padding:6px 12px; font-size:9px" id="manual-sync">Sync Database ↻</button>
+    </div>
     
     <div class="sec-t"><span>GEOGRAPHIC COVERAGE — SIGNAL DENSITY</span></div>
     <div class="m-card" style="padding-top:32px; margin-bottom:24px">
@@ -279,7 +330,7 @@ function renderDash(root) {
 
     // Add click listeners to table rows
     tbody.querySelectorAll('tr').forEach(tr => {
-      tr.onclick = () => openMdl(parseInt(tr.dataset.id));
+      tr.onclick = () => openMdl(tr.dataset.id);
       tr.onmouseover = () => tr.style.backgroundColor = 'rgba(255,255,255,0.02)';
       tr.onmouseout = () => tr.style.backgroundColor = '';
     });
@@ -304,6 +355,28 @@ function renderDash(root) {
   document.getElementById('dash-so').onchange = (e) => {
     state.fltrs.sort = e.target.value;
     updateTable();
+  };
+
+  document.getElementById('manual-sync').onclick = refreshListings;
+  document.getElementById('trigger-scrape').onclick = async () => {
+    const btn = document.getElementById('trigger-scrape');
+    btn.disabled = true;
+    btn.textContent = 'TRIGGERING...';
+    try {
+      const res = await fetch(`${API_BASE}/aggregation/run-all`, { method: 'POST' });
+      if (res.ok) {
+        btn.textContent = 'SUCCESS ✓';
+        setTimeout(refreshListings, 2000);
+      } else {
+        btn.textContent = 'FAILED ✖';
+      }
+    } catch (e) {
+      btn.textContent = 'ERROR ✖';
+    }
+    setTimeout(() => {
+      btn.disabled = false;
+      btn.textContent = 'Trigger Source Scrape →';
+    }, 3000);
   };
 
   // Attach map listeners
@@ -535,7 +608,7 @@ function renderTab(l, t) {
 function det(l, v) { return `<div class="det-itm"><div class="det-l">${l}</div><div class="det-v">${v}</div></div>`; }
 
 function attachListeners() {
-  document.querySelectorAll('.l-card').forEach(el => el.onclick = () => openMdl(parseInt(el.dataset.id)));
+  document.querySelectorAll('.l-card').forEach(el => el.onclick = () => openMdl(el.dataset.id));
 }
 
 function attachTabListeners(l) {
@@ -585,7 +658,7 @@ function renderParcel(root) {
       </table>
     </div>
   `;
-  document.querySelectorAll('.l-row').forEach(el => el.onclick = () => openMdl(parseInt(el.dataset.id)));
+  document.querySelectorAll('.l-row').forEach(el => el.onclick = () => openMdl(el.dataset.id));
 }
 function renderRisk(root) { renderParcel(root); } // Similar view
 function renderRedemp(root) {
@@ -777,7 +850,7 @@ function renderRedemp(root) {
       
       // Attach row click listeners
       document.querySelectorAll('tbody tr').forEach(el => 
-        el.onclick = () => openMdl(parseInt(el.dataset.id))
+        el.onclick = () => openMdl(el.dataset.id)
       );
     }
     
