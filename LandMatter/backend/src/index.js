@@ -6,6 +6,9 @@ require('dotenv').config();
 const app = express();
 const prisma = new PrismaClient();
 
+// Load fallback seed data
+const fallbackSeedData = require('./seed-data-fallback');
+
 app.use(cors());
 app.use(express.json());
 
@@ -20,16 +23,24 @@ app.get('/api/listings', async (req, res) => {
       orderBy: { createdAt: 'desc' }
     });
     console.log(`◈ SUCCESS: ${listings.length} LISTINGS RETRIEVED`);
+    
+    // If database is empty, use fallback
+    if (listings.length === 0) {
+      console.log('◈ DATABASE EMPTY - USING FALLBACK SEED DATA...');
+      const fallbackListings = fallbackSeedData.getFallbackListings();
+      console.log(`◈ FALLBACK: Returning ${fallbackListings.length} listings from seed`);
+      return res.json(fallbackListings);
+    }
+    
     res.json(listings);
   } catch (error) {
     console.error('◈ API ERROR [GET /api/listings]:', error.message);
     console.error('◈ ERROR CODE:', error.code);
     console.error('◈ ERROR META:', error.meta);
     
-    // Fallback: Return mock data array
-    console.log('◈ FALLING BACK TO SEED DATA...');
-    const seedData = require('./seed-data-fallback');
-    const fallbackListings = seedData.getFallbackListings();
+    // Fallback: Return mock data array when database query fails
+    console.log('◈ QUERY FAILED - USING FALLBACK SEED DATA...');
+    const fallbackListings = fallbackSeedData.getFallbackListings();
     console.log(`◈ FALLBACK: Returning ${fallbackListings.length} listings from seed`);
     return res.json(fallbackListings);
   }
