@@ -14,13 +14,25 @@ app.use(express.json());
 // Get all listings
 app.get('/api/listings', async (req, res) => {
   try {
+    console.log('◈ FETCHING LISTINGS FROM DATABASE...');
     const listings = await prisma.listing.findMany({
-      include: { parcel: true }
+      include: { parcel: true },
+      orderBy: { createdAt: 'desc' }
     });
+    console.log(`◈ SUCCESS: ${listings.length} LISTINGS RETRIEVED`);
     res.json(listings);
   } catch (error) {
-    console.error('◈ API ERROR [GET /api/listings]:', error);
-    res.status(500).json({ error: 'Failed to fetch listings', details: error.message });
+    console.error('◈ API ERROR [GET /api/listings]:', error.message);
+    console.error('◈ ERROR DETAILS:', {
+      code: error.code,
+      meta: error.meta,
+      stack: error.stack
+    });
+    res.status(500).json({ 
+      error: 'Failed to fetch listings', 
+      message: error.message,
+      details: process.env.NODE_ENV === 'production' ? 'Check server logs' : error.stack
+    });
   }
 });
 
@@ -271,6 +283,19 @@ app.post('/api/data/refresh', async (req, res) => {
     });
   } catch (error) {
     res.status(500).json({ error: 'Failed to refresh data', details: error.message });
+  }
+});
+
+const ParcelSyncWorker = require('./worker');
+
+// Parcel Sync Endpoint
+app.post('/api/sync/parcels', async (req, res) => {
+  try {
+    const worker = new ParcelSyncWorker();
+    const result = await worker.syncAll();
+    res.json(result);
+  } catch (error) {
+    res.status(500).json({ error: 'Sync failed', details: error.message });
   }
 });
 
