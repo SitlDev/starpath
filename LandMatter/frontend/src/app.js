@@ -722,25 +722,25 @@ function renderRedemp(root) {
                   let status = daysLeft <= 0 ? 'Cleared' : daysLeft <= 30 ? `${daysLeft}d left` : `Open — ${daysLeft}d`;
                   let statusColor = daysLeft <= 0 ? '#1a7f5a' : daysLeft <= 30 ? '#b07a00' : '#888';
                   
-                  return \`
-                    <tr data-id="\${l.id}" style="cursor:pointer; transition:background 0.2s" onmouseover="this.style.background='var(--br-p)'" onmouseout="this.style.background=''">
-                      <td style="font-weight:500">\${l.title}</td>
-                      <td><strong>\${l.state}</strong></td>
-                      <td><span style="font-size:10px; padding:4px 8px; background:${l.auctionType === 'Tax Lien' ? '#1a4fa015' : '#7b2fa015'}; color:${l.auctionType === 'Tax Lien' ? '#1a4fa0' : '#7b2fa0'}; border-radius:2px; text-transform:uppercase">\${l.auctionType === 'Tax Lien' ? 'Lien' : 'Deed'}</span></td>
-                      <td>\${utils.formatDateShort(l.auctionDate)}</td>
+                  return `
+                    <tr data-id="${l.id}" style="cursor:pointer; transition:background 0.2s" onmouseover="this.style.background='var(--br-p)'" onmouseout="this.style.background=''">
+                      <td style="font-weight:500">${l.title}</td>
+                      <td><strong>${l.state}</strong></td>
+                      <td><span style="font-size:10px; padding:4px 8px; background:${l.auctionType === 'Tax Lien' ? '#1a4fa015' : '#7b2fa015'}; color:${l.auctionType === 'Tax Lien' ? '#1a4fa0' : '#7b2fa0'}; border-radius:2px; text-transform:uppercase">${l.auctionType === 'Tax Lien' ? 'Lien' : 'Deed'}</span></td>
+                      <td>${utils.formatDateShort(l.auctionDate)}</td>
                       <td>
                         <div style="display:flex; align-items:center; gap:8px">
-                          <span style="width:50px; font-size:11px; font-weight:500">\${rp.days} days</span>
+                          <span style="width:50px; font-size:11px; font-weight:500">${rp.days} days</span>
                           <div class="m-bar" style="width:60px; height:4px">
-                            <div class="m-bar-f" style="width:\${prg}%; background:${prg <= 33 ? '#1a7f5a' : prg <= 66 ? '#b07a00' : '#b04020'}; height:100%"></div>
+                            <div class="m-bar-f" style="width:${prg}%; background:${prg <= 33 ? '#1a7f5a' : prg <= 66 ? '#b07a00' : '#b04020'}; height:100%"></div>
                           </div>
                         </div>
                       </td>
-                      <td>\${rp.rate ? rp.rate + '%' : 'N/A'}</td>
-                      <td>\${utils.formatDateShort(clearDate)}</td>
-                      <td><span style="font-size:10px; font-weight:600; color:\${statusColor}; text-transform:uppercase">\${status}</span></td>
+                      <td>${rp.rate ? rp.rate + '%' : 'N/A'}</td>
+                      <td>${utils.formatDateShort(clearDate)}</td>
+                      <td><span style="font-size:10px; font-weight:600; color:${statusColor}; text-transform:uppercase">${status}</span></td>
                     </tr>
-                  \`;
+                  `;
                 }).join('')}
               </tbody>
             </table>
@@ -752,20 +752,20 @@ function renderRedemp(root) {
             <div style="display:grid; grid-template-columns:repeat(2,1fr); gap:16px; margin-top:16px">
               ${Object.entries(REDEMPTION_PERIODS)
                 .filter(([k]) => k !== 'DEFAULT')
-                .map(([state, rp]) => \`
+                .map(([state, rp]) => `
                   <div class="m-card">
                     <div style="display:flex; justify-content:space-between; align-items:start; margin-bottom:12px">
-                      <div style="font-size:12px; font-weight:600; color:var(--tx-p)">\${state}</div>
-                      <span style="font-size:10px; padding:2px 8px; background:var(--bg-p); color:var(--tx-s); border-radius:2px; text-transform:uppercase">\${rp.type}</span>
+                      <div style="font-size:12px; font-weight:600; color:var(--tx-p)">${state}</div>
+                      <span style="font-size:10px; padding:2px 8px; background:var(--bg-p); color:var(--tx-s); border-radius:2px; text-transform:uppercase">${rp.type}</span>
                     </div>
                     <div style="display:flex; align-items:baseline; gap:8px; margin-bottom:12px">
-                      <div style="font-size:28px; font-weight:600; color:${rp.days === 0 ? '#1a7f5a' : rp.days <= 365 ? '#b07a00' : '#1a4fa0'}">\${rp.days}</div>
+                      <div style="font-size:28px; font-weight:600; color:${rp.days === 0 ? '#1a7f5a' : rp.days <= 365 ? '#b07a00' : '#1a4fa0'}">${rp.days}</div>
                       <div style="font-size:11px; color:var(--tx-t)">days</div>
                     </div>
-                    ${rp.rate ? \`<div style="font-size:10px; color:var(--tx-s); margin-bottom:8px">Rate: <strong>\${rp.rate}%</strong></div>\` : ''}
-                    <div style="font-size:9px; line-height:1.4; color:var(--tx-t); font-style:italic">\${rp.notes}</div>
+                    ${rp.rate ? `<div style="font-size:10px; color:var(--tx-s); margin-bottom:8px">Rate: <strong>${rp.rate}%</strong></div>` : ''}
+                    <div style="font-size:9px; line-height:1.4; color:var(--tx-t); font-style:italic">${rp.notes}</div>
                   </div>
-                \`).join('')}
+                `).join('')}
             </div>
           </div>
         </div>
