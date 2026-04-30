@@ -204,6 +204,15 @@ body { height: 100vh; background: var(--bg-p); color: var(--tx-p); font-family: 
   </main>
 </div>
 <div id="mdl-root"></div>
+<script>
+  // Global error handler for debugging
+  window.addEventListener('error', (e) => {
+    console.error('Global Error:', e.message, e.filename, e.lineno);
+  });
+  window.addEventListener('unhandledrejection', (e) => {
+    console.error('Unhandled Promise Rejection:', e.reason);
+  });
+</script>
 <script type="module" src="src/app.js"></script>
 </body>
 </html>
