@@ -205,14 +205,15 @@ body { height: 100vh; background: var(--bg-p); color: var(--tx-p); font-family: 
 </div>
 <div id="mdl-root"></div>
 <script>
-  // Global error handler
-  window.addEventListener('error', (e) => {
-    console.error('Error:', e.message);
-  });
-  window.addEventListener('unhandledrejection', (e) => {
-    console.error('Promise rejection:', e.reason);
+  window.addEventListener('error', (e) => console.error('Error:', e.message));
+  window.addEventListener('unhandledrejection', (e) => console.error('Rejection:', e.reason));
+</script>
+<script type="module">
+  import('./src/app.js').catch(e => {
+    console.error('App load failed:', e);
+    const content = document.getElementById('content');
+    if (content) content.innerHTML = `<div style="padding:40px;color:#ff6b6b">ERROR: ${e.message}</div>`;
   });
 </script>
-<script type="module" src="bootstrap.js"></script>
 </body>
 </html>
