@@ -1,4 +1,5 @@
 # Use the official Playwright image which includes all browser dependencies
+# Updated: Rebuilding for fallback seed data support
 FROM mcr.microsoft.com/playwright:v1.42.0-jammy
 
 # Set working directory
@@ -18,6 +19,5 @@ COPY . .
 # Expose the API port
 EXPOSE 3001
 
-# Command to run the application
-# We use a script to determine if we should run the Web API or the Worker
-CMD ["npm", "start"]
+# Run migrations on startup before app starts
+CMD ["sh", "-c", "npx prisma migrate deploy && npm start"]
