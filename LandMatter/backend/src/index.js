@@ -369,9 +369,8 @@ app.get('/api/scrapers', (req, res) => {
   });
 });
 
-// Health Check
 app.get('/api/health', (req, res) => {
-  res.json({ status: 'ok', engine: 'LandWatch Pro Node Engine' });
+  res.json({ status: 'ok', engine: 'LandWatch Pro Node Engine v2.1' });
 });
 
 // Seed Database with Mock Data (for initial population)
