@@ -1,4 +1,5 @@
 import { LISTINGS as SEED_LISTINGS, COUNTIES, SCRAPE_JOBS, REDEMPTION_PERIODS, STATE_DATA } from './data/seed.js';
+import * as utils from './lib/utils.js';
 
 // Determine API base URL based on environment
 const API_BASE = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
@@ -6,7 +7,6 @@ const API_BASE = window.location.hostname === 'localhost' || window.location.hos
   : '/api';
 
 let LISTINGS = SEED_LISTINGS; // default to seed; replaced by live data on load
-import * as utils from './lib/utils.js';
 
 let state = {
   page: 'dash',
@@ -588,7 +588,202 @@ function renderParcel(root) {
   document.querySelectorAll('.l-row').forEach(el => el.onclick = () => openMdl(parseInt(el.dataset.id)));
 }
 function renderRisk(root) { renderParcel(root); } // Similar view
-function renderRedemp(root) { root.innerHTML = '<div style="padding:48px; text-align:center; color:var(--tx-t)">Redemption Tracker Loading...</div>'; }
+function renderRedemp(root) {
+  let progress = 0;
+  let taxLienOnly = false;
+  
+  // Show loading screen first
+  root.innerHTML = `
+    <div style="max-width:600px; margin:80px auto; padding:48px">
+      <div style="text-align:center; margin-bottom:32px">
+        <div style="font-size:16px; font-weight:500; color:var(--tx-p); margin-bottom:8px">REDEMPTION TRACKER</div>
+        <div style="font-size:11px; color:var(--tx-t); margin-bottom:24px">Indexing redemption windows and state statutes...</div>
+      </div>
+      
+      <div style="background:var(--bg-card); border:0.5px solid var(--br-p); border-radius:4px; padding:24px; margin-bottom:16px">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px">
+          <div style="font-size:10px; color:var(--tx-s); text-transform:uppercase; letter-spacing:0.1em">Progress</div>
+          <div style="font-size:12px; font-weight:600; color:var(--gr-tx)" id="progress-pct">0%</div>
+        </div>
+        
+        <div style="width:100%; height:8px; background:var(--br-p); border-radius:2px; overflow:hidden; margin-bottom:16px">
+          <div id="progress-bar" style="height:100%; width:0%; background:linear-gradient(90deg, var(--gr-tx) 0%, var(--gr) 100%); transition:width 0.3s ease; border-radius:2px"></div>
+        </div>
+        
+        <div style="font-size:9px; color:var(--tx-t); line-height:1.6" id="progress-text">
+          ◈ Initializing redemption index...
+        </div>
+      </div>
+      
+      <div style="display:flex; gap:8px; justify-content:center; margin-top:24px">
+        <div style="width:6px; height:6px; background:var(--gr-tx); border-radius:50%; animation:pulse 1.5s ease-in-out infinite"></div>
+        <div style="width:6px; height:6px; background:var(--gr-tx); border-radius:50%; animation:pulse 1.5s ease-in-out infinite 0.3s"></div>
+        <div style="width:6px; height:6px; background:var(--gr-tx); border-radius:50%; animation:pulse 1.5s ease-in-out infinite 0.6s"></div>
+      </div>
+    </div>
+    
+    <style>
+      @keyframes pulse {
+        0%, 100% { opacity:0.3; }
+        50% { opacity:1; }
+      }
+    </style>
+  `;
+  
+  const steps = [
+    'Initializing redemption index...',
+    'Loading auction data...',
+    'Scanning state statutes...',
+    'Calculating redemption windows...',
+    'Processing title clear dates...',
+    'Building state reference grid...',
+    'Finalizing tracker...'
+  ];
+  
+  let step = 0;
+  const interval = setInterval(() => {
+    progress += Math.random() * 18;
+    if (progress > 90) progress = 90;
+    
+    document.getElementById('progress-bar').style.width = progress + '%';
+    document.getElementById('progress-pct').textContent = Math.floor(progress) + '%';
+    
+    if (step < steps.length) {
+      document.getElementById('progress-text').textContent = '◈ ' + steps[step];
+      step++;
+    }
+    
+    if (progress >= 90) {
+      clearInterval(interval);
+      setTimeout(() => renderTrackerContent(root), 400);
+    }
+  }, 200);
+  
+  function renderTrackerContent(container) {
+    let taxLienOnly = false;
+    
+    function render() {
+      const listings = taxLienOnly ? LISTINGS.filter(l => l.auctionType === 'Tax Lien') : LISTINGS;
+      const states = listings.map(l => l.state);
+      const uniqueStates = [...new Set(states)];
+      const noneRedemp = uniqueStates.filter(s => (REDEMPTION_PERIODS[s] || REDEMPTION_PERIODS.DEFAULT).days === 0);
+      const maxPeriod = Math.max(...uniqueStates.map(s => (REDEMPTION_PERIODS[s] || REDEMPTION_PERIODS.DEFAULT).days));
+      
+      container.innerHTML = `
+        <div>
+          <!-- METRICS -->
+          <div style="display:grid; grid-template-columns:repeat(4,1fr); gap:16px; margin-bottom:32px">
+            <div class="m-card">
+              <div style="font-size:32px; font-weight:600; color:var(--gr-tx)">${listings.length}</div>
+              <div style="font-size:10px; color:var(--tx-s); text-transform:uppercase; letter-spacing:0.1em; margin-top:4px">Tracked Auctions</div>
+            </div>
+            <div class="m-card">
+              <div style="font-size:32px; font-weight:600; color:#1a4fa0">${listings.filter(l => l.auctionType === 'Tax Lien').length}</div>
+              <div style="font-size:10px; color:var(--tx-s); text-transform:uppercase; letter-spacing:0.1em; margin-top:4px">Tax Lien Count</div>
+            </div>
+            <div class="m-card">
+              <div style="font-size:32px; font-weight:600; color:#1a7f5a">${noneRedemp.length}</div>
+              <div style="font-size:10px; color:var(--tx-s); text-transform:uppercase; letter-spacing:0.1em; margin-top:4px">No Redemption States</div>
+            </div>
+            <div class="m-card">
+              <div style="font-size:32px; font-weight:600; color:#b07a00">${maxPeriod}</div>
+              <div style="font-size:10px; color:var(--tx-s); text-transform:uppercase; letter-spacing:0.1em; margin-top:4px">Longest Period (Days)</div>
+            </div>
+          </div>
+
+          <!-- FILTER TOGGLE -->
+          <div style="display:flex; gap:12px; margin-bottom:24px; padding-bottom:16px; border-bottom:0.5px solid var(--br-p)">
+            <button id="filter-all" style="padding:8px 16px; font-size:11px; border:0.5px solid var(--br-p); background:${!taxLienOnly ? 'var(--bg-p)' : 'transparent'}; color:var(--tx-p); cursor:pointer; border-radius:3px; text-transform:uppercase; letter-spacing:0.1em; font-weight:500; transition:all 0.2s">All Auctions</button>
+            <button id="filter-liens" style="padding:8px 16px; font-size:11px; border:0.5px solid var(--br-p); background:${taxLienOnly ? 'var(--bg-p)' : 'transparent'}; color:var(--tx-p); cursor:pointer; border-radius:3px; text-transform:uppercase; letter-spacing:0.1em; font-weight:500; transition:all 0.2s">Tax Liens Only</button>
+          </div>
+
+          <!-- TRACKING TABLE -->
+          <div class="tbl-wrap" style="margin-bottom:48px">
+            <table class="tbl">
+              <thead>
+                <tr>
+                  <th>Property</th>
+                  <th>State</th>
+                  <th>Type</th>
+                  <th>Auction Date</th>
+                  <th>Redemption Period</th>
+                  <th>Rate</th>
+                  <th>Title Clears</th>
+                  <th>Status</th>
+                </tr>
+              </thead>
+              <tbody>
+                ${listings.map(l => {
+                  const rp = REDEMPTION_PERIODS[l.state] || REDEMPTION_PERIODS.DEFAULT;
+                  const prg = rp.days === 0 ? 100 : utils.redemptionProgress(l.auctionDate, rp.days);
+                  const clearDate = rp.days === 0 ? new Date(l.auctionDate) : utils.titleClearDate(l.auctionDate, rp.days);
+                  const now = new Date();
+                  const daysLeft = rp.days === 0 ? 0 : Math.floor((clearDate - now) / 86400000);
+                  let status = daysLeft <= 0 ? 'Cleared' : daysLeft <= 30 ? `${daysLeft}d left` : `Open — ${daysLeft}d`;
+                  let statusColor = daysLeft <= 0 ? '#1a7f5a' : daysLeft <= 30 ? '#b07a00' : '#888';
+                  
+                  return \`
+                    <tr data-id="\${l.id}" style="cursor:pointer; transition:background 0.2s" onmouseover="this.style.background='var(--br-p)'" onmouseout="this.style.background=''">
+                      <td style="font-weight:500">\${l.title}</td>
+                      <td><strong>\${l.state}</strong></td>
+                      <td><span style="font-size:10px; padding:4px 8px; background:${l.auctionType === 'Tax Lien' ? '#1a4fa015' : '#7b2fa015'}; color:${l.auctionType === 'Tax Lien' ? '#1a4fa0' : '#7b2fa0'}; border-radius:2px; text-transform:uppercase">\${l.auctionType === 'Tax Lien' ? 'Lien' : 'Deed'}</span></td>
+                      <td>\${utils.formatDateShort(l.auctionDate)}</td>
+                      <td>
+                        <div style="display:flex; align-items:center; gap:8px">
+                          <span style="width:50px; font-size:11px; font-weight:500">\${rp.days} days</span>
+                          <div class="m-bar" style="width:60px; height:4px">
+                            <div class="m-bar-f" style="width:\${prg}%; background:${prg <= 33 ? '#1a7f5a' : prg <= 66 ? '#b07a00' : '#b04020'}; height:100%"></div>
+                          </div>
+                        </div>
+                      </td>
+                      <td>\${rp.rate ? rp.rate + '%' : 'N/A'}</td>
+                      <td>\${utils.formatDateShort(clearDate)}</td>
+                      <td><span style="font-size:10px; font-weight:600; color:\${statusColor}; text-transform:uppercase">\${status}</span></td>
+                    </tr>
+                  \`;
+                }).join('')}
+              </tbody>
+            </table>
+          </div>
+
+          <!-- STATE REFERENCE GRID -->
+          <div style="margin-top:48px">
+            <div class="sec-t"><span>STATE REDEMPTION REFERENCE</span></div>
+            <div style="display:grid; grid-template-columns:repeat(2,1fr); gap:16px; margin-top:16px">
+              ${Object.entries(REDEMPTION_PERIODS)
+                .filter(([k]) => k !== 'DEFAULT')
+                .map(([state, rp]) => \`
+                  <div class="m-card">
+                    <div style="display:flex; justify-content:space-between; align-items:start; margin-bottom:12px">
+                      <div style="font-size:12px; font-weight:600; color:var(--tx-p)">\${state}</div>
+                      <span style="font-size:10px; padding:2px 8px; background:var(--bg-p); color:var(--tx-s); border-radius:2px; text-transform:uppercase">\${rp.type}</span>
+                    </div>
+                    <div style="display:flex; align-items:baseline; gap:8px; margin-bottom:12px">
+                      <div style="font-size:28px; font-weight:600; color:${rp.days === 0 ? '#1a7f5a' : rp.days <= 365 ? '#b07a00' : '#1a4fa0'}">\${rp.days}</div>
+                      <div style="font-size:11px; color:var(--tx-t)">days</div>
+                    </div>
+                    ${rp.rate ? \`<div style="font-size:10px; color:var(--tx-s); margin-bottom:8px">Rate: <strong>\${rp.rate}%</strong></div>\` : ''}
+                    <div style="font-size:9px; line-height:1.4; color:var(--tx-t); font-style:italic">\${rp.notes}</div>
+                  </div>
+                \`).join('')}
+            </div>
+          </div>
+        </div>
+      \`;
+      
+      // Attach filter listeners
+      document.getElementById('filter-all').onclick = () => { taxLienOnly = false; render(); };
+      document.getElementById('filter-liens').onclick = () => { taxLienOnly = true; render(); };
+      
+      // Attach row click listeners
+      document.querySelectorAll('tbody tr').forEach(el => 
+        el.onclick = () => openMdl(parseInt(el.dataset.id))
+      );
+    }
+    
+    render();
+  }
+}
 
 function renderCounties(root) {
   let progress = 0;
