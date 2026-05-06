@@ -30,10 +30,11 @@
     <main>
         <div class="container">
             <div class="ad-unit ad-top"><!-- AdSense --></div>
+            <div id="petbmi" style="position:absolute; visibility:hidden;"></div>
             <h1>Animal & <span style="color: var(--accent2);">Pet Health</span></h1>
             <p class="subtitle">Biological and nutritional audits for your companions.</p>
 
-            <section style="background: var(--surface); border: 1px solid var(--border); border-radius: 24px; padding: 40px; margin-bottom: 40px;">
+            <section class="info-section">
                 <h2 style="font-size: 24px; margin-bottom: 24px; color: var(--text);">Pet Health <span style="color: var(--accent);">Intelligence Suite</span></h2>
                 <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 32px;">
                     <div><h3 style="color: var(--accent); margin-bottom: 12px; font-size: 18px;">Breed Aging</h3><p style="color: var(--muted); line-height: 1.6; font-size: 14px;">Large dogs age up to 3x faster than cats or small breeds in later years.</p></div>
@@ -91,34 +92,41 @@
                 </div>
                 <div class="ad-unit ad-result"><!-- AdSense --></div>
             </div>
-        </div>
 
-            <!-- Educational Content Section -->
-            <section class="educational-content" style="margin-top: 60px; border-top: 1px solid var(--border); padding-top: 40px; padding-bottom: 60px;">
-                <h2 style="font-size: 28px; color: var(--text); margin-bottom: 24px;">The Science of <span style="color: var(--accent);">Pet Wellness</span></h2>
-                
-                <div style="color: var(--muted); line-height: 1.8;">
-                    <div style="margin-bottom: 32px;">
-                        <h3 style="color: var(--text); margin-bottom: 12px; font-size: 20px;">Understanding "Pet Years" vs. Human Years</h3>
-                        <p>The popular rule that "one dog year equals seven human years" is a major oversimplification. In reality, pets age much faster in their first two years of life and then the aging process slows down. For example, a one-year-old cat is roughly equivalent to a 15-year-old human, and a two-year-old cat is like a 24-year-old. Our <strong>Pet Age Comparative Tool</strong> uses species-specific and (for dogs) size-specific formulas to give you a more accurate biological age. Smaller dogs tend to live longer and age more slowly than giant breeds, a phenomenon that our calculator accounts for to help you better understand your pet's life stage.</p>
-                        <p style="margin-top: 16px;">Knowing your pet's biological age is crucial for preventive care. Senior pets (generally starting at age 7 for dogs and cats) require different nutritional profiles and more frequent health screenings for conditions like arthritis, kidney disease, and heart issues. By understanding where your pet sits on the biological spectrum, you can work with your veterinarian to tailor their care and maximize their quality of life as they enter their golden years.</p>
-                    </div>
+            <!-- Editorial Content Section -->
+            <section class="editorial-section">
+                <div class="editorial-label">
+                    <span class="editorial-tag">Category</span>
+                    <span class="editorial-title">Pet Health &amp; Nutrition</span>
+                </div>
 
-                    <div style="margin-bottom: 32px;">
-                        <h3 style="color: var(--text); margin-bottom: 12px; font-size: 20px;">Precision Nutrition: The RER Formula</h3>
-                        <p>Overfeeding is the leading cause of preventable health issues in pets. Our <strong>Nutritional Target Tool</strong> uses the Resting Energy Expenditure (RER) formula: 70 * (weight in kg)^0.75. This is the amount of energy your pet needs to maintain basic bodily functions at rest. We then apply an "Activity Multiplier" to account for their lifestyle. A working dog requires significantly more calories than a "couch potato" house cat. Using this data-driven approach prevents the common "eyeballing" of food portions that leads to obesity and associated metabolic diseases.</p>
-                        <p style="margin-top: 16px;">When using our calculator, be honest about your pet's activity level. "Normal" activity generally refers to daily walks or active play sessions. If your pet is primarily indoors and inactive, selecting "Sedentary" will provide a more realistic caloric goal. Remember that treats also contain calories; most veterinarians recommend that treats should make up no more than 10% of a pet's total daily caloric intake.</p>
+                <div class="content-block">
+                    <h3>About These Pet Health Calculators</h3>
+                    <p>Responsible pet ownership is increasingly supported by biological data. From understanding the non-linear aging process of different breeds to calculating precise Resting Energy Requirements (RER), these tools provide the quantitative foundation for your pet's wellness plan. While "eyeballing" food portions or following the "one year equals seven" age rule are common, they often lead to suboptimal health outcomes like obesity or late-stage senior care transitions.</p>
+                    <p>Our Pet Health Intelligence Suite is built to offer clarity. Our Age calculator accounts for species and size-specific biological markers, while the Nutrition tool uses the clinical RER formula: 70 * (weight in kg)^0.75. We also include a high-utility Toxicity auditor for common household hazards like chocolate, providing immediate risk assessments based on weight and dosage.</p>
+                    <p>For reference: our toxicity models focus on theobromine concentrations per ounce of specific chocolate types, and our age models are aligned with the life-stage guidelines established by the American Animal Hospital Association (AAHA).</p>
+                    <div class="use-cases">
+                        <span>Biological age comparison (Human Years)</span>
+                        <span>Daily calorie (RER) target calculation</span>
+                        <span>Emergency chocolate toxicity auditing</span>
+                        <span>Senior pet health milestone planning</span>
+                        <span>Activity-based feeding adjustments</span>
                     </div>
+                </div>
 
-                    <div style="margin-bottom: 32px;">
-                        <h3 style="color: var(--text); margin-bottom: 12px; font-size: 20px;">Theobromine Toxicity: Why Chocolate is Dangerous</h3>
-                        <p>Chocolate contains <strong>Theobromine</strong>, a compound that humans can easily metabolize but pets cannot. Our <strong>Chocolate Toxicity Auditor</strong> calculates the potential risk based on the type of chocolate (baking chocolate is far more dangerous than milk chocolate) and the pet's weight. If your pet consumes chocolate, our tool provides an immediate risk assessment. However, it is not a substitute for professional veterinary advice. If the calculator indicates a "Moderate" or "Severe" risk, time is of the essence; contact your vet or an animal poison control center immediately.</p>
-                    </div>
+                <div class="faq-block">
+                    <dt>Is 'one dog year' really equal to seven human years?</dt>
+                    <dd>Not exactly. Pets age much faster in their first two years—a one-year-old dog is biologically similar to a 15-year-old human. Furthermore, giant breeds age significantly faster than small breeds in later years. Our calculator uses breed-size and species-specific formulas to give you a more accurate biological equivalent for your pet's current life stage.</dd>
+                </div>
 
-                    <div>
-                        <h3 style="color: var(--text); margin-bottom: 12px; font-size: 20px;">Holistic Pet Care</h3>
-                        <p>Metrics are just one part of pet wellness. Regular exercise, mental stimulation, and consistent veterinary checkups form the foundation of a healthy life. Our <strong>Pet Wellness Suite</strong> is designed to provide you with the data needed to make informed decisions about your pet's health. Whether you are adjusting their diet, tracking their aging, or managing an emergency, having the right information at your fingertips is the first step toward being the best pet parent possible.</p>
-                    </div>
+                <div class="faq-block">
+                    <dt>How many calories does my pet actually need?</dt>
+                    <dd>Overfeeding is the #1 preventable health issue for pets. We use the Resting Energy Requirement (RER) formula combined with an activity multiplier. A sedentary "couch potato" house cat needs significantly fewer calories than a working dog. Using our calculator helps prevent obesity-related issues like arthritis and diabetes by providing a data-driven feeding goal.</dd>
+                </div>
+
+                <div class="faq-block">
+                    <dt>Why is dark chocolate more dangerous than milk chocolate?</dt>
+                    <dd>Dark chocolate and baking chocolate contain much higher concentrations of theobromine, the compound toxic to dogs and cats. While a few ounces of milk chocolate might cause mild stomach upset in a large dog, the same amount of baking chocolate can be life-threatening. Always use our toxicity auditor to assess the specific risk based on your pet's weight and the type of chocolate consumed.</dd>
                 </div>
             </section>
         </div>

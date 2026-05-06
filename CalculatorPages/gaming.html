@@ -24,10 +24,12 @@
     <main>
         <div class="container">
             <div class="ad-unit ad-top"><!-- AdSense --></div>
+            <div id="prob" style="position:absolute; visibility:hidden;"></div>
+            <div id="bitrate" style="position:absolute; visibility:hidden;"></div>
             <h1>Hobbies & <span style="color: var(--accent2);">Digital Entert.</span></h1>
             <p class="subtitle">Math for the gaming and content creation economy.</p>
 
-            <section style="background: var(--surface); border: 1px solid var(--border); border-radius: 24px; padding: 40px; margin-bottom: 40px;">
+            <section class="info-section">
                 <h2 style="font-size: 24px; margin-bottom: 24px; color: var(--text);">Gaming <span style="color: var(--accent);">Intelligence Suite</span></h2>
                 <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 32px;">
                     <div><h3 style="color: var(--accent); margin-bottom: 12px; font-size: 18px;">Gacha Soft Pity</h3><p style="color: var(--muted); line-height: 1.6; font-size: 14px;">Most games increase rates drastically after pull 75. A 0.6% base rate often scales to 20%+ per pull in the "soft" range.</p></div>
@@ -106,32 +108,40 @@
             </div>
         </div>
 
-            <!-- Educational Content Section -->
-            <section class="educational-content" style="margin-top: 60px; border-top: 1px solid var(--border); padding-top: 40px; padding-bottom: 60px;">
-                <h2 style="font-size: 28px; color: var(--text); margin-bottom: 24px;">The Math Behind the <span style="color: var(--accent);">Modern Game</span></h2>
-                
-                <div style="color: var(--muted); line-height: 1.8;">
-                    <div style="margin-bottom: 32px;">
-                        <h3 style="color: var(--text); margin-bottom: 12px; font-size: 20px;">Gacha Mechanics: Probability and "Pity"</h3>
-                        <p>In the world of free-to-play gaming, <strong>Gacha Probability</strong> is the engine that drives revenue. A "gacha" is essentially a virtual lottery where you spend currency for a chance at a rare item or character. Our <strong>Gacha Simulator</strong> accounts for two critical factors: the raw base rate and the "Pity System." Most modern games include a mechanic where your odds of success increase as you go more pulls without a rare drop. This "Soft Pity" often peaks at a "Hard Pity" where the drop is guaranteed. Understanding these curves is essential for managing your resources and avoiding the psychological trap of "gambler's fallacy."</p>
-                        <p style="margin-top: 16px;">The "Gambler's Fallacy" is the belief that because you haven't won lately, you are "due" for a win. While a pity system actually makes this true in-game, in a pure RNG (Random Number Generator) system, every pull is an independent event with the same odds. By using our tool to calculate your cumulative probability, you can see the <em>real</em> likelihood of getting your target character within a specific budget, allowing you to make rational decisions about when to spend and when to save your currency for the next banner.</p>
-                    </div>
+            <!-- Editorial Content Section -->
+            <section class="editorial-section">
+                <div class="editorial-label">
+                    <span class="editorial-tag">Category</span>
+                    <span class="editorial-title">Hobbies &amp; Digital Entertainment</span>
+                </div>
 
-                    <div style="margin-bottom: 32px;">
-                        <h3 style="color: var(--text); margin-bottom: 12px; font-size: 20px;">DPS Optimization: Beyond Raw Attack</h3>
-                        <p>In competitive and RPG gaming, <strong>DPS (Damage Per Second)</strong> is the ultimate measure of performance. Many players make the mistake of focusing only on high "Attack" numbers, but true optimization requires balancing <strong>Crit Rate</strong> and <strong>Crit Multiplier</strong>. Our <strong>DPS Calculator</strong> uses the weighted average formula to find your effective output. In many systems, maintaining a 1:2 ratio between Crit Rate and Crit Damage is the most efficient way to scale your power, ensuring that your investment in gear translates to the highest possible impact on the battlefield.</p>
-                        <p style="margin-top: 16px;">Attack speed is another critical variable. A weapon that hits twice as hard but half as fast has the same base DPS, but might be less effective at triggering "on-hit" effects or managing multiple small enemies. By plugging your build's specific stats into our auditor, you can identify the "diminishing returns" of certain attributes and shift your focus to the stats that will provide the largest net increase to your combat effectiveness.</p>
+                <div class="content-block">
+                    <h3>About These Gaming Calculators</h3>
+                    <p>Modern gaming is a highly quantitative hobby, where mastery is often a result of understanding the underlying mathematical systems. From the probability curves and "pity systems" of gacha mechanics to the complex damage-per-second (DPS) formulas used in RPG build optimization, being a data-driven player provides a significant competitive advantage. Our tools are built to help gamers and content creators navigate these digital economies with transparency.</p>
+                    <p>Our Gaming Intelligence Suite handles the math behind the fun. The Gacha RNG tool models the cumulative probability of rare drops, including the "soft" and "hard" pity curves used by modern publishers. Our DPS optimizer identifies the most efficient path to character power using weighted crit ratios, while our streaming tools manage the technical bitrate math and revenue projections for content creators.</p>
+                    <p>For reference: our probability models assume independent events unless the pity threshold is reached, and our bitrate calculations utilize the standard binary gigabyte (1,024 MB) conversion for storage estimation.</p>
+                    <div class="use-cases">
+                        <span>Gacha pull probability & pity auditing</span>
+                        <span>RPG character (DPS) build optimization</span>
+                        <span>Streaming bitrate & VOD storage planning</span>
+                        <span>Content creator revenue forecasting</span>
+                        <span>RNG resource management (soft vs. hard pity)</span>
                     </div>
+                </div>
 
-                    <div style="margin-bottom: 32px;">
-                        <h3 style="color: var(--text); margin-bottom: 12px; font-size: 20px;">Streaming Economics and Bitrate Math</h3>
-                        <p>For aspiring content creators, understanding the technical and financial metrics of streaming is vital. Our <strong>Streamer Revenue Projector</strong> helps you estimate your take-home pay after platform cuts. Simultaneously, our <strong>Bitrate & Storage Tool</strong> manages the technical side of the craft. Recording high-quality footage at a high bitrate (e.g., 50 Mbps for 4K) can consume hundreds of gigabytes in just a few hours. Planning your storage needs ahead of time prevents the frustration of a "Disk Full" error in the middle of a record-breaking speedrun or a high-stakes tournament.</p>
-                    </div>
+                <div class="faq-block">
+                    <dt>What is the 'Soft Pity' system in Gacha games?</dt>
+                    <dd>Most modern games (like Genshin Impact or HSR) don't use flat rates. Instead, after a certain number of unsuccessful pulls (e.g., 75), your odds of a rare drop increase exponentially with each subsequent pull until you reach "Hard Pity" at 90. Our calculator models this curve so you can budget your currency effectively.</dd>
+                </div>
 
-                    <div>
-                        <h3 style="color: var(--text); margin-bottom: 12px; font-size: 20px;">Data-Driven Gaming</h3>
-                        <p>Gaming has evolved into a highly quantitative hobby. Whether you are managing your gacha pulls, optimizing your character build, or building a content creation brand, having the right data is a competitive advantage. Our <strong>Gaming Math Suite</strong> is designed to provide you with the clarity needed to excel in your favorite virtual worlds. Master the metrics, understand the systems, and let the data guide your path to victory.</p>
-                    </div>
+                <div class="faq-block">
+                    <dt>How do I optimize my character's DPS?</dt>
+                    <dd>The key to maximizing damage is balancing Crit Rate and Crit Damage. The industry standard "1:2 ratio" (e.g., 60% Crit Rate to 120% Crit Damage) is mathematically the most efficient way to scale output. Our DPS tool accounts for base damage and attack speed to show you exactly how each stat shift impacts your average output.</dd>
+                </div>
+
+                <div class="faq-block">
+                    <dt>How much storage does a 1080p60 stream take?</dt>
+                    <dd>Streaming at 1080p60 with a 6,000kbps bitrate (6 Mbps) generates approximately 2.7 GB of data per hour. If you are recording a high-quality master copy at 50 Mbps, that requirement jumps to nearly 22 GB per hour. Planning your disk space with our storage estimator prevents recording failures during critical gaming sessions.</dd>
                 </div>
             </section>
         </div>

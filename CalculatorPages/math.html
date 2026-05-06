@@ -30,15 +30,59 @@
     <main>
         <div class="container">
             <div class="ad-unit ad-top"><!-- AdSense --></div>
+            <div id="geom" style="position:absolute; visibility:hidden;"></div>
+            <div id="pythagoras" style="position:absolute; visibility:hidden;"></div>
+            <div id="circle" style="position:absolute; visibility:hidden;"></div>
+            <div id="pctchange" style="position:absolute; visibility:hidden;"></div>
             <h1>Math & <span style="color: var(--accent);">Geometry</span></h1>
             <p class="subtitle">Essential solvers for students, engineers, and problem-solvers.</p>
 
-            <section style="background: var(--surface); border: 1px solid var(--border); border-radius: 24px; padding: 40px; margin-bottom: 40px;">
-                <h2 style="font-size: 24px; margin-bottom: 24px; color: var(--text);">Math <span style="color: var(--accent);">Intelligence Suite</span></h2>
-                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 32px;">
-                    <div><h3 style="color: var(--accent); margin-bottom: 12px; font-size: 18px;">Discriminant (Δ)</h3><p style="color: var(--muted); line-height: 1.6; font-size: 14px;">In quadratic equations, b² - 4ac determines root nature. If > 0, roots are real/distinct; if = 0, real/repeated; if < 0, roots are complex.</p></div>
-                    <div><h3 style="color: var(--accent); margin-bottom: 12px; font-size: 18px;">Golden Ratio (φ)</h3><p style="color: var(--muted); line-height: 1.6; font-size: 14px;">As the Fibonacci sequence grows, the ratio between consecutive numbers approaches φ (≈1.618), found throughout nature and architecture.</p></div>
-                    <div><h3 style="color: var(--accent); margin-bottom: 12px; font-size: 18px;">Heron's Formula</h3><p style="color: var(--muted); line-height: 1.6; font-size: 14px;">Calculate a triangle's area using only its three side lengths (a, b, c) and the semi-perimeter (s), making it ideal for non-right triangles.</p></div>
+            </section>
+
+            <!-- Editorial Content Block -->
+            <section class="content-block">
+                <h3>Math and Geometry: The Universal Language of Problem Solving</h3>
+                <p>Mathematics is the bedrock of every other tool on this site. While other sections apply math to finance, engineering, or health, this section focuses on the pure mathematical structures that make those applications possible. From the quadratic curves that model projectile motion to the Fibonacci sequences found in the spiral of a galaxy, math is the underlying code of the universe. The tools here are designed to provide students, educators, and professionals with a clinical-grade environment for solving complex algebraic and geometric problems.</p>
+                <p>Our calculators implement the foundational theorems of Western mathematics — from Pythagoras to Heron. We provide not just the answer, but the mathematical baseline needed to understand the "why" behind the result.</p>
+                
+                <h4>Quadratic Equations and the Discriminant</h4>
+                <p>The quadratic formula [x = (-b ± &radic;(b² - 4ac)) / 2a] is one of the most powerful tools in algebra. It allows for the solution of any second-degree polynomial. Our Quadratic solver highlights the "Discriminant" (D = b² - 4ac). This single value determines the nature of the roots: if D > 0, you have two distinct real roots; if D = 0, you have one repeated real root; and if D < 0, the roots are complex (imaginary).</p>
+                <p>The core insight: quadratic equations represent parabolas. The roots are the exact points where that parabola crosses the x-axis. Understanding this relationship is critical in physics for calculating "time of flight" and in business for finding "break-even points" in profit models.</p>
+                
+                <h4>Triangular Geometry: Beyond the Right Angle</h4>
+                <p>While the Pythagorean Theorem (a² + b² = c²) is famous, it only applies to right triangles. For the vast majority of real-world triangles, we must use Heron's Formula. This elegant theorem allows you to find the area of *any* triangle using only the lengths of its three sides. Our Triangle solver automates this process, calculating the semi-perimeter (s) and providing the area with absolute precision.</p>
+                <p>This tool is indispensable for land surveying, architecture, and navigation, where right angles are rarely the default. It provides the "Ground Truth" for any three-sided space, regardless of its orientation or internal angles.</p>
+                
+                <h4>The Fibonacci Sequence and the Golden Ratio (&phi;)</h4>
+                <p>The Fibonacci sequence (0, 1, 1, 2, 3, 5, 8...) is a simple additive pattern where each number is the sum of the previous two. As the sequence progresses, the ratio between consecutive numbers approaches the "Golden Ratio" (&phi; &asymp; 1.618). Our Fibonacci tool allows you to project this sequence to any level, revealing the mathematical proportions found in sunflower seeds, shell spirals, and classical architecture.</p>
+                <p>Modern designers use these proportions to create "organic" layouts that are naturally pleasing to the human eye. Visualizing the sequence at scale provides a unique perspective on the intersection of mathematics and natural aesthetics.</p>
+                
+                <h4>Percentage Change and Algebraic Logic</h4>
+                <p>Percentages are the most common source of mathematical error in daily life. A "20% increase" followed by a "20% decrease" does not return you to your starting point (you actually lose 4%). Our Percentages tool handles these asymmetric relationships, providing the mathematical baseline for calculating markups, discounts, and percentage change. We also include GCD (Greatest Common Divisor) and LCM (Least Common Multiple) solvers, which are the fundamental units for fraction arithmetic and scheduling cycles.</p>
+
+                <div class="faq-section">
+                    <dl>
+                        <div class="faq-block">
+                            <dt>Why does my quadratic result say "No Real Roots"?</dt>
+                            <dd>This happens when the discriminant (b² - 4ac) is negative. Mathematically, this means the parabola never crosses the x-axis — it "floats" above or below it. In a physical context, this might mean a projected object never reaches a certain height or a business never reaches a break-even point.</dd>
+                        </div>
+                        <div class="faq-block">
+                            <dt>What is the "Semi-Perimeter" in Heron's Formula?</dt>
+                            <dd>The semi-perimeter (s) is simply half of the total perimeter: (a + b + c) / 2. It is a necessary intermediate step in Heron's calculation. Our tool handles this automatically, but understanding (s) is critical for students learning the manual derivation of triangular area.</dd>
+                        </div>
+                        <div class="faq-block">
+                            <dt>Does the Fibonacci sequence have practical applications in finance?</dt>
+                            <dd>Yes, "Fibonacci Retracement" levels (23.6%, 38.2%, 61.8%) are widely used in technical analysis to predict support and resistance levels in stock and crypto markets. Our sequence tool provides the raw numbers used to calculate these critical financial ratios.</dd>
+                        </div>
+                        <div class="faq-block">
+                            <dt>How do I calculate a "Markup" vs. a "Margin"?</dt>
+                            <dd>Markup is calculated as [Profit / Cost], while Margin is [Profit / Revenue]. A 50% markup results in a 33% margin. Use our Percentage tool to toggle between these perspectives to ensure your business pricing remains sustainable and your "Net Profit" is correctly modeled.</dd>
+                        </div>
+                    </dl>
+                </div>
+
+                <div class="use-tags">
+                    <span>Algebraic modeling</span><span>Geometric theorems</span><span>Proportional design</span><span>Statistical baseline</span><span>Academic reference</span>
                 </div>
             </section>
 
@@ -143,32 +187,40 @@
             </div>
         </div>
 
-            <!-- Educational Content Section -->
-            <section class="educational-content" style="margin-top: 60px; border-top: 1px solid var(--border); padding-top: 40px; padding-bottom: 60px;">
-                <h2 style="font-size: 28px; color: var(--text); margin-bottom: 24px;">The Logic of <span style="color: var(--accent);">Pure Mathematics</span></h2>
-                
-                <div style="color: var(--muted); line-height: 1.8;">
-                    <div style="margin-bottom: 32px;">
-                        <h3 style="color: var(--text); margin-bottom: 12px; font-size: 20px;">The Quadratic Formula: Solving for the Unknown</h3>
-                        <p>In algebra, the <strong>Quadratic Formula</strong> is a fundamental tool for finding the roots of a second-degree polynomial. Given an equation in the form ax² + bx + c = 0, the formula provides the exact points where the parabola crosses the x-axis. Our <strong>Quadratic Solver</strong> handles the complex math for you, identifying both real and imaginary (complex) solutions. This formula is used in physics to calculate projectile motion, in economics to find equilibrium points, and in engineering to determine structural stability.</p>
-                        <p style="margin-top: 16px;">The "Discriminant" (b² - 4ac) is the most critical part of the formula. If it is positive, you have two real roots; if it is zero, you have one; and if it is negative, the roots are complex. Understanding these different outcomes is essential for interpreting the physical meaning of your mathematical models. Our tool provides immediate clarity, allowing you to focus on the application of the result rather than the mechanics of the calculation.</p>
-                    </div>
+            <!-- Editorial Content Section -->
+            <section class="editorial-section">
+                <div class="editorial-label">
+                    <span class="editorial-tag">Category</span>
+                    <span class="editorial-title">Pure Mathematics &amp; Geometry</span>
+                </div>
 
-                    <div style="margin-bottom: 32px;">
-                        <h3 style="color: var(--text); margin-bottom: 12px; font-size: 20px;">Geometry and the Fibonacci Sequence</h3>
-                        <p>Geometry is the study of shape, size, and the properties of space. Our <strong>Geometric Analysis Tool</strong> allows you to calculate the area and volume of fundamental shapes like spheres and cylinders. Simultaneously, we explore the <strong>Fibonacci Sequence</strong>, a series of numbers where each number is the sum of the two preceding ones. This sequence appears throughout nature—from the arrangement of leaves on a stem to the spiral of a galaxy. It is a striking example of how simple mathematical rules can produce complex, organic beauty.</p>
-                        <p style="margin-top: 16px;">The ratio between consecutive Fibonacci numbers approaches the <strong>Golden Ratio</strong> (approximately 1.618), a proportion often cited for its aesthetic appeal in art and architecture. By generating these sequences and calculating geometric volumes, you are engaging with the same mathematical principles that govern the physical structure of our universe. Whether you are designing a product or simply curious about the world, these tools provide a window into the underlying logic of reality.</p>
+                <div class="content-block">
+                    <h3>About These Mathematics Calculators</h3>
+                    <p>Mathematics is the universal language of structure, pattern, and logical consequence. From the elegant symmetry of a Fibonacci spiral to the precise curvature of a structural cylinder, the world around us is governed by quantitative laws. These tools are designed to provide both the solvers needed for practical problem-solving and the underlying logic that makes those solutions possible.</p>
+                    <p>Our Mathematics Intelligence Suite covers the spectrum of computational needs. The Algebraic tools handle complex quadratic roots and number theory (GCD/LCM), while the Geometric solvers provide high-fidelity volume and surface area modeling for 3D shapes. We also include sequence generators for the Fibonacci series, allowing you to explore the mathematical patterns found throughout nature.</p>
+                    <p>For reference: our Quadratic solver utilizes the standard algebraic formula (ax² + bx + c = 0), and our Geometric tools utilize the classical Euclidean formulas for spheres and cylinders.</p>
+                    <div class="use-cases">
+                        <span>Quadratic root (Discriminant) analysis</span>
+                        <span>3D Geometric volume modeling</span>
+                        <span>Number theory (GCD/LCM) auditing</span>
+                        <span>Fibonacci sequence & Golden Ratio exploration</span>
+                        <span>Percentage change & growth tracking</span>
                     </div>
+                </div>
 
-                    <div style="margin-bottom: 32px;">
-                        <h3 style="color: var(--text); margin-bottom: 12px; font-size: 20px;">Number Theory: GCD and LCM</h3>
-                        <p>Number theory is the study of the properties of integers. Two of its most common applications are finding the <strong>Greatest Common Divisor (GCD)</strong> and the <strong>Least Common Multiple (LCM)</strong>. Our <strong>Algebraic Logic Tool</strong> simplifies these tasks, which are foundational for working with fractions, solving periodic problems, and understanding cryptography. These concepts help you find the "common ground" between different numbers, a skill that is vital for everything from musical rhythm to computer science algorithms.</p>
-                    </div>
+                <div class="faq-block">
+                    <dt>What is the 'Discriminant' in a quadratic equation?</dt>
+                    <dd>The discriminant (b² - 4ac) is the part of the quadratic formula that determines the nature of the roots. If the discriminant is greater than zero, you have two distinct real roots; if it is zero, you have one repeated real root; and if it is less than zero, the roots are complex. This is a critical indicator of how the parabola interacts with the x-axis.</dd>
+                </div>
 
-                    <div>
-                        <h3 style="color: var(--text); margin-bottom: 12px; font-size: 20px;">Mastering the Mathematical Mindset</h3>
-                        <p>Mathematics is not just about getting the right answer; it's about developing a structured way of thinking. Our <strong>Math Suite</strong> is designed to support students, professionals, and the curious in their exploration of numbers. By automating the repetitive parts of calculation, we allow you to focus on the "why" behind the "what." Stay rigorous, stay curious, and let the logic of math illuminate your path.</p>
-                    </div>
+                <div class="faq-block">
+                    <dt>Why does the Fibonacci sequence appear in nature?</dt>
+                    <dd>The Fibonacci sequence (0, 1, 1, 2, 3, 5, 8...) appears in nature because it is the most efficient way for organic structures to grow and pack space. The arrangement of leaves on a stem or the seeds in a sunflower often follow these numbers to maximize sunlight exposure and structural stability. The ratio between these numbers approaches the Golden Ratio (≈1.618).</dd>
+                </div>
+
+                <div class="faq-block">
+                    <dt>When should I use GCD vs. LCM?</dt>
+                    <dd>The Greatest Common Divisor (GCD) is used to find the largest number that divides into two values evenly—essential for simplifying fractions. The Least Common Multiple (LCM) finds the smallest number that both values can divide into—vital for finding common denominators or solving periodic problems where two cycles must sync up.</dd>
                 </div>
             </section>
         </div>

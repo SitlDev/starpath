@@ -30,15 +30,56 @@
     <main>
         <div class="container">
             <div class="ad-unit ad-top"><!-- AdSense --></div>
+            <div id="vol" style="position:absolute; visibility:hidden;"></div>
             <h1>DIY & <span style="color: var(--accent);">Construction</span></h1>
             <p class="subtitle">Material estimations for structural efficiency.</p>
 
-            <section style="background: var(--surface); border: 1px solid var(--border); border-radius: 24px; padding: 40px; margin-bottom: 40px;">
-                <h2 style="font-size: 24px; margin-bottom: 24px; color: var(--text);">DIY <span style="color: var(--accent);">Intelligence Suite</span></h2>
-                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 32px;">
-                    <div><h3 style="color: var(--accent); margin-bottom: 12px; font-size: 18px;">Concrete Bagging</h3><p style="color: var(--muted); line-height: 1.6; font-size: 14px;">A standard 80lb bag of pre-mix concrete yields approximately 0.6 cubic feet. For larger slabs, ordering by the cubic yard (27 cu ft) is more cost-effective.</p></div>
-                    <div><h3 style="color: var(--accent); margin-bottom: 12px; font-size: 18px;">The 10% Rule</h3><p style="color: var(--muted); line-height: 1.6; font-size: 14px;">Always order 10% more material than your calculation suggests. This account for waste, spills, and inaccuracies in wall measurements or ground leveling.</p></div>
-                    <div><h3 style="color: var(--accent); margin-bottom: 12px; font-size: 18px;">Board Foot (BF)</h3><p style="color: var(--muted); line-height: 1.6; font-size: 14px;">Lumber is sold by volume. One board foot is equal to 144 cubic inches (e.g., 12" x 12" x 1"). Thick lumber (over 1") is priced by the quarter-inch increment.</p></div>
+            </section>
+
+            <!-- Editorial Content Block -->
+            <section class="content-block">
+                <h3>DIY and Construction Math: Building with Precision</h3>
+                <p>Home improvement projects often fail not due to a lack of skill, but due to a lack of mathematical planning. Underestimating the amount of concrete needed for a slab or the number of paint gallons for a room leads to expensive mid-project supply runs and inconsistent results. The tools in this section are designed to provide the mathematical baseline for your DIY projects, translating your measurements into actionable material counts.</p>
+                <p>From the cubic volume of a concrete pour to the board-foot measurements of hardwood lumber, our calculators provide the professional-grade precision used by contractors and tradespeople. By modeling your waste and coverage upfront, you can build with confidence and stay on budget.</p>
+                
+                <h4>Concrete Volume: Bags vs. Yards</h4>
+                <p>Concrete is sold in two primary ways: by the 80lb bag (pre-mix) or by the cubic yard (ready-mix truck). Our Concrete calculator helps you determine which path is more cost-effective. A standard 80lb bag yields approximately 0.6 cubic feet. If your project requires more than 40 bags (24 cubic feet), it is almost always cheaper and physically easier to order a ready-mix truck.</p>
+                <p>The core insight: one cubic yard is 27 cubic feet. The calculator handle the unit conversion between "Feet" (length/width) and "Inches" (thickness) to find the total volume. It also implements the "10% Waste Rule" — accounting for ground leveling issues and spillage. Ordering exactly what you calculate often results in a "short" pour, which is a structural disaster for a slab.</p>
+                
+                <h4>Paint Coverage and the "Spread Rate"</h4>
+                <p>Paint is an expensive material, and coverage varies wildly by surface texture. A standard gallon of paint is rated for 350 to 400 square feet on a smooth, primed surface. However, on porous materials like new drywall or textured masonry, that coverage can drop to 200 square feet. Our Paint calculator allows you to input your wall dimensions and accounts for "Deductibles" like doors and windows.</p>
+                <p>The tool provides the total gallon count for two coats, which is the standard for a professional-grade finish. Seeing the mathematical requirement upfront allows you to purchase all your paint at once, ensuring "color consistency" from the same mixing batch — a critical detail that is often missed in mid-project supply runs.</p>
+                
+                <h4>Lumber Math: Understanding the Board Foot (BF)</h4>
+                <p>While construction lumber (2x4s) is sold by the piece, hardwood lumber for fine woodworking is sold by volume using the Board Foot. One board foot is equal to 144 cubic inches (12" x 12" x 1"). Our Board Foot calculator handles the conversion for lumber of varying thicknesses, often expressed in quarters (e.g., 4/4 is 1" thick, 8/4 is 2" thick).</p>
+                <p>Understanding BF pricing is the key to accurate project quoting. Hardwood dealers charge by the actual volume of the rough-cut board, not the final dimension after you've planed and sanded it. Using the calculator to model your "Net Board Feet" vs. your "Gross Purchase" reveals the true cost of your project's material waste.</p>
+                
+                <h4>The "10% Waste Rule" for All DIY</h4>
+                <p>In construction, the shortest distance between two points is never a straight line. Cutting mistakes, board warping, and material defects are a reality of every project. We recommend adding a 10% waste factor to every calculation in this section. For complex tile or flooring patterns (like herringbone), that factor should increase to 15%. Our tools provide the "Calculated" amount and the "Order" amount to keep your project moving forward without interruption.</p>
+
+                <div class="faq-section">
+                    <dl>
+                        <div class="faq-block">
+                            <dt>How thick should a concrete patio slab be?</dt>
+                            <dd>The standard for residential patios and walkways is 4 inches. For driveways that will hold heavy vehicles, 6 inches is recommended. Use our calculator to see how that 2-inch difference impacts your bag count; for a 10x10 slab, it's the difference between 56 bags and 84 bags.</dd>
+                        </div>
+                        <div class="faq-block">
+                            <dt>Does the paint calculator account for the ceiling?</dt>
+                            <dd>Our current tool is designed for wall surfaces. To include the ceiling, simply add the room's [Length × Width] to your total square footage. Remember that ceilings often require a different type of paint (Flat) than walls (Eggshell/Satin), so calculate those gallons separately.</dd>
+                        </div>
+                        <div class="faq-block">
+                            <dt>What is "4/4" and "8/4" lumber in the board foot tool?</dt>
+                            <dd>This is "quarter-sawn" notation. 4/4 ("four-quarter") is 1 inch thick; 8/4 is 2 inches thick. Hardwood is measured in the rough, so a 4/4 board will usually be about 3/4" thick after you've surfaced it. Our calculator uses the rough thickness to find the board feet, as that is what you pay for at the lumber yard.</dd>
+                        </div>
+                        <div class="faq-block">
+                            <dt>How do I calculate material for an irregular-shaped room?</dt>
+                            <dd>The easiest way is to "Section" the room into smaller rectangles. Calculate the area of each rectangle separately, then sum them together. Our tool's "Total Square Footage" output can then be used to find your paint or flooring requirements.</dd>
+                        </div>
+                    </dl>
+                </div>
+
+                <div class="use-tags">
+                    <span>Material estimation</span><span>Concrete volume math</span><span>Hardwood BF pricing</span><span>Project budgeting</span><span>Waste management</span>
                 </div>
             </section>
 
@@ -94,32 +135,40 @@
                 <div class="ad-unit ad-result"><!-- AdSense --></div>
             </div>
 
-            <!-- Educational Content Section -->
-            <section class="educational-content" style="margin-top: 60px; border-top: 1px solid var(--border); padding-top: 40px; padding-bottom: 60px;">
-                <h2 style="font-size: 28px; color: var(--text); margin-bottom: 24px;">Mastering Your <span style="color: var(--accent);">Home Improvement Projects</span></h2>
-                
-                <div style="color: var(--muted); line-height: 1.8;">
-                    <div style="margin-bottom: 32px;">
-                        <h3 style="color: var(--text); margin-bottom: 12px; font-size: 20px;">Concrete Calculations: Planning for Success</h3>
-                        <p>Concrete is one of the most durable building materials, but it's also one of the most unforgiving if you miscalculate your needs. Ordering too little concrete from a ready-mix truck results in "cold joints," where the new concrete doesn't bond perfectly with the old, creating a structural weak point. Ordering too much is simply a waste of money. Our <strong>Concrete Calculator</strong> provides results in cubic yards—the industry standard for large orders—and total 60lb bags for smaller, DIY-friendly projects.</p>
-                        <p style="margin-top: 16px;">When planning a slab, always add a 10% "spillage and waste" factor. Ground is rarely perfectly level, and forms can bulge slightly under the weight of wet concrete. If you're pouring a 4-inch sidewalk, calculate for 4.25 inches to ensure you don't run short. Remember, concrete is heavy; a single cubic yard weighs approximately 4,000 lbs. Ensure your sub-base is well-compacted and your forms are braced strongly enough to handle the hydrostatic pressure of the wet mix.</p>
-                    </div>
+            <!-- Editorial Content Section -->
+            <section class="editorial-section">
+                <div class="editorial-label">
+                    <span class="editorial-tag">Category</span>
+                    <span class="editorial-title">DIY &amp; Construction Math</span>
+                </div>
 
-                    <div style="margin-bottom: 32px;">
-                        <h3 style="color: var(--text); margin-bottom: 12px; font-size: 20px;">Painting: Precision Estimation</h3>
-                        <p>A fresh coat of paint is the highest ROI home improvement project you can undertake, but standing in the hardware store aisle trying to guess how many gallons you need is a recipe for multiple trips. Most high-quality paints cover approximately 350 to 400 square feet per gallon. However, this varies significantly based on the texture of the wall. A porous, "knockdown" texture or new, unprimed drywall will drink up paint much faster than a smooth, previously painted surface. Our <strong>Paint Estimator</strong> helps you find the right volume for single or double-coat applications, helping you buy just what you need.</p>
-                        <p style="margin-top: 16px;">Always remember: two thin coats are always better than one thick coat. Thin coats dry faster, harder, and provide a more even sheen. If you're changing colors drastically (like going from navy blue to off-white), a dedicated primer is essential. While "paint and primer in one" products are convenient, they often lack the "hide" capability of a specialized high-solids primer, meaning you might end up needing four coats instead of two.</p>
+                <div class="content-block">
+                    <h3>About These DIY Calculators</h3>
+                    <p>In the world of home improvement, precision is the difference between a successful project and a second trip to the hardware store. Whether you are pouring a concrete slab, estimating paint for a master bedroom, or calculating the volume of hardwood lumber for a custom table, the "measure twice, cut once" mantra begins with accurate mathematical estimation.</p>
+                    <p>These tools are built for the weekend warrior and the professional tradesperson alike. Our Concrete tool provides outputs in both cubic yards and 80lb bags, while the Paint estimator accounts for multiple coats across varied wall dimensions. For fine woodworking, we provide a Board Foot calculator that simplifies the industry-standard volume metric for hardwoods.</p>
+                    <p>For reference: our concrete models use the standard 0.6 cu. ft. yield for 80lb bags, and our paint estimates assume a coverage of 350 sq. ft. per gallon—a realistic baseline for most interior latex paints.</p>
+                    <div class="use-cases">
+                        <span>Concrete slab volume estimation</span>
+                        <span>Wall painting material projection</span>
+                        <span>Hardwood lumber (Board Foot) pricing</span>
+                        <span>Home renovation material auditing</span>
+                        <span>Outdoor landscaping math</span>
                     </div>
+                </div>
 
-                    <div style="margin-bottom: 32px;">
-                        <h3 style="color: var(--text); margin-bottom: 12px; font-size: 20px;">Understanding Board Feet: The Woodworker's Metric</h3>
-                        <p>If you've spent any time in a hardwood lumber yard, you've seen prices listed by "BF" or <strong>Board Feet</strong>. Unlike construction lumber (like a 2x4), which is sold by the piece, hardwoods are sold by volume because the boards come in random widths and lengths. One board foot is equivalent to a volume of 144 cubic inches (typically 12" x 12" x 1"). Our <strong>Board Foot Calculator</strong> simplifies the math so you can quickly estimate the cost of your next furniture project. Don't forget to account for "snipe" and knots; most experienced woodworkers buy 15-20% more lumber than the final project dimensions require to account for defects and machining waste.</p>
-                    </div>
+                <div class="faq-block">
+                    <dt>What is the '10% Rule' in construction?</dt>
+                    <dd>Always order 10% more material than your raw calculation suggests. In concrete, this accounts for spillage and ground leveling inaccuracies; in lumber, it covers "snipe," knots, and defects; in paint, it ensures you have enough for touch-ups. Having a small surplus is significantly cheaper than stopping a project mid-pour or mid-paint.</dd>
+                </div>
 
-                    <div>
-                        <h3 style="color: var(--text); margin-bottom: 12px; font-size: 20px;">Safety First: The DIY Golden Rule</h3>
-                        <p>No project is worth an injury. Before you start any DIY task, ensure you have the correct Personal Protective Equipment (PPE). This includes safety glasses, hearing protection for power tools, and a respirator when sanding or painting. Always check for underground utilities before digging and never work on electrical or plumbing systems unless you are confident in your ability to do so safely and to code. A successful project is one that looks great and leaves the builder in one piece!</p>
-                    </div>
+                <div class="faq-block">
+                    <dt>Bags vs. Yards: When should I order a truck?</dt>
+                    <dd>If your project requires more than 1 cubic yard (roughly 45 bags of 80lb concrete), it is generally more cost-effective and physically safer to order a ready-mix truck. Hand-mixing 45 bags is labor-intensive and increases the risk of "cold joints"—weak points where layers of concrete don't bond properly due to varied drying times.</dd>
+                </div>
+
+                <div class="faq-block">
+                    <dt>How many coats of paint do I really need?</dt>
+                    <dd>While many "paint and primer in one" products claim one-coat coverage, professional results almost always require two. The first coat seals the surface, while the second provides the uniform sheen and true color depth. If you are changing colors drastically (e.g., light to dark), three coats or a dedicated primer may be necessary for a professional finish.</dd>
                 </div>
             </section>
         </div>

@@ -44,12 +44,52 @@
             <h1>Medical <span style="color: var(--accent2);">Calculators</span></h1>
             <p class="subtitle">Clinical reference tools for healthcare professionals and students.</p>
 
-            <section style="background: var(--surface); border: 1px solid var(--border); border-radius: 24px; padding: 40px; margin-bottom: 40px;">
-                <h2 style="font-size: 24px; margin-bottom: 24px; color: var(--text);">Clinical <span style="color: var(--accent);">Intelligence Suite</span></h2>
-                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 32px;">
-                    <div><h3 style="color: var(--accent); margin-bottom: 12px; font-size: 18px;">Dosage Safety</h3><p style="color: var(--muted); line-height: 1.6; font-size: 14px;">Always verify drug concentrations and patient weight before administering any medication.</p></div>
-                    <div><h3 style="color: var(--accent); margin-bottom: 12px; font-size: 18px;">Cockcroft-Gault</h3><p style="color: var(--muted); line-height: 1.6; font-size: 14px;">The standard formula for estimating creatinine clearance and renal drug dosing.</p></div>
-                    <div><h3 style="color: var(--accent); margin-bottom: 12px; font-size: 18px;">Ideal Body Weight</h3><p style="color: var(--muted); line-height: 1.6; font-size: 14px;">Utilizes the Devine formula to estimate physiological baseline weight for dosing.</p></div>
+            </section>
+
+            <!-- Editorial Content Block -->
+            <section class="content-block">
+                <h3>Medical and Clinical Math: Precision in Patient Care</h3>
+                <p>In clinical medicine, math is a safety-critical skill. From calculating pediatric drug dosages to managing complex IV infusions, the ability to accurately translate a provider's order into a delivered dose is a fundamental component of patient safety. The tools in this section are designed to assist healthcare professionals, nursing students, and pharmacology researchers with the validated formulas and unit conversions used in daily clinical practice.</p>
+                <p>Every calculator on this page is based on standard clinical reference materials. However, clinical judgment should always supersede a digital tool. These calculators are intended for verification and educational purposes, helping to reduce the risk of manual calculation errors in high-stakes environments.</p>
+                
+                <h4>Pharmacokinetics: Weight-Based Dosing</h4>
+                <p>Most clinical medications are dosed based on the patient's weight (mg/kg). This is particularly critical in pediatrics and critical care, where small variations in weight can lead to significant differences in therapeutic effect or toxicity. Our Drug Dosage calculator handles the relationship between the prescribed dose (e.g., 5mg/kg), the patient's weight, and the drug's concentration (e.g., 250mg per 5mL).</p>
+                <p>The core insight: the "Liquid Volume to Administer" is the final safeguard. By automating the conversion between weight-based prescribing and volumetric administration, the tool provides a "sanity check" to ensure the final result aligns with typical dosing ranges for the specific medication.</p>
+                
+                <h4>IV Infusion: Drip Rates and Flow Control</h4>
+                <p>When a pump is unavailable or as a backup verification, calculating the gravity drip rate (gtt/min) is an essential skill. Our IV Drip Rate calculator utilizes the "Drop Factor" of the tubing (usually 10, 15, 20, or 60 gtt/mL) and the total volume and time prescribed. The formula: [Total Volume (mL) × Drop Factor (gtt/mL)] / Time (min) = Drip Rate (gtt/min).</p>
+                <p>This tool is particularly useful for students learning the "dimensional analysis" required for nursing board exams (NCLEX). It provides immediate feedback on how changing the tubing type or the infusion duration affects the visual rate of the infusion, helping clinicians develop an intuitive sense for correct flow rates.</p>
+                
+                <h4>Renal Function: The Cockcroft-Gault Equation</h4>
+                <p>Creatinine Clearance (CrCl) is a proxy for the Glomerular Filtration Rate (GFR), the primary measure of kidney function. Many medications, particularly antibiotics and chemotherapy agents, must be "renally dosed" to prevent toxicity in patients with impaired clearance. Our calculator implements the Cockcroft-Gault equation: [(140 - Age) × Weight (kg)] / (72 × Serum Creatinine), with a 0.85 multiplier for female patients.</p>
+                <p>The tool highlights the importance of using "Ideal Body Weight" or "Adjusted Body Weight" in obese patients to avoid overestimating clearance. In clinical practice, an accurate CrCl estimate is often the difference between a therapeutic outcome and a preventable adverse drug event.</p>
+                
+                <h4>Ideal Body Weight (IBW) and the Devine Formula</h4>
+                <p>IBW is not a measure of "ideal" appearance; it is a physiological baseline used to determine the distribution of certain medications (like gentamicin or theophylline) and to set initial ventilator settings. Our calculator uses the Devine Formula (1974), which is the most widely accepted standard in clinical literature. For patients who deviate significantly from IBW, the tool also provides "Adjusted Body Weight" calculations, often used in nutrition support and pharmacokinetics.</p>
+
+                <div class="faq-section">
+                    <dl>
+                        <div class="faq-block">
+                            <dt>Should I use Actual or Ideal Body Weight for drug dosing?</dt>
+                            <dd>It depends entirely on the medication's "Volume of Distribution" (Vd). Lipophilic drugs (like propofol) are often dosed on Actual Body Weight because they distribute into fat tissue. Hydrophilic drugs (like aminoglycosides) are typically dosed on Ideal Body Weight. Always refer to the drug's prescribing information or a pharmacist before choosing a weight baseline in our calculator.</dd>
+                        </div>
+                        <div class="faq-block">
+                            <dt>Why does the CrCl calculator use 0.85 for female patients?</dt>
+                            <dd>The 0.85 multiplier accounts for the lower average muscle mass in females compared to males of the same age and weight. Since creatinine is a byproduct of muscle breakdown, a female patient will typically produce less creatinine at a given level of kidney function than a male patient.</dd>
+                        </div>
+                        <div class="faq-block">
+                            <dt>What is a "Microdrip" vs. a "Macrodrip" in IV tubing?</dt>
+                            <dd>A Microdrip set has a drop factor of 60 gtt/mL (the drop size is so small that the gtt/min equals the mL/hr). It is used for precise, low-volume infusions. Macrodrip sets have factors of 10, 15, or 20 gtt/mL and are used for rapid fluid resuscitation. Ensure you select the correct drop factor in our calculator to avoid a 4x or 6x dosing error.</dd>
+                        </div>
+                        <div class="faq-block">
+                            <dt>Is the Devine Formula appropriate for pediatric patients?</dt>
+                            <dd>No, the Devine Formula is designed for adults over 5 feet tall. Pediatric "ideal weight" is typically determined using CDC growth charts and BMI-for-age percentiles. Our IBW tool is strictly for adult clinical reference.</dd>
+                        </div>
+                    </dl>
+                </div>
+
+                <div class="use-tags">
+                    <span>Clinical safety</span><span>Pharmacokinetics</span><span>IV infusion math</span><span>Renal function estimation</span><span>Nursing reference</span>
                 </div>
             </section>
 
@@ -139,32 +179,40 @@
             </div>
         </div>
 
-            <!-- Educational Content Section -->
-            <section class="educational-content" style="margin-top: 60px; border-top: 1px solid var(--border); padding-top: 40px; padding-bottom: 60px;">
-                <h2 style="font-size: 28px; color: var(--text); margin-bottom: 24px;">The Math of <span style="color: var(--accent);">Clinical Precision</span></h2>
-                
-                <div style="color: var(--muted); line-height: 1.8;">
-                    <div style="margin-bottom: 32px;">
-                        <h3 style="color: var(--text); margin-bottom: 12px; font-size: 20px;">Dosing by Body Weight: The Pharmacokinetic Foundation</h3>
-                        <p>In clinical medicine, one size does not fit all. Many critical medications—including antibiotics, anticoagulants, and chemotherapeutics—must be dosed based on the patient's body weight to ensure therapeutic efficacy while minimizing toxicity. Our <strong>Drug Dosage Calculator</strong> provides a quick way to find the total dose in milligrams and the corresponding volume in milliliters based on the medication's concentration. This is a foundational step in ensuring patient safety, particularly in pediatric and geriatric populations where metabolic rates vary significantly.</p>
-                        <p style="margin-top: 16px;">It's important to distinguish between <strong>Actual Body Weight</strong>, <strong>Ideal Body Weight (IBW)</strong>, and <strong>Adjusted Body Weight</strong>. For certain lipophilic drugs, using actual body weight in obese patients can lead to dangerous over-dosing. Our <strong>IBW Tool</strong> uses the Devine formula to provide a baseline for these calculations. Always refer to specific drug monographs or hospital protocols to determine which weight metric should be used for a specific therapy.</p>
-                    </div>
+            <!-- Editorial Content Section -->
+            <section class="editorial-section">
+                <div class="editorial-label">
+                    <span class="editorial-tag">Category</span>
+                    <span class="editorial-title">Clinical Reference &amp; Pharmacology</span>
+                </div>
 
-                    <div style="margin-bottom: 32px;">
-                        <h3 style="color: var(--text); margin-bottom: 12px; font-size: 20px;">Creatinine Clearance: Assessing Renal Function</h3>
-                        <p>The kidneys are responsible for clearing many drugs from the bloodstream. When renal function is impaired, drugs can accumulate to toxic levels. The <strong>Creatinine Clearance (CrCl)</strong>, estimated via the Cockcroft-Gault equation, is the standard metric used to adjust medication doses. Our <strong>CrCl Auditor</strong> factors in age, sex, weight, and serum creatinine to provide a snapshot of a patient's glomerular filtration rate (GFR). This calculation is vital for preventing acute kidney injury (AKI) and ensuring that drug levels remain within the narrow "therapeutic window."</p>
-                        <p style="margin-top: 16px;">Note that serum creatinine is a "lagging" indicator. In cases of acute renal failure, the patient's actual clearance may be significantly lower than the calculated value. Clinical judgment must always be used alongside these mathematical models, especially in patients with rapidly changing clinical status or those at extremes of body habitus.</p>
+                <div class="content-block">
+                    <h3>About These Medical Calculators</h3>
+                    <p>Clinical decision-making is increasingly supported by high-fidelity mathematical modeling. Whether you are calculating the precise dosage of a weight-based antibiotic, estimating renal clearance to prevent drug toxicity, or calibrating the drip rate of a critical IV infusion, the margin for error is non-existent. These tools are designed to provide rapid, evidence-based support for healthcare professionals, students, and clinical researchers.</p>
+                    <p>Our Clinical Intelligence Suite utilizes established medical protocols for all its models. The Dosage calculator handles weight-based titration, while the Creatinine Clearance tool utilizes the standard Cockcroft-Gault equation, a bedrock of renal dosing adjustments. We also provide Ideal Body Weight (IBW) modeling using the Devine formula to ensure that physiological baselines are accurately established.</p>
+                    <p>For reference: our clinical models utilize standard international units (SI) and follow the dosing guidelines common in hospital pharmacy and acute care settings. Always verify calculations against institutional protocols.</p>
+                    <div class="use-cases">
+                        <span>Weight-based drug titration</span>
+                        <span>Renal (CrCl) function auditing</span>
+                        <span>IV infusion & drip rate calibration</span>
+                        <span>Ideal Body Weight (IBW) dosing check</span>
+                        <span>Metabolic weight-loss projection</span>
                     </div>
+                </div>
 
-                    <div style="margin-bottom: 32px;">
-                        <h3 style="color: var(--text); margin-bottom: 12px; font-size: 20px;">IV Drip Rates and Caloric Deficits</h3>
-                        <p>In hospital settings, the precision of <strong>IV Infusion Rates</strong> is a matter of critical care. Our <strong>IV Drip Tool</strong> translates hourly volumes into drops-per-minute (gtt/min), allowing for manual calibration when electronic pumps are unavailable. Similarly, on the wellness side, our <strong>Caloric Deficit Projector</strong> uses the standard 3,500 kcal per pound (7,700 kcal per kg) rule to provide a realistic timeline for weight management. These tools bridge the gap between acute clinical needs and long-term metabolic health.</p>
-                    </div>
+                <div class="faq-block">
+                    <dt>How does the dosage calculator work?</dt>
+                    <dd>The dosage calculator uses the standard formula (Weight × Desired Dose) / Concentration to find the exact volume (mL) of medication required. This is the foundational calculation used in pediatric nursing, acute care, and pharmacy to ensure that patients receive the precise therapeutic amount of medication based on their physiological profile.</dd>
+                </div>
 
-                    <div>
-                        <h3 style="color: var(--text); margin-bottom: 12px; font-size: 20px;">Evidence-Based Decision Support</h3>
-                        <p>Medicine is increasingly a data-driven field. Our <strong>Clinical Math Suite</strong> is designed to provide healthcare professionals and students with rapid, reliable support for daily calculations. However, these tools are not a substitute for clinical expertise or institutional protocols. Always verify calculations against secondary sources and use them as part of a comprehensive, patient-centered approach to care. Precision in math leads to excellence in outcomes.</p>
-                    </div>
+                <div class="faq-block">
+                    <dt>What is the 'Cockcroft-Gault' equation?</dt>
+                    <dd>The Cockcroft-Gault equation is the standard clinical formula for estimating creatinine clearance (CrCl). Because the kidneys clear most medications from the body, knowing a patient's CrCl is essential for adjusting doses of drugs that can become toxic if they accumulate. Our tool factors in age, sex, and serum creatinine to provide this vital safety metric.</dd>
+                </div>
+
+                <div class="faq-block">
+                    <dt>Why calculate Ideal Body Weight (IBW)?</dt>
+                    <dd>Certain medications do not distribute into body fat (lipophilic vs. hydrophilic properties). For these drugs, dosing based on a patient's actual weight can lead to dangerous over-dosing if the patient is obese. IBW provides a more accurate physiological baseline for these specific drug therapies, ensuring that the "effective dose" remains within the safe therapeutic window.</dd>
                 </div>
             </section>
         </div>

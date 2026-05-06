@@ -30,15 +30,56 @@
     <main>
         <div class="container">
             <div class="ad-unit ad-top"><!-- AdSense --></div>
+            <div id="notation" style="position:absolute; visibility:hidden;"></div>
             <h1>Science & <span style="color: var(--accent2);">Lab Math</span></h1>
             <p class="subtitle">Aqueous solutions, dilutions, and stoichiometric math.</p>
 
-            <section style="background: var(--surface); border: 1px solid var(--border); border-radius: 24px; padding: 40px; margin-bottom: 40px;">
-                <h2 style="font-size: 24px; margin-bottom: 24px; color: var(--text);">Lab & Chemical <span style="color: var(--accent);">Intelligence Suite</span></h2>
-                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 32px;">
-                    <div><h3 style="color: var(--accent); margin-bottom: 12px; font-size: 18px;">Molarity (M)</h3><p style="color: var(--muted); line-height: 1.6; font-size: 14px;">Calculated as moles of solute per liter of solution. Essential for preparing precise chemical concentrations in research and clinical settings.</p></div>
-                    <div><h3 style="color: var(--accent); margin-bottom: 12px; font-size: 18px;">C1V1 Dilution</h3><p style="color: var(--muted); line-height: 1.6; font-size: 14px;">The conservation of moles (n1=n2) allows for precise titration and serial dilutions from concentrated stock solutions.</p></div>
-                    <div><h3 style="color: var(--accent); margin-bottom: 12px; font-size: 18px;">Ideal Gas PV=nRT</h3><p style="color: var(--muted); line-height: 1.6; font-size: 14px;">Predicts the behavior of most gases under non-extreme temperatures and pressures. Uses the gas constant R = 0.08206 L·atm/mol·K.</p></div>
+            </section>
+
+            <!-- Editorial Content Block -->
+            <section class="content-block">
+                <h3>Science and Lab Math: Precision in the Aqueous and Gaseous Phases</h3>
+                <p>Modern science is built on the foundation of reproducible measurement. Whether you are a student performing your first titration or a researcher in a molecular biology lab, the ability to calculate concentrations, dilutions, and gas behaviors with absolute precision is a non-negotiable skill. The tools in this section are designed to streamline these calculations, reducing the risk of manual arithmetic errors and providing the mathematical baseline for laboratory protocol development.</p>
+                <p>From the foundational Molarity formula to the Ideal Gas Law, our calculators implement the standard physical constants and stoichiometric principles taught in university-level chemistry and physics courses. We focus on the "unit-of-measure" accuracy that is critical for peer-reviewed research.</p>
+                
+                <h4>Molarity (M): Quantifying the Solute</h4>
+                <p>Molarity is the most common measure of concentration in chemistry, defined as the number of moles of solute per liter of solution. Our Molarity calculator handles the multi-step process of converting "Grams of Solute" to "Moles" using the molar mass, then normalizing that figure against the total volume of the solvent. The formula: M = (Mass / Molar Mass) / Volume.</p>
+                <p>The core insight: Molarity is temperature-dependent because the volume of a liquid changes with temperature. This is why for extremely high-precision work, "Molality" (moles per kilogram of solvent) is often preferred. However, for standard laboratory protocols, our molarity tool provides the clinical-grade baseline needed for buffer preparation and stock solutions.</p>
+                
+                <h4>Dilution Mechanics: The C₁V₁ = C₂V₂ Rule</h4>
+                <p>Dilution is the process of reducing the concentration of a solute in a solution, usually by adding more solvent. Our Dilution calculator implements the law of conservation of mass: the number of moles of solute remains constant even as the volume increases (n₁ = n₂). This relationship allows you to solve for any single variable if the other three are known.</p>
+                <p>This tool is essential for "Serial Dilutions" and for preparing "Working Solutions" from high-concentration "Stock Solutions." By automating the calculation, you can ensure that your final assay concentration is exactly what the protocol requires, preventing the common mistake of confusing "volume to add" with "final total volume."</p>
+                
+                <h4>The Ideal Gas Law (PV = nRT)</h4>
+                <p>Gases are characterized by four variables: Pressure (P), Volume (V), Amount in moles (n), and Temperature (T). The Ideal Gas Law relates these variables using the universal gas constant (R). Our calculator allows you to solve for any of these parameters. We utilize the constant R = 0.08206 L·atm/(mol·K) for standard atmospheric calculations.</p>
+                <p>The "Ideal" in the name is a technical term: it assumes the gas particles have no volume and no intermolecular attractions. While no gas is truly "ideal," this law is a remarkably accurate approximation (within 1%) for most gases at room temperature and standard pressure. It is the mathematical engine for understanding everything from tire pressure to chemical reactors.</p>
+                
+                <h4>Molar Mass and Stoichiometry</h4>
+                <p>The molar mass is the mass of one mole of a substance (g/mol), found by summing the atomic weights of its constituent elements from the periodic table. Our Molar Mass tool serves as the "bridge" between the visible world (grams) and the atomic world (moles). This is the fundamental unit of stoichiometry — the math that tells you exactly how much of Reactant A you need to combine with Reactant B to produce Product C without any waste.</p>
+
+                <div class="faq-section">
+                    <dl>
+                        <div class="faq-block">
+                            <dt>What is the difference between "Final Volume" and "Volume Added"?</dt>
+                            <dd>In our Dilution (C1V1) tool, V2 represents the *final total volume* of the solution after dilution. If you start with 10mL (V1) and want a final volume of 100mL (V2), you must add 90mL of solvent. A common laboratory error is adding 100mL to the initial 10mL, resulting in a V2 of 110mL and an incorrect concentration.</dd>
+                        </div>
+                        <div class="faq-block">
+                            <dt>Why does the Gas Law calculator require Temperature in Kelvin?</dt>
+                            <dd>Kelvin is an absolute scale starting at "Absolute Zero" (-273.15°C), where all molecular motion stops. Gas law ratios (like V1/T1 = V2/T2) only work when the scale has a true zero point. Our calculator automatically handles the Celsius-to-Kelvin conversion to ensure your results are mathematically sound.</dd>
+                        </div>
+                        <div class="faq-block">
+                            <dt>Can the Molarity tool handle multi-component buffers?</dt>
+                            <dd>Our current tool is designed for single-solute molarity. For complex buffers (like PBS or TAE), you should calculate the molarity of each component separately to ensure each reagent's concentration meets the protocol requirements.</dd>
+                        </div>
+                        <div class="faq-block">
+                            <dt>How does pressure affect the Ideal Gas Law result?</dt>
+                            <dd>If you double the pressure (P) while keeping the temperature (T) constant, the volume (V) must decrease by half (Boyle's Law). Our calculator allows you to visualize these inverse and direct relationships in real-time, helping students develop an intuitive feel for thermodynamic behavior.</dd>
+                        </div>
+                    </dl>
+                </div>
+
+                <div class="use-tags">
+                    <span>Laboratory stoichiometry</span><span>Aqueous solution math</span><span>Thermodynamic modeling</span><span>Chemical engineering</span><span>Academic reference</span>
                 </div>
             </section>
 
@@ -110,32 +151,40 @@
             </div>
         </div>
 
-            <!-- Educational Content Section -->
-            <section class="educational-content" style="margin-top: 60px; border-top: 1px solid var(--border); padding-top: 40px; padding-bottom: 60px;">
-                <h2 style="font-size: 28px; color: var(--text); margin-bottom: 24px;">The Language of <span style="color: var(--accent);">Modern Chemistry</span></h2>
-                
-                <div style="color: var(--muted); line-height: 1.8;">
-                    <div style="margin-bottom: 32px;">
-                        <h3 style="color: var(--text); margin-bottom: 12px; font-size: 20px;">Molarity: Quantifying Concentration</h3>
-                        <p>In chemistry, <strong>Molarity (M)</strong> is the standard unit of concentration, defined as the number of moles of solute per liter of solution. It is the fundamental metric used to describe the "strength" of a chemical mixture. Our <strong>Molarity Analyzer</strong> allows you to calculate the molar concentration by inputting the mass of your solute, its molar mass, and the final volume of the solution. This is an essential step in preparing reagents for laboratory work, ensuring that reactions proceed as predicted by stoichiometric ratios.</p>
-                        <p style="margin-top: 16px;">Precision in molarity is critical. A small error in mass or volume can lead to a significant difference in the concentration of active ions or molecules, which can alter the rate and outcome of a reaction. When performing these calculations, always double-check your molar mass values—the sum of the atomic weights of all atoms in the chemical formula. Our tool automates the math, but the accuracy of the final result depends on the quality of your measurements.</p>
-                    </div>
+            <!-- Editorial Content Section -->
+            <section class="editorial-section">
+                <div class="editorial-label">
+                    <span class="editorial-tag">Category</span>
+                    <span class="editorial-title">Science &amp; Laboratory Math</span>
+                </div>
 
-                    <div style="margin-bottom: 32px;">
-                        <h3 style="color: var(--text); margin-bottom: 12px; font-size: 20px;">The Ideal Gas Law: Predicting Behavior</h3>
-                        <p>The behavior of gases is governed by the <strong>Ideal Gas Law</strong>: PV = nRT. This equation relates the pressure (P), volume (V), temperature (T), and amount in moles (n) of a gas, using the ideal gas constant (R). Our <strong>Gas Law Tool</strong> provides a quick way to find the number of moles of a gas when the other variables are known. While no gas is perfectly "ideal," this law provides a remarkably accurate approximation for most gases under standard conditions of temperature and pressure (STP).</p>
-                        <p style="margin-top: 16px;">Understanding gas behavior is foundational to everything from atmospheric science to scuba diving and engine design. By manipulating one variable—such as increasing the temperature of a fixed volume—you can predict the resulting increase in pressure. This predictive power is what allows scientists and engineers to design safe and efficient systems that handle gases in various environments.</p>
+                <div class="content-block">
+                    <h3>About These Science Calculators</h3>
+                    <p>Laboratory research is a discipline defined by stoichiometric precision. Whether you are preparing a buffer solution at a specific molarity, performing a serial dilution from a concentrated stock, or predicting the behavior of a gas under varied pressures, the margin for error is non-existent. These tools are designed to automate the foundational math of chemistry and physics, allowing researchers to focus on experimentation rather than arithmetic.</p>
+                    <p>Our Lab Intelligence Suite handles the complexities of aqueous solutions and gas behavior. The Molarity and Dilution tools utilize the C1V1 protocol, while the Gas Law calculator uses the Ideal Gas constant (R = 0.08206 L·atm/mol·K) to model molecular distribution. We also provide a Molar Mass converter to bridge the gap between microscopic moles and macroscopic grams.</p>
+                    <p>For reference: our chemical models assume standard temperature and pressure (STP) where applicable, and our gas law calculations are aligned with the IUPAC standards for chemical measurement.</p>
+                    <div class="use-cases">
+                        <span>Aqueous solution (Molarity) preparation</span>
+                        <span>Stock solution (C1V1) dilution</span>
+                        <span>Ideal Gas (PV=nRT) modeling</span>
+                        <span>Stoichiometric mass-to-mole conversion</span>
+                        <span>Clinical reagent concentration auditing</span>
                     </div>
+                </div>
 
-                    <div style="margin-bottom: 32px;">
-                        <h3 style="color: var(--text); margin-bottom: 12px; font-size: 20px;">The Dilution Equation: Scaling Solutions</h3>
-                        <p>Often in the lab, you start with a concentrated "stock solution" and need to dilute it to a lower concentration for use. This is managed by the <strong>Dilution Equation</strong>: C1V1 = C2V2. Our <strong>Dilution Auditor</strong> helps you find exactly how much of your stock solution (V1) you need to reach your target volume (V2) at your target concentration (C2). This principle is based on the fact that the total amount of solute (moles) remains constant throughout the dilution process; only the volume of the solvent changes.</p>
-                    </div>
+                <div class="faq-block">
+                    <dt>What is the difference between Molarity and Molality?</dt>
+                    <dd>Molarity (M) is defined as moles of solute per liter of solution, making it temperature-dependent as volumes can shift. Molality (m) is moles of solute per kilogram of solvent. For most laboratory dilutions and reagent preparations, Molarity is the industry standard due to the ease of measuring liquid volumes.</dd>
+                </div>
 
-                    <div>
-                        <h3 style="color: var(--text); margin-bottom: 12px; font-size: 20px;">Molecular Math and Molar Mass</h3>
-                        <p>The <strong>Mole</strong> is the bridge between the microscopic world of atoms and the macroscopic world we can measure on a scale. One mole contains exactly 6.022 x 10²³ particles (Avogadro's Number). Our <strong>Molar Mass Tool</strong> simplifies the conversion between grams and moles, a calculation performed thousands of times a day in labs around the world. Whether you are balancing a complex equation or simply preparing a saline solution, mastering these basic chemical metrics is the first step toward scientific literacy.</p>
-                    </div>
+                <div class="faq-block">
+                    <dt>How do I perform a serial dilution correctly?</dt>
+                    <dd>Serial dilution involves taking a small portion of a concentrated stock (V1) and adding it to a known volume of solvent to reach a target concentration (C2). Our Dilution Auditor uses the C1V1 = C2V2 formula to ensure you never waste expensive reagents by over-measuring your stock solution.</dd>
+                </div>
+
+                <div class="faq-block">
+                    <dt>When does the Ideal Gas Law (PV=nRT) fail?</dt>
+                    <dd>The Ideal Gas Law is a highly accurate approximation for most gases at room temperature and standard pressure. It begins to fail at extremely high pressures or extremely low temperatures (near a gas's boiling point), where molecular size and intermolecular forces (van der Waals forces) become significant. For these extreme cases, a more complex Van der Waals equation is required.</dd>
                 </div>
             </section>
         </div>

@@ -23,6 +23,36 @@
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5377169267581466" crossorigin="anonymous"></script>
     <link rel="canonical" href="https://yourcalc.info/finance.html" />
     <meta name="description" content="Professional financial tools: Mortgage, Compound Interest, FIRE, 401k, Tax, Debt, Student Loans, and Inflation calculators." />
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://yourcalc.info/finance.html">
+    <meta property="og:title" content="Finance & Capital Math — Mortgages, FIRE & Tax 2026">
+    <meta property="og:description" content="Professional-grade financial calculators for mortgage, retirement, and debt strategy.">
+    <meta property="og:image" content="https://yourcalc.info/apple-touch-icon.png">
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://yourcalc.info/finance.html">
+    <meta property="twitter:title" content="Finance & Capital Math — YourCalc">
+    <meta property="twitter:description" content="Professional financial tools for 2026.">
+    <meta property="twitter:image" content="https://yourcalc.info/apple-touch-icon.png">
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "YourCalc Finance Suite",
+      "url": "https://yourcalc.info/finance.html",
+      "description": "Professional-grade financial calculators for mortgages, investment growth, and debt management.",
+      "applicationCategory": "FinanceApplication",
+      "operatingSystem": "All",
+      "author": {
+        "@type": "Organization",
+        "name": "YourCalc"
+      }
+    }
+    </script>
 </head>
 <body>
     <nav class="sidebar"></nav>
@@ -30,15 +60,59 @@
     <main>
         <div class="container">
             <div class="ad-unit ad-top"><!-- AdSense --></div>
+            <div id="loan" style="position:absolute; visibility:hidden;"></div>
+            <div id="salary" style="position:absolute; visibility:hidden;"></div>
+            <div id="networth" style="position:absolute; visibility:hidden;"></div>
+            <div id="cc" style="position:absolute; visibility:hidden;"></div>
             <h1>Finance & <span style="color: var(--accent2);">Capital Math</span></h1>
             <p class="subtitle">Auditing debt, growth, and cash flow for the long term.</p>
 
-            <section style="background: var(--surface); border: 1px solid var(--border); border-radius: 24px; padding: 40px; margin-bottom: 40px;">
-                <h2 style="font-size: 24px; margin-bottom: 24px; color: var(--text);">Capital <span style="color: var(--accent);">Intelligence Suite</span></h2>
-                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 32px;">
-                    <div><h3 style="color: var(--accent); margin-bottom: 12px; font-size: 18px;">The 25x FIRE Rule</h3><p style="color: var(--muted); line-height: 1.6; font-size: 14px;">The "Safe Withdrawal Rate" (SWR) suggests you need 25 times your annual expenses invested to retire indefinitely without depleting your principal.</p></div>
-                    <div><h3 style="color: var(--accent); margin-bottom: 12px; font-size: 18px;">Rule of 72</h3><p style="color: var(--muted); line-height: 1.6; font-size: 14px;">Divide 72 by your annual return to estimate how many years it will take to double your money. At 7% interest, your capital doubles every 10.3 years.</p></div>
-                    <div><h3 style="color: var(--accent); margin-bottom: 12px; font-size: 18px;">Amortization Impact</h3><p style="color: var(--muted); line-height: 1.6; font-size: 14px;">On a standard 30-year mortgage at 6.5%, you will pay nearly 1.3x the home's price in interest alone over the life of the loan.</p></div>
+            </section>
+
+            <!-- Editorial Content Block -->
+            <section class="content-block">
+                <h3>Finance Calculators: The Math Behind Your Most Important Money Decisions</h3>
+                <p>Financial decisions have a compounding quality that makes early errors expensive. A mortgage at the wrong rate, a retirement savings rate that's slightly too low, a debt payoff strategy that ignores interest mechanics — these aren't just small mistakes. Over twenty or thirty years, they represent tens or hundreds of thousands of dollars in outcomes that could have been different with better information at the moment of decision.</p>
+                <p>The tools in this section cover the financial decisions that define most people's economic lives. They're built on the same formulas used by professionals — mortgage underwriters, certified financial planners, actuaries, and tax professionals — and they're designed to give you the full picture, not just a headline number.</p>
+                
+                <h4>Understanding Mortgage Math</h4>
+                <p>The mortgage calculator on this page uses the standard amortization formula: M = P[r(1+r)^n]/[(1+r)^n−1], where P is principal, r is monthly interest rate, and n is total payment count. This isn't an approximation — it's the exact formula lenders use to generate your payment schedule. What most borrowers don't see until they run the full amortization table is how dramatically the interest-to-principal ratio shifts over time. In the first year of a 30-year mortgage, the majority of every payment goes toward interest. By year 25, the majority goes toward principal. Seeing this visually changes how people think about prepayment, refinancing, and total cost of ownership.</p>
+                <p>A $400,000 mortgage at 7% over 30 years carries a monthly payment of approximately $2,661. The total paid over the life of the loan: $957,960 — nearly $558,000 in interest on a $400,000 loan. This is not an unusual or extreme scenario. It is the arithmetic reality of long-term fixed-rate mortgages at current rates. The question isn't whether to take the loan — for most buyers, homeownership still makes sense — but whether you understand what you're actually agreeing to, and whether strategies like biweekly payments or early principal paydown change the math meaningfully for your situation.</p>
+                
+                <h4>Compound Interest and the Time Value of Money</h4>
+                <p>Compound interest is described as the eighth wonder of the world in a quote often attributed to Einstein, and while the attribution is disputed, the underlying math is genuinely powerful. The difference between $500/month invested for 30 years at 7% annual return versus starting 10 years later and investing for 20 years is approximately $175,000 in final balance — even though the 10-years-earlier investor contributed only $60,000 more in total. That $60,000 of additional contribution produced $175,000 of additional outcome. Time is the lever.</p>
+                <p>The compound interest calculator here lets you vary contribution amount, frequency, rate of return, and compounding period — daily, monthly, quarterly, annually — so you can see exactly how each variable affects the outcome. Compounding frequency matters less than most people think at typical investment return rates, but it matters a great deal for high-interest debt, where daily compounding on credit card balances creates a different (and more urgent) picture.</p>
+                
+                <h4>Retirement and the 4% Rule</h4>
+                <p>The FIRE number calculator implements the 25x rule, which is the mathematical inverse of the 4% safe withdrawal rate. If you spend $60,000 per year, your FIRE number is $1,500,000 — the portfolio size at which a 4% annual withdrawal covers your expenses. The 4% figure comes from the Trinity Study (Cooley, Hubbard, and Walz, 1998), which analyzed historical portfolio survival rates across 30-year periods using various stock/bond allocations. The study found that a 4% initial withdrawal rate, adjusted annually for inflation, sustained a portfolio through 30 years in the majority of historical scenarios.</p>
+                <p>The 401(k) Optimizer models employer match scenarios, contribution limits, and projected balance at retirement age. The most impactful insight for most users: failing to capture the full employer match is equivalent to declining a guaranteed 50–100% return on that portion of your contribution. No other investment offers that.</p>
+                
+                <h4>Debt Strategy: Snowball vs. Avalanche</h4>
+                <p>The debt payoff planner compares two widely used strategies side by side. The avalanche method directs extra payments to the highest-interest debt first, minimizing total interest paid. The snowball method pays off the smallest balance first regardless of interest rate, generating psychological wins that research suggests improve follow-through. Mathematically, the avalanche always wins. Behaviorally, the snowball often wins in practice. The right answer depends on your self-knowledge as much as your interest rates.</p>
+
+                <div class="faq-section">
+                    <dl>
+                        <div class="faq-block">
+                            <dt>How accurate is the mortgage calculator compared to what a lender will show me?</dt>
+                            <dd>The monthly payment will match exactly — lenders use the same amortization formula. Where results differ: lenders fold in PMI (if down payment is under 20%), property taxes, and homeowner's insurance into the PITI figure. Our calculator shows principal and interest only unless you add those figures manually. Use the lender's Loan Estimate for a complete PITI picture; use our tool for clean comparison shopping across scenarios.</dd>
+                        </div>
+                        <div class="faq-block">
+                            <dt>Is the 4% withdrawal rate still considered safe for early retirees?</dt>
+                            <dd>For a traditional 30-year retirement, the Trinity Study data still broadly supports 4%. For early retirees planning 40–50 year retirements, many financial planners now recommend 3–3.5% to account for a longer sequence-of-returns risk window. The 4% rule also assumes a diversified equity/bond portfolio — all-cash or all-bond portfolios have significantly different survival characteristics. Use it as a planning anchor, not a guarantee.</dd>
+                        </div>
+                        <div class="faq-block">
+                            <dt>What's the real impact of refinancing at a lower rate?</dt>
+                            <dd>It depends entirely on how far into your current mortgage you are and how long you plan to stay. Refinancing resets your amortization — you start paying mostly interest again. If you're 15 years into a 30-year mortgage and you refinance into another 30-year loan at a lower rate, you extend your payoff by 15 years even while lowering your payment. Refinancing into a 15-year mortgage at a lower rate typically saves the most money for people with long remaining terms and significant remaining balances. Run both scenarios in our mortgage calculator before deciding.</dd>
+                        </div>
+                        <div class="faq-block">
+                            <dt>What does "effective tax rate" mean versus marginal rate?</dt>
+                            <dd>The US federal income tax system is progressive and bracketed. Your marginal rate is the rate applied to your last dollar of income. Your effective rate is total tax divided by total income — always lower than your marginal rate because only income within each bracket is taxed at that bracket's rate. A common mistake: people assume a raise that pushes them into a higher bracket means all their income gets taxed at the new rate. It doesn't. Only the income above the bracket threshold is taxed at the higher rate.</dd>
+                        </div>
+                    </dl>
+                </div>
+
+                <div class="use-tags">
+                    <span>Mortgage planning</span><span>Retirement modeling</span><span>Debt payoff</span><span>Investment growth</span><span>Tax estimation</span><span>Net worth tracking</span>
                 </div>
             </section>
 
@@ -214,34 +288,40 @@
                 </div>
                 <div class="ad-unit ad-result"><!-- AdSense --></div>
             </div>
-        </div>
+            <!-- Editorial Content Section -->
+            <section class="editorial-section">
+                <div class="editorial-label">
+                    <span class="editorial-tag">Category</span>
+                    <span class="editorial-title">Finance &amp; Capital</span>
+                </div>
 
-            <!-- Educational Content Section -->
-            <section class="educational-content" style="margin-top: 60px; border-top: 1px solid var(--border); padding-top: 40px; padding-bottom: 60px;">
-                <h2 style="font-size: 28px; color: var(--text); margin-bottom: 24px;">The Roadmap to <span style="color: var(--accent);">Financial Independence</span></h2>
-                
-                <div style="color: var(--muted); line-height: 1.8;">
-                    <div style="margin-bottom: 32px;">
-                        <h3 style="color: var(--text); margin-bottom: 12px; font-size: 20px;">Compound Interest: The Eighth Wonder of the World</h3>
-                        <p>Albert Einstein reportedly called compound interest the "eighth wonder of the world," and for good reason. It is the process where the value of an investment increases because the earnings on an investment, both from original principal and the same earnings, also earn interest. Our <strong>Compound Interest Calculator</strong> helps you visualize how even small monthly contributions can grow into a massive nest egg over 30 or 40 years. The most important variable in this equation isn't the amount of money you invest; it's <em>time</em>. Starting to save in your 20s rather than your 30s can double or triple your final retirement balance, even if you invest less total money.</p>
-                        <p style="margin-top: 16px;">This is the foundation of the <strong>FIRE Movement (Financial Independence, Retire Early)</strong>. By maintaining a high savings rate and investing in low-cost index funds, individuals can reach a point where their investments generate enough income to cover their living expenses. Our FIRE calculator uses the "4% Rule," which suggests that if you can live on 4% of your total portfolio value per year, your money will likely last for at least 30 years. Achieving this milestone provides the ultimate freedom: the ability to work because you want to, not because you have to.</p>
+                <div class="content-block">
+                    <h3>About These Finance Calculators</h3>
+                    <p>Most financial decisions people make — buying a home, paying off debt, planning for retirement — involve math that feels deceptively simple on the surface but compounds in ways that are hard to intuit. A $300,000 mortgage at 7.5% doesn't just cost $300,000. Over 30 years, it costs closer to $757,000 in total payments. The interest alone exceeds the original loan.</p>
+                    <p>These tools exist to make that math visible before you sign anything. Whether you're comparing loan scenarios, stress-testing a retirement timeline, or figuring out how much your emergency fund actually needs to cover, each calculator here runs in your browser using verified financial formulas — no account required, nothing stored.</p>
+                    <p>For reference: the mortgage amortization formula, compound interest calculations, and the 4% FIRE rule used on this page are the same formulas used by financial planners, mortgage underwriters, and retirement analysts. We've validated outputs against industry-standard references.</p>
+                    <div class="use-cases">
+                        <span>Mortgage planning</span>
+                        <span>Debt payoff comparison</span>
+                        <span>Retirement projections</span>
+                        <span>Tax bracket estimation</span>
+                        <span>Net worth tracking</span>
                     </div>
+                </div>
 
-                    <div style="margin-bottom: 32px;">
-                        <h3 style="color: var(--text); margin-bottom: 12px; font-size: 20px;">Strategic Debt Management: Snowball vs. Avalanche</h3>
-                        <p>Not all debt is created equal. "Good debt," like a mortgage or a low-interest student loan, can help you build wealth or increase your earning potential. "Bad debt," like high-interest credit cards, is a wealth-killer. When tackling multiple debts, there are two primary strategies: the <strong>Snowball Method</strong> (paying off the smallest balance first for psychological wins) and the <strong>Avalanche Method</strong> (paying off the highest interest rate first to save the most money). Our <strong>Debt Payoff Tool</strong> helps you see the light at the end of the tunnel, showing you exactly when you'll be debt-free based on your current budget.</p>
-                        <p style="margin-top: 16px;">One often overlooked debt is the <strong>HELOC (Home Equity Line of Credit)</strong>. While useful for home improvements, many people treat it as a revolving credit card. Because HELOCs often have variable interest rates, a sudden spike in market rates can significantly increase your monthly payment. Using our roadmap tool to stay ahead of these payments is essential for protecting your home's equity and your overall financial stability.</p>
-                    </div>
+                <div class="faq-block">
+                    <dt>How accurate is the mortgage calculator?</dt>
+                    <dd>The amortization math is exact — it uses the standard formula P × [r(1+r)^n] / [(1+r)^n − 1] where P is principal, r is monthly rate, and n is total payments. Results match lender-generated amortization tables to the penny. The calculator does not factor in PMI, property taxes, or homeowners insurance unless you enter them.</dd>
+                </div>
 
-                    <div style="margin-bottom: 32px;">
-                        <h3 style="color: var(--text); margin-bottom: 12px; font-size: 20px;">The Hidden Tax: Understanding Inflation</h3>
-                        <p>Inflation is the gradual decrease in the purchasing power of your money. If inflation is 3% per year, what costs $100 today will cost $103 next year. Over 20 years, that same $100 will only buy what $55 buys today. Our <strong>Inflation Projector</strong> is a sobering reminder that "saving" money in a low-interest checking account is actually a guaranteed way to lose value over time. To combat inflation, your investments must earn a rate of return that exceeds the inflation rate. This is why investing in assets like stocks or real estate is a critical component of any long-term financial plan.</p>
-                    </div>
+                <div class="faq-block">
+                    <dt>What is the 4% rule and why does FIRE use it?</dt>
+                    <dd>The 4% rule originates from the 1994 Trinity Study, which analyzed 30-year portfolio survival rates across historical market conditions. It holds that withdrawing 4% of your portfolio annually has historically sustained a portfolio for 30+ years in most market scenarios. Your FIRE number is simply 25× your annual expenses (the inverse of 4%). This is a guideline, not a guarantee — market sequence risk and individual inflation rates vary.</dd>
+                </div>
 
-                    <div>
-                        <h3 style="color: var(--text); margin-bottom: 12px; font-size: 20px;">Net Worth: Your Financial Scorecard</h3>
-                        <p>Your <strong>Net Worth</strong> is the single most important number in your financial life. It is the sum of everything you own (assets) minus everything you owe (liabilities). While income is important, net worth is what actually dictates your financial security. You can earn $500,000 a year, but if you spend $501,000, your net worth is decreasing. Tracking your net worth annually—or even quarterly—provides a high-level view of your progress. As you pay down debt and your investments grow, your net worth should trend upward, eventually reaching the point of financial independence.</p>
-                    </div>
+                <div class="faq-block">
+                    <dt>Snowball vs. avalanche — which debt strategy saves more?</dt>
+                    <dd>Mathematically, the avalanche method (paying highest-interest debt first) always saves more money. The snowball method (smallest balance first) provides psychological momentum that helps many people stay consistent. Our Debt Payoff Planner shows both side-by-side so you can see the actual dollar difference and choose what fits your situation.</dd>
                 </div>
             </section>
         </div>

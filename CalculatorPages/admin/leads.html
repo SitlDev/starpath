@@ -36,46 +36,161 @@
         </div>
         
         <div class="grid-kpi">
-            <div class="card"><div class="card-title">Total Emails</div><div class="card-value" id="totalLeads">0</div></div>
-            <div class="card"><div class="card-title">New (30d)</div><div class="card-value">0</div></div>
-            <div class="card"><div class="card-title">Opt-in Rate</div><div class="card-value">1.2%</div></div>
+            <div class="card"><div class="card-title">Total Database Leads</div><div class="card-value" id="totalLeads">0</div></div>
+            <div class="card"><div class="card-title">New (30d)</div><div class="card-value" id="newLeads">0</div></div>
+            <div class="card"><div class="card-title">Active Now</div><div class="card-value" id="activeNow">0</div></div>
         </div>
-        <div class="card" style="margin-bottom: 24px; background: rgba(234, 179, 8, 0.05); border-color: rgba(234, 179, 8, 0.2);">
-            <div style="color: #eab308; font-size: 14px; display: flex; align-items: center; gap: 8px;">
-                <span>⚠️</span> Leads stored in browser localStorage only. Configure a backend endpoint to persist leads across devices. See setup instructions in /admin/SETUP.md
-            </div>
-        </div>
+
         <div class="card">
             <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
                 <h3 class="card-title">Collected Leads</h3>
                 <button class="btn-logout" onclick="exportLeads()">Export CSV</button>
             </div>
-            <table class="table" id="leadsTable">
-                <tr><th>Email</th><th>Calculator Used</th><th>Date</th></tr>
-                <!-- Populated via JS -->
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>User / Email</th>
+                        <th>Source Page</th>
+                        <th>Calcs</th>
+                        <th>Referrer</th>
+                        <th>Last Activity</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="leads-body">
+                    <!-- Populated via JS -->
+                </tbody>
             </table>
         </div>
+
         <script>
-            function loadLeads() {
-                const leads = JSON.parse(localStorage.getItem('yc_leads') || '[]');
-                document.getElementById('totalLeads').innerText = leads.length;
-                const tbody = document.getElementById('leadsTable');
-                leads.reverse().forEach(lead => {
-                    const tr = document.createElement('tr');
-                    const date = new Date(lead.timestamp).toLocaleString();
-                    tr.innerHTML = `<td>${lead.email}</td><td>${lead.calculator}</td><td>${date}</td>`;
-                    tbody.appendChild(tr);
-                });
+            let currentLeads = [];
+
+            async function loadLeads() {
+                const SECRET = 'h14sua12';
+                try {
+                    const res = await fetch(`/api/admin?action=get-leads&secret=${SECRET}`);
+                    const data = await res.json();
+                    
+                    if (!data.leads) throw new Error("No leads data");
+
+                    currentLeads = data.leads;
+                    
+                    // Update KPIs
+                    document.getElementById('totalLeads').innerText = data.stats.totals.total_visitors.toLocaleString();
+                    document.getElementById('activeNow').innerText = data.stats.totals.active_now;
+                    
+                    const thirtyDaysAgo = new Date();
+                    thirtyDaysAgo.setDate(thirtyDaysAgo.getDate() - 30);
+                    const newLeadsCount = data.leads.filter(l => new Date(l.first_calculation_at) > thirtyDaysAgo).length;
+                    document.getElementById('newLeads').innerText = newLeadsCount;
+
+                    const tbody = document.getElementById('leads-body');
+                    tbody.innerHTML = data.leads.map(l => `
+                        <tr>
+                            <td>
+                                <strong>${l.name || 'Anonymous'}</strong> ${l.handle ? `<span style="color:#f5a623;font-size:11px;">@${l.handle}</span>` : ''}<br>
+                                <span style="font-size:12px; color:#a0a0ab;">${l.email}</span>
+                            </td>
+                            <td><span style="font-size:12px; background: rgba(255,255,255,0.05); padding: 2px 6px; border-radius: 4px;">${l.conversion_page ? l.conversion_page.split('/').pop() : 'Direct'}</span></td>
+                            <td><span style="background: rgba(34, 197, 94, 0.1); color: #22c55e; padding: 2px 8px; border-radius: 10px; font-size: 11px;">${l.calculation_count || 1}</span></td>
+                            <td style="font-size: 11px; color:#a0a0ab;">${l.referrer || 'Direct'}</td>
+                            <td style="font-size: 12px; color:#a0a0ab;">${new Date(l.last_activity_at).toLocaleString()}</td>
+                            <td><button onclick="viewLeadDetails('${l.email}')" style="padding: 4px 10px; font-size: 10px; background: var(--surface); border: 1px solid var(--border); color: var(--accent); border-radius: 4px; cursor: pointer; font-weight: 600;">View Activity</button></td>
+                        </tr>
+                    `).join('');
+
+                } catch (err) {
+                    console.error("Leads Load Error:", err);
+                }
             }
+
+            async function viewLeadDetails(email) {
+                const SECRET = 'h14sua12';
+                try {
+                    const res = await fetch(`/api/admin?action=get-lead-details&email=${email}&secret=${SECRET}`);
+                    const data = await res.json();
+                    
+                    if (!data.activity || data.activity.length === 0) {
+                        alert("No activity logs found for this user.");
+                        return;
+                    }
+
+                    // Create simple modal overlay
+                    const modal = document.createElement('div');
+                    modal.style = "position:fixed; inset:0; background:rgba(0,0,0,0.8); z-index:9999; display:flex; align-items:center; justify-content:center; padding:20px;";
+                    modal.onclick = (e) => { if(e.target === modal) modal.remove(); };
+
+                    const content = document.createElement('div');
+                    content.style = "background:var(--surface); border:1px solid var(--border); border-radius:20px; width:100%; max-width:600px; max-height:80vh; overflow-y:auto; padding:32px; position:relative;";
+                    
+                    const close = document.createElement('button');
+                    close.innerText = "✕";
+                    close.style = "position:absolute; top:20px; right:20px; background:none; border:none; color:var(--muted); cursor:pointer; font-size:20px;";
+                    close.onclick = () => modal.remove();
+                    content.appendChild(close);
+
+                    const title = document.createElement('h2');
+                    title.innerText = `Activity for ${email}`;
+                    title.style = "margin-bottom:24px; font-size:20px; color:var(--text);";
+                    content.appendChild(title);
+
+                    data.activity.forEach(a => {
+                        const item = document.createElement('div');
+                        item.style = "margin-bottom:24px; padding-bottom:16px; border-bottom:1px solid rgba(255,255,255,0.05);";
+                        
+                        const head = document.createElement('div');
+                        head.style = "display:flex; justify-content:space-between; margin-bottom:8px;";
+                        head.innerHTML = `<strong style="color:var(--text);">${a.tool.toUpperCase()}</strong> <span style="font-size:11px; color:var(--muted);">${new Date(a.created_at).toLocaleString()}</span>`;
+                        item.appendChild(head);
+
+                        const inputs = document.createElement('div');
+                        inputs.style = "font-size:12px; color:var(--muted); margin-bottom:8px;";
+                        inputs.innerText = `Inputs: ${JSON.stringify(a.inputs)}`;
+                        item.appendChild(inputs);
+
+                        const results = document.createElement('div');
+                        results.style = "font-size:13px; color:var(--accent); font-weight:600;";
+                        results.innerText = `Results: ${JSON.stringify(a.results)}`;
+                        item.appendChild(results);
+
+                        content.appendChild(item);
+                    });
+
+                    modal.appendChild(content);
+                    document.body.appendChild(modal);
+
+                } catch (err) {
+                    console.error("Lead Details Error:", err);
+                    alert("Failed to load details.");
+                }
+            }
+
             function exportLeads() {
-                const leads = JSON.parse(localStorage.getItem('yc_leads') || '[]');
-                const csv = 'Email,Calculator,Page,Timestamp\n' + leads.map(l => `${l.email},${l.calculator},${l.page},${l.timestamp}`).join('\n');
+                if (!currentLeads.length) return;
+                
+                const headers = ['Email', 'Name', 'Handle', 'Calcs', 'Source', 'Referrer', 'First Seen', 'Last Seen'];
+                const csv = [
+                    headers.join(','),
+                    ...currentLeads.map(l => [
+                        l.email,
+                        l.name || 'Anonymous',
+                        l.handle || '',
+                        l.calculation_count || 1,
+                        l.conversion_page || '',
+                        l.referrer || '',
+                        l.first_calculation_at,
+                        l.last_activity_at
+                    ].map(field => `"${field}"`).join(','))
+                ].join('\n');
+
                 const blob = new Blob([csv], { type: 'text/csv' });
                 const url = window.URL.createObjectURL(blob);
                 const a = document.createElement('a');
-                a.href = url; a.download = 'yourcalc_leads.csv'; a.click();
+                a.href = url; a.download = `yourcalc_leads.csv`; a.click();
             }
-            loadLeads();
+
+            document.addEventListener('DOMContentLoaded', loadLeads);
         </script>
 
     </main>

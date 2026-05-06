@@ -30,15 +30,56 @@
     <main>
         <div class="container">
             <div class="ad-unit ad-top"><!-- AdSense --></div>
+            <div id="citations" style="position:absolute; visibility:hidden;"></div>
             <h1>Academic & <span style="color: var(--accent2);">Research Math</span></h1>
             <p class="subtitle">Standardized tools for grading and citation mapping.</p>
 
-            <section style="background: var(--surface); border: 1px solid var(--border); border-radius: 24px; padding: 40px; margin-bottom: 40px;">
-                <h2 style="font-size: 24px; margin-bottom: 24px; color: var(--text);">Academic <span style="color: var(--accent);">Intelligence Suite</span></h2>
-                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 32px;">
-                    <div><h3 style="color: var(--accent); margin-bottom: 12px; font-size: 18px;">GPA Scaling</h3><p style="color: var(--muted); line-height: 1.6; font-size: 14px;">The 4.0 scale is standardized, but weighted GPA can reach 5.0 for AP/IB courses.</p></div>
-                    <div><h3 style="color: var(--accent); margin-bottom: 12px; font-size: 18px;">Curving Logic</h3><p style="color: var(--muted); line-height: 1.6; font-size: 14px;">The "Square Root Curve" is mathematically fairer to lower-performing students than linear bonuses.</p></div>
-                    <div><h3 style="color: var(--accent); margin-bottom: 12px; font-size: 18px;">Research Impact</h3><p style="color: var(--muted); line-height: 1.6; font-size: 14px;">The h-index measures both productivity and citation impact (h papers with at least h citations).</p></div>
+            </section>
+
+            <!-- Editorial Content Block -->
+            <section class="content-block">
+                <h3>Academic and Research Math: Mapping the Path to Excellence</h3>
+                <p>The academic journey is defined by metrics — from the Grade Point Average (GPA) that gates entry into higher education to the h-index that measures a researcher's life's work. While education is about the pursuit of knowledge, the systems we use to track progress are fundamentally mathematical. The tools in this section are designed to provide students, teachers, and researchers with the data needed to plan their academic strategy with precision.</p>
+                <p>Whether you are calculating the exact score you need on a final exam to maintain your "A" or projecting your future research impact, our calculators provide the standardized logic used by universities and academic journals worldwide.</p>
+                
+                <h4>GPA Scaling: The Math of Merit</h4>
+                <p>The Grade Point Average (GPA) is a weighted mean of your course performance. While the 4.0 scale is the US standard, the math becomes complex when accounting for "Weighted GPA" (where AP, IB, or Honors courses are valued on a 5.0 scale) and varying credit hours. Our GPA calculator implements the standard formula: (&Sigma; Grade Points × Credits) / Total Credits.</p>
+                <p>The core insight: a high-credit course has a disproportionate impact on your GPA. Using the calculator to simulate different outcomes allows students to prioritize their study time where it will have the most significant impact on their academic standing. It moves the conversation from "I hope my grades are okay" to "I need exactly a B+ in this 4-credit lab to reach my 3.5 goal."</p>
+                
+                <h4>Final Grade Math: The "What-If" Analysis</h4>
+                <p>The final weeks of a semester are often characterized by "grade anxiety." Our Final Grade calculator removes the mystery by working backward from your goal. If your final exam is worth 30% of your grade and you currently have an 88%, the tool reveals the exact score you need on that final to reach a 90% (A-) or a 93% (A). This mathematical clarity allows students to allocate their limited "Finals Week" energy more efficiently across their various subjects.</p>
+                
+                <h4>Grade Curving: The Statistical Baseline</h4>
+                <p>Curving is the process of adjusting student scores to fit a desired distribution. While some instructors use a simple "add 5 points" method, professional academic curving often uses the "Square Root Curve" (10 × &radic;Score). This method is mathematically fairer because it provides a larger boost to students at the lower end of the scale while maintaining the integrity of higher scores.</p>
+                <p>Our Grade Curve tool allows instructors to visualize these distributions and students to see how a "70" on a particularly difficult exam might translate into a "B" once the curve is applied. Understanding the "Mean" and "Standard Deviation" of a class performance is a critical part of academic transparency.</p>
+                
+                <h4>Research Impact: The h-index and Beyond</h4>
+                <p>In the world of academic research, the h-index has become the gold standard for measuring a scientist's productivity and citation impact. An h-index of 20 means a researcher has 20 papers that have each been cited at least 20 times. This metric is designed to identify researchers who produce high-quality, impactful work consistently, rather than those who had a single "one-hit wonder" paper with thousands of citations.</p>
+                <p>Our h-index calculator allows researchers to track their progress and identify which papers are "near-hits" (e.g., your 21st paper has 19 citations). Seeing this data highlights the long-term ROI of "citation management" and the importance of publishing in high-visibility journals.</p>
+
+                <div class="faq-section">
+                    <dl>
+                        <div class="faq-block">
+                            <dt>What is the difference between Unweighted and Weighted GPA?</dt>
+                            <dd>Unweighted GPA treats every class on a 4.0 scale regardless of difficulty. Weighted GPA adds a "point" for advanced courses (AP/IB), recognizing the higher academic rigors. Most competitive colleges look at both, using the unweighted GPA for a baseline and the weighted GPA to measure "strength of curriculum." Our calculator allows you to toggle between these modes.</dd>
+                        </div>
+                        <div class="faq-block">
+                            <dt>How does a "W" (Withdrawal) affect my GPA?</dt>
+                            <dd>In almost all university systems, a "W" does not count toward your GPA calculation. However, an "F" or an "Incomplete" that expires will be treated as 0 grade points. Our tool helps you simulate the impact of staying in a class versus withdrawing before the deadline to protect your cumulative average.</dd>
+                        </div>
+                        <div class="faq-block">
+                            <dt>Is the h-index fair for younger researchers?</dt>
+                            <dd>The h-index is inherently biased toward established researchers because it takes years for citations to accumulate. A younger researcher might have a low h-index despite doing groundbreaking work. For this reason, the "m-index" (h-index divided by years since first publication) is often used as a more equitable comparison for early-career academics.</dd>
+                        </div>
+                        <div class="faq-block">
+                            <dt>How should I handle "Pass/Fail" courses in the GPA calculator?</dt>
+                            <dd>Pass/Fail courses typically do not contribute to the GPA. They provide credits toward graduation but are excluded from the mathematical average. Simply leave these courses out of our GPA calculator to get an accurate representation of your graded performance.</dd>
+                        </div>
+                    </dl>
+                </div>
+
+                <div class="use-tags">
+                    <span>Academic strategy</span><span>GPA optimization</span><span>Research impact metrics</span><span>Grading statistics</span><span>Student success tools</span>
                 </div>
             </section>
 
@@ -114,33 +155,40 @@
                 <div class="ad-unit ad-result"><!-- AdSense --></div>
             </div>
 
-            <!-- Educational Content Section -->
-            <section class="educational-content" style="margin-top: 60px; border-top: 1px solid var(--border); padding-top: 40px; padding-bottom: 60px;">
-                <h2 style="font-size: 28px; color: var(--text); margin-bottom: 24px; text-align: left;">Understanding <span style="color: var(--accent);">Academic Metrics</span> & Performance</h2>
-                
-                <div style="color: var(--muted); line-height: 1.8;">
-                    <div style="margin-bottom: 32px;">
-                        <h3 style="color: var(--text); margin-bottom: 12px; font-size: 20px;">The Mechanics of Grade Curving</h3>
-                        <p>Grade curving is a controversial yet essential tool in higher education. It is primarily used when an exam's difficulty level exceeds the anticipated performance of the student body. Our <strong>Grade Curve Calculator</strong> employs a linear adjustment model, which is the most transparent method for both educators and students. By setting a target average, the tool calculates the precise "bump" required to shift the class distribution. This ensures that a particularly brutal midterm doesn't unfairly penalize a hard-working cohort, while still maintaining the relative ranking of students within that group.</p>
-                        <p style="margin-top: 16px;">There are several schools of thought on curving. The <em>Bell Curve</em> method forces a specific number of A's, B's, and C's, which can lead to hyper-competition. In contrast, the linear method we provide is often preferred because it maintains the integrity of the original score gaps while simply adjusting the baseline for the entire class. This prevents "grade deflation" in rigorous STEM fields where raw scores of 60% might actually represent a high level of mastery. Understanding how your professor curves can help you focus on your percentile rank rather than just the raw number.</p>
-                    </div>
+            <!-- Editorial Content Section -->
+            <section class="editorial-section">
+                <div class="editorial-label">
+                    <span class="editorial-tag">Category</span>
+                    <span class="editorial-title">Academic &amp; Research Math</span>
+                </div>
 
-                    <div style="margin-bottom: 32px;">
-                        <h3 style="color: var(--text); margin-bottom: 12px; font-size: 20px;">Decoding the h-Index & Academic Impact</h3>
-                        <p>The <strong>h-index</strong> has become the gold standard for measuring a researcher's career impact. Proposed by Jorge E. Hirsch in 2005, it attempts to solve the problem where a single "lucky" paper with thousands of citations could skew a researcher's perceived importance. An h-index of 15 means you have published at least 15 papers, each of which has been cited at least 15 times. This requires both <em>consistency</em> and <em>quality</em> over a long period. It is a metric of sustainability in research, rewarding those who produce a steady stream of meaningful work.</p>
-                        <p style="margin-top: 16px;">Our h-index tool allows researchers to project their growth and understand their standing within their field. For context, in the physical sciences, an h-index of 10-12 might be expected for an assistant professor, while an index of 40+ is often seen in Nobel-level scientists. However, it is crucial to remember that h-index values vary wildly between disciplines. A high h-index in high-energy physics might be average in social sciences, simply due to the differing citation cultures and publication frequencies of those fields. Researchers should always compare their h-index against peers in their specific niche for a fair assessment.</p>
+                <div class="content-block">
+                    <h3>About These Academic Calculators</h3>
+                    <p>In the competitive world of modern academia, success is increasingly measured through quantitative filters: GPAs, citation counts, and standardized test percentiles. While these numbers don't capture the full breadth of a student's curiosity or a researcher's brilliance, they are the standard benchmarks used for admissions, grants, and tenure. Understanding the math behind these metrics allows you to move from being a subject of evaluation to an active manager of your academic profile.</p>
+                    <p>These tools are built for both students and researchers. Our GPA calculator handles the complexities of credit-weighting, while the Grade Curve tool offers mathematical alternatives (like the Square Root Curve) to traditional linear bonuses. For researchers, the h-index projector helps visualize the long-term impact of consistent publication cycles.</p>
+                    <p>For reference: the GPA models used here follow the standard US 4.0 scale (with weighted options for AP/IB), and our h-index logic follows the original Hirsch protocol used by platforms like Google Scholar and Web of Science.</p>
+                    <div class="use-cases">
+                        <span>GPA goal projection</span>
+                        <span>Final exam score auditing</span>
+                        <span>Grade curve simulation</span>
+                        <span>Research impact (h-index) tracking</span>
+                        <span>Credit-weighted performance analysis</span>
                     </div>
+                </div>
 
-                    <div style="margin-bottom: 32px;">
-                        <h3 style="color: var(--text); margin-bottom: 12px; font-size: 20px;">GPA Strategy: Weighted vs. Unweighted</h3>
-                        <p>Managing your <strong>GPA</strong> is about more than just getting good grades; it's about understanding the weighting system of your institution. Most high schools use a weighted scale where AP or IB courses are out of 5.0, while standard courses are out of 4.0. This incentivizes students to take more rigorous classes. Our calculator allows you to model both scenarios, helping you see how a single B in an AP class might actually be better for your weighted GPA than an A in a standard class. This is critical for college admissions, where a more challenging transcript often carries more weight than a perfect 4.0 in easy classes.</p>
-                        <p style="margin-top: 16px;">For university students, the focus shifts to cumulative vs. major GPA. Employers often look at the major GPA to see how you performed in your specific field of study, while graduate schools prioritize the cumulative score. Using our tracker to project your final GPA before the semester ends can help you decide where to focus your study efforts during finals week to maximize your academic standing. A well-timed study session for a 4-credit course can have a much larger impact on your GPA than the same time spent on a 1-credit elective.</p>
-                    </div>
+                <div class="faq-block">
+                    <dt>What is the 'Square Root Curve' and is it fair?</dt>
+                    <dd>The Square Root Curve (Raw Score √ * 10) is a popular grading adjustment that helps lower-performing students more than top-tier ones. For example, a 64% raw score becomes an 80%, while a 90% only becomes a 94.8%. It is often considered fairer than a linear "+10 points" bonus because it accounts for the increasing difficulty of gaining those final few percentage points at the top of the scale.</dd>
+                </div>
 
-                    <div>
-                        <h3 style="color: var(--text); margin-bottom: 12px; font-size: 20px;">The Importance of Academic Milestones</h3>
-                        <p>Beyond the numbers, academic success is often measured by milestones: the first published paper, the first grant, or the successful defense of a thesis. While our tools provide the quantitative data, the qualitative aspects of your academic journey—like networking, mentorship, and research integrity—are just as important. Use these calculators as a compass to guide your progress, but don't lose sight of the curiosity and passion that brought you to academia in the first place. Whether you're calculating your final grade or projecting your research impact ten years from now, stay focused on the long-term goal of contribution and discovery.</p>
-                    </div>
+                <div class="faq-block">
+                    <dt>Why does the h-index matter for researchers?</dt>
+                    <dd>The h-index measures both productivity (number of papers) and impact (number of citations). An h-index of 20 means you have published at least 20 papers that have been cited at least 20 times. It prevents a single "lucky" highly-cited paper from skewing your perceived importance and rewards those who produce a steady stream of meaningful, high-quality work over time.</dd>
+                </div>
+
+                <div class="faq-block">
+                    <dt>How should I prioritize my final exams?</dt>
+                    <dd>Use the Final Grade calculator to see the "weight" of each course. A 4-credit course with a final worth 40% has a much larger impact on your cumulative GPA than a 2-credit course with a final worth 10%. By understanding the required score needed for your target grade, you can strategically allocate your limited study hours to the exams that will have the biggest mathematical impact on your standing.</dd>
                 </div>
             </section>
         </div>

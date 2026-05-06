@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <title>The 2026 Guide to Compound Interest: How to Build a $1M Portfolio Starting with $500 | YourCalc</title>
+    <meta name="description" content="Learn the math behind compound interest and how to build a million-dollar portfolio starting with just $500 in 2026.">
+    <meta name="keywords" content="compound interest, geometric progression, wealth building, investment growth, snowball effect">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="canonical" href="https://yourcalc.info/blog/{{FILENAME}}">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://yourcalc.info/blog/{{FILENAME}}">
+    <meta property="og:title" content="The 2026 Guide to Compound Interest: How to Build a $1M Portfolio Starting with $500">
+    <meta property="og:description" content="Learn the math behind compound interest and how to build a million-dollar portfolio starting with just $500 in 2026.">
+    <meta property="og:image" content="https://yourcalc.info/blog/assets/compound-interest.png">
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://yourcalc.info/blog/{{FILENAME}}">
+    <meta property="twitter:title" content="The 2026 Guide to Compound Interest: How to Build a $1M Portfolio Starting with $500">
+    <meta property="twitter:description" content="Learn the math behind compound interest and how to build a million-dollar portfolio starting with just $500 in 2026.">
+    <meta property="twitter:image" content="https://yourcalc.info/blog/assets/compound-interest.png">
+
+    <link rel="icon" href="../favicon.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="../global.css">
+    <script src="../sidebar.js" defer></script>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Article",
+      "headline": "The 2026 Guide to Compound Interest: How to Build a $1M Portfolio Starting with $500",
+      "image": ["https://yourcalc.info/blog/assets/compound-interest.png"],
+      "description": "Learn the math behind compound interest and how to build a million-dollar portfolio starting with just $500 in 2026.",
+      "author": {
+        "@type": "Organization",
+        "name": "YourCalc"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "YourCalc",
+        "logo": {
+          "@type": "ImageObject",
+          "url": "https://yourcalc.info/favicon.svg"
+        }
+      },
+      "datePublished": "2026-05-01"
+    }
+    </script>
+    <script>
+        (function() {
+            const saved = localStorage.getItem('calcTheme') || 'dark';
+            document.documentElement.setAttribute('data-theme', saved);
+        })();
+    </script>
+    <style>
+        body { background-color: var(--bg); color: var(--text); font-family: 'Outfit', sans-serif; line-height: 1.6; display: flex; flex-direction: column; min-height: 100vh; }
+        main { flex: 1; padding: 140px 20px 80px 20px; max-width: 800px; margin: 0 auto; width: 100%; box-sizing: border-box; }
+        
+        .breadcrumb { display: flex; gap: 8px; font-size: 14px; color: var(--muted); margin-bottom: 24px; font-weight: 500; }
+        .breadcrumb a { color: var(--accent); text-decoration: none; }
+        
+        .article-header { margin-bottom: 48px; }
+        .article-category { display: inline-block; background: rgba(245, 166, 35, 0.1); color: var(--accent); font-size: 12px; font-weight: 700; padding: 6px 14px; border-radius: 10px; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 20px; }
+        .article-header h1 { font-size: clamp(32px, 5vw, 64px); font-weight: 700; line-height: 1.05; margin-bottom: 20px; letter-spacing: -0.04em; }
+        .article-subtitle { font-size: clamp(18px, 3vw, 26px); color: var(--muted); font-weight: 400; line-height: 1.5; letter-spacing: -0.01em; }
+        
+        .hero-image { 
+            width: 100%; height: 500px; border-radius: 32px; overflow: hidden; margin-bottom: 64px; 
+            border: 1px solid var(--border); box-shadow: 0 40px 100px rgba(0,0,0,0.5);
+            position: relative; background: var(--surface);
+        }
+        .hero-image img { width: 100%; height: 100%; object-fit: cover; }
+        .hero-image::after {
+            content: ''; position: absolute; inset: 0;
+            background: linear-gradient(180deg, rgba(10,11,14,0) 0%, rgba(10,11,14,0.6) 100%);
+        }
+
+        .article-content { font-size: 19px; color: var(--text-dim); }
+        .article-content p { margin-bottom: 28px; line-height: 1.8; }
+        .article-content h2 { color: var(--text); font-size: 36px; font-weight: 700; margin: 56px 0 28px 0; letter-spacing: -0.03em; }
+        .article-content h3 { color: var(--text); font-size: 26px; font-weight: 600; margin: 32px 0 16px 0; }
+        
+        .math-block { 
+            background: var(--surface); border: 1px solid var(--border); border-radius: 24px; 
+            padding: 40px; margin: 48px 0; overflow-x: auto; text-align: center; font-size: 22px;
+            box-shadow: inset 0 0 40px rgba(0,0,0,0.2);
+        }
+        
+        .pro-tip { 
+            background: linear-gradient(135deg, rgba(245, 166, 35, 0.1), rgba(245, 166, 35, 0.05));
+            border-left: 4px solid var(--accent); padding: 40px; border-radius: 0 32px 32px 0;
+            margin: 64px 0; font-size: 18px;
+        }
+        .pro-tip strong { color: var(--accent); display: block; margin-bottom: 12px; text-transform: uppercase; font-size: 13px; letter-spacing: 0.12em; }
+        .pro-tip a { color: var(--text); font-weight: 600; text-decoration-color: var(--accent); }
+        
+        @media (max-width: 768px) {
+            main { padding-top: 100px; padding-bottom: 60px; }
+            .hero-image { height: 300px; border-radius: 24px; margin-bottom: 40px; }
+            .article-content { font-size: 17px; }
+            .article-content h2 { font-size: 28px; }
+            .pro-tip { padding: 24px; border-radius: 16px; }
+            .math-block { padding: 24px; font-size: 18px; }
+        }
+    </style>
+</head>
+<body>
+    <nav class="sidebar"></nav>
+    <div class="bottom-nav"></div>
+    
+    <main>
+        <div class="breadcrumb">
+            <a href="../index.html">Home</a> / <a href="index.html">Guides</a> / Finance & Investment
+        </div>
+
+        <article>
+            <header class="article-header">
+                <span class="article-category">Finance & Investment</span>
+                <h1>The 2026 Guide to Compound Interest: How to Build a $1M Portfolio Starting with $500</h1>
+                <p class="article-subtitle">Understanding the geometric progression of wealth and the snowball effect of early investing.</p>
+            </header>
+
+            <div class="hero-image">
+                <img src="assets/compound-interest.png" alt="The 2026 Guide to Compound Interest: How to Build a $1M Portfolio Starting with $500" onerror="this.style.display='none'; this.parentElement.style.background='radial-gradient(circle at 50% 50%, var(--accent-light), var(--bg))'">
+            </div>
+
+            <div class="article-content">
+                
+            <p>The greatest mathematical force in the universe isn't found in a laboratory or a particle accelerator; it's found in your brokerage account. Albert Einstein famously called compound interest the "eighth wonder of the world," and for a very specific reason: it is the only legal way to turn time directly into money through geometric progression.</p>
+            
+            <div class="pro-tip">
+                Ready to see your own numbers? Use our <a href="../finance.html#compound">Compound Interest Calculator</a> to project your 10, 20, and 30-year wealth trajectory instantly.
+            </div>
+
+            <h2>The Math Behind the Snowball</h2>
+            <p>Compound interest differs from simple interest because it is interest calculated on the initial principal, which also includes all of the accumulated interest from previous periods on a deposit or loan. This creates a feedback loop where your money earns money, and then that new money earns even more money.</p>
+            <p>The standard formula for compound interest is:</p>
+            <div class="math-block">
+                \[A = P \left(1 + \frac{r}{n}\right)^{nt}\]
+            </div>
+            <p>Where:</p>
+            <ul>
+                <li><strong>A</strong> = the future value of the investment</li>
+                <li><strong>P</strong> = the principal investment amount</li>
+                <li><strong>r</strong> = the annual interest rate (decimal)</li>
+                <li><strong>n</strong> = the number of times that interest is compounded per unit t</li>
+                <li><strong>t</strong> = the time the money is invested for</li>
+            </ul>
+
+            <h3>The Rule of 72: A Quick Mental Shortcut</h3>
+            <p>If you want to know how long it will take for your money to double at a given interest rate, use the Rule of 72. Simply divide 72 by your annual rate of return. For example, at a 7% return (the historical average for the stock market after inflation), your money doubles every 10.2 years.</p>
+
+            <div class="pro-tip">
+                Project your doubling time with precision using the <a href="../finance.html#compound">Rule of 72 Feature</a> on our investment tool.
+            </div>
+
+            <h2>How $500 Becomes $1,000,000</h2>
+            <p>Building a million-dollar portfolio starting with $500 is entirely possible, provided you have two things: consistency and time. If you start with $500 and contribute $500 every month at a 10% annual return, you hit the millionaire mark in approximately 31 years.</p>
+            <p>The "inflection point" usually occurs around year 15. This is when your annual interest earnings begin to exceed your annual contributions. From this point forward, your portfolio is doing more work than you are.</p>
+
+            <h2>Inflation-Adjusted Returns</h2>
+            <p>It's important to calculate your "Real Rate of Return." If the market returns 10% but inflation is 3%, your purchasing power is only growing at 7%. Always use inflation-adjusted figures when planning for retirement to ensure your future million dollars still buys what a million dollars buys today.</p>
+        
+            </div>
+        </article>
+    </main>
+
+    <footer class="site-footer" style="margin-top: 120px; padding: 80px 20px; border-top: 1px solid var(--border); text-align: center;">
+        <div class="footer-links" style="margin-bottom: 32px; display: flex; justify-content: center; gap: 40px; font-size: 15px; font-weight: 600;">
+            <a href="../index.html" style="color: var(--muted); text-decoration: none; transition: color 0.2s;">Home</a>
+            <a href="../about.html" style="color: var(--muted); text-decoration: none; transition: color 0.2s;">About</a>
+            <a href="../privacy.html" style="color: var(--muted); text-decoration: none; transition: color 0.2s;">Privacy</a>
+            <a href="../contact.html" style="color: var(--muted); text-decoration: none; transition: color 0.2s;">Contact</a>
+        </div>
+        <p style="color: var(--muted); font-size: 13px; opacity: 0.8;">&copy; 2026 YourCalc — Professional Mathematical Resources.</p>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            setTimeout(() => {
+                document.querySelectorAll('.logo-container').forEach(el => el.onclick = () => location.href='../index.html');
+                document.querySelectorAll('.nav-item').forEach(el => {
+                    const href = el.getAttribute('href');
+                    if (href && !href.startsWith('http') && !href.startsWith('#')) el.setAttribute('href', '../' + href);
+                });
+            }, 100);
+        });
+    </script>
+</body>
+</html>

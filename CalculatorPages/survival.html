@@ -30,10 +30,12 @@
     <main>
         <div class="container">
             <div class="ad-unit ad-top"><!-- AdSense --></div>
+            <div id="supply" style="position:absolute; visibility:hidden;"></div>
+            <div id="calories" style="position:absolute; visibility:hidden;"></div>
             <h1>Survival & <span style="color: var(--error);">Tactical Logic</span></h1>
             <p class="subtitle">Mission-critical math for extreme scenarios.</p>
 
-            <section style="background: var(--surface); border: 1px solid var(--border); border-radius: 24px; padding: 40px; margin-bottom: 40px;">
+            <section class="info-section">
                 <h2 style="font-size: 24px; margin-bottom: 24px; color: var(--text);">Tactical <span style="color: var(--accent);">Intelligence Suite</span></h2>
                 <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 32px;">
                     <div><h3 style="color: var(--accent); margin-bottom: 12px; font-size: 18px;">Ballistics</h3><p style="color: var(--muted); line-height: 1.6; font-size: 14px;">Gravity affects every projectile. Understanding "bullet drop" over distance is critical for long-range precision and tactical planning.</p></div>
@@ -77,32 +79,39 @@
             </div>
         </div>
 
-            <!-- Educational Content Section -->
-            <section class="educational-content" style="margin-top: 60px; border-top: 1px solid var(--border); padding-top: 40px; padding-bottom: 60px;">
-                <h2 style="font-size: 28px; color: var(--text); margin-bottom: 24px;">The Principles of <span style="color: var(--accent);">Emergency Preparedness</span></h2>
-                
-                <div style="color: var(--muted); line-height: 1.8;">
-                    <div style="margin-bottom: 32px;">
-                        <h3 style="color: var(--text); margin-bottom: 12px; font-size: 20px;">Water Purification: The 30-Minute Rule</h3>
-                        <p>In a survival situation, water is your most critical asset. While boiling is the "gold standard" for purification, it is not always possible. Our <strong>Water Purification Ratio Tool</strong> calculates the correct dosage of common household bleach (unscented, 5.25% to 8.25% sodium hypochlorite) to make water safe for consumption. For clear water, the standard is 8 drops per gallon; for cloudy or very cold water, the dosage is doubled to 16 drops. Crucially, you must wait at least <strong>30 minutes</strong> after mixing before drinking to allow the chlorine to effectively neutralize harmful pathogens.</p>
-                        <p style="margin-top: 16px;">It's important to remember that chemical purification only targets biological contaminants (bacteria and viruses). It does not remove chemical toxins, heavy metals, or physical debris. If the water is murky, filter it through a clean cloth or a paper coffee filter before treating it. Always carry a small dropper of bleach in your emergency kit—it is one of the most lightweight and effective life-saving tools you can own.</p>
-                    </div>
+            <section class="editorial-section">
+                <div class="editorial-label">
+                    <span class="editorial-tag">Category</span>
+                    <span class="editorial-title">Emergency Preparedness &amp; Tactical Math</span>
+                </div>
 
-                    <div style="margin-bottom: 32px;">
-                        <h3 style="color: var(--text); margin-bottom: 12px; font-size: 20px;">Ballistics Math: Understanding Bullet Drop</h3>
-                        <p>For those in tactical or hunting scenarios, understanding <strong>External Ballistics</strong> is essential for accuracy at long ranges. As soon as a bullet leaves the muzzle, gravity begins to pull it toward the earth. Our <strong>Ballistics Drop Tool</strong> uses the standard gravitational constant (32.17 ft/s²) to calculate the physical drop in inches over a specific distance and muzzle velocity. This is the "holdover" you must account for to ensure your projectile reaches its intended target.</p>
-                        <p style="margin-top: 16px;">In the field, environmental factors like wind, humidity, and air density (altitude) also play a role in trajectory. While our tool provides the foundational gravitational drop, experienced marksmen use these numbers as a baseline and then adjust for local conditions. Mastering the math of ballistics turns "guessing" into "precision," which is critical for both safety and effectiveness in high-stakes environments.</p>
+                <div class="content-block">
+                    <h3>About These Survival Calculators</h3>
+                    <p>In high-stakes environments, survival is a discipline built on quantitative clarity and proactive management. Whether you are modeling the physical drop of a projectile over distance or calculating the precise chemical dosage required to neutralize pathogens in a water source, having reliable data is a critical asset. These tools are designed to provide that "mission-critical" math when intuition is not enough.</p>
+                    <p>Our Tactical Intelligence Suite handles the essential math of emergency preparedness. The Ballistics calculator uses the gravitational constant to project holdovers for long-range precision, while the Water Purification tool automates the CDC-recommended bleach-to-water ratios for clear and cloudy sources. We also incorporate the "Rule of Threes" baseline to help prioritize resources during extreme scenarios.</p>
+                    <p>For reference: our ballistics models assume a standard G1 drag coefficient baseline, and our purification metrics utilize the EPA standards for emergency household bleach treatment (5.25% - 8.25% sodium hypochlorite).</p>
+                    <div class="use-cases">
+                        <span>External ballistics (Bullet Drop) projection</span>
+                        <span>Emergency water (Bleach) purification auditing</span>
+                        <span>Tactical holdover & range estimation</span>
+                        <span>Resource prioritization (Rule of Threes)</span>
+                        <span>Field-ready mathematical baseline planning</span>
                     </div>
+                </div>
 
-                    <div style="margin-bottom: 32px;">
-                        <h3 style="color: var(--text); margin-bottom: 12px; font-size: 20px;">The Rule of Three</h3>
-                        <p>Survival priorities are often summarized by the "Rule of Three": You can survive 3 minutes without air, 3 hours without shelter (in extreme conditions), 3 days without water, and 3 weeks without food. Our <strong>Survival Math Suite</strong> focuses on the middle two priorities—shelter (implied by preparedness) and water. By quantifying your needs and knowing the correct ratios for treatment, you move from a state of reactive panic to proactive management.</p>
-                    </div>
+                <div class="faq-block">
+                    <dt>What is the 'Rule of Threes' in survival?</dt>
+                    <dd>The Rule of Threes is a mnemonic used to prioritize survival needs: 3 minutes without air, 3 hours without shelter (in extreme conditions), 3 days without water, and 3 weeks without food. Our tools focus on the middle two priorities—shelter (preparedness) and water—to ensure you have the data needed to manage these critical windows effectively.</dd>
+                </div>
 
-                    <div>
-                        <h3 style="color: var(--text); margin-bottom: 12px; font-size: 20px;">Field Preparedness and Data</h3>
-                        <p>Information is just as valuable as gear in the field. Knowing how to calculate a dosage or predict a trajectory is a "skill that doesn't take up room in your pack." Our tools are designed to work entirely in your browser, meaning they can be used offline if you have already loaded the page. Use these resources to build your mental kit, ensuring that you are ready for whatever challenges the environment may present.</p>
-                    </div>
+                <div class="faq-block">
+                    <dt>How does gravity affect long-range accuracy?</dt>
+                    <dd>As soon as a projectile leaves the muzzle, gravity begins pulling it toward the earth at 32.17 ft/s². This "Bullet Drop" becomes exponential over distance. Our ballistics tool calculates this drop in inches, providing the necessary "holdover" for precision. Note that environmental factors like wind and air density also play a role, but gravitational drop is the foundational math of external ballistics.</dd>
+                </div>
+
+                <div class="faq-block">
+                    <dt>Is chemical water treatment always safe?</dt>
+                    <dd>Chemical treatment (like bleach) is highly effective against biological pathogens like bacteria and viruses, but it does not remove chemical toxins, heavy metals, or physical debris. Always wait at least 30 minutes after treatment before drinking to allow the reaction to complete. If water is murky, filter it through a clean cloth before applying the 16-drop "Cloudy Water" dosage calculated by our tool.</dd>
                 </div>
             </section>
         </div>

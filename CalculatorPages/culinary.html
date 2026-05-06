@@ -30,15 +30,56 @@
     <main>
         <div class="container">
             <div class="ad-unit ad-top"><!-- AdSense --></div>
+            <div id="scaling" style="position:absolute; visibility:hidden;"></div>
             <h1>Culinary <span style="color: var(--accent2);">Math</span></h1>
             <p class="subtitle">Scaling recipes and balancing molecular ratios.</p>
 
-            <section style="background: var(--surface); border: 1px solid var(--border); border-radius: 24px; padding: 40px; margin-bottom: 40px;">
-                <h2 style="font-size: 24px; margin-bottom: 24px; color: var(--text);">Culinary <span style="color: var(--accent);">Intelligence Suite</span></h2>
-                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 32px;">
-                    <div><h3 style="color: var(--accent); margin-bottom: 12px; font-size: 18px;">Baker's %</h3><p style="color: var(--muted); line-height: 1.6; font-size: 14px;">In baking, every ingredient is measured as a percentage of the total flour weight (always 100%). This allows for effortless recipe scaling regardless of batch size.</p></div>
-                    <div><h3 style="color: var(--accent); margin-bottom: 12px; font-size: 18px;">Hydration</h3><p style="color: var(--muted); line-height: 1.6; font-size: 14px;">Lower hydration (60%) creates denser, crusty bread. High hydration (80%+) produces open crumbs and airy structures like ciabatta or focaccia.</p></div>
-                    <div><h3 style="color: var(--accent); margin-bottom: 12px; font-size: 18px;">Batch Dilution</h3><p style="color: var(--muted); line-height: 1.6; font-size: 14px;">When batching cocktails, add roughly 20-25% water to simulate the dilution normally provided by shaking or stirring with ice in single-serve preparation.</p></div>
+            </section>
+
+            <!-- Editorial Content Block -->
+            <section class="content-block">
+                <h3>Culinary Math: Precision in the Professional Kitchen</h3>
+                <p>Cooking is often called an art, but baking and professional-scale production are pure sciences. In a commercial kitchen, "a pinch of this" and "a dash of that" are replaced by rigorous mathematical ratios and weight-based measurements. The tools in this section are designed to provide the mathematical baseline needed for recipe scaling, dough development, and beverage production. By moving from volumetric measures (cups/spoons) to mass-based measures (grams), you can achieve 100% consistency in your results.</p>
+                <p>Whether you are a sourdough enthusiast calculating the perfect hydration or a bar manager batching cocktails for a high-volume event, our calculators provide the professional-grade logic used in the world's top kitchens and bars.</p>
+                
+                <h4>Baker's Percentages: The Universal Language of Bread</h4>
+                <p>Baker's Percentage is a system where the weight of each ingredient is expressed as a percentage of the total weight of the flour. In this system, flour is always 100%. Our Baker's % tool allows you to input your ingredient weights and immediately see the underlying ratio. This is the only way to effectively communicate a bread recipe across different batch sizes.</p>
+                <p>The core insight: once you have the percentages, you can scale a recipe from one loaf to 1,000 loaves effortlessly. If a recipe calls for 2% salt and you are using 50kg of flour, you know exactly that you need 1kg of salt. This mathematical clarity is why professional bakeries don't use "recipes" in the traditional sense; they use "formulas."</p>
+                
+                <h4>Dough Hydration and Crumb Structure</h4>
+                <p>Hydration is the ratio of water to flour in a dough. It is the single most important variable in determining the final texture of your bread. Our calculator highlights these ranges: 60% hydration creates a stiff dough used for bagels or sandwich bread; 75–80% hydration is the "sweet spot" for sourdough with an open, airy crumb; 90%+ hydration is used for "focaccia-style" breads with massive holes.</p>
+                <p>Understanding hydration allows you to troubleshoot your baking. If your bread is too dense, the math often reveals your hydration is too low for the flour type you are using (especially with high-protein whole wheat flours that absorb more water). Using the tool to track your hydration history is the fastest way to master the craft of bread making.</p>
+                
+                <h4>Cocktail Batching and the Dilution Ratio</h4>
+                <p>When you make a single cocktail, you shake or stir it with ice. This process does two things: it chills the drink and it adds water (dilution). If you simply pour a large volume of spirits and mixers into a bottle for service, the drink will be too strong and "hot" because it lacks that essential dilution. Our Cocktail Batching tool calculates the "Water to Add" to simulate professional single-serve preparation.</p>
+                <p>Standard dilution for a shaken drink is approximately 20–25%. For a stirred drink (like a Negroni), it is often 15–18%. By automating this calculation, bar managers can prepare high-quality, "bottled" cocktails that taste exactly like they were made to order, ensuring consistency and speed during busy service shifts.</p>
+                
+                <h4>Scaling and Unit Conversions</h4>
+                <p>The biggest source of failure in recipe scaling is the "rounding error" that occurs when multiplying small volumetric measures. Our tools encourage the use of Metric Grams for all ingredients, including liquids. One gram of water is exactly one milliliter, making the math seamless. Moving your kitchen to a "weight-only" workflow is the single most impactful change you can make to improve the quality and profitability of your food service operation.</p>
+
+                <div class="faq-section">
+                    <dl>
+                        <div class="faq-block">
+                            <dt>Why does the total percentage in baking exceed 100%?</dt>
+                            <dd>In Baker's Percentages, the flour is the 100% baseline. Every other ingredient (water, salt, yeast) is *added* to that 100%. So, a 70% hydration dough with 2% salt will have a "Total Formula Percentage" of 172%. This allows you to calculate the final dough weight easily: [Flour Weight] × [Total %].</dd>
+                        </div>
+                        <div class="faq-block">
+                            <dt>How do I account for the water in my sourdough starter?</dt>
+                            <dd>A standard sourdough starter is "100% hydration" (equal parts flour and water). To get an accurate hydration reading in our calculator, you must split your starter weight: add half to the flour total and half to the water total. This "True Hydration" is what actually determines the dough's behavior.</dd>
+                        </div>
+                        <div class="faq-block">
+                            <dt>Should I batch cocktails with carbonated ingredients?</dt>
+                            <dd>No. Never batch carbonated ingredients (soda, tonic, prosecco) in a closed container, as they will go flat. Batch the "base" (spirits, syrups, juices, water), then add the carbonated element "to order." Our batching tool provides the ratio for the base mix, allowing for high-speed service without sacrificing quality.</dd>
+                        </div>
+                        <div class="faq-block">
+                            <dt>What is the most accurate way to measure salt in baking?</dt>
+                            <dd>Always use a digital scale that measures in 0.1g increments. Small amounts of salt (often 20g for a 1kg flour batch) are difficult to measure accurately by volume due to the different crystal sizes of kosher salt vs. table salt. In our calculator, we assume weight-based measurement for clinical accuracy.</dd>
+                        </div>
+                    </dl>
+                </div>
+
+                <div class="use-tags">
+                    <span>Professional baking formulas</span><span>Beverage batching</span><span>Dough science</span><span>Recipe scaling</span><span>Culinary precision</span>
                 </div>
             </section>
 
@@ -81,32 +122,40 @@
             </div>
         </div>
 
-            <!-- Educational Content Section -->
-            <section class="educational-content" style="margin-top: 60px; border-top: 1px solid var(--border); padding-top: 40px; padding-bottom: 60px;">
-                <h2 style="font-size: 28px; color: var(--text); margin-bottom: 24px;">The Science of the <span style="color: var(--accent);">Modern Kitchen</span></h2>
-                
-                <div style="color: var(--muted); line-height: 1.8;">
-                    <div style="margin-bottom: 32px;">
-                        <h3 style="color: var(--text); margin-bottom: 12px; font-size: 20px;">Baker's Percentages: The Secret to Perfect Bread</h3>
-                        <p>In professional baking, recipes aren't written in cups or grams; they are written in <strong>Baker's Percentages</strong>. This system treats the total weight of the flour as 100%, and every other ingredient is calculated as a ratio of that weight. This allows bakers to scale a recipe from one loaf to one thousand without losing the fundamental balance of the dough. Our <strong>Baker's Percentage Calculator</strong> helps you find the "Hydration Level" of your dough—one of the most important metrics in sourdough and artisan bread making.</p>
-                        <p style="margin-top: 16px;">Hydration determines the crumb structure and crust of your bread. A low-hydration dough (50-60%) is easy to handle and produces a tight, sandwich-style crumb. A high-hydration dough (75-85%) is sticky and difficult to work with but rewards you with the large, airy "open crumb" found in high-end baguettes and ciabatta. Understanding these ratios allows you to troubleshoot your bread: if it's too dry, increase the water percentage by 2% next time. This scientific approach turns baking from a guessing game into a repeatable craft.</p>
-                    </div>
+            <!-- Editorial Content Section -->
+            <section class="editorial-section">
+                <div class="editorial-label">
+                    <span class="editorial-tag">Category</span>
+                    <span class="editorial-title">Culinary &amp; Kitchen Science</span>
+                </div>
 
-                    <div style="margin-bottom: 32px;">
-                        <h3 style="color: var(--text); margin-bottom: 12px; font-size: 20px;">Cocktail Batching: Entertaining at Scale</h3>
-                        <p>Hosting a large party and playing bartender all night is a recipe for a stressed host. The solution is <strong>Cocktail Batching</strong>—preparing large volumes of your drinks ahead of time. However, you can't just multiply a single drink recipe by 50. When you shake a cocktail with ice, about 20-25% of the final volume is actually water from <em>dilution</em>. If you batch a Negroni without adding water, it will taste harsh and unbalanced. Our <strong>Batch Scaling Tool</strong> factors in this essential dilution, ensuring your pre-poured drinks taste exactly like they were just shaken by a pro.</p>
-                        <p style="margin-top: 16px;">Pro tip: When batching, keep your spirits and non-perishables together, but add fresh citrus juice just before the event. Citrus oxidizes quickly, losing its bright "pop" after just a few hours. By using our calculator to find the total volume, you can select the right glassware or dispenser, ensuring your guests are well-served while you actually get to enjoy your own party.</p>
+                <div class="content-block">
+                    <h3>About These Culinary Calculators</h3>
+                    <p>In the professional kitchen, consistency is achieved through the application of molecular ratios and precise scaling. Whether you are building an artisan sourdough loaf using Baker's Percentages or preparing high-volume cocktail batches for an event, the qualitative success of the dish depends on the quantitative rigor of the preparation. Our tools are designed to automate these foundational culinary calculations, ensuring that every batch is as balanced as the first.</p>
+                    <p>Our Culinary Intelligence Suite handles the math of modern gastronomy. The Baker's Percentage tool allows you to model dough hydration levels—a critical factor in crumb structure—while the Cocktail Batching tool factors in the essential 20–25% dilution factor normally provided by manual stirring or shaking. These tools ensure that your recipes remain balanced at any scale.</p>
+                    <p>For reference: our baking models treat total flour weight as the 100% baseline, and our beverage tools follow the standard dilution ratios used by professional mixologists for pre-batched service.</p>
+                    <div class="use-cases">
+                        <span>Artisan dough (Hydration) analysis</span>
+                        <span>Professional recipe (Baker's %) scaling</span>
+                        <span>High-volume cocktail batching</span>
+                        <span>Commercial kitchen yield management</span>
+                        <span>Molecular gastronomy ratio auditing</span>
                     </div>
+                </div>
 
-                    <div style="margin-bottom: 32px;">
-                        <h3 style="color: var(--text); margin-bottom: 12px; font-size: 20px;">Precision Temperatures & Safety</h3>
-                        <p>Culinary excellence is often a matter of degrees. Whether you are tempering chocolate, poaching salmon sous-vide, or deep-frying chicken, maintaining the correct temperature is the difference between success and a ruined meal. We recommend using a high-quality digital thermometer in conjunction with our tools to ensure your kitchen remains both efficient and safe. Remember, the "Danger Zone" for bacterial growth is between 40°F and 140°F—keep your hot foods hot and your cold foods cold to ensure every meal is as safe as it is delicious.</p>
-                    </div>
+                <div class="faq-block">
+                    <dt>What is Baker's Percentage and why use it?</dt>
+                    <dd>Baker's Percentage is a system where every ingredient is measured as a ratio of the total flour weight (which is always 100%). This allows for effortless scaling of recipes. If you want to increase your yield from one loaf to ten, you simply multiply the total flour weight; the percentages of water, salt, and yeast remain constant, ensuring the dough's behavior doesn't change.</dd>
+                </div>
 
-                    <div>
-                        <h3 style="color: var(--text); margin-bottom: 12px; font-size: 20px;">Yield & Waste Management</h3>
-                        <p>In a commercial kitchen, "yield" is the percentage of a product that remains after trimming and cooking. If you buy 10 lbs of brisket but only serve 6 lbs after trimming the fat and accounting for shrinkage, your yield is 60%. Understanding these numbers is critical for food costing. While our home culinary tools focus on ratios and scaling, keeping an eye on your personal kitchen waste is a great way to save money and become a more sustainable, efficient home cook.</p>
-                    </div>
+                <div class="faq-block">
+                    <dt>Why does hydration matter in bread baking?</dt>
+                    <dd>Hydration refers to the ratio of water to flour. Low hydration (50-60%) creates a denser, tight crumb ideal for sandwiches. High hydration (75-85%) creates the large, irregular "open crumb" found in ciabatta and artisan sourdough. Our calculator helps you track this specific metric so you can troubleshoot your bake and achieve consistent results.</dd>
+                </div>
+
+                <div class="faq-block">
+                    <dt>Do I need to add water when batching cocktails?</dt>
+                    <dd>Yes. When a single drink is shaken or stirred with ice, about 20-25% of the final volume is actually melted water from dilution. If you batch a cocktail without adding this water, it will taste harsh and unbalanced. Our batching tool automatically factors in this "dilution percentage" to ensure your pre-poured drinks taste exactly like they were freshly made.</dd>
                 </div>
             </section>
         </div>

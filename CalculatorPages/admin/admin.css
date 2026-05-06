@@ -38,4 +38,29 @@ body { background: var(--bg); color: var(--text); font-family: 'IBM Plex Sans', 
 .badge.green { background: rgba(74, 222, 128, 0.1); color: var(--green); }
 .badge.red { background: rgba(239, 68, 68, 0.1); color: var(--red); }
 .badge.yellow { background: rgba(234, 179, 8, 0.1); color: #eab308; }
+.badge.blue { background: rgba(79, 70, 229, 0.1); color: var(--accent); }
+
+.pulse { width: 8px; height: 8px; border-radius: 50%; display: inline-block; animation: pulse-anim 2s infinite; margin-right: 6px; }
+.pulse.green { background: var(--green); }
+.pulse.blue { background: var(--accent); }
+
+@keyframes pulse-anim {
+    0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(74, 222, 128, 0.7); }
+    70% { transform: scale(1); box-shadow: 0 0 0 10px rgba(74, 222, 128, 0); }
+    100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(74, 222, 128, 0); }
+}
+
+.activity-item { padding: 12px 0; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; }
+.activity-item:last-child { border-bottom: none; }
+.activity-meta { font-size: 11px; color: var(--muted); }
+.activity-main { font-size: 13px; font-weight: 500; }
+
+.market-card { background: rgba(255,255,255,0.02); padding: 12px; border-radius: 8px; margin-bottom: 12px; border: 1px solid var(--border); }
+.market-label { font-size: 10px; color: var(--muted); text-transform: uppercase; margin-bottom: 4px; }
+.market-val { font-size: 14px; font-weight: 600; color: var(--accent); }
+
 canvas { max-width: 100%; }
+.grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-bottom: 24px; }
+@media (max-width: 1024px) {
+    .grid-3, .grid-2 { grid-template-columns: 1fr; }
+}

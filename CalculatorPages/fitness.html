@@ -33,12 +33,52 @@
             <h1>Sports & <span style="color: var(--accent2);">Fitness Math</span></h1>
             <p class="subtitle">Science-backed tools for athletes and training with purpose.</p>
 
-            <section style="background: var(--surface); border: 1px solid var(--border); border-radius: 24px; padding: 40px; margin-bottom: 40px;">
-                <h2 style="font-size: 24px; margin-bottom: 24px; color: var(--text);">Athletic Performance <span style="color: var(--accent);">Intelligence Suite</span></h2>
-                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 32px;">
-                    <div><h3 style="color: var(--accent); margin-bottom: 12px; font-size: 18px;">VO2 Max (Aerobic Capacity)</h3><p style="color: var(--muted); line-height: 1.6; font-size: 14px;">The maximum rate of oxygen consumption during exercise. This is the gold standard for measuring cardiovascular fitness and potential endurance performance.</p></div>
-                    <div><h3 style="color: var(--accent); margin-bottom: 12px; font-size: 18px;">1-Rep Max (1RM)</h3><p style="color: var(--muted); line-height: 1.6; font-size: 14px;">The heaviest weight you can lift for a single repetition. Our calculator uses the Epley formula to estimate your peak strength without the risk of actual failure.</p></div>
-                    <div><h3 style="color: var(--accent); margin-bottom: 12px; font-size: 18px;">TDEE & Metabolic Rate</h3><p style="color: var(--muted); line-height: 1.6; font-size: 14px;">Total Daily Energy Expenditure is the sum of your BMR plus physical activity. Knowing this number is critical for managing weight gain or fat loss goals.</p></div>
+            </section>
+
+            <!-- Editorial Content Block -->
+            <section class="content-block">
+                <h3>Fitness and Sports Performance Math: The Science of Gains</h3>
+                <p>In the world of high-performance athletics and fitness, data is the divider between those who plateau and those who progress. The tools in this section are built on the principles of exercise physiology, providing the mathematical framework needed to optimize your training load, estimate your aerobic capacity, and manage your recovery. Whether you're an endurance athlete chasing a PB or a powerlifter calculating your next block, these tools provide the clinical-grade metrics used by coaches and sports scientists.</p>
+                <p>Every calculator on this page implements validated formulas — from the Epley and Brzycki equations for strength estimation to the Karvonen formula for heart rate zones. We strip away the marketing hype and focus on the arithmetic of human performance.</p>
+                
+                <h4>VO₂ Max: The Gold Standard of Aerobic Fitness</h4>
+                <p>VO₂ Max is the maximum volume of oxygen (in milliliters) your body can utilize per kilogram of body weight per minute of intense exercise. It is the single most important metric for endurance athletes. Our VO₂ Max estimator allows you to calculate this figure using the Cooper Test (12-minute run) or the Rockport Walk Test. While a lab-based metabolic cart is the only way to get a 100% accurate reading, these field tests are highly correlated (r > 0.90) with clinical results.</p>
+                <p>The core insight: your VO₂ Max defines your "aerobic ceiling." By knowing this number, you can better interpret your race results and determine whether your training should focus on increasing your ceiling (high-intensity intervals) or improving your efficiency at sub-maximal levels (base training).</p>
+                
+                <h4>1-Rep Max (1RM): Peak Strength Without the Risk</h4>
+                <p>Your 1-rep max is the heaviest weight you can lift for a single, perfect repetition. It is the baseline for nearly all percentage-based strength programs (e.g., "do 3 sets of 5 at 80% of 1RM"). However, testing a true 1RM is physically taxing and carries a high risk of injury. Our 1RM calculator uses the Epley and Brzycki formulas to estimate your max based on your performance at higher rep ranges.</p>
+                <p>The Epley formula (Weight × [1 + (Reps / 30)]) is widely considered the standard for powerlifting, while the Brzycki formula is often preferred for repetition ranges under 10. By calculating your estimated 1RM, you can program your training blocks with precision, ensuring you are lifting enough to stimulate growth without overreaching.</p>
+                
+                <h4>Heart Rate Zones and the Karvonen Formula</h4>
+                <p>Not all miles are created equal. Running 5 miles at 85% of your max heart rate is a completely different physiological stimulus than running 5 miles at 65%. Our heart rate zone calculator uses the Karvonen formula, which accounts for your Heart Rate Reserve (Max HR - Resting HR). This is significantly more accurate than the simple "220 minus age" method used by most basic fitness trackers.</p>
+                <p>Understanding your zones — Zone 2 for aerobic base building, Zone 4 for threshold work — is the key to polarized training. By using the calculator to define these ranges, you can ensure your "easy" days are truly easy enough for recovery and your "hard" days are hard enough to trigger adaptation.</p>
+                
+                <h4>Calorie Burn and MET Values</h4>
+                <p>The calorie burn calculator implements the MET (Metabolic Equivalent of Task) values from the Compendium of Physical Activities. One MET is defined as the energy cost of sitting quietly. Running at 6 mph has a MET value of 9.8. By combining these verified values with your body weight and duration, our tool provides a scientifically grounded estimate of energy expenditure that is significantly more accurate than the generic "300 calories per hour" claims often seen in fitness apps.</p>
+
+                <div class="faq-section">
+                    <dl>
+                        <div class="faq-block">
+                            <dt>How accurate is a 1RM calculator vs. a real test?</dt>
+                            <dd>For reps under 10, the Epley formula is typically within 3-5% of a true 1RM. However, the more reps you do, the less accurate the prediction becomes. A 3-rep max is a very strong predictor; a 15-rep max is much less reliable because it begins to test local muscular endurance as much as peak strength.</dd>
+                        </div>
+                        <div class="faq-block">
+                            <dt>Why does my VO2 Max seem so low on the Cooper Test?</dt>
+                            <dd>The Cooper Test assumes you are running at your maximal effort for the full 12 minutes. If you pace yourself too conservatively or haven't warmed up properly, your result will be an underestimate. Additionally, the test is a measure of "aerobic power" — if you have the engine but haven't trained for the specific activity (running), your technique may be the bottleneck.</dd>
+                        </div>
+                        <div class="faq-block">
+                            <dt>Is "Zone 2" really the best for fat burning?</dt>
+                            <dd>Zone 2 (60-70% of max HR) is where the *percentage* of calories from fat is highest. However, high-intensity work (Zone 4/5) burns more *total* calories per minute. For most athletes, Zone 2 is critical not just for fat oxidation, but for building mitochondrial density and capillary beds without the massive recovery cost of high-intensity training.</dd>
+                        </div>
+                        <div class="faq-block">
+                            <dt>How should I adjust my macros for a "Bulking" vs. "Cutting" phase?</dt>
+                            <dd>Use the TDEE tool in our Health section to find your maintenance calories. For a "Clean Bulk," add 250-500 calories (focused on protein and carbs). For a "Cut," subtract 500 calories. Use the Macros calculator on this page to ensure your protein is set at 1.6-2.2g per kilogram of body weight to preserve muscle mass during a deficit.</dd>
+                        </div>
+                    </dl>
+                </div>
+
+                <div class="use-tags">
+                    <span>Performance optimization</span><span>Strength programming</span><span>Endurance math</span><span>MET-based calorie tracking</span><span>Physiology reference</span>
                 </div>
             </section>
 
@@ -127,32 +167,40 @@
             </div>
         </div>
 
-            <!-- Educational Content Section -->
-            <section class="educational-content" style="margin-top: 60px; border-top: 1px solid var(--border); padding-top: 40px; padding-bottom: 60px;">
-                <h2 style="font-size: 28px; color: var(--text); margin-bottom: 24px;">The Science of <span style="color: var(--accent);">Physical Performance</span></h2>
-                
-                <div style="color: var(--muted); line-height: 1.8;">
-                    <div style="margin-bottom: 32px;">
-                        <h3 style="color: var(--text); margin-bottom: 12px; font-size: 20px;">Energy Balance: BMI, BMR, and TDEE</h3>
-                        <p>The foundation of any fitness journey is understanding your energy balance. Your <strong>BMR (Basal Metabolic Rate)</strong> is the number of calories your body needs to maintain basic physiological functions—like breathing and circulation—while at rest. When you add your daily physical activity to this baseline, you arrive at your <strong>TDEE (Total Daily Energy Expenditure)</strong>. Our <strong>Metabolic Calculator</strong> uses the Harris-Benedict formula to estimate these values, providing a roadmap for weight management. To lose weight, you must consume fewer calories than your TDEE; to gain weight, you must consume more.</p>
-                        <p style="margin-top: 16px;">While <strong>BMI (Body Mass Index)</strong> is a useful high-level screening tool for weight categories, it has limitations. Because it only factors in height and weight, it doesn't distinguish between muscle mass and body fat. A professional athlete might be classified as "overweight" by BMI standards despite having very low body fat. For a more complete picture, use BMI in conjunction with body fat percentage measurements and waist-to-hip ratios.</p>
-                    </div>
+            <!-- Editorial Content Section -->
+            <section class="editorial-section">
+                <div class="editorial-label">
+                    <span class="editorial-tag">Category</span>
+                    <span class="editorial-title">Sports &amp; Performance</span>
+                </div>
 
-                    <div style="margin-bottom: 32px;">
-                        <h3 style="color: var(--text); margin-bottom: 12px; font-size: 20px;">Cardiovascular Health: VO2 Max & Heart Rate Zones</h3>
-                        <p><strong>VO2 Max</strong> is considered the gold standard for measuring aerobic fitness. It represents the maximum amount of oxygen your body can utilize during intense exercise. High VO2 max values are associated with improved longevity and athletic performance. Our <strong>VO2 Max Estimator</strong> uses the resting heart rate method to provide a baseline for your cardiovascular health. Improving this metric requires "Zone Training"—specifically, spending time in high-intensity heart rate zones that push your aerobic capacity to its limit.</p>
-                        <p style="margin-top: 16px;">Our <strong>Heart Rate Zone Calculator</strong> uses the Karvonen formula, which factors in your resting heart rate for a more personalized experience than simple age-based formulas. <strong>Zone 2</strong> (60-70% of max) is critical for building an aerobic base and improving mitochondrial efficiency, while <strong>Zone 5</strong> (90-100% of max) is used for short bursts of maximum effort to increase speed and power. Balancing these zones is the key to a well-rounded cardiovascular program.</p>
+                <div class="content-block">
+                    <h3>About These Fitness Calculators</h3>
+                    <p>In the era of wearable tech and "quantified self," it's easy to get lost in the noise of heart rate variability, sleep scores, and recovery percentages. However, the bedrock of sports science remains a few critical pillars: your aerobic capacity (VO2 Max), your relative strength (1-Rep Max), and your energy balance (TDEE). Understanding these metrics is the difference between exercising and training.</p>
+                    <p>These tools take raw physiological data and translate it into actionable training parameters. Our Heart Rate Zone calculator, for example, uses the Karvonen formula (which factors in resting heart rate) for a more personalized baseline than age-based models. The 1RM predictor allows you to program your strength cycles without the injury risk of testing a true maximum lift.</p>
+                    <p>All formulas used here — Harris-Benedict for BMR, Epley for strength prediction, and the Uth-Sørensen method for VO2 Max — are standard protocols used by collegiate and professional sports scientists, strength coaches, and clinical kinesiologists.</p>
+                    <div class="use-cases">
+                        <span>Strength program design</span>
+                        <span>Endurance training zones</span>
+                        <span>Weight management goals</span>
+                        <span>Athletic performance testing</span>
+                        <span>Macro nutrient planning</span>
                     </div>
+                </div>
 
-                    <div style="margin-bottom: 32px;">
-                        <h3 style="color: var(--text); margin-bottom: 12px; font-size: 20px;">Strength Training: The 1-Rep Max</h3>
-                        <p>In the weight room, your <strong>1-Rep Max (1RM)</strong> is the maximum amount of weight you can lift for a single repetition with perfect form. Knowing your 1RM is essential for structured training programs, as most workouts are prescribed as a percentage of this number. For example, a "Hypertrophy" program might call for 3 sets of 10 reps at 70% of your 1RM. Our <strong>1RM Predictor</strong> allows you to estimate your max without the safety risk of actually lifting a maximum load, helping you train smarter and safer.</p>
-                    </div>
+                <div class="faq-block">
+                    <dt>What is the 'Gold Standard' for fitness?</dt>
+                    <dd>VO2 Max is considered the single best indicator of cardiovascular fitness and aerobic endurance. It measures the maximum volume of oxygen your body can utilize during intense exercise. High VO2 Max scores are strongly correlated with both athletic performance and long-term health longevity. Our estimator provides a baseline by looking at the relationship between your resting and maximum heart rates.</dd>
+                </div>
 
-                    <div>
-                        <h3 style="color: var(--text); margin-bottom: 12px; font-size: 20px;">Nutrition & Macro Tracking</h3>
-                        <p>Once your calories are set, the "Macro" split (Protein, Carbohydrates, and Fats) determines the quality of your results. <strong>Protein</strong> is essential for muscle repair and satiety; <strong>Carbohydrates</strong> provide the fuel for high-intensity training; and <strong>Fats</strong> are critical for hormone production and general health. Our <strong>Macro Calculator</strong> provides a balanced split based on your goals, but remember that the "best" diet is the one you can stick to consistently over the long term.</p>
-                    </div>
+                <div class="faq-block">
+                    <dt>Why does 'Zone 2' training matter so much?</dt>
+                    <dd>Zone 2 (roughly 60–70% of Max HR) is the intensity where your body optimizes fat oxidation and mitochondrial efficiency. While it feels "easy," it builds the aerobic base necessary to sustain higher intensities later. Most amateur athletes train too hard on easy days and too easy on hard days; our HR Zone tool helps you stay disciplined in the correct zones for your specific goal.</dd>
+                </div>
+
+                <div class="faq-block">
+                    <dt>Is the 1-Rep Max predictor accurate?</dt>
+                    <dd>Predictive formulas like Epley or Brzycki are highly accurate (within 2–5%) when you are performing sets of 3–8 repetitions. They become less reliable as you move into higher rep ranges (12+). For training purposes, the predicted 1RM is often safer and more useful for daily programming than a true, grindy maximum lift that could require weeks of recovery.</dd>
                 </div>
             </section>
         </div>

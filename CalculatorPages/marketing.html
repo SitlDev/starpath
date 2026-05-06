@@ -30,16 +30,56 @@
     <main>
         <div class="container">
             <div class="ad-unit ad-top"><!-- AdSense --></div>
+            <div id="profit" style="position:absolute; visibility:hidden;"></div>
             <h1>Digital <span style="color: var(--accent2);">Marketing ROI</span></h1>
             <p class="subtitle">Performance metrics for modern growth hackers.</p>
 
-            <section style="background: var(--surface); border: 1px solid var(--border); border-radius: 24px; padding: 40px; margin-bottom: 40px;">
-                <h2 style="font-size: 24px; margin-bottom: 24px; color: var(--text);">Digital Marketing ROI <span style="color: var(--accent);">Intelligence Suite</span></h2>
-                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 32px;">
-                    <div><h3 style="color: var(--accent); margin-bottom: 12px; font-size: 18px;">ROAS/ROI</h3><p style="color: var(--muted); line-height: 1.6; font-size: 14px;">Calculate return on ad spend and marketing profitability.</p></div>
-                    <div><h3 style="color: var(--accent); margin-bottom: 12px; font-size: 18px;">CPC / CPA</h3><p style="color: var(--muted); line-height: 1.6; font-size: 14px;">Understand cost per acquisition based on click pricing.</p></div>
-                    <div><h3 style="color: var(--accent); margin-bottom: 12px; font-size: 18px;">Conv. Rate</h3><p style="color: var(--muted); line-height: 1.6; font-size: 14px;">Evaluate conversion efficiency of your traffic.</p></div>
-                    <div><h3 style="color: var(--accent); margin-bottom: 12px; font-size: 18px;">Email ROI</h3><p style="color: var(--muted); line-height: 1.6; font-size: 14px;">Measure revenue potential of email campaigns.</p></div>
+            </section>
+
+            <!-- Editorial Content Block -->
+            <section class="content-block">
+                <h3>Digital Marketing Math: Moving Beyond Vanity Metrics</h3>
+                <p>In digital marketing, if you aren't measuring, you aren't managing. The ease of running ads on platforms like Google, Meta, and TikTok has created a world where millions are spent based on "vanity metrics" like likes, shares, and impressions. The tools in this section are designed to pivot the focus back to what matters: the unit economics of customer acquisition and the mathematical return on every dollar of ad spend.</p>
+                <p>Understanding the relationship between your cost-per-click (CPC), your conversion rate (CR), and your customer lifetime value (LTV) is the difference between a sustainable business and one that is simply subsidizing the ad platforms. Our calculators provide the agency-level precision needed to audit your campaigns.</p>
+                
+                <h4>ROAS vs. ROI: Understanding the Difference</h4>
+                <p>Return on Ad Spend (ROAS) is a common metric, but it is often misused. ROAS is simply Revenue / Ad Spend. A ROAS of 400% (or 4.0x) means you made $4 for every $1 spent on ads. However, this doesn't account for your cost of goods sold (COGS), shipping, or labor. Our ROAS/ROI calculator allows you to input your gross margin percentage to reveal your true Net Marketing ROI.</p>
+                <p>A campaign can have a "positive" ROAS but a negative ROI. For example, if you sell a product for $100 that costs you $80 to produce and ship, your margin is $20. If your cost-per-acquisition (CPA) is $25, your ROAS is 400% ($100/$25), but your ROI is negative because you lost $5 on the transaction. The calculator makes this "break-even" point visible before you scale your budget.</p>
+                
+                <h4>The Conversion Rate Lever</h4>
+                <p>Most marketers focus on getting more traffic. Experienced marketers focus on improving conversion rates. The conversion rate calculator helps you visualize the impact of small improvements. Moving your conversion rate from 1% to 1.5% is a 50% increase in revenue for the same ad spend. In many cases, it is much cheaper to optimize a landing page than it is to buy 50% more traffic.</p>
+                <p>The CPC/CPA calculator further illustrates this relationship. Your CPA is calculated as CPC / CR. If your CPC is $1.00 and your conversion rate is 2%, your CPA is $50. If you improve your conversion rate to 4%, your CPA drops to $25 — effectively doubling your marketing efficiency without spending a single extra dollar on clicks.</p>
+                
+                <h4>Email Marketing and Retention Math</h4>
+                <p>Paid acquisition (Google/Meta) is the "engine," but email marketing is the "fuel tank." The email marketing ROI tool helps you calculate the value of your subscriber list based on open rates, click-through rates (CTR), and conversion rates. It highlights the power of owned media — once a user is on your list, your marginal cost to reach them is nearly zero.</p>
+                <p>Calculating the "revenue per subscriber" is a critical metric for determining how much you can afford to pay for an initial lead. If you know that an email subscriber is worth $10 over their first year, you can confidently spend $5 to acquire that email address, knowing you'll see a 100% return.</p>
+                
+                <h4>Ad Campaign Auditing</h4>
+                <p>The CPC to CPA calculator is a tool for "sanity checking" agency reports. Agencies often highlight low CPCs, but if that traffic is low-quality and doesn't convert, the low CPC is irrelevant. By inputting the actual conversion data, you can audit which channels are truly profitable and which are just generating volume.</p>
+
+                <div class="faq-section">
+                    <dl>
+                        <div class="faq-block">
+                            <dt>What is a "good" ROAS for an e-commerce business?</dt>
+                            <dd>It depends entirely on your margins. A business with high margins (80%+) can be profitable at a 2.0x ROAS. A business with low margins (20%) might need a 6.0x ROAS just to break even. Use our calculator with your specific margin data to find your "Minimum Viable ROAS." Generally, most agencies aim for 3.0x to 4.0x as a starting point for scaling.</dd>
+                        </div>
+                        <div class="faq-block">
+                            <dt>How do I calculate "customer lifetime value" (LTV) for marketing?</dt>
+                            <dd>LTV = (Average Order Value) x (Average Purchase Frequency) x (Average Customer Lifespan). While our current tools focus on the initial acquisition ROI, your LTV determines your "Maximum Allowable CPA." If your LTV is $500, you can afford a $100 CPA even if the first transaction is a loss leader.</dd>
+                        </div>
+                        <div class="faq-block">
+                            <dt>Why does my conversion rate vary so much between channels?</dt>
+                            <dd>Conversion rate is a measure of "intent." Search traffic (Google) typically has higher intent and higher conversion rates than social traffic (TikTok), where users are browsing for entertainment. Use our conversion calculator to track CR by channel separately; never use a "site-wide average" to make budgeting decisions for specific ad platforms.</dd>
+                        </div>
+                        <div class="faq-block">
+                            <dt>Is email marketing still effective with modern privacy changes?</dt>
+                            <dd>Yes, it is more important than ever. As cookie-based tracking becomes less reliable, "first-party data" (your email list) is the only data you truly own. While open rate metrics are less accurate due to Apple's Mail Privacy Protection, "clicks" and "conversions" remain the gold standard for measuring email ROI in our calculator.</dd>
+                        </div>
+                    </dl>
+                </div>
+
+                <div class="use-tags">
+                    <span>Performance marketing</span><span>Conversion optimization</span><span>Ad spend audit</span><span>Email ROI</span><span>Unit economics</span>
                 </div>
             </section>
 
@@ -110,32 +150,40 @@
             </div>
         </div>
 
-            <!-- Educational Content Section -->
-            <section class="educational-content" style="margin-top: 60px; border-top: 1px solid var(--border); padding-top: 40px; padding-bottom: 60px;">
-                <h2 style="font-size: 28px; color: var(--text); margin-bottom: 24px;">The Math of <span style="color: var(--accent);">Digital Growth</span></h2>
-                
-                <div style="color: var(--muted); line-height: 1.8;">
-                    <div style="margin-bottom: 32px;">
-                        <h3 style="color: var(--text); margin-bottom: 12px; font-size: 20px;">ROAS vs. ROI: Understanding Profitability</h3>
-                        <p>In digital advertising, <strong>ROAS (Return on Ad Spend)</strong> is the metric that tells you how many dollars in revenue you generate for every dollar spent on ads. For example, if you spend $1,000 and generate $5,000 in revenue, your ROAS is 5.0x. While ROAS is a great high-level indicator, it doesn't account for the cost of goods sold (COGS) or operational overhead. This is where <strong>ROI (Return on Investment)</strong> comes in. ROI measures the actual profit of the campaign. Our <strong>ROAS & ROI Calculator</strong> provides both numbers, allowing you to see if your "successful" 5.0x ROAS campaign is actually profitable after all costs are considered.</p>
-                        <p style="margin-top: 16px;">Finding your "Break-Even ROAS" is the first step in any scaling strategy. If your profit margin is 20%, you need a 5.0x ROAS just to break even. Anything lower means you are effectively paying to acquire customers at a loss. Knowing these numbers ahead of time prevents the common trap of scaling a campaign that looks good on the dashboard but is draining your bank account behind the scenes.</p>
-                    </div>
+            <!-- Editorial Content Section -->
+            <section class="editorial-section">
+                <div class="editorial-label">
+                    <span class="editorial-tag">Category</span>
+                    <span class="editorial-title">Digital Marketing &amp; Growth</span>
+                </div>
 
-                    <div style="margin-bottom: 32px;">
-                        <h3 style="color: var(--text); margin-bottom: 12px; font-size: 20px;">The CPC to CPA Bridge</h3>
-                        <p>Most beginners focus on <strong>CPC (Cost Per Click)</strong>, but clicks don't pay the bills—conversions do. The bridge between a click and a customer is your <strong>CVR (Conversion Rate)</strong>. If your CPC is $1.00 and your conversion rate is 1%, your <strong>CPA (Cost Per Acquisition)</strong> is $100. Our <strong>CPA Estimator</strong> helps you visualize this relationship. Improving your landing page to double your conversion rate to 2% effectively cuts your CPA in half without spending an extra dime on traffic. This is the highest-leverage activity in digital marketing.</p>
-                        <p style="margin-top: 16px;">When analyzing your CPA, compare it to your <strong>LTV (Lifetime Value)</strong>. If it costs you $50 to acquire a customer who only spends $30 once, your business is unsustainable. However, if that customer has an LTV of $500 over three years, a $50 CPA is an incredible bargain. Sustainable growth is found at the intersection of optimized conversion rates and high customer retention.</p>
+                <div class="content-block">
+                    <h3>About These Marketing Calculators</h3>
+                    <p>In the high-speed world of digital growth, metrics are the only objective truth. However, not all metrics are created equal. While many marketers obsess over "vanity metrics" like clicks and impressions, sustainable businesses are built on unit economics: the relationship between Customer Acquisition Cost (CPA) and Lifetime Value (LTV). A campaign that generates a 5.0x ROAS (Return on Ad Spend) is only successful if it remains profitable after accounting for COGS and overhead.</p>
+                    <p>These tools are designed to bridge the gap between media buying and business management. Whether you are calculating your "Break-Even ROAS" before scaling a Facebook campaign or predicting the revenue potential of an email list, these calculators provide the quantitative foundation for your growth strategy.</p>
+                    <p>For reference: the ROAS and CPA formulas used here are the standard protocols used by performance agencies and SaaS growth teams globally. Our email revenue projector factors in open rates and CTR (Click-Through Rate) to give a realistic baseline for bottom-line impact.</p>
+                    <div class="use-cases">
+                        <span>Ad campaign ROI auditing</span>
+                        <span>Break-even ROAS modeling</span>
+                        <span>Email list revenue forecasting</span>
+                        <span>Landing page CVR optimization</span>
+                        <span>CPA vs LTV unit economics</span>
                     </div>
+                </div>
 
-                    <div style="margin-bottom: 32px;">
-                        <h3 style="color: var(--text); margin-bottom: 12px; font-size: 20px;">The Power of the Email List</h3>
-                        <p>Unlike social media or paid search, your email list is an asset you <em>own</em>. You don't have to pay Mark Zuckerberg or Larry Page to reach your subscribers. Our <strong>Email Revenue Projector</strong> helps you estimate the monthly value of your list based on open rates and click-through rates. A list of 10,000 engaged subscribers can often generate more revenue than a social media following of 100,000 due to the high intent and direct nature of the medium. Focus on building and nurturing your list as the core of your long-term marketing strategy.</p>
-                    </div>
+                <div class="faq-block">
+                    <dt>ROAS vs. ROI — which should I track?</dt>
+                    <dd>ROAS (Revenue / Spend) is a great tool for media buyers to optimize daily creative and targeting. ROI ((Revenue - Total Cost) / Total Cost) is the metric that business owners care about. You can have a high ROAS and a negative ROI if your product margins are thin. Use our ROAS tool to manage your ads, but use the ROI toggle to manage your business health.</dd>
+                </div>
 
-                    <div>
-                        <h3 style="color: var(--text); margin-bottom: 12px; font-size: 20px;">Conversion Rate Optimization (CRO)</h3>
-                        <p>Every visitor to your site who doesn't convert is a missed opportunity. Our <strong>CVR Calculator</strong> helps you track your performance over time. Small, incremental improvements—like changing a button color, clarifying a headline, or speeding up your page load times—can have a massive compound effect on your bottom line. CRO is the process of making the traffic you already have work harder for you.</p>
-                    </div>
+                <div class="faq-block">
+                    <dt>How do I lower my CPA?</dt>
+                    <dd>There are two primary levers: lower your CPC (Cost Per Click) through better ad creative, or increase your CVR (Conversion Rate) through better landing pages. Doubling your conversion rate from 1% to 2% effectively cuts your CPA in half without spending an extra dollar on traffic. This is why CRO (Conversion Rate Optimization) is the highest-leverage activity in marketing.</dd>
+                </div>
+
+                <div class="faq-block">
+                    <dt>Is email marketing still relevant in 2026?</dt>
+                    <dd>Yes, arguably more than ever. Unlike social media algorithms which you cannot control, your email list is an "owned" asset. A well-nurtured list of 10,000 subscribers often generates more revenue than 100,000 social media followers because the direct nature of email leads to significantly higher intent and conversion rates. Our tool helps you project that revenue potential.</dd>
                 </div>
             </section>
         </div>

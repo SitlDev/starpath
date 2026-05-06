@@ -1,0 +1,71 @@
+# Dependencies
+node_modules/
+starpath-backend/venv/
+starpath-backend/.venv/
+.Python
+
+# Environment variables
+.env
+.env.local
+.env.*.local
+.env.production
+
+# IDE & Editor
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+
+# Build & Output
+.next/
+.pytest_cache/
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+*.egg
+*.egg-info/
+dist/
+build/
+.turbo/
+
+# Database
+*.db
+*.sqlite
+*.sqlite3
+test.db
+
+# Logs
+*.log
+logs/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Temporary
+.tmp/
+tmp/
+/tmp/
+*.tmp
+
+# Backend specific
+.pytest_cache/
+htmlcov/
+
+# Frontend specific
+.next/
+out/
+npm-debug.log
+yarn-debug.log
+yarn-error.log
+.vercel/
+
+# Project specific
+venv/
+env/
+
+# Don't ignore but exclude large files
+# *.pem

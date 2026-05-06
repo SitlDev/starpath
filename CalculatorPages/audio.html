@@ -33,7 +33,7 @@
             <h1>Audio & <span style="color: var(--accent2);">Sound Design</span></h1>
             <p class="subtitle">Precision timing and frequency math for producers.</p>
 
-            <section style="background: var(--surface); border: 1px solid var(--border); border-radius: 24px; padding: 40px; margin-bottom: 40px;">
+            <section class="info-section">
                 <h2 style="font-size: 24px; margin-bottom: 24px; color: var(--text);">Producer <span style="color: var(--accent);">Intelligence Suite</span></h2>
                 <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 32px;">
                     <div><h3 style="color: var(--accent); margin-bottom: 12px; font-size: 18px;">BPM Sync</h3><p style="color: var(--muted); line-height: 1.6; font-size: 14px;">Calculated as 60,000 / BPM. Syncing delay and reverb decay to the track's tempo prevents rhythmic masking and "muddy" mixes.</p></div>
@@ -112,33 +112,40 @@
                 <div class="ad-unit ad-result"><!-- AdSense --></div>
             </div>
 
-            <!-- Educational Content Section -->
-            <section class="educational-content" style="margin-top: 60px; border-top: 1px solid var(--border); padding-top: 40px; padding-bottom: 60px;">
-                <h2 style="font-size: 28px; color: var(--text); margin-bottom: 24px;">The Physics & <span style="color: var(--accent);">Mathematics of Sound</span></h2>
-                
-                <div style="color: var(--muted); line-height: 1.8;">
-                    <div style="margin-bottom: 32px;">
-                        <h3 style="color: var(--text); margin-bottom: 12px; font-size: 20px;">Mastering Temporal Sync: BPM to Milliseconds</h3>
-                        <p>In music production, timing is everything. When you set a delay or a reverb tail, it needs to breathe with the tempo of the track to avoid rhythmic clutter. Our <strong>BPM to MS Calculator</strong> converts your project's Beats Per Minute into the exact millisecond values for various subdivisions. A quarter note at 120 BPM is exactly 500ms. By using these values for your effects, you create a "pocket" where the echoes reinforce the groove rather than fighting against it. This technique, often called "tempo-synced delay," is a secret weapon of professional mix engineers for creating depth that feels natural and cohesive.</p>
-                        <p style="margin-top: 16px;">Don't forget about "pre-delay" in reverb. Setting a pre-delay of an eighth or sixteenth note allows the dry signal (like a vocal) to cut through before the lush space of the reverb kicks in. This maintains clarity while still providing the emotional scale of a large hall. Use our calculator to find these precise rhythmic offsets and elevate your mix from amateur to radio-ready.</p>
-                    </div>
+            <!-- Editorial Content Section -->
+            <section class="editorial-section">
+                <div class="editorial-label">
+                    <span class="editorial-tag">Category</span>
+                    <span class="editorial-title">Audio Engineering &amp; Sound Design</span>
+                </div>
 
-                    <div style="margin-bottom: 32px;">
-                        <h3 style="color: var(--text); margin-bottom: 12px; font-size: 20px;">Room Modes: Why Your Bass Sounds "Boomy"</h3>
-                        <p>Every room has a unique sonic signature dictated by its physical dimensions. When sound waves bounce between parallel walls, they create "standing waves" or <strong>Room Modes</strong>. At certain frequencies, these waves reinforce each other, causing massive spikes in volume (nodes), while at others, they cancel each other out (antinodes). If your studio is 12 feet long, you will experience a significant resonance around 47 Hz. This is why a bass guitar might sound thunderous in one corner of the room but disappear entirely three feet to the left.</p>
-                        <p style="margin-top: 16px;">Our Room Mode analyzer helps you identify these problematic frequencies before you spend thousands on acoustic treatment. Once you know your modal peaks, you can place "bass traps" in the corners or adjust your listening position to avoid the "nulls." Acoustic treatment isn't about making a room sound "dead"; it's about making it accurate, so the decisions you make in your mix translate perfectly to the outside world, from car speakers to high-end headphones.</p>
+                <div class="content-block">
+                    <h3>About These Audio Engineering Calculators</h3>
+                    <p>Modern audio production is a discipline where artistic intuition meets rigid physical laws. From the temporal precision required to sync delay tails with a project's BPM to the mathematical modeling of axial room modes, sound design requires constant quantitative auditing. Our tools are built to help producers, mix engineers, and studio designers navigate these technical requirements with mathematical accuracy.</p>
+                    <p>Our Producer Intelligence Suite handles the core math of sound. The BPM Sync tool converts tempo into precise millisecond offsets for rhythmic effects, while the Room Mode calculator identifies the fundamental resonances that cause bass "buildup" and "dead spots." We also include high-fidelity tools for digital storage estimation (WAV/PCM) and frequency-to-note conversion for harmonic tuning.</p>
+                    <p>For reference: our temporal models use the 60,000/BPM standard, and our room mode physics assume a speed of sound of 1,130 ft/s—the standard baseline for sea-level acoustic engineering.</p>
+                    <div class="use-cases">
+                        <span>BPM-to-MS temporal sync calculation</span>
+                        <span>Axial Room Mode (standing wave) analysis</span>
+                        <span>Digital audio (WAV) file size estimation</span>
+                        <span>Harmonic tuning (Frequency-to-Note) conversion</span>
+                        <span>Pre-delay & decay time optimization</span>
                     </div>
+                </div>
 
-                    <div style="margin-bottom: 32px;">
-                        <h3 style="color: var(--text); margin-bottom: 12px; font-size: 20px;">Digital Audio Foundations: Bit Depth & Sample Rate</h3>
-                        <p>Converting analog sound to digital data requires "sampling" the wave thousands of times per second. The <strong>Sample Rate</strong> (measured in Hz) determines the highest frequency that can be captured—according to the Nyquist-Shannon theorem, you need a sample rate at least twice the highest frequency you want to record. Standard 44.1 kHz covers the full range of human hearing. <strong>Bit Depth</strong>, on the other hand, determines the "dynamic range" or the difference between the quietest and loudest sounds. 24-bit audio offers a theoretical floor of -144 dB, far below the self-noise of even the best microphones.</p>
-                        <p style="margin-top: 16px;">Understanding these values is critical for managing your storage and CPU. High-resolution audio (96 kHz / 32-bit) sounds incredible but consumes massive amounts of disk space. Our <strong>WAV Storage Calculator</strong> helps you plan your recording sessions and drive requirements, ensuring you never run out of space in the middle of a perfect take. For most applications, 48 kHz / 24-bit is the professional "sweet spot" for video and music production alike.</p>
-                    </div>
+                <div class="faq-block">
+                    <dt>Why should I sync my delay and reverb to BPM?</dt>
+                    <dd>When effect tails are unsynced, they can mask the rhythm and create "mud" in a mix. Syncing delay subdivisions (like 1/8 or 1/16 notes) ensures that the echoes reinforce the track's groove. A quarter note at 120 BPM is exactly 500ms; using this value makes the depth feel cohesive and professionally timed.</dd>
+                </div>
 
-                    <div>
-                        <h3 style="color: var(--text); margin-bottom: 12px; font-size: 20px;">Frequency to Note: The Language of Pitch</h3>
-                        <p>Sound is vibration, and the frequency of that vibration determines the pitch we hear. The standard tuning for modern music is A=440 Hz. From this reference point, we can calculate every other note on the piano using a logarithmic scale. Our <strong>Frequency to Note Converter</strong> is invaluable for sound designers and synthesists. If you find a resonant peak in a kick drum at 55 Hz, you now know that's an 'A1'. Tuning your drums to the key of your song is a subtle but powerful way to make your production feel more harmonious and professional.</p>
-                    </div>
+                <div class="faq-block">
+                    <dt>What are Axial Room Modes?</dt>
+                    <dd>Room modes are standing waves that occur between parallel surfaces. When sound waves bounce between walls, they can cancel each other out (antinodes) or reinforce each other (nodes), causing uneven bass response. Our calculator identifies these peaks so you can place bass traps effectively and optimize your listening position.</dd>
+                </div>
+
+                <div class="faq-block">
+                    <dt>How much space does 24-bit/48kHz audio take?</dt>
+                    <dd>A standard stereo WAV file at 24-bit/48kHz consumes approximately 17.2 MB per minute. Higher sample rates like 96kHz double this requirement. Our storage estimator helps you plan recording sessions and drive requirements to ensure you never run out of space during a critical take.</dd>
                 </div>
             </section>
         </div>

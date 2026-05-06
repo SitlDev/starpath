@@ -30,15 +30,57 @@
     <main>
         <div class="container">
             <div class="ad-unit ad-top"><!-- AdSense --></div>
+            <div id="power" style="position:absolute; visibility:hidden;"></div>
+            <div id="voltage" style="position:absolute; visibility:hidden;"></div>
             <h1>Engineering & <span style="color: var(--accent);">Electrical</span></h1>
             <p class="subtitle">Precision calculation for technical systems and hardware.</p>
 
-            <section style="background: var(--surface); border: 1px solid var(--border); border-radius: 24px; padding: 40px; margin-bottom: 40px;">
-                <h2 style="font-size: 24px; margin-bottom: 24px; color: var(--text);">Technical <span style="color: var(--accent);">Intelligence Suite</span></h2>
-                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 32px;">
-                    <div><h3 style="color: var(--accent); margin-bottom: 12px; font-size: 18px;">3-Phase Efficiency</h3><p style="color: var(--muted); line-height: 1.6; font-size: 14px;">Total power in a balanced 3-phase system is &radic;3 * V * I * PF. This provides more consistent torque and higher efficiency for industrial motors.</p></div>
-                    <div><h3 style="color: var(--accent); margin-bottom: 12px; font-size: 18px;">Voltage Drop Limits</h3><p style="color: var(--muted); line-height: 1.6; font-size: 14px;">The NEC recommends a maximum voltage drop of 3% for branch circuits and 5% for combined feeder and branch circuits to ensure equipment safety.</p></div>
-                    <div><h3 style="color: var(--accent); margin-bottom: 12px; font-size: 18px;">Beam Safety (L/240)</h3><p style="color: var(--muted); line-height: 1.6; font-size: 14px;">A common structural standard for floor beams is a deflection limit of L/240 under total load, preventing plaster cracks and perceptible "bounciness."</p></div>
+            </section>
+
+            <!-- Editorial Content Block -->
+            <section class="content-block">
+                <h3>Engineering and Electrical Math: Precision for Technical Systems</h3>
+                <p>Engineering is the application of mathematical and scientific principles to solve real-world problems. In the field, there is no room for "roughly." A bridge either stands or it doesn't. A circuit either carries the load safely or it creates a fire hazard. The tools in this section are built to provide the exact mathematical baseline required for electrical and structural engineering tasks, sourced from standard reference materials like the NEC (National Electrical Code) and the AISC (American Institute of Steel Construction).</p>
+                <p>Whether you are calculating the voltage drop over a 200-foot run of copper wire or estimating the deflection of a floor beam under a concentrated load, our calculators provide the professional-grade precision needed for field work and design validation.</p>
+                
+                <h4>Electrical Power: The 3-Phase Advantage</h4>
+                <p>Three-phase power is the backbone of industrial and commercial infrastructure. Unlike single-phase power, which has a single voltage wave, three-phase uses three separate waves offset by 120 degrees. This provides more consistent power delivery and allows for higher efficiency in motors. Our 3-Phase calculator implements the total power formula: P = &radic;3 × V × I × PF.</p>
+                <p>The core insight: for a given amount of power, 3-phase systems require smaller (and cheaper) wires than single-phase systems. By modeling your current, voltage, and power factor, you can identify the load characteristics of your equipment and ensure your distribution panels are correctly sized to handle the demand.</p>
+                
+                <h4>Voltage Drop and Wire Sizing (NEC Compliance)</h4>
+                <p>All conductors have internal resistance. As current flows through a wire, some energy is lost as heat, resulting in a voltage drop at the end of the run. If the voltage drop is too high, equipment (especially motors) can overheat or fail to start. The NEC recommends a maximum voltage drop of 3% for branch circuits and 5% for the combined feeder and branch circuit.</p>
+                <p>Our Wire Drop calculator uses the formula: VD = (2 × K × I × D) / CMA for single-phase, where K is the resistivity of the material (copper or aluminum), I is current, D is distance, and CMA is the Circular Mil Area of the wire. This tool is essential for electricians and DIYers planning long runs for EV chargers, sub-panels, or outdoor lighting, revealing when it's necessary to "up-size" the conductor to maintain efficiency.</p>
+                
+                <h4>Structural Math: Beam Deflection and Load Limits</h4>
+                <p>In structural design, a beam must not only be strong enough to avoid breaking (strength limit), but stiff enough to avoid excessive bending (serviceability limit). Our Beam Deflection calculator models a "Simply Supported" beam with a point load, using the formula: &delta; = (P × L³) / (48 × E × I).</p>
+                <p>A common engineering standard for floor beams is a deflection limit of L/240 (the length divided by 240). For a 20-foot beam, this means a maximum deflection of 1 inch. Excessive deflection can cause plaster to crack, doors to stick, and a perceptible "bouncy" feel to the floor. The calculator reveals whether your chosen material (steel, timber, or LVL) and section size are adequate for the span.</p>
+                
+                <h4>Torque, Horsepower, and Mechanical Advantage</h4>
+                <p>The relationship between torque and horsepower is fundamental to mechanical engineering: HP = (Torque × RPM) / 5252. This formula highlights why low-speed industrial equipment requires massive torque while high-speed racing engines can achieve high horsepower with lower torque. Our Torque/HP tool allows for quick conversions between these units, which is critical for sizing motors, gearboxes, and pulleys in automated systems.</p>
+
+                <div class="faq-section">
+                    <dl>
+                        <div class="faq-block">
+                            <dt>Why is the Power Factor (PF) important in electrical calculations?</dt>
+                            <dd>The Power Factor (a value between 0 and 1.0) represents how effectively the incoming electricity is being converted into useful work. Inductive loads, like large motors, often have a lower PF (0.7-0.8), meaning more current must be drawn to perform the same amount of work. Our calculator accounts for PF to ensure your "Apparent Power" (VA) doesn't exceed your transformer or wire ratings.</dd>
+                        </div>
+                        <div class="faq-block">
+                            <dt>Does the voltage drop tool account for temperature?</dt>
+                            <dd>The resistivity of wire increases as it gets hotter. Our calculator uses the standard resistivity (K) for 75°C, which is the most common rating for modern THHN/THWN-2 wire insulation. For exceptionally hot environments (like attics in the summer), you should allow an additional 5-10% safety margin in your results.</dd>
+                        </div>
+                        <div class="faq-block">
+                            <dt>What is the "E" value in the beam deflection formula?</dt>
+                            <dd>E is the Modulus of Elasticity, a measure of the material's stiffness. Steel is much stiffer than timber, so its E value is much higher (approx. 29,000,000 psi vs. 1,600,000 psi for Douglas Fir). Ensure you select the correct material in our calculator, as the E value is the primary driver of deflection performance.</dd>
+                        </div>
+                        <div class="faq-block">
+                            <dt>How do I calculate "Service Load" vs. "Ultimate Load"?</dt>
+                            <dd>Service Load is the actual weight the beam will carry daily. Ultimate Load (used for strength testing) includes a safety factor, often 1.6 times the service load. Our Beam Deflection tool focuses on Service Loads to check for "bounciness" and structural compliance with code-level deflection limits.</dd>
+                        </div>
+                    </dl>
+                </div>
+
+                <div class="use-tags">
+                    <span>Industrial electrical math</span><span>NEC code compliance</span><span>Structural validation</span><span>Mechanical torque</span><span>Material science</span>
                 </div>
             </section>
 
@@ -152,33 +194,40 @@
                 </div>
                 <div class="ad-unit ad-result"><!-- AdSense --></div>
             </div>
-        </div>
 
-            <!-- Educational Content Section -->
-            <section class="educational-content" style="margin-top: 60px; border-top: 1px solid var(--border); padding-top: 40px; padding-bottom: 60px;">
-                <h2 style="font-size: 28px; color: var(--text); margin-bottom: 24px;">The Principles of <span style="color: var(--accent);">Modern Engineering</span></h2>
-                
-                <div style="color: var(--muted); line-height: 1.8;">
-                    <div style="margin-bottom: 32px;">
-                        <h3 style="color: var(--text); margin-bottom: 12px; font-size: 20px;">Electrical Power: AC, DC, and 3-Phase Systems</h3>
-                        <p>Electricity is the lifeblood of modern infrastructure, but its delivery varies depending on the application. <strong>Direct Current (DC)</strong> is constant and unidirectional, found in batteries and electronics. <strong>Alternating Current (AC)</strong> reverses direction periodically, allowing for efficient long-distance transmission via transformers. Our <strong>Power Calculator</strong> helps you find Real Power (Watts) and Apparent Power (VA) by factoring in the Power Factor (PF)—a measure of how effectively the current is being converted into useful work.</p>
-                        <p style="margin-top: 16px;">In industrial settings, <strong>3-Phase Power</strong> is the standard. By using three AC currents offset by 120 degrees, 3-phase systems provide more consistent torque for large motors and are more efficient in terms of conductor material. When calculating 3-phase power, the "Square Root of 3" (1.732) is a critical constant. Our tool automates these complex calculations, ensuring electrical engineers and electricians can quickly size breakers and conductors for high-load environments.</p>
-                    </div>
-                    <div style="margin-bottom: 32px;">
-                        <h3 style="color: var(--text); margin-bottom: 12px; font-size: 20px;">Structural Integrity: Beam Deflection & Stress</h3>
-                        <p>Structural engineering is fundamentally about managing forces to prevent failure. When a load is applied to a beam, it bends—this is known as <strong>Deflection</strong>. Our calculator uses the standard Euler-Bernoulli beam theory to predict deflection based on the material's stiffness (Young's Modulus) and the beam's cross-sectional shape (Moment of Inertia). If a beam deflects too much, it can cause cracks in finishes like drywall, or in extreme cases, lead to catastrophic structural failure.</p>
-                        <p style="margin-top: 16px;">Understanding the difference between "Strength" and "Stiffness" is key. A beam might be strong enough not to break (Stress), but not stiff enough to prevent annoying floor vibrations or visible sagging (Deflection). Engineers must balance these two factors while also considering the "Factor of Safety"—the ratio of the material's breaking point to the actual expected load—to ensure the public's safety in every building and bridge.</p>
-                    </div>
+            <section class="editorial-section">
+                <div class="editorial-label">
+                    <span class="editorial-tag">Category</span>
+                    <span class="editorial-title">Engineering &amp; Electrical Math</span>
+                </div>
 
-                    <div style="margin-bottom: 32px;">
-                        <h3 style="color: var(--text); margin-bottom: 12px; font-size: 20px;">Mechanical Power: Torque vs. Horsepower</h3>
-                        <p>In mechanical systems, <strong>Torque</strong> is the rotational force, while <strong>Horsepower</strong> is the rate at which work is being done. As the famous saying goes: "Torque is what gets you moving, Horsepower is what keeps you moving." Our <strong>Torque-RPM Converter</strong> uses the standard 5252 constant to show the relationship between these two metrics. Because Horsepower is a function of Torque and RPM, an engine that produces peak torque at high RPMs will have a much higher horsepower rating than one that produces the same torque at low RPMs.</p>
+                <div class="content-block">
+                    <h3>About These Engineering Calculators</h3>
+                    <p>Engineering is the discipline of applying mathematical precision to the physical world. Whether you are sizing conductors for an industrial 3-phase motor, calculating the voltage drop over a long-distance feeder, or auditing the structural deflection of a load-bearing beam, the margin for error is often measured in millimeters or millivolts. These tools provide the high-fidelity modeling required to ensure both system efficiency and public safety.</p>
+                    <p>Our Technical Intelligence Suite is built for engineers, electricians, and advanced makers. The Power calculators handle both single-phase AC/DC and complex 3-phase loads, while the structural tools utilize standard Euler-Bernoulli beam theory and thermal expansion coefficients to predict material behavior under stress and temperature shifts.</p>
+                    <p>For reference: our electrical models factor in standard Power Factors (PF) and wire resistances per 1,000 feet (AWG standards), while our structural tools utilize standard Young's Modulus (E) values for common construction materials like steel and aluminum.</p>
+                    <div class="use-cases">
+                        <span>3-Phase motor load auditing</span>
+                        <span>Voltage drop wire sizing</span>
+                        <span>Structural beam deflection check</span>
+                        <span>Torque to Horsepower conversion</span>
+                        <span>Thermal expansion joint planning</span>
                     </div>
+                </div>
 
-                    <div>
-                        <h3 style="color: var(--text); margin-bottom: 12px; font-size: 20px;">Thermal Expansion: The Silent Force</h3>
-                        <p>Nearly all materials expand when heated and contract when cooled. In large structures like bridges or pipelines, this <strong>Thermal Expansion</strong> can exert massive forces if not accounted for. This is why you see "expansion joints" in concrete sidewalks and steel bridges—they provide the space needed for the material to grow without buckling. Our <strong>Expansion Predictor</strong> helps you quantify this growth across different materials like steel, aluminum, and concrete, ensuring your designs can weather the extreme temperature swings of the natural world.</p>
-                    </div>
+                <div class="faq-block">
+                    <dt>Why does 3-phase power use the √3 constant?</dt>
+                    <dd>In a balanced 3-phase system, the line-to-line voltage is √3 (approximately 1.732) times the line-to-neutral voltage. This constant is fundamental to calculating total power (kW) and load (kVA) because it accounts for the 120-degree phase shift between the three alternating currents, allowing for more consistent power delivery and smaller conductor sizes.</dd>
+                </div>
+
+                <div class="faq-block">
+                    <dt>What is the maximum allowed voltage drop?</dt>
+                    <dd>The National Electrical Code (NEC) recommends a maximum voltage drop of 3% for branch circuits and 5% for the combined feeder and branch circuit. Excessive voltage drop results in equipment overheating, motor failure, and significant energy loss. Our calculator helps you determine if your wire gauge is sufficient for the distance and current load.</dd>
+                </div>
+
+                <div class="faq-block">
+                    <dt>What is the 'L/240' deflection standard?</dt>
+                    <dd>In structural engineering, the L/240 standard means a beam should not deflect more than its length (L) divided by 240. For a 20-foot beam, that is roughly 1 inch. This is a common serviceability limit used to prevent plaster cracks and "bouncy" floors. For more sensitive finishes like stone tile, a stricter L/360 or L/480 standard is often applied.</dd>
                 </div>
             </section>
         </div>

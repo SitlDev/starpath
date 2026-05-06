@@ -41,22 +41,48 @@
                 <canvas id="sourceChart" height="200"></canvas>
             </div>
             <div class="card">
-                <h3 class="card-title">Device Split</h3>
-                <canvas id="deviceChart" height="200"></canvas>
+                <h3 class="card-title">Top Performance Pages</h3>
+                <table class="table">
+                    <thead><tr><th>Page</th><th>Views</th></tr></thead>
+                    <tbody id="top-pages-body"></tbody>
+                </table>
             </div>
             <div class="card">
-                <h3 class="card-title">Top Exit Pages</h3>
-                <table class="table">
-                    <tr><th>Page</th><th>Exits</th></tr>
-                    <tr><td>/index.html</td><td>450</td></tr>
-                    <tr><td>/finance.html</td><td>320</td></tr>
-                    <tr><td>/health.html</td><td>210</td></tr>
-                </table>
+                <h3 class="card-title">Real-time Acquisition</h3>
+                <div id="acquisition-list" style="font-size: 13px; color: var(--muted);"></div>
             </div>
         </div>
         <script>
-            new Chart(document.getElementById('sourceChart'), { type: 'doughnut', data: { labels: ['Organic', 'Direct', 'Referral', 'Social'], datasets: [{ data: [65, 20, 10, 5], backgroundColor: ['#4f46e5', '#4ade80', '#eab308', '#ef4444'], borderWidth: 0 }] }, options: { cutout: '70%', plugins: { legend: { position: 'right', labels: { color: '#fff' } } } } });
-            new Chart(document.getElementById('deviceChart'), { type: 'bar', data: { labels: ['Mobile', 'Desktop', 'Tablet'], datasets: [{ data: [55, 40, 5], backgroundColor: '#4f46e5' }] }, options: { plugins: { legend: { display: false } }, scales: { y: { display: false }, x: { grid: { display: false } } } } });
+            async function loadAnalytics() {
+                const SECRET = 'h14sua12';
+                try {
+                    const res = await fetch(`/api/admin?action=get-leads&secret=${SECRET}`);
+                    const data = await res.json();
+                    const { referrers, topPages } = data.stats;
+
+                    // 1. Source Chart
+                    new Chart(document.getElementById('sourceChart'), { 
+                        type: 'doughnut', 
+                        data: { 
+                            labels: referrers.map(r => r.referrer || 'Direct'), 
+                            datasets: [{ data: referrers.map(r => r.count), backgroundColor: ['#4f46e5', '#3ecf8e', '#f5a623', '#ef4444', '#64748b'], borderWidth: 0 }] 
+                        }, 
+                        options: { cutout: '70%', plugins: { legend: { position: 'bottom', labels: { color: '#a0a0ab', font: { size: 10 } } } } } 
+                    });
+
+                    // 2. Top Pages
+                    document.getElementById('top-pages-body').innerHTML = topPages.map(p => `
+                        <tr>
+                            <td style="font-size: 11px;">${p.url.split('/').pop() || 'Home'}</td>
+                            <td>${p.count}</td>
+                        </tr>
+                    `).join('');
+
+                } catch (err) {
+                    console.error("Analytics Error:", err);
+                }
+            }
+            document.addEventListener('DOMContentLoaded', loadAnalytics);
         </script>
 
     </main>

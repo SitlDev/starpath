@@ -30,10 +30,11 @@
     <main>
         <div class="container">
             <div class="ad-unit ad-top"><!-- AdSense --></div>
+            <div id="fuel" style="position:absolute; visibility:hidden;"></div>
             <h1>Logistics & <span style="color: var(--accent);">Enterprise Math</span></h1>
             <p class="subtitle">Efficiency audits for inventory and human capital.</p>
 
-            <section style="background: var(--surface); border: 1px solid var(--border); border-radius: 24px; padding: 40px; margin-bottom: 40px;">
+            <section class="info-section">
                 <h2 style="font-size: 24px; margin-bottom: 24px; color: var(--text);">Logistics <span style="color: var(--accent);">Intelligence Suite</span></h2>
                 <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 32px;">
                     <div><h3 style="color: var(--accent); margin-bottom: 12px; font-size: 18px;">Meeting ROI</h3><p style="color: var(--muted); line-height: 1.6; font-size: 14px;">Calculate the real dollar burn of any meeting based on team size and compensation.</p></div>
@@ -77,32 +78,40 @@
                 <div class="ad-unit ad-result"><!-- AdSense --></div>
             </div>
 
-            <!-- Educational Content Section -->
-            <section class="educational-content" style="margin-top: 60px; border-top: 1px solid var(--border); padding-top: 40px; padding-bottom: 60px;">
-                <h2 style="font-size: 28px; color: var(--text); margin-bottom: 24px;">Optimizing <span style="color: var(--accent);">Operational Efficiency</span></h2>
-                
-                <div style="color: var(--muted); line-height: 1.8;">
-                    <div style="margin-bottom: 32px;">
-                        <h3 style="color: var(--text); margin-bottom: 12px; font-size: 20px;">The Meeting Cost Audit: Quantifying Time</h3>
-                        <p>In the modern corporate world, meetings are often the single largest drain on productivity. While the direct cost of a meeting (the room and the coffee) is negligible, the <strong>Opportunity Cost</strong> of the participants' time is massive. Our <strong>Meeting Cost Auditor</strong> calculates the real-time dollar cost of any gathering based on team size and average hourly rates. If you have 10 senior managers in a 60-minute meeting, you are effectively spending over $1,500 in human capital. Before scheduling your next "quick sync," ask yourself: "Is this meeting worth the price of a small car?"</p>
-                        <p style="margin-top: 16px;">To improve meeting ROI, implement a "No Agenda, No Meeting" policy and consider "standing meetings" to keep discussions concise. By visualizing the dollar cost of every minute spent in a conference room, teams can build a culture of radical respect for time, shifting focus from "talking about work" to actually <em>doing</em> the work. Every dollar saved on an unnecessary meeting is a dollar that can be reinvested into growth or innovation.</p>
-                    </div>
+            <!-- Editorial Content Section -->
+            <section class="editorial-section">
+                <div class="editorial-label">
+                    <span class="editorial-tag">Category</span>
+                    <span class="editorial-title">Logistics &amp; Operational Efficiency</span>
+                </div>
 
-                    <div style="margin-bottom: 32px;">
-                        <h3 style="color: var(--text); margin-bottom: 12px; font-size: 20px;">Inventory Management: The EOQ Model</h3>
-                        <p>For businesses that sell physical goods, <strong>Inventory Management</strong> is a delicate balancing act. If you order too much, you tie up cash and pay high "holding costs" (warehousing, insurance, spoilage). If you order too little, you face "stockouts" and lose sales. The <strong>Economic Order Quantity (EOQ)</strong> model is the mathematical formula used to find the perfect middle ground. Our <strong>EOQ Tool</strong> helps you identify the optimal number of units to order to minimize your total combined costs of ordering and holding inventory.</p>
-                        <p style="margin-top: 16px;">Implementing EOQ requires accurate data on your annual demand and your cost-per-order. By refining these inputs, you can significantly improve your cash flow and reduce waste. In a world of "Just-in-Time" logistics, the EOQ remains the foundational metric for supply chain stability, ensuring that you have exactly what you need, exactly when you need it, without the burden of excess.</p>
+                <div class="content-block">
+                    <h3>About These Logistics Calculators</h3>
+                    <p>Operational excellence is the result of continuous quantitative auditing of both human and physical capital. In the modern enterprise, "efficiency" is often a matter of identifying and eliminating invisible wastes: the dollar burn of unnecessary meetings, the holding costs of excess inventory, and the risk of supply chain stockouts. Our tools are designed to provide the hard data needed to optimize these critical operational flows.</p>
+                    <p>Our Logistics Intelligence Suite handles the math of enterprise efficiency. The Meeting Cost Auditor calculates the real-time labor burn of team gatherings, while the Economic Order Quantity (EOQ) tool identifies the perfect mathematical balance between ordering and holding costs. We also provide precision models for lead time and safety stock calculation to ensure supply chain resilience.</p>
+                    <p>For reference: our meeting models assume a standard hourly burden rate, and our EOQ tool utilizes the classical Wilson formula, a bedrock of industrial engineering and inventory management.</p>
+                    <div class="use-cases">
+                        <span>Meeting ROI & labor burn auditing</span>
+                        <span>Inventory (EOQ) volume optimization</span>
+                        <span>Supply chain (Safety Stock) planning</span>
+                        <span>Lead time & reorder point analysis</span>
+                        <span>Operational throughput benchmarking</span>
                     </div>
+                </div>
 
-                    <div style="margin-bottom: 32px;">
-                        <h3 style="color: var(--text); margin-bottom: 12px; font-size: 20px;">Safety Stock & Lead Time</h3>
-                        <p>No supply chain is perfect. Ships are delayed, factories close, and demand spikes unexpectedly. <strong>Safety Stock</strong> is the "buffer" you keep to protect against these uncertainties. Our <strong>Lead Time Tool</strong> helps you calculate the reorder point by factoring in your average daily usage and the time it takes for a new shipment to arrive. Building a robust safety stock buffer is the difference between a resilient business and one that collapses at the first sign of a logistics hiccup.</p>
-                    </div>
+                <div class="faq-block">
+                    <dt>Is your 'Meeting Cost' tool really accurate?</dt>
+                    <dd>Yes. It uses the formula (Participants × Avg Hourly Rate × Duration). While it doesn't account for individual salary differences, it provides a high-fidelity "labor burn" metric that helps organizations respect the opportunity cost of their employees' time. If a meeting costs $1,500 in labor, it should generate at least $1,500 in actionable value.</dd>
+                </div>
 
-                    <div>
-                        <h3 style="color: var(--text); margin-bottom: 12px; font-size: 20px;">The Team Productivity Index</h3>
-                        <p>Productivity isn't just about working harder; it's about <strong>Throughput</strong>—the amount of high-quality output generated per hour of effort. Our <strong>Productivity Index</strong> helps teams track their efficiency ratio over time. By identifying "bottlenecks" in your process where work piles up, you can streamline your operations and achieve more with the same resources. Focus on system improvements rather than individual speed to achieve sustainable, long-term operational excellence.</p>
-                    </div>
+                <div class="faq-block">
+                    <dt>What is the Economic Order Quantity (EOQ) model?</dt>
+                    <dd>EOQ is a formula used by supply chain managers to find the order quantity that minimizes the total combined costs of ordering inventory (shipping, processing) and holding inventory (warehousing, insurance). Ordering too much ties up cash; ordering too little increases overhead. EOQ finds the mathematical "sweet spot" for your business.</dd>
+                </div>
+
+                <div class="faq-block">
+                    <dt>Why is 'Safety Stock' necessary?</dt>
+                    <dd>Supply chains are rarely perfect. Delays, factory shutdowns, or unexpected demand spikes can cause "stockouts," leading to lost revenue. Safety stock is the calculated buffer you keep to protect against these uncertainties. Our tools help you find the right reorder point so you never run out of critical components during a logistics hiccup.</dd>
                 </div>
             </section>
         </div>

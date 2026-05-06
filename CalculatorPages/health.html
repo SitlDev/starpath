@@ -30,15 +30,55 @@
     <main>
         <div class="container">
             <div class="ad-unit ad-top"><!-- AdSense --></div>
+            <div id="macros" style="position:absolute; visibility:hidden;"></div>
             <h1>Health & <span style="color: var(--accent2);">Biology Math</span></h1>
             <p class="subtitle">Biological markers and health audits for a quantified life.</p>
 
-            <section style="background: var(--surface); border: 1px solid var(--border); border-radius: 24px; padding: 40px; margin-bottom: 40px;">
-                <h2 style="font-size: 24px; margin-bottom: 24px; color: var(--text);">Health <span style="color: var(--accent);">Intelligence Suite</span></h2>
-                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 32px;">
-                    <div><h3 style="color: var(--accent); margin-bottom: 12px; font-size: 18px;">BMI vs. Body Fat</h3><p style="color: var(--muted); line-height: 1.6; font-size: 14px;">BMI is a simple height-to-weight ratio. While useful for general populations, it may overestimate fat in muscular athletes or underestimate it in the elderly.</p></div>
-                    <div><h3 style="color: var(--accent); margin-bottom: 12px; font-size: 18px;">Basal Metabolic Rate</h3><p style="color: var(--muted); line-height: 1.6; font-size: 14px;">BMR represents the calories your body burns at rest to maintain vital functions like breathing and heart rate. It accounts for 60-75% of your daily energy use.</p></div>
-                    <div><h3 style="color: var(--accent); margin-bottom: 12px; font-size: 18px;">Circadian Sleep Cycles</h3><p style="color: var(--muted); line-height: 1.6; font-size: 14px;">The human brain sleeps in 90-minute cycles. Waking up at the end of a cycle, rather than in the middle, prevents "sleep inertia" and morning grogginess.</p></div>
+            </section>
+
+            <!-- Editorial Content Block -->
+            <section class="content-block">
+                <h3>Health and Biology Math: The Quantified Baseline</h3>
+                <p>Health is often viewed through the lens of feeling and intuition, but the human body is a biological machine governed by measurable physical laws. The tools in this section are designed to provide the mathematical "baseline" for your biology — quantifying your metabolic needs, body composition, sleep architecture, and physiological responses. By moving from "guessing" to "measuring," you can make more precise adjustments to your nutrition, recovery, and lifestyle.</p>
+                <p>Every formula used in these calculators — from the Mifflin-St Jeor equation for metabolism to the Widmark formula for BAC — is sourced from peer-reviewed medical and nutritional literature. They are clinical-grade tools adapted for daily use, providing the clarity needed to optimize your vitality.</p>
+                
+                <h4>Metabolism and Energy Balance: TDEE and BMR</h4>
+                <p>Your Total Daily Energy Expenditure (TDEE) is the most critical number for weight management. It is composed of four parts: Basal Metabolic Rate (BMR), the Thermic Effect of Food (TEF), Non-Exercise Activity Thermogenesis (NEAT), and Exercise Activity Thermogenesis (EAT). Our metabolism calculator uses the Mifflin-St Jeor equation, currently considered the most accurate formula for healthy adults in clinical settings.</p>
+                <p>The core insight provided by the TDEE tool is the "activity multiplier." Many people overestimate their activity level, leading to a TDEE calculation that is too high. By seeing the impact of "Sedentary" versus "Moderately Active" on your caloric needs, you can set realistic goals for weight loss, maintenance, or muscle gain. Energy balance is a physical law: to lose weight, you must consume fewer calories than your TDEE; to gain weight, you must consume more.</p>
+                
+                <h4>BMI: Utility and Limitations</h4>
+                <p>Body Mass Index (BMI) is a simple height-to-weight ratio (kg/m²). It is the standard screening tool used by the World Health Organization (WHO) and the CDC to categorize individuals as underweight, normal weight, overweight, or obese. While BMI is a powerful tool for population-level health studies, its individual utility is limited by its inability to distinguish between muscle mass and body fat.</p>
+                <p>An athlete with high muscle density may be categorized as "overweight" by BMI despite having a low body fat percentage. Conversely, a "skinny fat" individual may have a "normal" BMI while carrying dangerous levels of visceral fat. Use our BMI calculator as a starting point, but always pair it with body fat percentage and waist-to-height ratio for a complete picture of your health.</p>
+                
+                <h4>Sleep Cycles and Neurobiology</h4>
+                <p>Quality sleep is defined by its architecture, not just its duration. The human brain cycles through four stages of sleep (N1, N2, N3, and REM) in approximately 90-minute intervals. Waking up during a deep sleep stage (N3) often results in "sleep inertia" — that feeling of grogginess that can last for hours. Our sleep cycle calculator works backward from your desired wake time to find the "window" between cycles. Waking up at the end of a 90-minute cycle feels significantly more natural and restorative than waking up mid-cycle, even if the total sleep duration is slightly shorter.</p>
+                
+                <h4>Alcohol and the Widmark Formula</h4>
+                <p>The Blood Alcohol Content (BAC) estimator uses the Widmark formula, which accounts for body weight, gender (due to differences in body water distribution), and time elapsed since the first drink. It is a mathematical model of how your liver processes ethanol. While this tool is for informational use only and should never be used to determine fitness to drive, it reveals the "clearance rate" of alcohol — approximately 0.015% per hour. Seeing how long it actually takes for a single drink to leave the system is a critical insight for recovery and safety.</p>
+
+                <div class="faq-section">
+                    <dl>
+                        <div class="faq-block">
+                            <dt>How accurate is the TDEE calculator compared to a metabolic test?</dt>
+                            <dd>The Mifflin-St Jeor equation is typically within 10% of a lab-based Indirect Calorimetry test for most people. However, if you have significantly higher-than-average muscle mass or a metabolic condition, your actual TDEE may vary. Use the calculator to find your starting point, track your weight for 2-3 weeks, and adjust based on real-world results.</dd>
+                        </div>
+                        <div class="faq-block">
+                            <dt>Should I focus on BMI or body fat percentage?</dt>
+                            <dd>Body fat percentage is a better indicator of health risk because it measures "adiposity" directly. However, it is much harder to measure accurately at home. BMI is useful because it is easy to track and highly correlated with health outcomes in large populations. If your BMI is over 25, it's worth getting a body fat assessment to see if that weight is muscle or fat.</dd>
+                        </div>
+                        <div class="faq-block">
+                            <dt>Can I "catch up" on sleep on the weekends?</dt>
+                            <dd>Research into "sleep debt" suggests that while you can recover some cognitive function by sleeping in, the metabolic and hormonal disruption of a sleep-deprived week isn't fully reversed in two days. Using our sleep calculator to maintain a consistent wake-up time is superior for long-term hormonal health and circadian rhythm stability.</dd>
+                        </div>
+                        <div class="faq-block">
+                            <dt>Does food really "soak up" alcohol in the BAC calculator?</dt>
+                            <dd>Food in the stomach doesn't "soak up" alcohol, but it significantly slows down the rate of absorption into the bloodstream, giving the liver more time to process it. This leads to a lower "peak" BAC. Our calculator assumes an empty stomach for a conservative (safest) estimate of peak BAC.</dd>
+                        </div>
+                    </dl>
+                </div>
+
+                <div class="use-tags">
+                    <span>Metabolic health</span><span>Sleep optimization</span><span>Weight management</span><span>Recovery math</span><span>Clinical reference</span>
                 </div>
             </section>
 
@@ -167,34 +207,41 @@
                 </div>
                 <div class="ad-unit ad-result"><!-- AdSense --></div>
             </div>
-        </div>
 
-            <!-- Educational Content Section -->
-            <section class="educational-content" style="margin-top: 60px; border-top: 1px solid var(--border); padding-top: 40px; padding-bottom: 60px;">
-                <h2 style="font-size: 28px; color: var(--text); margin-bottom: 24px;">The Foundations of <span style="color: var(--accent);">Modern Health Metrics</span></h2>
-                
-                <div style="color: var(--muted); line-height: 1.8;">
-                    <div style="margin-bottom: 32px;">
-                        <h3 style="color: var(--text); margin-bottom: 12px; font-size: 20px;">BMI: A Tool for Population Health</h3>
-                        <p>The <strong>Body Mass Index (BMI)</strong> is a simple calculation using a person's height and weight. The formula is BMI = kg/m². While it is often criticized for not distinguishing between muscle and fat, it remains a valuable screening tool at the population level. For most adults, BMI provides a reasonable estimate of body fatness and can help identify potential health risks associated with being underweight or overweight. Our <strong>BMI Visualizer</strong> not only gives you your number but also places you on the CDC's spectrum of health categories.</p>
-                        <p style="margin-top: 16px;">It's important to remember that BMI is a <em>screening</em> tool, not a <em>diagnostic</em> one. An athlete with high muscle mass may have a high BMI but very low body fat. Conversely, an elderly person may have a "normal" BMI but low muscle mass and high visceral fat. Always consult with a healthcare provider to interpret these metrics in the context of your overall health, including blood pressure, cholesterol levels, and waist circumference.</p>
-                    </div>
+            <!-- Editorial Content Section -->
+            <section class="editorial-section">
+                <div class="editorial-label">
+                    <span class="editorial-tag">Category</span>
+                    <span class="editorial-title">Health &amp; Vitality</span>
+                </div>
 
-                    <div style="margin-bottom: 32px;">
-                        <h3 style="color: var(--text); margin-bottom: 12px; font-size: 20px;">Metabolism: Understanding BMR and TDEE</h3>
-                        <p>Your <strong>Basal Metabolic Rate (BMR)</strong> is the number of calories your body needs to function at rest—to keep your heart beating, lungs breathing, and brain functioning. Your <strong>Total Daily Energy Expenditure (TDEE)</strong> is your BMR plus the calories burned through physical activity and digestion. Our <strong>Metabolism Analyzer</strong> uses the Mifflin-St Jeor equation, considered the most accurate for modern lifestyles, to estimate these numbers.</p>
-                        <p style="margin-top: 16px;">Understanding your TDEE is the foundation of weight management. To lose weight, you must consume fewer calories than your TDEE (a caloric deficit). To gain weight, you must consume more (a caloric surplus). Most people overestimate their activity level; if you are unsure, it is better to select "Sedentary" or "Light" to avoid overestimating your caloric needs. Tracking these metrics over time allows you to make data-driven adjustments to your diet and exercise routine.</p>
+                <div class="content-block">
+                    <h3>About These Health Calculators</h3>
+                    <p>Body composition, nutrition, and fitness metrics are often reduced to single numbers — your BMI, your "ideal weight," your daily calories — without the context needed to interpret them correctly. A BMI of 27 means very different things for a 5'10" distance runner and a sedentary office worker. A 2,500-calorie daily target is appropriate for one person and wildly off for another depending on activity level, muscle mass, and metabolic rate.</p>
+                    <p>These tools are designed to give you numbers plus context. The TDEE calculator, for instance, doesn't just output a calorie total — it breaks down basal metabolic rate separately so you understand where the baseline comes from. The macros planner explains why protein targets differ between fat loss and muscle gain goals.</p>
+                    <p>All formulas used here — Mifflin-St Jeor for BMR, the US Navy method for body fat, WHO BMI classifications — are referenced from published clinical and research literature. These are the same formulas used by dietitians, sports medicine practitioners, and clinical researchers.</p>
+                    <div class="use-cases">
+                        <span>Weight management</span>
+                        <span>Nutrition planning</span>
+                        <span>Athletic performance</span>
+                        <span>Clinical reference</span>
+                        <span>Hydration tracking</span>
                     </div>
+                </div>
 
-                    <div style="margin-bottom: 32px;">
-                        <h3 style="color: var(--text); margin-bottom: 12px; font-size: 20px;">The Science of Sleep Cycles</h3>
-                        <p>Sleep is not a uniform state; it consists of several 90-minute <strong>Sleep Cycles</strong>. Waking up in the middle of a cycle (during deep sleep) often leads to "sleep inertia"—that groggy, disoriented feeling even if you slept for a long time. Our <strong>Sleep Optimizer</strong> works backward from your desired wake time (or forward from your bedtime) to find the perfect moments to wake up between cycles. This ensures you wake up feeling refreshed and alert, maximizing the restorative power of your rest.</p>
-                    </div>
+                <div class="faq-block">
+                    <dt>Why does my TDEE number seem high?</dt>
+                    <dd>Total Daily Energy Expenditure accounts for all energy your body burns — not just exercise. Roughly 60–70% of TDEE is your Basal Metabolic Rate (the calories burned just staying alive: heart beating, lungs breathing, cellular function). The rest is activity. Most people underestimate how much energy basic body functions require, which is why TDEE numbers are often higher than expected.</dd>
+                </div>
 
-                    <div>
-                        <h3 style="color: var(--text); margin-bottom: 12px; font-size: 20px;">Hydration and Pregnancy Metrics</h3>
-                        <p>Water is essential for every cellular process in your body. While the "8 glasses a day" rule is a common baseline, true hydration needs vary by weight and activity level. Our <strong>Hydration Analyzer</strong> provides a personalized target to keep your metabolic processes running smoothly. Similarly, for those expecting, our <strong>Pregnancy Due Date Tool</strong> uses Naegele's rule to provide a projected timeline. These tools are designed to provide clarity and help you manage your daily wellness with precision.</p>
-                    </div>
+                <div class="faq-block">
+                    <dt>Is BMI an accurate measure of health?</dt>
+                    <dd>BMI is a population-level screening tool, not a clinical diagnosis. It correlates with health risk at the population level but fails at the individual level — particularly for athletes (high muscle mass inflates BMI), older adults (BMI underestimates fat mass as muscle declines), and certain ethnic groups where risk thresholds differ from WHO standards. Use it as one data point alongside body fat percentage, waist circumference, and bloodwork.</dd>
+                </div>
+
+                <div class="faq-block">
+                    <dt>How much protein do I actually need?</dt>
+                    <dd>General population guidelines (0.8g per kg bodyweight) are set at the minimum to prevent deficiency — not optimize muscle retention or athletic performance. For active individuals, the evidence-based range is 1.6–2.2g per kg of bodyweight. For those in a caloric deficit trying to preserve muscle, the higher end of that range is more protective. Our macros calculator lets you set your goal and see the resulting targets.</dd>
                 </div>
             </section>
         </div>
@@ -220,82 +267,83 @@
 
         function calculateBMI() {
             let w = parseFloat(document.getElementById('bmi-w').value);
-let h = parseFloat(document.getElementById('bmi-h').value);
-const wu = document.getElementById('bmi-wu').value;
-const hu = document.getElementById('bmi-hu').value;
+            let h = parseFloat(document.getElementById('bmi-h').value);
+            const wu = document.getElementById('bmi-wu').value;
+            const hu = document.getElementById('bmi-hu').value;
 
-w = toKG(w, wu);
-h = toCM(h, hu);
+            w = toKG(w, wu);
+            h = toCM(h, hu);
 
-const bmi = w / ((h / 100) ** 2);
-document.getElementById('bmi-val').innerText = bmi.toFixed(1);
-let cat = bmi < 18.5 ? 'Underweight' : bmi < 25 ? 'Normal' : bmi < 30 ? 'Overweight' : 'Obese';
-document.getElementById('bmi-cat').innerText = cat;
+            const bmi = w / ((h / 100) ** 2);
+            document.getElementById('bmi-val').innerText = bmi.toFixed(1);
+            let cat = bmi < 18.5 ? 'Underweight' : bmi < 25 ? 'Normal' : bmi < 30 ? 'Overweight' : 'Obese';
+            document.getElementById('bmi-cat').innerText = cat;
 
-let pct = ((bmi - 15) / (40 - 15)) * 100;
-pct = Math.max(0, Math.min(100, pct));
-document.getElementById('bmi-needle').style.left = pct + '%';
+            let pct = ((bmi - 15) / (40 - 15)) * 100;
+            pct = Math.max(0, Math.min(100, pct));
+            document.getElementById('bmi-needle').style.left = pct + '%';
 
-document.getElementById('bmi-results').classList.add('visible');
-saveActivity('health', { type: 'bmi', weight: w, height: h }, { bmi: bmi.toFixed(1), category: cat });
+            document.getElementById('bmi-results').classList.add('visible');
+            saveActivity('health', { type: 'bmi', weight: w, height: h }, { bmi: bmi.toFixed(1), category: cat });
         }
 
         function calculateTDEE() {
             const age = parseInt(document.getElementById('td-age').value);
-const sex = document.getElementById('td-sex').value;
-let w = parseFloat(document.getElementById('td-w').value);
-let h = parseFloat(document.getElementById('td-h').value);
-const wu = document.getElementById('td-wu').value;
-const hu = document.getElementById('td-hu').value;
-const act = parseFloat(document.getElementById('td-act').value);
+            const sex = document.getElementById('td-sex').value;
+            let w = parseFloat(document.getElementById('td-w').value);
+            let h = parseFloat(document.getElementById('td-h').value);
+            const wu = document.getElementById('td-wu').value;
+            const hu = document.getElementById('td-hu').value;
+            const act = parseFloat(document.getElementById('td-act').value);
 
-w = toKG(w, wu);
-h = toCM(h, hu);
+            w = toKG(w, wu);
+            h = toCM(h, hu);
 
-const bmr = (10 * w) + (6.25 * h) - (5 * age) + (sex === 'm' ? 5 : -161);
-const tdee = Math.round(bmr * act);
-document.getElementById('td-bmr').innerText = Math.round(bmr) + ' kcal';
-document.getElementById('td-tdee').innerText = tdee + ' kcal';
-document.getElementById('tdee-results').classList.add('visible');
-saveActivity('health', { type: 'tdee', age, sex, weight: w, activity: act }, { bmr, tdee });
+            const bmr = (10 * w) + (6.25 * h) - (5 * age) + (sex === 'm' ? 5 : -161);
+            const tdee = Math.round(bmr * act);
+            document.getElementById('td-bmr').innerText = Math.round(bmr) + ' kcal';
+            document.getElementById('td-tdee').innerText = tdee + ' kcal';
+            document.getElementById('tdee-results').classList.add('visible');
+            saveActivity('health', { type: 'tdee', age, sex, weight: w, activity: act }, { bmr, tdee });
         }
 
         function calculateBAC() {
             const r = parseFloat(document.getElementById('ba-sex').value);
-const w = parseFloat(document.getElementById('ba-w').value);
-const d = parseFloat(document.getElementById('ba-d').value);
-const t = parseFloat(document.getElementById('ba-t').value);
+            const w = parseFloat(document.getElementById('ba-w').value);
+            const d = parseFloat(document.getElementById('ba-d').value);
+            const t = parseFloat(document.getElementById('ba-t').value);
 
-const alcoholGrams = d * 14;
-const weightGrams = w * 1000;
-let bac = (alcoholGrams / (weightGrams * r)) * 100 - (t * 0.015);
-bac = Math.max(0, bac);
+            const alcoholGrams = d * 14;
+            const weightGrams = w * 1000;
+            let bac = (alcoholGrams / (weightGrams * r)) * 100 - (t * 0.015);
+            bac = Math.max(0, bac);
 
-document.getElementById('ba-val').innerText = bac.toFixed(3) + '%';
-document.getElementById('ba-stat').innerText = bac >= 0.08 ? 'Legally Impaired' : 'Under Limit';
-document.getElementById('bac-results').classList.add('visible');
-saveActivity('health', { type: 'bac', drinks: d, time: t }, { bac: bac.toFixed(3) });
+            document.getElementById('ba-val').innerText = bac.toFixed(3) + '%';
+            document.getElementById('ba-stat').innerText = bac >= 0.08 ? 'Legally Impaired' : 'Under Limit';
+            document.getElementById('bac-results').classList.add('visible');
+            saveActivity('health', { type: 'bac', drinks: d, time: t }, { bac: bac.toFixed(3) });
         }
 
         function calculateSleep() {
             const bed = document.getElementById('sl-bed').value;
-if(!bed) return;
-const [h, m] = bed.split(':').map(Number);
-const base = new Date(); base.setHours(h, m, 0);
-base.setMinutes(base.getMinutes() + 15);
+            if(!bed) return;
+            const [h, m] = bed.split(':').map(Number);
+            const base = new Date(); 
+            base.setHours(h, m, 0);
+            base.setMinutes(base.getMinutes() + 15);
 
-const times = [4, 5, 6].map(c => {
-    const wake = new Date(base.getTime() + (c * 90 * 60 * 1000));
-    return wake.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
-                document.getElementById('sl-times').innerHTML = times.map(t => `<div style="background:var(--bg); padding:10px; border-radius:8px; text-align:center; font-weight:700;">${t}</div>`).join('');
-                document.getElementById('sleep-results').classList.add('visible');
-                saveActivity('health', { type: 'sleep', bed_time: bed }, { suggested_wake_times: times });
+            const times = [4, 5, 6].map(c => {
+                const wake = new Date(base.getTime() + (c * 90 * 60 * 1000));
+                return wake.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
             });
+
+            document.getElementById('sl-times').innerHTML = times.map(t => `<div style="background:var(--bg); padding:10px; border-radius:8px; text-align:center; font-weight:700;">${t}</div>`).join('');
+            document.getElementById('sleep-results').classList.add('visible');
+            saveActivity('health', { type: 'sleep', bed_time: bed }, { suggested_wake_times: times });
         }
 
         function calculatePreg() {
             const dateVal = document.getElementById('pr-date').value;
-if(!dateVal) return;
 const lmp = new Date(dateVal);
 const due = new Date(lmp.getTime() + (280 * 24 * 60 * 60 * 1000));
 document.getElementById('pr-val').innerText = due.toLocaleDateString(undefined, { year: 'numeric', month: 'long', day: 'numeric' });

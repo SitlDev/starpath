@@ -14,8 +14,14 @@ export const LISTINGS = [
   { id: 10, title: "Private Auction: Ranch Parcel — Elko County", state: "NV", county: "Elko", acreage: 640, price: 195000, pricePerAcre: 304, auctionType: "Private Auction", source: "Land.com", sourceUrl: "https://land.com", auctionDate: "2026-05-15", closingDays: 16, score: 63, lat: 41.17, lng: -115.35, summary: "Section land (640 ac) in Nevada ranch country. Reserve auction — price may rise.", flags: ["640 acres", "Section land", "Ranch potential"], risks: ["Reserve auction", "Price will increase", "Bid competition expected"], action: "Monitor", parcel: { assessedValue: 384000, landValue: 384000, improvementValue: 0, lastSalePrice: 220000, lastSaleDate: "2010-08-01", ownershipYears: 15.8, priorTaxSales: 0, zoning: "Open Range/Grazing", encumbrances: ["BLM grazing permit"], taxDelinquentYears: 0 } }
 ];
 
-// Generate COUNTIES - simplified without external import
-export const COUNTIES = [];
+// Generate COUNTIES - small sample for fallback
+export const COUNTIES = [
+  {fips:"01001",name:"Autauga",state:"AL",population:55869,platform:null},
+  {fips:"04013",name:"Maricopa",state:"AZ",population:4948203,platform:"bid4assets"},
+  {fips:"05101",name:"Newton",state:"AR",population:8127,platform:"bid4assets"},
+  {fips:"06037",name:"Los Angeles",state:"CA",population:9818605,platform:"auction-com"},
+  {fips:"12069",name:"Lake",state:"FL",population:390000,platform:"realauction"}
+];
 
 export const SCRAPE_JOBS = [
   { id:1, source:"GovEase", lastRun:"2026-04-29T06:00:00Z", status:"success", found:34, errors:0 },

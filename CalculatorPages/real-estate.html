@@ -30,15 +30,57 @@
     <main>
         <div class="container">
             <div class="ad-unit ad-top"><!-- AdSense --></div>
+            <div id="rent" style="position:absolute; visibility:hidden;"></div>
+            <div id="onepercent" style="position:absolute; visibility:hidden;"></div>
             <h1>Real <span style="color: var(--accent);">Estate</span></h1>
             <p class="subtitle">Equity, leverage, and wealth through property.</p>
 
-            <section style="background: var(--surface); border: 1px solid var(--border); border-radius: 24px; padding: 40px; margin-bottom: 40px;">
-                <h2 style="font-size: 24px; margin-bottom: 24px; color: var(--text);">Real Estate <span style="color: var(--accent);">Intelligence Suite</span></h2>
-                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 32px;">
-                    <div><h3 style="color: var(--accent); margin-bottom: 12px; font-size: 18px;">Rent vs Buy</h3><p style="color: var(--muted); line-height: 1.6; font-size: 14px;">The "Rule of 15" suggests buying is usually better if you stay longer than 7 years at 6% rates.</p></div>
-                    <div><h3 style="color: var(--accent); margin-bottom: 12px; font-size: 18px;">Affordability</h3><p style="color: var(--muted); line-height: 1.6; font-size: 14px;">Banks typically use the 28/36 rule: 28% of gross income for housing, 36% for total debt.</p></div>
-                    <div><h3 style="color: var(--accent); margin-bottom: 12px; font-size: 18px;">Rental ROI</h3><p style="color: var(--muted); line-height: 1.6; font-size: 14px;">Cap Rate (NOI / Price) helps compare the investment yield of properties across different markets.</p></div>
+            </section>
+
+            <!-- Editorial Content Block -->
+            <section class="content-block">
+                <h3>Real Estate Math: The Foundation of Property Wealth</h3>
+                <p>Real estate is often the single largest investment an individual will ever make. It is an asset class built on the power of leverage — where a 20% down payment allows you to control 100% of an appreciating asset. However, the complexity of mortgage interest, property taxes, maintenance, and closing costs can make it difficult to determine the "True Cost" of a home. The tools in this section are designed to provide the mathematical baseline for homebuyers and investors alike, stripping away the emotion and focusing on the financial ROI.</p>
+                <p>Whether you are comparing the long-term wealth accumulation of renting versus buying or auditing a potential rental property's Cap Rate, our calculators provide the professional-grade precision needed to navigate the property market.</p>
+                
+                <h4>Rent vs. Buy: The "Equilibrium" Calculation</h4>
+                <p>The decision to buy a home is not just about the monthly payment. It is a comparison of "unrecoverable costs." When you rent, your unrecoverable cost is the rent. When you buy, your unrecoverable costs are property taxes, maintenance (est. 1% of home value annually), and the "Opportunity Cost" of your down payment. Our Rent vs. Buy calculator models these factors over your expected "Years of Stay."</p>
+                <p>The core insight: for most markets, there is an "Equilibrium Point" (often around 7 years) where buying becomes mathematically superior due to equity build-up and price appreciation. If you plan to move in 3 years, the "Closing Costs" of buying and selling will almost always make renting the cheaper path. Using the tool to find your specific equilibrium point is the first step in any real estate journey.</p>
+                
+                <h4>Mortgage Affordability: The 28/36 Rule</h4>
+                <p>Banks and lenders use a standard metric called the 28/36 Rule to determine how much home you can afford. The first number (28%) is the maximum percentage of your gross monthly income that should go toward housing expenses (PITI: Principal, Interest, Taxes, and Insurance). The second number (36%) is the maximum that should go toward all debt payments combined (including car loans and student debt).</p>
+                <p>Our Affordability calculator allows you to test your current income against these debt-to-income (DTI) ratios. Following this rule ensures that you remain "House Proud" rather than "House Poor," maintaining a financial buffer for life's other expenses. It provides a realistic ceiling for your home search before you ever speak to a real estate agent.</p>
+                
+                <h4>Rental ROI: Cap Rates and Cash Flow</h4>
+                <p>For investors, a property is a business. The primary metric for comparing properties across different markets is the Capitalization Rate (Cap Rate), calculated as [Net Operating Income / Purchase Price]. Our Rental ROI tool handles this calculation, accounting for "Vacancy Rates" and "Property Management" fees. A "good" Cap Rate varies by market, but it provides a common language for identifying undervalued assets.</p>
+                <p>We also model "Cash-on-Cash Return," which measures the annual return on the actual cash you invested. In a low-interest-rate environment, leverage can significantly boost your Cash-on-Cash return, making real estate one of the most powerful wealth-building engines in the financial world. The calculator reveals the "Delta" between a mediocre investment and a high-performance asset.</p>
+                
+                <h4>Closing Costs and Hidden Transaction Fees</h4>
+                <p>One of the biggest shocks for first-time buyers is the "Closing Cost" total. Between title insurance, appraisal fees, transfer taxes, and escrow pre-paids, these costs typically range from 2% to 5% of the purchase price. Our Closing Costs tool provides an itemized estimate, ensuring you have the necessary "Cash to Close" on hand. Math-driven buyers are never surprised by the final HUD-1 settlement statement.</p>
+
+                <div class="faq-section">
+                    <dl>
+                        <div class="faq-block">
+                            <dt>Is a 30-year or a 15-year mortgage better?</dt>
+                            <dd>A 15-year mortgage has a lower interest rate and builds equity twice as fast, but the monthly payment is significantly higher. Our Affordability tool allows you to see how the shorter term impacts your DTI ratios. Most experts recommend a 30-year loan for flexibility, with the option to make "Extra Principal Payments" to achieve 15-year results.</dd>
+                        </div>
+                        <div class="faq-block">
+                            <dt>What is "PITI" in a mortgage payment?</dt>
+                            <dd>PITI stands for Principal, Interest, Taxes, and Insurance. While a dealership only talks about "Principal and Interest," a homeowner must pay for all four. Our calculators include placeholders for property taxes (often 1.2% of value) and insurance to give you a true "All-In" monthly cost.</dd>
+                        </div>
+                        <div class="faq-block">
+                            <dt>Should I always aim for a 20% down payment?</dt>
+                            <dd>A 20% down payment eliminates Private Mortgage Insurance (PMI) and secures a better rate. However, if it wipes out your entire emergency fund, a lower down payment (e.g., 5-10%) may be safer. Use our calculator to see the "PMI Cost" vs. the "Cash Liquidity" benefit to make a balanced decision.</dd>
+                        </div>
+                        <div class="faq-block">
+                            <dt>How does a "Vacancy Rate" impact my rental ROI?</dt>
+                            <dd>A property that is vacant for one month a year has an 8.3% vacancy rate. This directly reduces your Net Operating Income (NOI). In our ROI tool, we recommend a default vacancy of 5% for most stable markets. Failing to account for vacancy is the number one reason new investors overestimate their property's performance.</dd>
+                        </div>
+                    </dl>
+                </div>
+
+                <div class="use-tags">
+                    <span>Mortgage planning</span><span>Property investment ROI</span><span>Home affordability</span><span>Rent-vs-buy audit</span><span>Wealth management</span>
                 </div>
             </section>
 
@@ -113,32 +155,40 @@
                 <div class="ad-unit ad-result"><!-- AdSense --></div>
             </div>
 
-            <!-- Educational Content Section -->
-            <section class="educational-content" style="margin-top: 60px; border-top: 1px solid var(--border); padding-top: 40px; padding-bottom: 60px;">
-                <h2 style="font-size: 28px; color: var(--text); margin-bottom: 24px;">The Fundamentals of <span style="color: var(--accent);">Real Estate Investment</span></h2>
-                
-                <div style="color: var(--muted); line-height: 1.8;">
-                    <div style="margin-bottom: 32px;">
-                        <h3 style="color: var(--text); margin-bottom: 12px; font-size: 20px;">Rent vs. Buy: The 7-Year Rule</h3>
-                        <p>Deciding whether to rent or buy a home is one of the most significant financial decisions you'll ever make. While buying is often seen as "building equity," it also comes with substantial upfront costs like down payments, closing costs, and moving expenses. Our <strong>Rent vs. Buy Calculator</strong> helps you find the "break-even point"—the number of years you must live in a home for the cost of ownership to be lower than the cost of renting. In many markets, this is the "7-Year Rule." If you plan to move in less than five years, renting is often the smarter financial move due to the high transaction costs of selling a home (typically 6% in agent commissions).</p>
-                        <p style="margin-top: 16px;">Don't forget the "hidden costs" of ownership. When you rent, your monthly payment is the <em>maximum</em> you'll pay for housing. When you own, your mortgage payment is the <em>minimum</em>. You are responsible for property taxes, homeowners insurance, and maintenance—which is generally estimated at 1% of the home's value per year. Buying a home is as much a lifestyle choice as it is a financial one; ensure the numbers align with your long-term goals before signing on the dotted line.</p>
-                    </div>
+            <!-- Editorial Content Section -->
+            <section class="editorial-section">
+                <div class="editorial-label">
+                    <span class="editorial-tag">Category</span>
+                    <span class="editorial-title">Real Estate &amp; Equity</span>
+                </div>
 
-                    <div style="margin-bottom: 32px;">
-                        <h3 style="color: var(--text); margin-bottom: 12px; font-size: 20px;">Affordability: The 28/36 Rule</h3>
-                        <p>Banks use specific ratios to determine how much they are willing to lend you. The most common is the <strong>28/36 Rule</strong>: your mortgage payment should not exceed 28% of your gross monthly income, and your total debt payments (including car loans and credit cards) should not exceed 36%. Our <strong>Home Affordability Tool</strong> provides two estimates: a "Conservative" budget that sticks to these rules, and an "Aggressive" budget that pushes the limits. Being "house poor" can limit your ability to save for retirement or handle unexpected emergencies, so we recommend staying closer to the conservative side whenever possible.</p>
-                        <p style="margin-top: 16px;">Additionally, consider the impact of your interest rate. Even a 1% difference in your mortgage rate can cost you tens of thousands of dollars over the life of a 30-year loan. Improving your credit score before you apply for a mortgage is one of the highest-leverage activities you can perform to increase your purchasing power and lower your long-term costs.</p>
+                <div class="content-block">
+                    <h3>About These Real Estate Calculators</h3>
+                    <p>Property is rarely just a place to live; for most, it is the largest single investment of their lifetime. However, the true cost of ownership is often obscured by complex mortgage terms, property tax fluctuations, and maintenance overhead. Buying a home based on a monthly payment alone ignores the "frictional costs" — closing fees, agent commissions, and the opportunity cost of the down payment capital.</p>
+                    <p>These tools are built to strip away the emotion of home buying and look at the hard numbers. The Rent vs. Buy calculator uses a full cash-flow model to find your break-even year, while the Rental ROI tool helps investors compare potential yields using standard Net Operating Income (NOI) formulas.</p>
+                    <p>For reference: the affordability models used here follow the 28/36 debt-to-income rule used by major lenders (Fannie Mae/Freddie Mac), and the Cap Rate calculations are the industry standard for commercial and residential investment analysis.</p>
+                    <div class="use-cases">
+                        <span>First-time buyer planning</span>
+                        <span>Rental property analysis</span>
+                        <span>Mortgage affordability check</span>
+                        <span>Closing cost estimation</span>
+                        <span>Rent vs Buy comparison</span>
                     </div>
+                </div>
 
-                    <div style="margin-bottom: 32px;">
-                        <h3 style="color: var(--text); margin-bottom: 12px; font-size: 20px;">Rental ROI: Understanding the Cap Rate</h3>
-                        <p>For investors, the most important metric is the <strong>Cap Rate (Capitalization Rate)</strong>. This is the ratio of the property's Net Operating Income (NOI) to its purchase price. It allows you to compare different properties regardless of how they are financed. A "good" cap rate varies by market—in a high-growth city like Austin, a 4% cap rate might be acceptable, while in a more stable market, investors might look for 7-8%. Our <strong>Rental ROI Calculator</strong> automates this calculation, helping you quickly filter through potential investment properties to find those that meet your cash flow requirements.</p>
-                    </div>
+                <div class="faq-block">
+                    <dt>What is the '7-year rule' in real estate?</dt>
+                    <dd>The 7-year rule is a general guideline suggesting that if you don't plan to stay in a home for at least seven years, you are usually better off renting. This is because the high costs of buying (3% closing costs) and selling (6% agent commissions) typically require several years of appreciation and equity build-up to overcome. Our Rent vs. Buy tool helps you find your specific break-even point.</dd>
+                </div>
 
-                    <div>
-                        <h3 style="color: var(--text); margin-bottom: 12px; font-size: 20px;">Closing Costs: The Final Hurdle</h3>
-                        <p>Many first-time buyers are surprised by the amount of cash needed at the closing table beyond their down payment. <strong>Closing Costs</strong> typically range from 2% to 5% of the purchase price and include things like loan origination fees, title insurance, appraisal fees, and government recording taxes. Our estimator helps you budget for these "frictional costs" so you don't have any unpleasant surprises in the final days of your home purchase. Always ask for a "Loan Estimate" (LE) from your lender early in the process to get a detailed breakdown of these fees.</p>
-                    </div>
+                <div class="faq-block">
+                    <dt>How much house can I actually afford?</dt>
+                    <dd>Lenders use the 28/36 rule: your mortgage shouldn't exceed 28% of gross income, and total debt shouldn't exceed 36%. However, "bank affordable" and "life affordable" are different. We recommend keeping your total housing costs (PITI) under 25% of your take-home pay to ensure you aren't "house poor" and can still save for retirement and emergencies.</dd>
+                </div>
+
+                <div class="faq-block">
+                    <dt>What is a 'good' Cap Rate for an investment?</dt>
+                    <dd>A "good" cap rate depends entirely on the market and risk profile. In high-demand "Tier 1" cities, cap rates might be as low as 4-5% because the risk is lower and appreciation potential is higher. In smaller markets, investors may look for 8-10% to compensate for slower growth. The Cap Rate allows you to compare properties on an unleveraged basis, showing the pure return the asset generates.</dd>
                 </div>
             </section>
         </div>

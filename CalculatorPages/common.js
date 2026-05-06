@@ -120,13 +120,13 @@ document.addEventListener('DOMContentLoaded', function() {
     const DISMISS_KEY = 'yc_capture_dismissed';
     const widget = document.getElementById('yc-email-capture');
     
-    if (widget && !sessionStorage.getItem(STORAGE_KEY) && !sessionStorage.getItem(DISMISS_KEY)) {
+    if (widget && !localStorage.getItem(STORAGE_KEY) && !localStorage.getItem(DISMISS_KEY)) {
         const observer = new MutationObserver(mutations => {
             for (const m of mutations) {
                 if (m.type === 'attributes' && m.attributeName === 'class') {
                     if (m.target.classList.contains('result-panel') && m.target.classList.contains('visible')) {
                         // Result panel became visible! Show widget.
-                        if (!sessionStorage.getItem(STORAGE_KEY) && !sessionStorage.getItem(DISMISS_KEY)) {
+                        if (!localStorage.getItem(STORAGE_KEY) && !localStorage.getItem(DISMISS_KEY)) {
                             setTimeout(() => { widget.style.display = 'block'; }, 800);
                         }
                     }
@@ -137,7 +137,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
         document.querySelector('.yc-capture-close').addEventListener('click', function() {
             widget.style.display = 'none';
-            sessionStorage.setItem(DISMISS_KEY, '1');
+            localStorage.setItem(DISMISS_KEY, '1');
         });
 
         document.getElementById('yc-email-submit').addEventListener('click', async function() {
@@ -192,8 +192,9 @@ document.addEventListener('DOMContentLoaded', function() {
             const STORAGE_KEY = 'yc_email_submitted';
             const widget = document.getElementById('yc-email-capture');
 
+            const endpoint = window.YC_LEADS_ENDPOINT || '/api/save-activity';
             try {
-                const response = await fetch('/api/save-activity', {
+                const response = await fetch(endpoint, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify(payload)
@@ -205,7 +206,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     gtag('event', 'email_capture', { calculator: calcName, page: window.location.pathname });
                 }
 
-                sessionStorage.setItem(STORAGE_KEY, '1');
+                localStorage.setItem(STORAGE_KEY, '1');
                 widget.innerHTML = '<div style="text-align:center;padding:12px;color:#4ade80;font-weight:600;">✓ Results have been sent to your inbox.</div>';
                 setTimeout(() => { widget.style.display = 'none'; }, 2500);
             } catch (error) {

@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <title>Pregnancy Math: Timelines, Growth, and Statistical Risk | YourCalc</title>
+    <meta name="description" content="Learn the math behind pregnancy timelines, due dates, and how to interpret statistical risks throughout gestation.">
+    <meta name="keywords" content="pregnancy math, due date calculator, gestation timeline, pregnancy risk, baby growth">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="canonical" href="https://yourcalc.info/blog/{{FILENAME}}">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://yourcalc.info/blog/{{FILENAME}}">
+    <meta property="og:title" content="Pregnancy Math: Timelines, Growth, and Statistical Risk">
+    <meta property="og:description" content="Learn the math behind pregnancy timelines, due dates, and how to interpret statistical risks throughout gestation.">
+    <meta property="og:image" content="https://yourcalc.info/blog/assets/pregnancy.png">
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://yourcalc.info/blog/{{FILENAME}}">
+    <meta property="twitter:title" content="Pregnancy Math: Timelines, Growth, and Statistical Risk">
+    <meta property="twitter:description" content="Learn the math behind pregnancy timelines, due dates, and how to interpret statistical risks throughout gestation.">
+    <meta property="twitter:image" content="https://yourcalc.info/blog/assets/pregnancy.png">
+
+    <link rel="icon" href="../favicon.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="../global.css">
+    <script src="../sidebar.js" defer></script>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Article",
+      "headline": "Pregnancy Math: Timelines, Growth, and Statistical Risk",
+      "image": ["https://yourcalc.info/blog/assets/pregnancy.png"],
+      "description": "Learn the math behind pregnancy timelines, due dates, and how to interpret statistical risks throughout gestation.",
+      "author": {
+        "@type": "Organization",
+        "name": "YourCalc"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "YourCalc",
+        "logo": {
+          "@type": "ImageObject",
+          "url": "https://yourcalc.info/favicon.svg"
+        }
+      },
+      "datePublished": "2026-05-01"
+    }
+    </script>
+    <script>
+        (function() {
+            const saved = localStorage.getItem('calcTheme') || 'dark';
+            document.documentElement.setAttribute('data-theme', saved);
+        })();
+    </script>
+    <style>
+        body { background-color: var(--bg); color: var(--text); font-family: 'Outfit', sans-serif; line-height: 1.6; display: flex; flex-direction: column; min-height: 100vh; }
+        main { flex: 1; padding: 140px 20px 80px 20px; max-width: 800px; margin: 0 auto; width: 100%; box-sizing: border-box; }
+        
+        .breadcrumb { display: flex; gap: 8px; font-size: 14px; color: var(--muted); margin-bottom: 24px; font-weight: 500; }
+        .breadcrumb a { color: var(--accent); text-decoration: none; }
+        
+        .article-header { margin-bottom: 48px; }
+        .article-category { display: inline-block; background: rgba(245, 166, 35, 0.1); color: var(--accent); font-size: 12px; font-weight: 700; padding: 6px 14px; border-radius: 10px; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 20px; }
+        .article-header h1 { font-size: clamp(32px, 5vw, 64px); font-weight: 700; line-height: 1.05; margin-bottom: 20px; letter-spacing: -0.04em; }
+        .article-subtitle { font-size: clamp(18px, 3vw, 26px); color: var(--muted); font-weight: 400; line-height: 1.5; letter-spacing: -0.01em; }
+        
+        .hero-image { 
+            width: 100%; height: 500px; border-radius: 32px; overflow: hidden; margin-bottom: 64px; 
+            border: 1px solid var(--border); box-shadow: 0 40px 100px rgba(0,0,0,0.5);
+            position: relative; background: var(--surface);
+        }
+        .hero-image img { width: 100%; height: 100%; object-fit: cover; }
+        .hero-image::after {
+            content: ''; position: absolute; inset: 0;
+            background: linear-gradient(180deg, rgba(10,11,14,0) 0%, rgba(10,11,14,0.6) 100%);
+        }
+
+        .article-content { font-size: 19px; color: var(--text-dim); }
+        .article-content p { margin-bottom: 28px; line-height: 1.8; }
+        .article-content h2 { color: var(--text); font-size: 36px; font-weight: 700; margin: 56px 0 28px 0; letter-spacing: -0.03em; }
+        .article-content h3 { color: var(--text); font-size: 26px; font-weight: 600; margin: 32px 0 16px 0; }
+        
+        .math-block { 
+            background: var(--surface); border: 1px solid var(--border); border-radius: 24px; 
+            padding: 40px; margin: 48px 0; overflow-x: auto; text-align: center; font-size: 22px;
+            box-shadow: inset 0 0 40px rgba(0,0,0,0.2);
+        }
+        
+        .pro-tip { 
+            background: linear-gradient(135deg, rgba(245, 166, 35, 0.1), rgba(245, 166, 35, 0.05));
+            border-left: 4px solid var(--accent); padding: 40px; border-radius: 0 32px 32px 0;
+            margin: 64px 0; font-size: 18px;
+        }
+        .pro-tip strong { color: var(--accent); display: block; margin-bottom: 12px; text-transform: uppercase; font-size: 13px; letter-spacing: 0.12em; }
+        .pro-tip a { color: var(--text); font-weight: 600; text-decoration-color: var(--accent); }
+        
+        @media (max-width: 768px) {
+            main { padding-top: 100px; padding-bottom: 60px; }
+            .hero-image { height: 300px; border-radius: 24px; margin-bottom: 40px; }
+            .article-content { font-size: 17px; }
+            .article-content h2 { font-size: 28px; }
+            .pro-tip { padding: 24px; border-radius: 16px; }
+            .math-block { padding: 24px; font-size: 18px; }
+        }
+    </style>
+</head>
+<body>
+    <nav class="sidebar"></nav>
+    <div class="bottom-nav"></div>
+    
+    <main>
+        <div class="breadcrumb">
+            <a href="../index.html">Home</a> / <a href="index.html">Guides</a> / Family & Health
+        </div>
+
+        <article>
+            <header class="article-header">
+                <span class="article-category">Family & Health</span>
+                <h1>Pregnancy Math: Timelines, Growth, and Statistical Risk</h1>
+                <p class="article-subtitle">Understanding the mathematics of gestation and the probability of 'Due Dates'.</p>
+            </header>
+
+            <div class="hero-image">
+                <img src="assets/pregnancy.png" alt="Pregnancy Math: Timelines, Growth, and Statistical Risk" onerror="this.style.display='none'; this.parentElement.style.background='radial-gradient(circle at 50% 50%, var(--accent-light), var(--bg))'">
+            </div>
+
+            <div class="article-content">
+                
+            <p>Pregnancy is a 40-week masterclass in exponential biological growth. However, the most famous number in pregnancy—the "Due Date"—is a statistical outlier. Only about 4% of babies are born on their exact due date. Understanding the math of gestation helps parents manage expectations and understand the normal variance of fetal development.</p>
+            
+            <div class="pro-tip">
+                Track your timeline and key milestones with our <a href="../parenting.html#pregnancy">Advanced Due Date Calculator</a>.
+            </div>
+
+            <h2>Naegele's Rule and Gestational Age</h2>
+            <p>The standard method for calculating a due date is Naegele's Rule. It assumes a 28-day cycle and ovulation on day 14. The math is simple but based on averages:</p>
+            <div class="math-block">
+                \[Due\ Date = LMP + 7\ Days - 3\ Months + 1\ Year\]
+            </div>
+            <p>Where LMP is the date of your Last Menstrual Period.</p>
+
+            <h3>The Math of Fetal Weight Gain</h3>
+            <p>Fetal growth is non-linear. In the first trimester, growth is measured in millimeters. By the third trimester, the baby is gaining roughly 200g (0.5 lbs) per week. This rapid acceleration of mass requires a mathematical adjustment in the mother's TDEE—typically an extra 300-500 calories per day by the final months.</p>
+
+            <div class="pro-tip">
+                Model your nutritional needs with our <a href="../health.html#macros">Pregnancy Macro Planner</a>.
+            </div>
+
+            <h2>Interpreting Statistical Risk</h2>
+            <p>During pregnancy, you will be presented with many "risk ratios" (e.g., 1 in 500). It's important to distinguish between <strong>Relative Risk</strong> and <strong>Absolute Risk</strong>. A "doubling of risk" sounds terrifying, but if the absolute risk moves from 0.01% to 0.02%, the probability of a healthy outcome remains 99.98%.</p>
+        
+            </div>
+        </article>
+    </main>
+
+    <footer class="site-footer" style="margin-top: 120px; padding: 80px 20px; border-top: 1px solid var(--border); text-align: center;">
+        <div class="footer-links" style="margin-bottom: 32px; display: flex; justify-content: center; gap: 40px; font-size: 15px; font-weight: 600;">
+            <a href="../index.html" style="color: var(--muted); text-decoration: none; transition: color 0.2s;">Home</a>
+            <a href="../about.html" style="color: var(--muted); text-decoration: none; transition: color 0.2s;">About</a>
+            <a href="../privacy.html" style="color: var(--muted); text-decoration: none; transition: color 0.2s;">Privacy</a>
+            <a href="../contact.html" style="color: var(--muted); text-decoration: none; transition: color 0.2s;">Contact</a>
+        </div>
+        <p style="color: var(--muted); font-size: 13px; opacity: 0.8;">&copy; 2026 YourCalc — Professional Mathematical Resources.</p>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            setTimeout(() => {
+                document.querySelectorAll('.logo-container').forEach(el => el.onclick = () => location.href='../index.html');
+                document.querySelectorAll('.nav-item').forEach(el => {
+                    const href = el.getAttribute('href');
+                    if (href && !href.startsWith('http') && !href.startsWith('#')) el.setAttribute('href', '../' + href);
+                });
+            }, 100);
+        });
+    </script>
+</body>
+</html>

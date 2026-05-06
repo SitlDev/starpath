@@ -1,0 +1,72 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres:15-alpine
+    container_name: starpath-postgres
+    environment:
+      POSTGRES_USER: ${DB_USER:-starpath}
+      POSTGRES_PASSWORD: ${DB_PASSWORD:-starpath123}
+      POSTGRES_DB: ${DB_NAME:-starpath}
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U starpath"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  redis:
+    image: redis:7-alpine
+    container_name: starpath-redis
+    ports:
+      - "6379:6379"
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  backend:
+    build:
+      context: ./starpath-backend
+      dockerfile: Dockerfile
+    container_name: starpath-backend
+    environment:
+      DATABASE_URL: postgresql://${DB_USER:-starpath}:${DB_PASSWORD:-starpath123}@postgres:5432/${DB_NAME:-starpath}
+      REDIS_URL: redis://redis:6379
+      CMS_MOCK_MODE: "true"
+      PYTHONUNBUFFERED: "1"
+    ports:
+      - "8000:8000"
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    command: uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload
+    volumes:
+      - ./starpath-backend:/app
+
+  frontend:
+    build:
+      context: ./starpath-frontend
+      dockerfile: Dockerfile
+      args:
+        NEXT_PUBLIC_API_URL: http://localhost:8000
+    container_name: starpath-frontend
+    environment:
+      NEXT_PUBLIC_API_URL: http://localhost:8000
+      NODE_ENV: development
+    ports:
+      - "3000:3000"
+    depends_on:
+      - backend
+    volumes:
+      - ./starpath-frontend:/app
+      - /app/node_modules
+
+volumes:
+  postgres_data:

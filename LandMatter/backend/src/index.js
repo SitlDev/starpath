@@ -46,6 +46,28 @@ app.get('/api/listings', async (req, res) => {
   }
 });
 
+// Get all counties
+app.get('/api/counties', async (req, res) => {
+  try {
+    console.log('◈ FETCHING COUNTIES FROM DATABASE...');
+    const counties = await prisma.county.findMany({
+      orderBy: { state: 'asc' }
+    });
+    
+    if (counties.length === 0) {
+      console.log('◈ DATABASE COUNTIES EMPTY - USING JSON FALLBACK...');
+      const allCounties = require('./all-counties.json');
+      return res.json(allCounties);
+    }
+    
+    res.json(counties);
+  } catch (error) {
+    console.error('◈ API ERROR [GET /api/counties]:', error.message);
+    const allCounties = require('./all-counties.json');
+    res.json(allCounties);
+  }
+});
+
 // Get single listing
 app.get('/api/listings/:id', async (req, res) => {
   const { id } = req.params;
@@ -279,6 +301,30 @@ app.get('/api/aggregation/report', async (req, res) => {
   }
 });
 
+// Test 2-county deep scan
+app.post('/api/aggregation/test-scan', async (req, res) => {
+  try {
+    const manager = new DataAggregationManager();
+    const results = await manager.runSpecificSources(['docs']);
+    await manager.close();
+    res.json(results);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
+// Full 3,144 county deep scan trigger
+app.post('/api/aggregation/full-scan', async (req, res) => {
+  try {
+    const manager = new DataAggregationManager();
+    manager.aggregateAllData().catch(e => console.error('Full scan background error:', e));
+    res.json({ status: 'Full scan initiated. Estimated completion: 18 hours.' });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
+
 // Manual data refresh endpoint (on-demand, triggers immediate fetch and resets weekly schedule)
 app.post('/api/data/refresh', async (req, res) => {
   try {
@@ -397,27 +443,68 @@ app.post('/api/seed/mock', async (req, res) => {
 // --- SERVER START ---
 const PORT = process.env.PORT || 3001;
 
+// Serve static frontend files
+const path = require('path');
+const frontendPath = path.join(__dirname, '../../frontend');
+
+app.use(express.static(frontendPath));
+
+// Fallback for Single Page Application (SPA) routing
+app.get('*path', (req, res) => {
+  if (!req.path.startsWith('/api')) {
+    res.sendFile(path.join(frontendPath, 'index.html'));
+  }
+});
+
 // Auto-seed database if empty (on startup)
 async function initializeDatabase() {
   try {
     console.log('◈ Initializing database...');
-    const prisma = new (require('@prisma/client').PrismaClient)();
     
     // Test database connectivity
     await prisma.$executeRaw`SELECT 1`;
     console.log('✓ Database connection successful');
     
-    const count = await prisma.listing.count();
-    await prisma.$disconnect();
-    
-    if (count === 0) {
-      console.log('◈ Database is empty. Auto-seeding with mock data...');
+    // Check Listings
+    const listingCount = await prisma.listing.count();
+    if (listingCount === 0) {
+      console.log('◈ Listings empty. Auto-seeding with mock data...');
       const { generateMockListings } = require('./mock-scraper');
       await generateMockListings();
-      console.log('✓ Database seeded successfully');
+      console.log('✓ Listings seeded successfully');
     } else {
-      console.log(`◈ Database already populated with ${count} listings`);
+      console.log(`◈ Database has ${listingCount} listings`);
     }
+
+    // Check Counties
+    const countyCount = await prisma.county.count();
+    if (countyCount === 0) {
+      console.log('◈ Counties empty. Auto-seeding registry...');
+      const allCounties = require('./all-counties.json');
+      console.log(`◈ Seeding ${allCounties.length} counties...`);
+      
+      // Seed in batches to avoid overwhelming the DB
+      const batchSize = 100;
+      for (let i = 0; i < allCounties.length; i += batchSize) {
+        const batch = allCounties.slice(i, i + batchSize);
+        await Promise.all(batch.map(c => 
+          prisma.county.create({
+            data: {
+              id: c.fips,
+              name: c.name,
+              state: c.state,
+              platform: c.platform || null,
+              listingCount: 0
+            }
+          })
+        ));
+      }
+      console.log('✓ Counties seeded successfully');
+    } else {
+      console.log(`◈ Database has ${countyCount} counties`);
+    }
+
+    await prisma.$disconnect();
   } catch (error) {
     console.error('❌ Database initialization error:', error.message);
     console.error('❌ Check DATABASE_URL environment variable or database connection');

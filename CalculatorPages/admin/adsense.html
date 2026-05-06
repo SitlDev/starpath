@@ -36,22 +36,74 @@
         </div>
         
         <div class="grid-kpi">
-            <div class="card"><div class="card-title">Est. Earnings</div><div class="card-value">$412.50</div></div>
-            <div class="card"><div class="card-title">Page RPM</div><div class="card-value">$12.10</div></div>
-            <div class="card"><div class="card-title">Clicks</div><div class="card-value">950</div></div>
-            <div class="card"><div class="card-title">CTR</div><div class="card-value">2.4%</div></div>
+            <div class="card"><div class="card-title">Est. Earnings (Live)</div><div class="card-value" id="est-earnings">$0.00</div></div>
+            <div class="card"><div class="card-title">Projected RPM</div><div class="card-value" id="avg-rpm">$0.00</div></div>
+            <div class="card"><div class="card-title">Total Pageviews</div><div class="card-value" id="total-views">0</div></div>
+            <div class="card"><div class="card-title">Monetization Score</div><div class="card-value" id="mon-score">0%</div></div>
         </div>
         <div class="card" style="margin-bottom: 24px;">
-            <h3 class="card-title">Revenue by Page</h3>
+            <h3 class="card-title">Estimated Revenue by Category</h3>
             <table class="table">
-                <tr><th>Page</th><th>Earnings</th><th>RPM</th><th>Impressions</th><th>CTR</th><th>Status</th></tr>
-                <tr><td>/finance.html</td><td>$145.20</td><td><span class="badge green">$14.10</span></td><td>10,300</td><td>2.1%</td><td>Healthy</td></tr>
-                <tr><td>/invest.html</td><td>$110.40</td><td><span class="badge green">$18.40</span></td><td>6,000</td><td>2.8%</td><td>Healthy</td></tr>
-                <tr><td>/math.html</td><td>$12.50</td><td><span class="badge red">$0.90</span></td><td>13,800</td><td>0.4%</td><td><span class="badge red">Low Monetization</span></td></tr>
+                <thead>
+                    <tr><th>Category</th><th>Views</th><th>Est. RPM</th><th>Est. Earnings</th></tr>
+                </thead>
+                <tbody id="adsense-body">
+                    <!-- Dynamic Data -->
+                </tbody>
             </table>
         </div>
 
     </main>
+
+    <script>
+        const RPMS = {
+            'High Value (Finance)': 22.50,
+            'Medium Value (Health)': 14.80,
+            'Academic (Low RPM)': 1.50,
+            'General': 9.20
+        };
+
+        async function loadAdSenseData() {
+            const SECRET = 'h14sua12';
+            try {
+                const res = await fetch(`/api/admin?action=get-leads&secret=${SECRET}`);
+                const data = await res.json();
+                const { categoryPerformance, totals } = data.stats;
+
+                let totalEarnings = 0;
+                let totalViews = 0;
+
+                const body = document.getElementById('adsense-body');
+                body.innerHTML = categoryPerformance.map(c => {
+                    const rpm = RPMS[c.category] || 10.00;
+                    const earnings = (c.views / 1000) * rpm;
+                    totalEarnings += earnings;
+                    totalViews += parseInt(c.views);
+
+                    return `
+                        <tr>
+                            <td><strong>${c.category}</strong></td>
+                            <td>${parseInt(c.views).toLocaleString()}</td>
+                            <td><span class="badge ${rpm > 15 ? 'green' : (rpm < 5 ? 'red' : '')}">$${rpm.toFixed(2)}</span></td>
+                            <td style="font-weight:700; color:var(--accent);">$${earnings.toFixed(2)}</td>
+                        </tr>
+                    `;
+                }).join('');
+
+                document.getElementById('est-earnings').innerText = `$${totalEarnings.toFixed(2)}`;
+                document.getElementById('total-views').innerText = totalViews.toLocaleString();
+                document.getElementById('avg-rpm').innerText = `$${((totalEarnings / totalViews) * 1000).toFixed(2)}`;
+                
+                const score = Math.min(100, (totalEarnings / (totalViews * 0.02)) * 100);
+                document.getElementById('mon-score').innerText = `${score.toFixed(0)}%`;
+
+            } catch (err) {
+                console.error("AdSense Load Error:", err);
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', loadAdSenseData);
+    </script>
     <script src="admin.js"></script>
 </body>
 </html>

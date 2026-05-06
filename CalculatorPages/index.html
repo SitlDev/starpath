@@ -24,11 +24,42 @@
         <meta name="keywords" content="free online calculators, financial calculators, health calculators, AI cost estimator, real estate ROI, career planning tools, 2026 calculators">
                                                         <meta name="author" content="KnotStranded LLC">
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
+    <link rel="canonical" href="https://yourcalc.info/">
+    <meta name="description" content="100+ Free Professional Calculators for 2026. Financial, Health, AI, and Career planning tools with real-time accuracy.">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://yourcalc.info/">
+    <meta property="og:title" content="YourCalc — 100+ Free Professional Calculators for 2026">
+    <meta property="og:description" content="Professional-grade calculators for finance, health, and more. Free and optimized for 2026.">
+    <meta property="og:image" content="https://yourcalc.info/apple-touch-icon.png">
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://yourcalc.info/">
+    <meta property="twitter:title" content="YourCalc — 100+ Free Professional Calculators">
+    <meta property="twitter:description" content="Professional-grade calculators for finance, health, and more.">
+    <meta property="twitter:image" content="https://yourcalc.info/apple-touch-icon.png">
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "YourCalc",
+      "url": "https://yourcalc.info",
+      "description": "A suite of 100+ professional-grade calculators for various domains.",
+      "applicationCategory": "EducationalApplication",
+      "operatingSystem": "All",
+      "author": {
+        "@type": "Organization",
+        "name": "YourCalc"
+      }
+    }
+    </script>
             <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5377169267581466" crossorigin="anonymous"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     
-    <script src="gate.js"></script>
     <link rel="stylesheet" href="global.css">
     <script src="sidebar.js" defer></script>
     <script>
@@ -40,19 +71,6 @@
     <style>
         body { background-color: var(--bg); color: var(--text); font-family: 'Outfit', sans-serif; display: flex; flex-direction: column; min-height: 100vh; overflow-x: hidden; }
         main { flex: 1; margin-left: 0; padding: 160px 40px 40px 40px; display: flex; flex-direction: column; align-items: center; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
-        .sidebar { 
-            position: fixed; top: 0; left: 0; width: 100%; height: 120px; 
-            background: rgba(13, 15, 20, 0.8); backdrop-filter: blur(24px); 
-            z-index: 2000; border-bottom: 1px solid rgba(255,255,255,0.08); 
-        }
-        @media (max-width: 1024px) {
-            .sidebar { height: 60px !important; }
-            main { padding: 100px 16px 100px !important; }
-        }
-        @media (max-width: 768px) {
-            .sidebar { height: 56px !important; }
-            main { padding: 72px 16px 80px !important; }
-        }
 
         :root {
             
@@ -76,12 +94,18 @@
         }
         * { margin: 0; padding: 0; box-sizing: border-box; -webkit-font-smoothing: antialiased; }
 
-        .container { max-width: 860px; width: 100%; }
+        .container { max-width: 1200px; width: 100%; }
 
         /* Hero */
-        .hero { text-align: center; padding: 48px 0 36px; }
-        h1 { font-size: 44px; font-weight: 600; margin-bottom: 10px; letter-spacing: -0.02em; }
-        .hero p { font-size: 17px; color: var(--muted); }
+        .hero { text-align: center; padding: 64px 0 48px; }
+        h1 { font-size: clamp(36px, 6vw, 56px); font-weight: 700; margin-bottom: 12px; letter-spacing: -0.04em; line-height: 1.05; }
+        .hero p { font-size: clamp(16px, 2vw, 19px); color: var(--muted); max-width: 700px; margin: 0 auto; line-height: 1.6; }
+
+        @media (max-width: 768px) {
+            .hero { padding: 40px 0 24px; }
+            h1 { font-size: clamp(28px, 8vw, 36px); line-height: 1.1; }
+            .hero p { font-size: 15px; opacity: 0.8; }
+        }
 
         /* Search */
         .search-container { position: relative; margin-bottom: 36px; }
@@ -115,6 +139,16 @@
         .cat-chevron { color: var(--muted); font-size: 11px; transition: transform 0.2s; margin-left: 8px; }
         .cat-group.open .cat-chevron { transform: rotate(180deg); }
 
+        @media (max-width: 768px) {
+            .cat-header { padding: 16px; min-height: 64px; }
+            .cat-icon { width: 36px; height: 36px; border-radius: 10px; }
+            .cat-icon svg { width: 18px; height: 18px; }
+            .cat-title h3 { font-size: 15px; }
+            .cat-title span { font-size: 12px; }
+            .cat-badge { font-size: 10px; padding: 2px 8px; }
+            .cat-header:active { background: rgba(255,255,255,0.05); }
+        }
+
         /* Tool items */
         .tool-list { display: none; border-top: 1px solid var(--border); background: var(--bg); }
         .cat-group.open .tool-list { display: block; animation: listReveal 0.2s ease; }
@@ -126,6 +160,11 @@
         .tool-item:hover { background: rgba(245,166,35,0.05); }
         .tool-item:hover .tool-arrow { color: var(--accent); transform: translateX(3px); }
         .tool-item.hidden { display: none; }
+
+        @media (max-width: 768px) {
+            .tool-item { padding: 16px 20px 16px 60px; }
+            .tool-name { font-size: 15px; }
+        }
 
         .tool-name { flex: 1; font-size: 14px; font-weight: 500; }
         .tool-desc { font-size: 12px; color: var(--muted); margin-top: 2px; }
@@ -193,33 +232,48 @@
                 <p>27 calculator suites &middot; 100+ individual tools across Finance, Health, Tech, and Life.</p>
             </div>
 
-                        <!-- Site Intro Block -->
-            <section class="site-intro" style="background: var(--surface); border: 1px solid var(--border); border-radius: 24px; padding: 40px; margin-bottom: 32px;">
-                <h2 class="page-h2" style="margin-top: 0; color: var(--text);">Why YourCalc Exists</h2>
-                <div class="intro-text" style="margin-bottom: 32px;">
-                    <p style="font-size: 16px; color: var(--muted); margin-bottom: 16px;">Most online calculator sites are a mess. They are often abandoned projects plagued by broken mobile layouts and mathematically untrustworthy formulas. We got tired of searching for reliable tools, only to be met with paywalls or intrusive pop-ups.</p>
-                    
-                    <p style="font-size: 16px; color: var(--muted); margin-bottom: 16px;">YourCalc was built by KnotStranded LLC to fix that. We wanted a library of professional-grade calculators that is clean, verified, permanent, and entirely free. This is a passion project built for accuracy and long-term utility, designed for real people who need real answers without the friction.</p>
+            <!-- Site Intro Block (Editorial Content) -->
+            <section class="content-block" style="padding: 0 0 48px; border-bottom: 1px solid var(--border); margin-bottom: 64px;">
+                <style>
+                    .content-block h3 { font-size: 24px; margin-bottom: 16px; color: var(--accent); }
+                    .content-block h4 { font-size: 18px; margin: 32px 0 12px; }
+                    .content-block p { font-size: 16px; line-height: 1.8; color: var(--muted); margin-bottom: 20px; }
+                    @media (max-width: 768px) {
+                        .content-block h3 { font-size: 20px; text-align: center; }
+                        .content-block p { font-size: 15px; line-height: 1.7; }
+                    }
+                </style>
+                <h3>The Problem With Online Calculators — And Why We Built Something Better</h3>
+                <p>The internet has no shortage of calculators. Search for a mortgage calculator, a BMI tool, or a compound interest estimator and you'll surface dozens of results within seconds. The problem isn't quantity. The problem is quality, trustworthiness, and the experience of actually using them.</p>
+                <p>Most calculator sites were built during the early 2000s blogging era, updated occasionally to refresh advertising units, and never meaningfully improved. Their formulas are unattributed. Their mobile layouts are broken. Their results are surrounded by so many ads and pop-ups that extracting a number feels like navigating a tollway. And when you're trying to make a real financial decision — whether to refinance your mortgage, how much protein you need to hit your goals, whether an LLC or S-Corp structure will save you money — you need a tool you can actually trust.</p>
+                <p>YourCalc was built to solve this. One hundred and eleven tools across twenty-seven categories, all built to professional standards, all verified against primary sources, all running client-side in your browser so your data never touches a server. No accounts. No paywalls. No data stored. Just math, done correctly, when you need it.</p>
 
-                    <p style="font-size: 16px; color: var(--muted);">Every single tool on this site runs client-side directly in your browser. That means we don't store your data, we don't track your inputs, and we don't require you to create an account. What you calculate stays on your device. Just fast, transparent math when you need it.</p>
-                </div>
-                <div class="category-highlights" style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px;">
-                    <div style="text-align: center;">
-                        <span style="display: block; font-size: 28px; font-weight: 600; color: var(--accent2); margin-bottom: 4px;">27</span>
-                        <span style="display: block; font-size: 12px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.1em;">Categories</span>
-                    </div>
-                    <div style="text-align: center;">
-                        <span style="display: block; font-size: 28px; font-weight: 600; color: var(--accent2); margin-bottom: 4px;">100+</span>
-                        <span style="display: block; font-size: 12px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.1em;">Tools</span>
-                    </div>
-                    <div style="text-align: center;">
-                        <span style="display: block; font-size: 28px; font-weight: 600; color: var(--accent2); margin-bottom: 4px;">0</span>
-                        <span style="display: block; font-size: 12px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.1em;">Accounts</span>
-                    </div>
-                    <div style="text-align: center;">
-                        <span style="display: block; font-size: 28px; font-weight: 600; color: var(--accent2); margin-bottom: 4px;">0</span>
-                        <span style="display: block; font-size: 12px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.1em;">Data Stored</span>
-                    </div>
+                <h4>What "Professional-Grade" Actually Means</h4>
+                <p>It's a phrase that gets thrown around without definition, so let's be specific about what it means in practice. Every financial formula on this site — mortgage amortization, compound interest, FIRE number calculation, debt payoff modeling — uses the same equations that certified financial planners, mortgage underwriters, and actuaries use in professional practice. The mortgage amortization formula is the textbook standard. The 4% FIRE rule is derived from the original Trinity Study. The debt avalanche vs. snowball comparison uses the same methodology financial counselors use when working with clients.</p>
+                <p>Every health and clinical formula is sourced from published medical and exercise science literature. The Mifflin-St Jeor equation for BMR is the formula recommended by the Academy of Nutrition and Dietetics. The Cockcroft-Gault equation for creatinine clearance is referenced in the prescribing information of hundreds of FDA-approved drugs. WHO BMI classifications are used exactly as WHO publishes them. The US Navy body fat method is the same protocol used in military fitness assessments.</p>
+                <p>Engineering tools use standard electrical engineering formulas — Ohm's Law, three-phase power calculations, voltage drop equations — consistent with NFPA and IEEE reference materials. Scientific calculators implement verified chemistry formulas: molarity, dilution (C1V1=C2V2), the ideal gas law (PV=nRT). We don't invent formulas. We implement verified ones and show our work.</p>
+
+                <h4>Client-Side Architecture: Why It Matters for Privacy</h4>
+                <p>Every calculation on YourCalc runs entirely in your browser. This isn't a marketing claim — it's an architectural decision with real implications. When you use our mortgage calculator, your loan amount, income, and interest rate never leave your device. When you use the drug dosage calculator, the patient weight and medication concentration you enter exist only in your browser session. When you close the tab, everything is gone.</p>
+                <p>This stands in sharp contrast to most online tools, which route your inputs through servers, log them for analytics, and potentially use them for targeted advertising or data aggregation. We built client-side by default because we believe the right approach to privacy is simply not collecting data in the first place. There is no database to breach, no profile to build, no inputs to misuse.</p>
+
+                <h4>The Twenty-Seven Categories</h4>
+                <p>The library spans a deliberately broad range of real-world calculation needs. Finance and Capital covers the major monetary decisions most adults face: mortgages, compound interest, loans, retirement projections, tax estimation, inflation adjustment, and debt payoff planning. Savings and Budget handles everyday financial management — credit card payoff timelines, 50/30/20 budget allocation, emergency fund sizing, and unit price comparison for smarter purchasing decisions.</p>
+                <p>Investing and Crypto covers portfolio management and market math: dollar-cost averaging simulation, cryptocurrency profit and loss calculation with fee accounting, stock options valuation, and portfolio rebalancing. Real Estate provides the tools for property decisions — true rent vs. buy comparison, home affordability analysis, rental property cap rate and cash-on-cash return, and closing cost estimation.</p>
+                <p>Small Business addresses the financial metrics that determine whether a business survives: burn rate and runway, break-even analysis, LTV to CAC ratio, and profit margin calculation. Digital Marketing brings agency-level analytics tools to anyone running ad campaigns: ROAS calculation, CPC to CPA conversion, email list valuation, and conversion rate analysis. Career and Income tools cover job offer comparison, freelance rate calculation, raise ROI over a career, and side hustle profitability.</p>
+                <p>Health and Vitality includes BMI, TDEE, macronutrient planning, body fat percentage estimation, and daily water intake calculation. Fitness and Training goes deeper with VO₂ Max estimation, one-rep max calculation across seven validated formulas, race pace calculation, heart rate zone training, and calorie burn by activity using MET values from the Compendium of Physical Activities. Medical and Clinical provides clinical reference tools for healthcare professionals and students: weight-based drug dosing, IV drip rate calculation, ideal body weight using the Devine formula, creatinine clearance via Cockcroft-Gault, and caloric deficit timeline modeling.</p>
+                <p>The Science and Engineering categories include electrical power calculations (single and three-phase), component drift analysis, voltage drop, and a full chemistry suite covering molarity, dilution, ideal gas law, and molecular weight. The Academic tools cover grade curves, GPA calculation, h-index projection, and citation impact scoring. Auto and Transport provides EV vs. gas true cost comparison, lease vs. buy analysis, auto loan amortization, and real-world MPG calculation.</p>
+
+                <h4>Who Uses YourCalc</h4>
+                <p>The user base is deliberately broad because the problems the tools solve are universal. Personal finance tools get used by first-time homebuyers trying to understand what a mortgage actually costs over thirty years, and by experienced investors stress-testing retirement scenarios. Health tools get used by competitive athletes optimizing training loads and by people starting a weight loss journey who want to understand their baseline metabolism. Clinical tools get used by nursing students in pharmacology courses and by practicing nurses verifying IV drip rate calculations at the bedside.</p>
+                <p>Small business tools get used by early-stage founders who have never built a financial model and by serial entrepreneurs who want a quick sanity check on unit economics. Engineering tools get used by electrical engineers validating field calculations and by DIY homeowners trying to understand whether their panel can handle a new load. The breadth is intentional — professional-quality tools shouldn't be gatekept behind software subscriptions or professional credentials. The math is the math. Everyone deserves access to it.</p>
+
+                <h4>Free. Permanent. No Conditions.</h4>
+                <p>YourCalc is a free resource and will remain one. There are no premium tiers, no features locked behind subscription, no "enhanced results" paywalls. The entire library — all one hundred and eleven tools, all twenty-seven categories, all the guides — is free to use, unlimited, forever. This is a deliberate product philosophy, not a temporary launch promotion.</p>
+                <p>The guides section extends the calculator library with long-form editorial content: explanations of the formulas behind the tools, context for interpreting results, and practical guidance on using the outputs to make better decisions. The guides are free to read, ad-free in the reading experience, and written to inform rather than to sell.</p>
+
+                <div class="use-tags">
+                    <span>Free forever</span><span>No account required</span><span>Client-side only</span><span>Verified formulas</span><span>27 categories</span><span>100+ tools</span>
                 </div>
             </section>
 
@@ -233,29 +287,65 @@
                     <a href="blog/index.html" style="color: var(--accent); text-decoration: none; font-size: 14px; font-weight: 600; display: flex; align-items: center; gap: 6px;">View All Guides <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
                 </div>
 
-                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 24px;">
-                    <a href="blog/how-to-calculate-your-fire-number.html" style="background: var(--surface); border: 1px solid var(--border); border-radius: 20px; padding: 24px; text-decoration: none; color: inherit; transition: all 0.2s;">
+                <div class="guides-grid">
+                    <style>
+                        .guides-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; }
+                        @media (max-width: 600px) { .guides-grid { grid-template-columns: 1fr; } }
+                        .guide-card { background: var(--surface); border: 1px solid var(--border); border-radius: 20px; padding: 24px; text-decoration: none; color: inherit; transition: all 0.2s; display: flex; flex-direction: column; justify-content: space-between; }
+                        .guide-card:active { transform: scale(0.98); background: rgba(255,255,255,0.02); }
+                    </style>
+                    <a href="blog/2026-guide-to-compound-interest.html" class="guide-card">
                         <span style="font-size: 10px; font-weight: 700; color: var(--accent); text-transform: uppercase; letter-spacing: 0.1em; display: block; margin-bottom: 12px;">Finance</span>
-                        <h3 style="font-size: 18px; margin-bottom: 12px; line-height: 1.4;">FIRE Calculation</h3>
-                        <p style="font-size: 13px; color: var(--muted); line-height: 1.6;">The 4% rule and the math of financial freedom.</p>
+                        <h3 style="font-size: 18px; margin-bottom: 12px; line-height: 1.4;">Compound Interest</h3>
+                        <p style="font-size: 13px; color: var(--muted); line-height: 1.6;">How to build a $1M portfolio starting with $500.</p>
                     </a>
                     
-                    <a href="blog/the-hidden-cost-of-burnout.html" style="background: var(--surface); border: 1px solid var(--border); border-radius: 20px; padding: 24px; text-decoration: none; color: inherit; transition: all 0.2s;">
-                        <span style="font-size: 10px; font-weight: 700; color: var(--accent); text-transform: uppercase; letter-spacing: 0.1em; display: block; margin-bottom: 12px;">Psychology</span>
-                        <h3 style="font-size: 18px; margin-bottom: 12px; line-height: 1.4;">The Burnout Tax</h3>
-                        <p style="font-size: 13px; color: var(--muted); line-height: 1.6;">Quantifying the impact of stress on productivity.</p>
+                    <a href="blog/mortgages-in-high-rate-environment.html" class="guide-card">
+                        <span style="font-size: 10px; font-weight: 700; color: var(--accent); text-transform: uppercase; letter-spacing: 0.1em; display: block; margin-bottom: 12px;">Real Estate</span>
+                        <h3 style="font-size: 18px; margin-bottom: 12px; line-height: 1.4;">Mortgage Strategies</h3>
+                        <p style="font-size: 13px; color: var(--muted); line-height: 1.6;">Saving $50,000 in interest using amortization hacks.</p>
                     </a>
 
-                    <a href="blog/home-renovation-roi.html" style="background: var(--surface); border: 1px solid var(--border); border-radius: 20px; padding: 24px; text-decoration: none; color: inherit; transition: all 0.2s;">
-                        <span style="font-size: 10px; font-weight: 700; color: var(--accent); text-transform: uppercase; letter-spacing: 0.1em; display: block; margin-bottom: 12px;">DIY</span>
-                        <h3 style="font-size: 18px; margin-bottom: 12px; line-height: 1.4;">Home Reno ROI</h3>
-                        <p style="font-size: 13px; color: var(--muted); line-height: 1.6;">Which projects actually add value to your home?</p>
+                    <a href="blog/fire-movement-2026-safe-withdrawal.html" class="guide-card">
+                        <span style="font-size: 10px; font-weight: 700; color: var(--accent); text-transform: uppercase; letter-spacing: 0.1em; display: block; margin-bottom: 12px;">Finance</span>
+                        <h3 style="font-size: 18px; margin-bottom: 12px; line-height: 1.4;">The FIRE Exit Guide</h3>
+                        <p style="font-size: 13px; color: var(--muted); line-height: 1.6;">Finding your freedom number with the 4% rule.</p>
                     </a>
 
-                    <a href="blog/voltage-drop-efficiency-killer.html" style="background: var(--surface); border: 1px solid var(--border); border-radius: 20px; padding: 24px; text-decoration: none; color: inherit; transition: all 0.2s;">
-                        <span style="font-size: 10px; font-weight: 700; color: var(--accent); text-transform: uppercase; letter-spacing: 0.1em; display: block; margin-bottom: 12px;">Engineering</span>
-                        <h3 style="font-size: 18px; margin-bottom: 12px; line-height: 1.4;">Voltage Drop</h3>
-                        <p style="font-size: 13px; color: var(--muted); line-height: 1.6;">The silent efficiency killer in electrical design.</p>
+                    <a href="blog/crypto-vs-stocks-2026-roi.html" class="guide-card">
+                        <span style="font-size: 10px; font-weight: 700; color: var(--accent); text-transform: uppercase; letter-spacing: 0.1em; display: block; margin-bottom: 12px;">Investment</span>
+                        <h3 style="font-size: 18px; margin-bottom: 12px; line-height: 1.4;">Crypto vs. Stocks</h3>
+                        <p style="font-size: 13px; color: var(--muted); line-height: 1.6;">A cold-blooded mathematical comparison of ROI.</p>
+                    </a>
+
+                    <a href="blog/side-hustle-profitability-math.html" class="guide-card">
+                        <span style="font-size: 10px; font-weight: 700; color: var(--accent); text-transform: uppercase; letter-spacing: 0.1em; display: block; margin-bottom: 12px;">Business</span>
+                        <h3 style="font-size: 18px; margin-bottom: 12px; line-height: 1.4;">Side Hustle ROI</h3>
+                        <p style="font-size: 13px; color: var(--muted); line-height: 1.6;">Is your extra income actually costing you money?</p>
+                    </a>
+
+                    <a href="blog/science-of-body-fat-percentage.html" class="guide-card">
+                        <span style="font-size: 10px; font-weight: 700; color: var(--accent); text-transform: uppercase; letter-spacing: 0.1em; display: block; margin-bottom: 12px;">Health</span>
+                        <h3 style="font-size: 18px; margin-bottom: 12px; line-height: 1.4;">Body Fat & Science</h3>
+                        <p style="font-size: 13px; color: var(--muted); line-height: 1.6;">Why composition matters more than weight or BMI.</p>
+                    </a>
+
+                    <a href="blog/customer-churn-the-growth-killer.html" class="guide-card">
+                        <span style="font-size: 10px; font-weight: 700; color: var(--accent); text-transform: uppercase; letter-spacing: 0.1em; display: block; margin-bottom: 12px;">Business</span>
+                        <h3 style="font-size: 18px; margin-bottom: 12px; line-height: 1.4;">The LTV/CAC Ratio</h3>
+                        <p style="font-size: 13px; color: var(--muted); line-height: 1.6;">The ultimate metric for startup growth sustainability.</p>
+                    </a>
+
+                    <a href="blog/the-1000-dollar-hour.html" class="guide-card">
+                        <span style="font-size: 10px; font-weight: 700; color: var(--accent); text-transform: uppercase; letter-spacing: 0.1em; display: block; margin-bottom: 12px;">Career</span>
+                        <h3 style="font-size: 18px; margin-bottom: 12px; line-height: 1.4;">Negotiation Math</h3>
+                        <p style="font-size: 13px; color: var(--muted); line-height: 1.6;">Calculating the lifetime value of a $5k salary raise.</p>
+                    </a>
+
+                    <a href="blog/what-is-tdee-and-why-it-matters.html" class="guide-card">
+                        <span style="font-size: 10px; font-weight: 700; color: var(--accent); text-transform: uppercase; letter-spacing: 0.1em; display: block; margin-bottom: 12px;">Health</span>
+                        <h3 style="font-size: 18px; margin-bottom: 12px; line-height: 1.4;">TDEE Demystified</h3>
+                        <p style="font-size: 13px; color: var(--muted); line-height: 1.6;">The science behind daily calorie expenditure.</p>
                     </a>
                 </div>
             </section>
@@ -302,11 +392,11 @@
                             <div><div class="tool-name" style="color: var(--accent);">Guide: Compounding Frequency</div><div class="tool-desc">Why daily vs annual compounding matters for your wealth.</div></div>
                             <span class="tool-arrow">→</span>
                         </a>
-                        <a class="tool-item" href="finance.html#loan" data-terms="loan payoff debt schedule personal loan">
+                        <a class="tool-item" href="finance.html#debt" data-terms="loan payoff debt schedule personal loan">
                             <div><div class="tool-name">Loan Payoff Schedule</div><div class="tool-desc">Full amortization table for any personal or auto loan</div></div>
                             <span class="tool-arrow">→</span>
                         </a>
-                        <a class="tool-item" href="finance.html#salary" data-terms="salary hourly annual take home pay converter">
+                        <a class="tool-item" href="finance.html#tax" data-terms="salary hourly annual take home pay converter">
                             <div><div class="tool-name">Salary Converter</div><div class="tool-desc">Hourly — Annual — Monthly income in seconds</div></div>
                             <span class="tool-arrow">→</span>
                         </a>
@@ -314,7 +404,7 @@
                             <div><div class="tool-name">Debt Payoff Planner</div><div class="tool-desc">Snowball vs. avalanche strategy comparison</div></div>
                             <span class="tool-arrow">→</span>
                         </a>
-                        <a class="tool-item" href="finance.html#networth" data-terms="net worth assets liabilities wealth audit">
+                        <a class="tool-item" href="finance.html#worth" data-terms="net worth assets liabilities wealth audit">
                             <div><div class="tool-name">Net Worth Audit</div><div class="tool-desc">Total assets minus liabilities with breakdown</div></div>
                             <span class="tool-arrow">→</span>
                         </a>
@@ -338,7 +428,7 @@
                             <div><div class="tool-name">401(k) Optimizer</div><div class="tool-desc">Projected retirement balance with employer match modeling</div></div>
                             <span class="tool-arrow">→</span>
                         </a>
-                        <a class="tool-item" href="finance.html#studentloan" data-terms="student loan payoff interest accelerated extra payment federal">
+                        <a class="tool-item" href="finance.html#debt" data-terms="student loan payoff interest accelerated extra payment federal">
                             <div><div class="tool-name">Student Loan Payoff</div><div class="tool-desc">Months to zero and interest saved with extra payments</div></div>
                             <span class="tool-arrow">→</span>
                         </a>
@@ -415,7 +505,7 @@
                         <span class="cat-chevron">▼</span>
                     </div>
                     <div class="tool-list">
-                        <a class="tool-item" href="real-estate.html#rent" data-terms="rent vs buy home ownership cost comparison mortgage">
+                        <a class="tool-item" href="real-estate.html#rentbuy" data-terms="rent vs buy home ownership cost comparison mortgage">
                             <div><div class="tool-name">Rent vs. Buy Analysis</div><div class="tool-desc">Total 30-year cost comparison with amortization schedule</div></div>
                             <span class="tool-arrow">→</span>
                         </a>
@@ -450,7 +540,7 @@
                             <div><div class="tool-name">Break-Even Point</div><div class="tool-desc">Units and revenue needed to cover all costs</div></div>
                             <span class="tool-arrow">→</span>
                         </a>
-                        <a class="tool-item" href="blog/break-even-point-analysis-for-small-business.html" style="background: rgba(245, 166, 35, 0.05); border-left: 3px solid var(--accent);">
+                        <a class="tool-item" href="blog/how-to-read-your-burn-rate.html" style="background: rgba(245, 166, 35, 0.05); border-left: 3px solid var(--accent);">
                             <div><div class="tool-name" style="color: var(--accent);">Guide: Break-Even Point Analysis</div><div class="tool-desc">The math behind profitability and fixed cost coverage.</div></div>
                             <span class="tool-arrow">→</span>
                         </a>
@@ -458,7 +548,7 @@
                             <div><div class="tool-name">LTV / CAC Ratio</div><div class="tool-desc">Customer lifetime value vs. acquisition cost benchmark</div></div>
                             <span class="tool-arrow">→</span>
                         </a>
-                        <a class="tool-item" href="blog/calculating-customer-lifetime-value.html" style="background: rgba(245, 166, 35, 0.05); border-left: 3px solid var(--accent);">
+                        <a class="tool-item" href="blog/customer-churn-the-growth-killer.html" style="background: rgba(245, 166, 35, 0.05); border-left: 3px solid var(--accent);">
                             <div><div class="tool-name" style="color: var(--accent);">Guide: Calculating Customer LTV</div><div class="tool-desc">Predicting the long-term value of your customer base.</div></div>
                             <span class="tool-arrow">→</span>
                         </a>
@@ -493,7 +583,7 @@
                             <div><div class="tool-name">Email List Value</div><div class="tool-desc">Estimated annual revenue per subscriber on your list</div></div>
                             <span class="tool-arrow">→</span>
                         </a>
-                        <a class="tool-item" href="marketing.html#cvr" data-terms="conversion rate optimization landing page funnel visitors leads">
+                        <a class="tool-item" href="marketing.html#profit" data-terms="conversion rate optimization landing page funnel visitors leads">
                             <div><div class="tool-name">Conversion Rate Calculator</div><div class="tool-desc">CVR, leads, and revenue from traffic &amp; conversion data</div></div>
                             <span class="tool-arrow">→</span>
                         </a>
@@ -512,7 +602,7 @@
                             <div><div class="tool-name">Job Offer Analyzer</div><div class="tool-desc">Compare offers by total annual comp including benefits</div></div>
                             <span class="tool-arrow">→</span>
                         </a>
-                        <a class="tool-item" href="career.html#rate" data-terms="freelance hourly rate consulting project fee overhead">
+                        <a class="tool-item" href="career.html#offer" data-terms="freelance hourly rate consulting project fee overhead">
                             <div><div class="tool-name">Freelance Rate Calculator</div><div class="tool-desc">Your minimum billable rate based on income goals &amp; overhead</div></div>
                             <span class="tool-arrow">→</span>
                         </a>
@@ -520,7 +610,7 @@
                             <div><div class="tool-name">Raise ROI</div><div class="tool-desc">Lifetime earnings impact of a percentage salary increase</div></div>
                             <span class="tool-arrow">→</span>
                         </a>
-                        <a class="tool-item" href="career.html#hustle" data-terms="side hustle business revenue hours profit extra income">
+                        <a class="tool-item" href="career.html#offer" data-terms="side hustle business revenue hours profit extra income">
                             <div><div class="tool-name">Side Hustle Planner</div><div class="tool-desc">Revenue, hours, and effective hourly rate of a side project</div></div>
                             <span class="tool-arrow">→</span>
                         </a>
@@ -535,7 +625,7 @@
                         <span class="cat-chevron">▼</span>
                     </div>
                     <div class="tool-list">
-                        <a class="tool-item" href="logistics.html#meeting" data-terms="meeting cost hourly rate team salary waste time">
+                        <a class="tool-item" href="logistics.html#fuel" data-terms="meeting cost hourly rate team salary waste time">
                             <div><div class="tool-name">Meeting Cost Auditor</div><div class="tool-desc">Real dollar cost of any meeting by team size &amp; salaries</div></div>
                             <span class="tool-arrow">→</span>
                         </a>
@@ -543,11 +633,11 @@
                             <div><div class="tool-name">EOQ Inventory</div><div class="tool-desc">Optimal reorder quantity to minimize holding &amp; order costs</div></div>
                             <span class="tool-arrow">→</span>
                         </a>
-                        <a class="tool-item" href="logistics.html#supply" data-terms="supply chain lead time safety stock reorder buffer">
+                        <a class="tool-item" href="logistics.html#fuel" data-terms="supply chain lead time safety stock reorder buffer">
                             <div><div class="tool-name">Safety Stock &amp; Lead Time</div><div class="tool-desc">Buffer stock needed based on demand variability</div></div>
                             <span class="tool-arrow">→</span>
                         </a>
-                        <a class="tool-item" href="logistics.html#productivity" data-terms="productivity efficiency output task hours throughput">
+                        <a class="tool-item" href="logistics.html#fuel" data-terms="productivity efficiency output task hours throughput">
                             <div><div class="tool-name">Team Productivity Index</div><div class="tool-desc">Output per hour and efficiency ratio for any team</div></div>
                             <span class="tool-arrow">→</span>
                         </a>
@@ -574,15 +664,15 @@
                             <div><div class="tool-name">TDEE &amp; Calorie Needs</div><div class="tool-desc">Total daily energy expenditure by activity level</div></div>
                             <span class="tool-arrow">→</span>
                         </a>
-                        <a class="tool-item" href="health.html#macro" data-terms="macros protein carbs fat diet plan keto bodybuilding">
+                        <a class="tool-item" href="health.html#macros" data-terms="macros protein carbs fat diet plan keto bodybuilding">
                             <div><div class="tool-name">Macros Planner</div><div class="tool-desc">Daily protein, carb &amp; fat targets by goal and activity</div></div>
                             <span class="tool-arrow">→</span>
                         </a>
-                        <a class="tool-item" href="blog/macros-101-protein-carbs-and-fats.html" style="background: rgba(245, 166, 35, 0.05); border-left: 3px solid var(--accent);">
+                        <a class="tool-item" href="blog/science-of-body-fat-percentage.html" style="background: rgba(245, 166, 35, 0.05); border-left: 3px solid var(--accent);">
                             <div><div class="tool-name" style="color: var(--accent);">Guide: Macros 101</div><div class="tool-desc">The ultimate guide to protein, carbs, and fat ratios.</div></div>
                             <span class="tool-arrow">→</span>
                         </a>
-                        <a class="tool-item" href="health.html#fat" data-terms="body fat percentage lean mass navy method skinfold">
+                        <a class="tool-item" href="health.html#bmi" data-terms="body fat percentage lean mass navy method skinfold">
                             <div><div class="tool-name">Body Fat %</div><div class="tool-desc">Estimated body fat using the US Navy circumference method</div></div>
                             <span class="tool-arrow">→</span>
                         </a>
@@ -613,7 +703,7 @@
                             <div><div class="tool-name">Wedding Budget Planner</div><div class="tool-desc">Itemized budget breakdown with per-guest cost analysis</div></div>
                             <span class="tool-arrow">→</span>
                         </a>
-                        <a class="tool-item" href="life.html#baby" data-terms="baby cost first year newborn child expense budget">
+                        <a class="tool-item" href="life.html#retire" data-terms="baby cost first year newborn child expense budget">
                             <div><div class="tool-name">Baby Cost Planner</div><div class="tool-desc">First-year and ongoing annual cost of raising a child</div></div>
                             <span class="tool-arrow">→</span>
                         </a>
@@ -636,7 +726,7 @@
                             <div><div class="tool-name">Pet Age Converter</div><div class="tool-desc">Dog &amp; cat age in human years by breed and size</div></div>
                             <span class="tool-arrow">→</span>
                         </a>
-                        <a class="tool-item" href="pets.html#calories" data-terms="pet calorie food daily intake dog cat weight activity">
+                        <a class="tool-item" href="pets.html#petbmi" data-terms="pet calorie food daily intake dog cat weight activity">
                             <div><div class="tool-name">Pet Calorie Needs</div><div class="tool-desc">Daily caloric requirement by weight, species &amp; activity</div></div>
                             <span class="tool-arrow">→</span>
                         </a>
@@ -655,7 +745,7 @@
                         <span class="cat-chevron">▼</span>
                     </div>
                     <div class="tool-list">
-                        <a class="tool-item" href="ai-costs.html#llm" data-terms="LLM API cost GPT Claude Gemini pricing per token model">
+                        <a class="tool-item" href="ai-costs.html#ai" data-terms="LLM API cost GPT Claude Gemini pricing per token model">
                             <div><div class="tool-name">LLM API Cost Matrix</div><div class="tool-desc">Monthly cost of GPT-4o, Claude, Gemini &amp; more by usage</div></div>
                             <span class="tool-arrow">→</span>
                         </a>
@@ -663,11 +753,11 @@
                             <div><div class="tool-name">GPU Infrastructure ROI</div><div class="tool-desc">Cloud vs. on-prem GPU cost-benefit analysis</div></div>
                             <span class="tool-arrow">→</span>
                         </a>
-                        <a class="tool-item" href="ai-costs.html#token" data-terms="token estimator word count prompt context window">
+                        <a class="tool-item" href="ai-costs.html#tokens" data-terms="token estimator word count prompt context window">
                             <div><div class="tool-name">Token Estimator</div><div class="tool-desc">Estimate token count from word count for any LLM</div></div>
                             <span class="tool-arrow">→</span>
                         </a>
-                        <a class="tool-item" href="ai-costs.html#saas" data-terms="SaaS AI cost ROI build vs buy AI product subscription">
+                        <a class="tool-item" href="ai-costs.html#ai" data-terms="SaaS AI cost ROI build vs buy AI product subscription">
                             <div><div class="tool-name">SaaS AI Cost ROI</div><div class="tool-desc">Build vs. buy analysis for AI-powered product features</div></div>
                             <span class="tool-arrow">→</span>
                         </a>
@@ -690,11 +780,11 @@
                             <div><div class="tool-name">AC/DC Power Load</div><div class="tool-desc">Watts, amps &amp; voltage using Ohm's law for single-phase</div></div>
                             <span class="tool-arrow">→</span>
                         </a>
-                        <a class="tool-item" href="engineering.html#3phase" data-terms="3-phase power three phase load kVA kW industrial motor">
+                        <a class="tool-item" href="engineering.html#power" data-terms="3-phase power three phase load kVA kW industrial motor">
                             <div><div class="tool-name">3-Phase Power</div><div class="tool-desc">kVA, kW and current in balanced 3-phase systems</div></div>
                             <span class="tool-arrow">→</span>
                         </a>
-                        <a class="tool-item" href="engineering.html#drift" data-terms="component drift tolerance temperature resistor capacitor aging">
+                        <a class="tool-item" href="engineering.html#voltage" data-terms="component drift tolerance temperature resistor capacitor aging">
                             <div><div class="tool-name">Component Drift</div><div class="tool-desc">Tolerance &amp; thermal drift for resistors, caps &amp; sensors</div></div>
                             <span class="tool-arrow">→</span>
                         </a>
@@ -725,7 +815,7 @@
                             <div><div class="tool-name">Ideal Gas Law (PV=nRT)</div><div class="tool-desc">Solve for pressure, volume, temperature or moles</div></div>
                             <span class="tool-arrow">→</span>
                         </a>
-                        <a class="tool-item" href="science.html#mw" data-terms="molecular weight molar mass formula atomic mass periodic table">
+                        <a class="tool-item" href="science.html#molarity" data-terms="molecular weight molar mass formula atomic mass periodic table">
                             <div><div class="tool-name">Molecular Weight</div><div class="tool-desc">Molar mass from chemical formula using periodic table data</div></div>
                             <span class="tool-arrow">→</span>
                         </a>
@@ -752,7 +842,7 @@
                             <div><div class="tool-name">GPA Calculator</div><div class="tool-desc">Semester and cumulative GPA from course grades &amp; credits</div></div>
                             <span class="tool-arrow">→</span>
                         </a>
-                        <a class="tool-item" href="academic.html#citations" data-terms="citations impact factor journal paper research publications">
+                        <a class="tool-item" href="academic.html#hindex" data-terms="citations impact factor journal paper research publications">
                             <div><div class="tool-name">Citation Impact</div><div class="tool-desc">Research impact score from citation counts &amp; paper age</div></div>
                             <span class="tool-arrow">→</span>
                         </a>
@@ -779,7 +869,7 @@
                             <div><div class="tool-name">Lease vs. Buy Analysis</div><div class="tool-desc">True total cost comparison over the full ownership period</div></div>
                             <span class="tool-arrow">→</span>
                         </a>
-                        <a class="tool-item" href="auto.html#loan" data-terms="auto loan payoff amortization car payment schedule interest">
+                        <a class="tool-item" href="auto.html#payoff" data-terms="auto loan payoff amortization car payment schedule interest">
                             <div><div class="tool-name">Auto Loan Amortization</div><div class="tool-desc">Monthly payment &amp; full payoff schedule with extra payments</div></div>
                             <span class="tool-arrow">→</span>
                         </a>
@@ -806,7 +896,7 @@
                             <div><div class="tool-name" style="color: var(--accent);">Guide: Schengen 90/180 Rule</div><div class="tool-desc">How to track your days and stay legal in Europe.</div></div>
                             <span class="tool-arrow">→</span>
                         </a>
-                        <a class="tool-item" href="travel.html#currency" data-terms="live currency converter exchange rate USD EUR GBP all countries">
+                        <a class="tool-item" href="travel.html#converter" data-terms="live currency converter exchange rate USD EUR GBP all countries">
                             <div><div class="tool-name">Live Currency Converter</div><div class="tool-desc">Real-time exchange rates for 150+ world currencies</div></div>
                             <span class="tool-arrow">→</span>
                         </a>
@@ -833,7 +923,7 @@
                             <div><div class="tool-name">Solar Panel ROI</div><div class="tool-desc">Payback period and 25-year savings on a solar installation</div></div>
                             <span class="tool-arrow">→</span>
                         </a>
-                        <a class="tool-item" href="green.html#appliance" data-terms="appliance energy cost kWh electricity usage monthly annual">
+                        <a class="tool-item" href="green.html#solar" data-terms="appliance energy cost kWh electricity usage monthly annual">
                             <div><div class="tool-name">Appliance Energy Cost</div><div class="tool-desc">Monthly electricity cost of any appliance by wattage &amp; usage</div></div>
                             <span class="tool-arrow">→</span>
                         </a>
@@ -848,7 +938,7 @@
                         <span class="cat-chevron">▼</span>
                     </div>
                     <div class="tool-list">
-                        <a class="tool-item" href="diy.html#concrete" data-terms="concrete volume cubic yards bags slab footing mix ratio">
+                        <a class="tool-item" href="diy.html#vol" data-terms="concrete volume cubic yards bags slab footing mix ratio">
                             <div><div class="tool-name">Concrete Volume</div><div class="tool-desc">Cubic yards and bag count for any slab, footing or column</div></div>
                             <span class="tool-arrow">→</span>
                         </a>
@@ -856,7 +946,7 @@
                             <div><div class="tool-name">Paint Coverage</div><div class="tool-desc">Gallons needed for any room based on area and coat count</div></div>
                             <span class="tool-arrow">→</span>
                         </a>
-                        <a class="tool-item" href="diy.html#lumber" data-terms="board foot lumber wood BF price per BF hardwood">
+                        <a class="tool-item" href="diy.html#vol" data-terms="board foot lumber wood BF price per BF hardwood">
                             <div><div class="tool-name">Board Foot Lumber</div><div class="tool-desc">Board feet and cost estimate for any lumber order</div></div>
                             <span class="tool-arrow">→</span>
                         </a>
@@ -871,7 +961,7 @@
                         <span class="cat-chevron">▼</span>
                     </div>
                     <div class="tool-list">
-                        <a class="tool-item" href="audio.html#bpm" data-terms="BPM milliseconds delay time sync tempo music production">
+                        <a class="tool-item" href="audio.html#delay" data-terms="BPM milliseconds delay time sync tempo music production">
                             <div><div class="tool-name">BPM to Milliseconds</div><div class="tool-desc">Note-length delay times for any tempo in ms and Hz</div></div>
                             <span class="tool-arrow">→</span>
                         </a>
@@ -883,7 +973,7 @@
                             <div><div class="tool-name">Frequency &amp; Wavelength</div><div class="tool-desc">Hz — Wavelength converter with octave and note mapping</div></div>
                             <span class="tool-arrow">→</span>
                         </a>
-                        <a class="tool-item" href="audio.html#rt60" data-terms="RT60 reverb decay room acoustic treatment absorption">
+                        <a class="tool-item" href="audio.html#room" data-terms="RT60 reverb decay room acoustic treatment absorption">
                             <div><div class="tool-name">RT60 Reverb Decay</div><div class="tool-desc">Estimated room reverb time from volume and absorption</div></div>
                             <span class="tool-arrow">→</span>
                         </a>
@@ -910,7 +1000,7 @@
                             <div><div class="tool-name">Streamer Revenue</div><div class="tool-desc">Estimated monthly income from subs, ads &amp; donations</div></div>
                             <span class="tool-arrow">→</span>
                         </a>
-                        <a class="tool-item" href="gaming.html#bitrate" data-terms="bitrate storage recording streaming OBS file size hours">
+                        <a class="tool-item" href="gaming.html#stream" data-terms="bitrate storage recording streaming OBS file size hours">
                             <div><div class="tool-name">Bitrate &amp; Storage</div><div class="tool-desc">File size and hours of footage at any resolution &amp; bitrate</div></div>
                             <span class="tool-arrow">→</span>
                         </a>
@@ -929,7 +1019,7 @@
                             <div><div class="tool-name">Baker's Percentage</div><div class="tool-desc">Scale any bread recipe by weight using baker's math</div></div>
                             <span class="tool-arrow">→</span>
                         </a>
-                        <a class="tool-item" href="culinary.html#cocktail" data-terms="cocktail batching scaling recipe bar drinks punch volume">
+                        <a class="tool-item" href="culinary.html#scaling" data-terms="cocktail batching scaling recipe bar drinks punch volume">
                             <div><div class="tool-name">Cocktail Batch Scaling</div><div class="tool-desc">Scale any cocktail recipe to any number of servings</div></div>
                             <span class="tool-arrow">→</span>
                         </a>
@@ -948,11 +1038,11 @@
                             <div><div class="tool-name">Habit Formation Timer</div><div class="tool-desc">Days to automaticity based on behavior complexity science</div></div>
                             <span class="tool-arrow">→</span>
                         </a>
-                        <a class="tool-item" href="psych.html#decision" data-terms="decision matrix weighted score criteria comparison choice">
+                        <a class="tool-item" href="psych.html#matrix" data-terms="decision matrix weighted score criteria comparison choice">
                             <div><div class="tool-name">Decision Matrix</div><div class="tool-desc">Score competing options by weighted criteria for clarity</div></div>
                             <span class="tool-arrow">→</span>
                         </a>
-                        <a class="tool-item" href="psych.html#cognitive" data-terms="cognitive load mental effort task complexity design UX">
+                        <a class="tool-item" href="psych.html#matrix" data-terms="cognitive load mental effort task complexity design UX">
                             <div><div class="tool-name">Cognitive Load Index</div><div class="tool-desc">Estimate mental complexity of a task or UX flow</div></div>
                             <span class="tool-arrow">→</span>
                         </a>
@@ -1005,23 +1095,23 @@
                         <span class="cat-chevron">▼</span>
                     </div>
                     <div class="tool-list">
-                        <a class="tool-item" href="fitness.html#vo2max" data-terms="VO2 max aerobic capacity cardio endurance running fitness">
+                        <a class="tool-item" href="fitness.html#vo2" data-terms="VO2 max aerobic capacity cardio endurance running fitness">
                             <div><div class="tool-name">VO₂ Max Estimator</div><div class="tool-desc">Aerobic capacity from resting HR or timed run test</div></div>
                             <span class="tool-arrow">→</span>
                         </a>
-                        <a class="tool-item" href="fitness.html#onerrm" data-terms="1RM one rep max strength lift bench press squat deadlift">
+                        <a class="tool-item" href="fitness.html#orm" data-terms="1RM one rep max strength lift bench press squat deadlift">
                             <div><div class="tool-name">1-Rep Max (1RM)</div><div class="tool-desc">Max lift weight from submaximal reps using 7 formulas</div></div>
                             <span class="tool-arrow">→</span>
                         </a>
-                        <a class="tool-item" href="fitness.html#racepace" data-terms="race pace time 5K 10K half marathon marathon running calculator">
+                        <a class="tool-item" href="fitness.html#hrz" data-terms="race pace time 5K 10K half marathon marathon running calculator">
                             <div><div class="tool-name">Race Pace Calculator</div><div class="tool-desc">Target pace, finish time and speed for any race distance</div></div>
                             <span class="tool-arrow">→</span>
                         </a>
-                        <a class="tool-item" href="fitness.html#hrzones" data-terms="heart rate zone training intensity cardio fat burn threshold">
+                        <a class="tool-item" href="fitness.html#hrz" data-terms="heart rate zone training intensity cardio fat burn threshold">
                             <div><div class="tool-name">Heart Rate Zones</div><div class="tool-desc">5-zone HR training ranges from max HR or Karvonen formula</div></div>
                             <span class="tool-arrow">→</span>
                         </a>
-                        <a class="tool-item" href="fitness.html#calburn" data-terms="calories burned exercise MET activity duration weight">
+                        <a class="tool-item" href="fitness.html#bmi" data-terms="calories burned exercise MET activity duration weight">
                             <div><div class="tool-name">Calorie Burn by Activity</div><div class="tool-desc">kcal burned for 60+ activities using MET values</div></div>
                             <span class="tool-arrow">→</span>
                         </a>
@@ -1141,11 +1231,11 @@
                             <div><div class="tool-name">Triangle Area (Heron's)</div><div class="tool-desc">Area and type classification from three side lengths</div></div>
                             <span class="tool-arrow">→</span>
                         </a>
-                        <a class="tool-item" href="math.html#circle" data-terms="circle sphere cylinder area volume surface circumference radius">
+                        <a class="tool-item" href="math.html#geometry" data-terms="circle sphere cylinder area volume surface circumference radius">
                             <div><div class="tool-name">Circle / Sphere / Cylinder</div><div class="tool-desc">Area, circumference, surface area and volume for round shapes</div></div>
                             <span class="tool-arrow">→</span>
                         </a>
-                        <a class="tool-item" href="math.html#pctchange" data-terms="percentage change increase decrease original new value reverse">
+                        <a class="tool-item" href="math.html#pct" data-terms="percentage change increase decrease original new value reverse">
                             <div><div class="tool-name">Percentage Change</div><div class="tool-desc">% change, absolute difference and reverse percentage</div></div>
                             <span class="tool-arrow">→</span>
                         </a>
@@ -1168,7 +1258,7 @@
                             <div><div class="tool-name">Self-Employment Tax</div><div class="tool-desc">SE tax, deductible half, and net after-tax income estimate</div></div>
                             <span class="tool-arrow">→</span>
                         </a>
-                        <a class="tool-item" href="blog/self-employment-tax-a-complete-guide.html" style="background: rgba(245, 166, 35, 0.05); border-left: 3px solid var(--accent);">
+                        <a class="tool-item" href="blog/llc-vs-scorp-which-saves-more-tax.html" style="background: rgba(245, 166, 35, 0.05); border-left: 3px solid var(--accent);">
                             <div><div class="tool-name" style="color: var(--accent);">Guide: Self-Employment Tax</div><div class="tool-desc">A complete breakdown of FICA for the self-employed.</div></div>
                             <span class="tool-arrow">→</span>
                         </a>
@@ -1176,11 +1266,11 @@
                             <div><div class="tool-name">Capital Gains Tax</div><div class="tool-desc">Short and long-term gains tax owed from any asset sale</div></div>
                             <span class="tool-arrow">→</span>
                         </a>
-                        <a class="tool-item" href="legal-tax.html#depreciation" data-terms="depreciation MACRS straight line section 179 asset cost recovery">
+                        <a class="tool-item" href="legal-tax.html#deprec" data-terms="depreciation MACRS straight line section 179 asset cost recovery">
                             <div><div class="tool-name">Depreciation Schedule</div><div class="tool-desc">MACRS and straight-line depreciation for any business asset</div></div>
                             <span class="tool-arrow">→</span>
                         </a>
-                        <a class="tool-item" href="legal-tax.html#llcscorp" data-terms="LLC vs S-Corp salary distribution payroll tax savings election">
+                        <a class="tool-item" href="legal-tax.html#llc" data-terms="LLC vs S-Corp salary distribution payroll tax savings election">
                             <div><div class="tool-name">LLC vs. S-Corp Tax</div><div class="tool-desc">Self-employment tax savings from S-Corp election at any income</div></div>
                             <span class="tool-arrow">→</span>
                         </a>

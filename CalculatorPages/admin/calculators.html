@@ -38,15 +38,44 @@
         <div class="card" style="margin-bottom: 24px;">
             <h3 class="card-title">Calculator Usage Leaderboard</h3>
             <table class="table">
-                <tr><th>Calculator</th><th>Category</th><th>Uses</th><th>Completion %</th><th>Avg Time</th><th>Status</th></tr>
-                <tr><td>Mortgage</td><td>Finance</td><td>1,240</td><td>85%</td><td>45s</td><td>Healthy</td></tr>
-                <tr><td>BMI</td><td>Health</td><td>980</td><td>92%</td><td>15s</td><td>Healthy</td></tr>
-                <tr><td>TDEE</td><td>Health</td><td>850</td><td>78%</td><td>60s</td><td>Healthy</td></tr>
-                <tr><td>Options Profit</td><td>Invest</td><td>120</td><td>30%</td><td>10s</td><td><span class="badge red">High Abandonment</span></td></tr>
+                <thead>
+                    <tr><th>Calculator</th><th>Views</th><th>Leads</th><th>Conversion %</th></tr>
+                </thead>
+                <tbody id="calc-leaderboard-body">
+                    <!-- Dynamic Data -->
+                </tbody>
             </table>
         </div>
 
     </main>
+
+    <script>
+        async function loadCalcInsights() {
+            const SECRET = 'h14sua12';
+            try {
+                const res = await fetch(`/api/admin?action=get-leads&secret=${SECRET}`);
+                const data = await res.json();
+                const { toolPerformance } = data.stats;
+
+                const body = document.getElementById('calc-leaderboard-body');
+                body.innerHTML = toolPerformance.map(t => `
+                    <tr>
+                        <td style="font-weight:600;">${t.tool}</td>
+                        <td>${t.views.toLocaleString()}</td>
+                        <td>${t.leads.toLocaleString()}</td>
+                        <td style="color: ${t.conversion_rate > 10 ? '#3ecf8e' : '#6b7280'}; font-weight:700;">
+                            ${t.conversion_rate}%
+                        </td>
+                    </tr>
+                `).join('');
+
+            } catch (err) {
+                console.error("Failed to load calculator insights:", err);
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', loadCalcInsights);
+    </script>
     <script src="admin.js"></script>
 </body>
 </html>

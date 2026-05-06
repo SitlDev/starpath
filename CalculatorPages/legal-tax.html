@@ -33,12 +33,52 @@
             <h1>Legal & <span style="color: var(--accent);">Tax Math</span></h1>
             <p class="subtitle">US tax calculators for freelancers and investors (2026 Estimates).</p>
 
-            <section style="background: var(--surface); border: 1px solid var(--border); border-radius: 24px; padding: 40px; margin-bottom: 40px;">
-                <h2 style="font-size: 24px; margin-bottom: 24px; color: var(--text);">Tax & Compliance <span style="color: var(--accent);">Intelligence Suite</span></h2>
-                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 32px;">
-                    <div><h3 style="color: var(--accent); margin-bottom: 12px; font-size: 18px;">Self-Employment Tax</h3><p style="color: var(--muted); line-height: 1.6; font-size: 14px;">The 15.3% SE tax covers both employer and employee portions of Social Security and Medicare. Half of this tax is deductible from your adjusted gross income.</p></div>
-                    <div><h3 style="color: var(--accent); margin-bottom: 12px; font-size: 18px;">Capital Gains Thresholds</h3><p style="color: var(--muted); line-height: 1.6; font-size: 14px;">Long-term gains are taxed at 0%, 15%, or 20% depending on your total taxable income. Short-term gains are taxed as ordinary income at your marginal bracket.</p></div>
-                    <div><h3 style="color: var(--accent); margin-bottom: 12px; font-size: 18px;">LLC vs S-Corp</h3><p style="color: var(--muted); line-height: 1.6; font-size: 14px;">S-Corp election typically makes sense above $50k net profit, allowing you to split income between salary (taxed) and distributions (tax-free SE).</p></div>
+            </section>
+
+            <!-- Editorial Content Block -->
+            <section class="content-block">
+                <h3>Legal and Tax Math: Navigating Regulatory Complexity</h3>
+                <p>Taxation is the single largest "unrecoverable cost" for any business or individual. In the United States, the tax code is not just a list of rates; it is a complex system of incentives and thresholds where a single dollar of income can trigger a move into a higher marginal bracket or the phase-out of a critical deduction. The tools in this section are designed to provide the mathematical baseline needed for proactive tax planning, sourced from the 2026 IRS guidelines and standard accounting practices.</p>
+                <p>Whether you are a freelancer auditing your self-employment tax liability or an investor modeling the ROI of a long-term capital gain, our calculators provide the technical precision needed to make informed financial decisions before the tax year ends.</p>
+                
+                <h4>Self-Employment (SE) Tax: The 15.3% Reality</h4>
+                <p>For traditional employees, the company pays half of their Social Security and Medicare taxes. For freelancers and small business owners, you are both the employer and the employee. Our SE Tax calculator implements the 15.3% flat rate on your net earnings. It also accounts for the "92.35% Rule" — where you only pay tax on a portion of your income, and the subsequent deduction that reduces your overall Adjusted Gross Income (AGI).</p>
+                <p>The core insight: many new freelancers forget to budget for this "extra" 7.65% that their employer used to cover. Using the tool to calculate your quarterly "Estimated Tax" payments is the only way to avoid the heavy underpayment penalties that catch thousands of entrepreneurs off guard every April.</p>
+                
+                <h4>LLC vs. S-Corp: The Tax Arbitrage Strategy</h4>
+                <p>As a business grows, its legal structure should evolve. While a standard LLC is simple, an S-Corp election can save thousands of dollars in self-employment taxes. Our LLC vs. S-Corp calculator models the "Salary-to-Distribution" split. By paying yourself a "Reasonable Salary" (taxed at the full rate) and taking the rest of the profit as a distribution (taxed as ordinary income but *not* SE tax), you effectively reduce your tax bill.</p>
+                <p>The industry rule of thumb is that the S-Corp election becomes mathematically advantageous once your net profit exceeds $50,000 to $60,000. This tool allows you to find your specific "Break-Even Point" where the tax savings exceed the increased administrative costs of running payroll and filing corporate returns.</p>
+                
+                <h4>Capital Gains: The Reward for Patience</h4>
+                <p>The US tax code rewards long-term investment. If you hold an asset (stock, crypto, real estate) for more than one year, your profit is taxed at the "Long-Term Capital Gains" rate (0%, 15%, or 20%), which is significantly lower than the "Ordinary Income" rates. Our Capital Gains calculator models these thresholds based on your total filing status.</p>
+                <p>Understanding these thresholds is critical for "Tax-Loss Harvesting." If you know you are approaching the 20% bracket, selling a losing asset to offset your gains can save you thousands in taxes. The calculator provides the clarity needed to execute these strategies with precision.</p>
+                
+                <h4>The QBI Deduction: A 20% Discount for Business Owners</h4>
+                <p>Section 199A allows many sole proprietors and pass-through entities to deduct up to 20% of their "Qualified Business Income" (QBI) from their taxable income. However, this deduction is subject to complex "Phase-Outs" for high-income earners and "Specified Service Trade or Business" (SSTB) limitations. Our QBI calculator handles these mathematical hurdles, providing a realistic estimate of this powerful deduction. For many, it is the most significant tax benefit of being self-employed.</p>
+
+                <div class="faq-section">
+                    <dl>
+                        <div class="faq-block">
+                            <dt>What is the "Social Security Wage Base" for 2026?</dt>
+                            <dd>The Social Security portion of the SE tax (12.4%) only applies to the first portion of your income ($170,000+ estimated for 2026). Any income earned above this threshold is only subject to the 2.9% Medicare tax. Our calculator automatically stops the 12.4% tax at the correct threshold, preventing overestimation for high earners.</dd>
+                        </div>
+                        <div class="faq-block">
+                            <dt>What is a "Reasonable Salary" for an S-Corp?</dt>
+                            <dd>The IRS requires S-Corp owners to pay themselves a salary comparable to what a third party would receive for the same work. While the "60/40 rule" is a common starting point, the calculator allows you to test different salary levels to see the impact on your total tax savings while remaining within safe compliance zones.</dd>
+                        </div>
+                        <div class="faq-block">
+                            <dt>Does the Capital Gains tool account for the "Net Investment Income Tax" (NIIT)?</dt>
+                            <dd>Yes, for high-income earners (above $200k Single / $250k MFJ), an additional 3.8% NIIT is often applied to investment income. Our tool includes this threshold in its 2026 modeling to ensure your "Net Profit" is accurately represented.</dd>
+                        </div>
+                        <div class="faq-block">
+                            <dt>How does depreciation work for my business equipment?</dt>
+                            <dd>Depreciation (Section 179) allows you to deduct the cost of business equipment over several years rather than all at once. Our Depreciation tool models "Straight-Line" and "MACRS" schedules, helping you decide whether to take a massive deduction today or spread it out to offset future high-income years.</dd>
+                        </div>
+                    </dl>
+                </div>
+
+                <div class="use-tags">
+                    <span>Self-employment tax planning</span><span>S-Corp tax savings</span><span>Capital gains optimization</span><span>QBI deduction math</span><span>Compliance auditing</span>
                 </div>
             </section>
 
@@ -129,32 +169,40 @@
             </div>
         </div>
 
-            <!-- Educational Content Section -->
-            <section class="educational-content" style="margin-top: 60px; border-top: 1px solid var(--border); padding-top: 40px; padding-bottom: 60px;">
-                <h2 style="font-size: 28px; color: var(--text); margin-bottom: 24px;">The Architecture of <span style="color: var(--accent);">Modern Tax Strategy</span></h2>
-                
-                <div style="color: var(--muted); line-height: 1.8;">
-                    <div style="margin-bottom: 32px;">
-                        <h3 style="color: var(--text); margin-bottom: 12px; font-size: 20px;">The Self-Employment Tax: Managing the 15.3%</h3>
-                        <p>For independent contractors and sole proprietors, the <strong>Self-Employment Tax</strong> is often the most significant financial hurdle. Unlike traditional employees, who split the 15.3% Social Security and Medicare tax with their employer, self-employed individuals are responsible for the entire amount. Our <strong>SE Tax Auditor</strong> calculates this liability on 92.35% of your net profit. Understanding this obligation is crucial for setting aside the correct amount for quarterly estimated payments, preventing the "tax day surprise" that often hampers business growth.</p>
-                        <p style="margin-top: 16px;">Tax planning for the self-employed is about more than just calculation; it's about optimization. By tracking your business expenses and maximizing your deductions, you can significantly reduce your net profit and, consequently, your SE tax liability. Our tool provides a baseline for these calculations, allowing you to visualize the impact of your income on your total tax burden in real-time.</p>
-                    </div>
+            <!-- Editorial Content Section -->
+            <section class="editorial-section">
+                <div class="editorial-label">
+                    <span class="editorial-tag">Category</span>
+                    <span class="editorial-title">Legal &amp; Tax Compliance</span>
+                </div>
 
-                    <div style="margin-bottom: 32px;">
-                        <h3 style="color: var(--text); margin-bottom: 12px; font-size: 20px;">Entity Selection: LLC vs. S-Corp</h3>
-                        <p>One of the most powerful tax strategies for high-earning freelancers and small business owners is the <strong>S-Corp Election</strong>. By electing to be taxed as an S-Corp, you can split your business income into a "Reasonable Salary" (subject to SE tax) and "Distributions" (not subject to SE tax). Our <strong>S-Corp Savings Tool</strong> compares these two scenarios, factoring in the additional administrative costs (roughly $2,000/year for payroll and tax prep) associated with an S-Corp. For many businesses, the tax savings far outweigh the administrative burden once net profits exceed a certain threshold.</p>
-                        <p style="margin-top: 16px;">The "Reasonable Salary" requirement is a critical part of this strategy. The IRS requires that S-Corp owners pay themselves a salary consistent with what they would pay an employee for the same work. If your salary is too low, the IRS can reclassify your distributions as salary and assess back taxes and penalties. Our tool helps you visualize the math, but consulting with a CPA is essential to determine what constitutes a "reasonable" salary in your specific industry and location.</p>
+                <div class="content-block">
+                    <h3>About These Legal &amp; Tax Calculators</h3>
+                    <p>The US tax code is often described as a series of incentives masquerading as rules. For the self-employed, freelancer, or small business owner, understanding these incentives is the difference between a thriving operation and one burdened by unnecessary tax liability. The "Self-Employment Tax" (15.3%) alone can be a shock for those transitioning from W-2 employment, as it covers both the employer and employee portions of Social Security and Medicare.</p>
+                    <p>These tools are built to help you navigate the 2026 tax landscape. Our S-Corp vs. LLC calculator allows you to model potential savings by splitting income between salary and distributions, while the QBI (Qualified Business Income) tool accounts for the 20% deduction thresholds introduced in recent tax reforms.</p>
+                    <p>For reference: the SE tax calculations use the standard 92.35% income base, and our QBI phase-out limits are updated for the 2026 tax year thresholds for both single and married filers.</p>
+                    <div class="use-cases">
+                        <span>Freelancer tax planning</span>
+                        <span>S-Corp election analysis</span>
+                        <span>Capital gains auditing</span>
+                        <span>QBI deduction check</span>
+                        <span>Estimated tax forecasting</span>
                     </div>
+                </div>
 
-                    <div style="margin-bottom: 32px;">
-                        <h3 style="color: var(--text); margin-bottom: 12px; font-size: 20px;">The QBI Deduction: A Modern Perk</h3>
-                        <p>The <strong>Qualified Business Income (QBI) Deduction</strong>, established by the 2017 Tax Cuts and Jobs Act, allows eligible business owners to deduct up to 20% of their business income from their taxable income. Our <strong>QBI Deduction Auditor</strong> factors in current income thresholds and phase-out limits for single and married filers. This deduction can significantly lower your effective tax rate, but it is subject to complex rules regarding "Specified Service Trades or Businesses" (SSTBs) once you exceed certain income levels.</p>
-                    </div>
+                <div class="faq-block">
+                    <dt>What is the 'Self-Employment' tax exactly?</dt>
+                    <dd>When you are an employee, you pay 7.65% of your paycheck toward Social Security and Medicare, and your employer pays the other 7.65%. When you are self-employed, you are both the employer and the employee, so you pay the full 15.3%. However, you can deduct the "employer" half (7.65%) as a business expense on your 1040, which our calculator factors into your total burden.</dd>
+                </div>
 
-                    <div>
-                        <h3 style="color: var(--text); margin-bottom: 12px; font-size: 20px;">Strategic Tax Management</h3>
-                        <p>Taxation is a fundamental part of the business landscape, but it doesn't have to be a mystery. Our <strong>Legal & Tax Math Suite</strong> is designed to provide you with the quantitative data needed to make informed strategic decisions. Whether you are deciding on an entity structure, calculating capital gains, or planning for depreciation, having the numbers at your fingertips is a competitive advantage. Always verify your strategy with a qualified tax professional to ensure compliance with the latest regulations.</p>
-                    </div>
+                <div class="faq-block">
+                    <dt>Is an S-Corp always better than an LLC?</dt>
+                    <dd>Not always. An S-Corp typically starts saving you money on self-employment taxes once your net profit exceeds $50,000–$60,000. This is because you can pay yourself a "reasonable salary" and take the rest as a distribution (which isn't subject to SE tax). However, you must weigh these savings against the cost of running payroll and filing a separate corporate tax return (Form 1120-S).</dd>
+                </div>
+
+                <div class="faq-block">
+                    <dt>How does the QBI deduction work?</dt>
+                    <dd>The Qualified Business Income deduction allows most pass-through entities (LLCs, S-Corps, Sole Proprietorships) to deduct up to 20% of their business income from their total taxable income. There are income thresholds where this deduction begins to "phase out," particularly for specified service businesses like doctors, lawyers, and consultants. Our tool helps you see if you fall within the full, partial, or zero deduction ranges.</dd>
                 </div>
             </section>
         </div>

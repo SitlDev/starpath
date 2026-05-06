@@ -30,15 +30,57 @@
     <main>
         <div class="container">
             <div class="ad-unit ad-top"><!-- AdSense --></div>
+            <div id="dividend" style="position:absolute; visibility:hidden;"></div>
+            <div id="drip" style="position:absolute; visibility:hidden;"></div>
             <h1>Investing & <span style="color: var(--accent2);">Crypto</span></h1>
             <p class="subtitle">Sophisticated tools for modern asset management.</p>
 
-            <section style="background: var(--surface); border: 1px solid var(--border); border-radius: 24px; padding: 40px; margin-bottom: 40px;">
-                <h2 style="font-size: 24px; margin-bottom: 24px; color: var(--text);">Investment <span style="color: var(--accent);">Intelligence Suite</span></h2>
-                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 32px;">
-                    <div><h3 style="color: var(--accent); margin-bottom: 12px; font-size: 18px;">Rule of 72</h3><p style="color: var(--muted); line-height: 1.6; font-size: 14px;">To estimate the years required to double your money, divide 72 by your annual rate of return. (e.g., 72 / 10% = 7.2 years).</p></div>
-                    <div><h3 style="color: var(--accent); margin-bottom: 12px; font-size: 18px;">DCA Power</h3><p style="color: var(--muted); line-height: 1.6; font-size: 14px;">Dollar Cost Averaging reduces the impact of volatility by spreading out purchases. It often results in a lower average cost per share over time.</p></div>
-                    <div><h3 style="color: var(--accent); margin-bottom: 12px; font-size: 18px;">Options Risk</h3><p style="color: var(--muted); line-height: 1.6; font-size: 14px;">Options provide leverage but also come with expiration risk. Unlike stocks, an option's value can drop to zero if the strike price is not met by the deadline.</p></div>
+            </section>
+
+            <!-- Editorial Content Block -->
+            <section class="content-block">
+                <h3>Investing and Crypto: Navigation for Modern Asset Management</h3>
+                <p>The investment landscape has shifted from a world of traditional equities and bonds to a multi-asset environment that includes digital assets, sophisticated derivatives, and global venture capital. The tools in this section are built to handle this complexity, providing the mathematical baseline needed to strip away the hype and focus on the fundamental metrics of return, risk, and cost.</p>
+                <p>Successful investing is rarely about finding the "next big thing"; it's about the consistent application of verified strategies like rebalancing, dollar-cost averaging, and tax-efficient management. Our calculators provide the clarity needed to execute these strategies with precision.</p>
+                
+                <h4>The Power of Dollar-Cost Averaging (DCA)</h4>
+                <p>The DCA simulator models the impact of consistent, scheduled investments regardless of price. Historically, DCA is effective because it forces the investor to buy more shares when prices are low and fewer when prices are high. This mathematically lowers the "average cost per share" over long horizons compared to erratic or emotional investing. For volatile assets like Bitcoin or growth stocks, DCA is often the only way for non-professional investors to build a position without being liquidated by short-term price swings.</p>
+                <p>Our simulator allows you to input historical or projected volatility to see how a fixed monthly contribution outperforms (or underperforms) a lump-sum investment over various timeframes. The core insight: the "best time to invest" is almost always "continuously."</p>
+                
+                <h4>Crypto P&L: Fees, Spreads, and Real Returns</h4>
+                <p>Cryptocurrency trading is notoriously fee-heavy, especially on retail platforms. A 10% gain in asset price can be completely erased by a 2% entry fee, a 2% exit fee, and a wide "spread" (the difference between the buy and sell price). Our Crypto P&L calculator accounts for these frictions. It requires you to input your purchase price, sell price, and fee percentage to reveal the "True Net Profit."</p>
+                <p>Seeing the impact of fees is often a wake-up call for high-frequency traders. For long-term holders, the calculator serves as a tool for "tax lot" management — helping you understand the cost basis of specific tranches of an asset before you sell, which is critical for capital gains tax planning.</p>
+                
+                <h4>Equity Compensation: ISOs, NSOs, and RSUs</h4>
+                <p>For many professionals in the tech sector, a significant portion of net worth is tied up in stock options (ISO/NSO) or Restricted Stock Units (RSUs). These are not "free money"; they are complex financial instruments with significant tax implications. Our Stock Options Value calculator models the "spread" between your strike price and the current (or projected) fair market value.</p>
+                <p>More importantly, the tool helps you visualize "concentration risk." If 80% of your net worth is in the stock of the company that also pays your salary, you are doubling your exposure to that single entity. Calculating the current value of your options is the first step toward a diversification plan.</p>
+                
+                <h4>Portfolio Rebalancing and Risk Parity</h4>
+                <p>Over time, a portfolio that starts at 60% stocks and 40% bonds will drift. In a bull market, stocks might grow to represent 80% of the portfolio, significantly increasing your risk profile. Rebalancing is the process of selling "winners" and buying "losers" to return to your target allocation. It is a counter-intuitive but mathematically proven method of "buying low and selling high." Our rebalancing tool tells you exactly how many dollars to move between asset classes to restore your risk profile.</p>
+
+                <div class="faq-section">
+                    <dl>
+                        <div class="faq-block">
+                            <dt>Is Dollar-Cost Averaging better than Lump Sum investing?</dt>
+                            <dd>Mathematically, lump-sum investing wins about 66% of the time because markets tend to trend upward. However, DCA is superior for psychological risk management. Most investors cannot stomach a 10% drop immediately after a lump-sum investment. DCA ensures you never "miss the bottom" entirely and helps you stay invested during downturns.</dd>
+                        </div>
+                        <div class="faq-block">
+                            <dt>How should I account for "gas fees" or network fees in crypto?</dt>
+                            <dd>In our Crypto P&L tool, fold fixed network fees into your "Total Purchase Price" or "Total Sell Fee." For small trades on Ethereum or other high-fee networks, these fixed costs can often exceed 5–10% of the trade value. If your gas fee is $50 on a $500 trade, you need a 10% gain just to break even.</dd>
+                        </div>
+                        <div class="faq-block">
+                            <dt>What is the "Alternative Minimum Tax" (AMT) risk with ISOs?</dt>
+                            <dd>When you exercise Incentive Stock Options (ISOs), the spread between the strike price and the FMV is considered a "preference item" for AMT, even if you don't sell the stock. This can trigger a massive tax bill in April for money you haven't actually received yet. Always use our calculator to model the spread, and consult a CPA before a large exercise.</dd>
+                        </div>
+                        <div class="faq-block">
+                            <dt>How often should I rebalance my portfolio?</dt>
+                            <dd>Most research suggests rebalancing once or twice a year, or when an asset class drifts more than 5% from its target. Frequent rebalancing (e.g., weekly) increases transaction costs and tax liabilities without providing meaningful risk reduction. Our tool is designed for quarterly or annual "check-ups."</dd>
+                        </div>
+                    </dl>
+                </div>
+
+                <div class="use-tags">
+                    <span>Crypto profit tracking</span><span>Option valuation</span><span>DCA simulation</span><span>Risk management</span><span>Portfolio rebalancing</span>
                 </div>
             </section>
 
@@ -131,32 +173,40 @@
             </div>
         </div>
 
-            <!-- Educational Content Section -->
-            <section class="educational-content" style="margin-top: 60px; border-top: 1px solid var(--border); padding-top: 40px; padding-bottom: 60px;">
-                <h2 style="font-size: 28px; color: var(--text); margin-bottom: 24px;">The Principles of <span style="color: var(--accent);">Modern Investing</span></h2>
-                
-                <div style="color: var(--muted); line-height: 1.8;">
-                    <div style="margin-bottom: 32px;">
-                        <h3 style="color: var(--text); margin-bottom: 12px; font-size: 20px;">DCA: The Strategy of Consistency</h3>
-                        <p><strong>Dollar-Cost Averaging (DCA)</strong> is the practice of investing a fixed amount of money at regular intervals, regardless of the asset's price. This strategy reduces the impact of volatility by allowing you to buy more shares when prices are low and fewer shares when prices are high. Our <strong>DCA Simulator</strong> helps you visualize how consistent contributions can build significant wealth over time, effectively removing the emotional stress of trying to "time the market." For most long-term investors, DCA is the most reliable path to achieving financial goals.</p>
-                        <p style="margin-top: 16px;">The beauty of DCA is that it turns market downturns into opportunities. While most people panic when the market drops, a DCA investor sees it as a "sale." Over decades, this disciplined approach has historically outperformed the majority of active traders who attempt to guess market tops and bottoms. By automating your investments, you ensure that you stay the course through every market cycle.</p>
-                    </div>
+            <!-- Editorial Content Section -->
+            <section class="editorial-section">
+                <div class="editorial-label">
+                    <span class="editorial-tag">Category</span>
+                    <span class="editorial-title">Investments &amp; Asset Management</span>
+                </div>
 
-                    <div style="margin-bottom: 32px;">
-                        <h3 style="color: var(--text); margin-bottom: 12px; font-size: 20px;">Portfolio Rebalancing: Staying on Target</h3>
-                        <p>As different assets in your portfolio perform at different rates, your original <strong>Asset Allocation</strong> will naturally "drift." For example, if you start with 60% stocks and 40% bonds, a strong year for the stock market might leave you with 70% stocks. This makes your portfolio riskier than you intended. Our <strong>Rebalance Auditor</strong> calculates exactly how much of each asset you need to buy or sell to return to your target weights. Rebalancing is the only time in investing where you are systematically forced to "sell high and buy low," which is the fundamental secret to long-term success.</p>
-                        <p style="margin-top: 16px;">Most professional advisors recommend rebalancing once or twice a year, or whenever an asset class drifts more than 5% from its target. While it can be psychologically difficult to sell your best-performing assets to buy underperformers, this discipline ensures that your risk profile remains consistent with your long-term tolerance and goals.</p>
+                <div class="content-block">
+                    <h3>About These Investment Calculators</h3>
+                    <p>Building wealth is less about "picking winners" and more about disciplined asset allocation, managing fees, and understanding the power of compound interest. In high-volatility markets — especially Cryptocurrency and Stock Options — it is easy to confuse leverage for skill. A 100% gain on a trade is meaningful only if it wasn't achieved by risking 100% of your capital on a single outcome.</p>
+                    <p>These tools are built for the modern investor who manages a mix of traditional and digital assets. Our DCA (Dollar Cost Averaging) simulator helps you see the long-term impact of consistent contributions, while the Portfolio Rebalancer ensures your risk profile doesn't "drift" as different assets perform at different rates.</p>
+                    <p>For reference: the CAGR (Compound Annual Growth Rate) and ROI formulas used here are the standard metrics used by institutional portfolio managers and financial analysts. Our Options calculator uses intrinsic value modeling to show the delta between strike and market prices.</p>
+                    <div class="use-cases">
+                        <span>Retirement wealth modeling</span>
+                        <span>Crypto P&L auditing</span>
+                        <span>Portfolio risk rebalancing</span>
+                        <span>DCA strategy simulation</span>
+                        <span>Options strike analysis</span>
                     </div>
+                </div>
 
-                    <div style="margin-bottom: 32px;">
-                        <h3 style="color: var(--text); margin-bottom: 12px; font-size: 20px;">Understanding CAGR: The True Rate of Return</h3>
-                        <p>While "Total Return" tells you how much your investment grew in total, <strong>CAGR (Compound Annual Growth Rate)</strong> tells you what your average annual return was. This is the most accurate way to compare different investments over different time periods. An investment that grows 100% over 10 years has a CAGR of 7.18%. Our <strong>ROI & CAGR Tool</strong> provides both numbers, giving you the clarity needed to evaluate your portfolio's performance against benchmarks like the S&P 500.</p>
-                    </div>
+                <div class="faq-block">
+                    <dt>What is the 'secret' to long-term returns?</dt>
+                    <dd>Historically, the secret is time and consistency, not timing. Dollar Cost Averaging (DCA) into diversified index funds has consistently outperformed active trading for the vast majority of investors. By investing the same amount every month, you naturally buy more shares when prices are low and fewer when they are high. Our DCA tool allows you to model this over 5, 10, and 30-year horizons.</dd>
+                </div>
 
-                    <div>
-                        <h3 style="color: var(--text); margin-bottom: 12px; font-size: 20px;">Risk Management in Crypto & Options</h3>
-                        <p>High-volatility assets like <strong>Cryptocurrency</strong> and <strong>Stock Options</strong> require a different level of risk management. When trading crypto, it's essential to factor in capital gains taxes, which can be as high as 37% for short-term trades. Our <strong>Crypto P&L Tool</strong> includes a tax estimator to help you see your true "take-home" profit. Similarly, our <strong>Options Value Tool</strong> helps you understand the "intrinsic value" of your contracts, preventing you from overpaying for speculative "hope" in the market. Remember: the first rule of investing is to not lose money.</p>
-                    </div>
+                <div class="faq-block">
+                    <dt>Why is portfolio rebalancing necessary?</dt>
+                    <dd>If you start with 60% stocks and 40% bonds, and stocks have a great year, you might end up with 75% stocks. This makes your portfolio significantly riskier than you intended. Rebalancing is the disciplined process of selling a portion of your winners to buy more of your underperformers, effectively "selling high and buying low" on a systematic basis.</dd>
+                </div>
+
+                <div class="faq-block">
+                    <dt>How should I factor taxes into my crypto gains?</dt>
+                    <dd>In many jurisdictions, cryptocurrency is treated as property, meaning every trade is a taxable event. Short-term gains (assets held for less than a year) are often taxed at your ordinary income rate, which can exceed 30%. Our Crypto P&L tool includes a 30% tax estimate to help you see the difference between "paper profit" and actual take-home cash.</dd>
                 </div>
             </section>
         </div>

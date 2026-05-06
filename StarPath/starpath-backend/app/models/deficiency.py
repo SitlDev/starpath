@@ -1,0 +1,23 @@
+from sqlalchemy import Column, String, Integer, Boolean, Text, DateTime, ForeignKey
+from sqlalchemy.dialects.postgresql import UUID
+from sqlalchemy.orm import relationship
+import uuid
+from datetime import datetime
+from app.database import Base
+
+class Deficiency(Base):
+    __tablename__ = "deficiencies"
+    
+    id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
+    health_inspection_id = Column(UUID(as_uuid=True), ForeignKey("health_inspections.id"), nullable=False, index=True)
+    f_tag = Column(String(10), nullable=False)  # e.g., "F600", "F323"
+    scope = Column(String(1), nullable=False)  # D, E, F, G, H, I, J, K, L
+    severity = Column(String(1), nullable=False)  # 1, 2, 3, 4
+    description = Column(Text)
+    is_substandard_qoc = Column(Boolean, default=False)
+    is_immediate_jeopardy = Column(Boolean, default=False)
+    is_past_non_compliance = Column(Boolean, default=False)
+    points = Column(Integer)  # Calculated from Table 1
+    created_at = Column(DateTime, default=datetime.utcnow)
+    
+    health_inspection = relationship("HealthInspection", back_populates="deficiencies")

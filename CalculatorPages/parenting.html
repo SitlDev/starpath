@@ -30,15 +30,58 @@
     <main>
         <div class="container">
             <div class="ad-unit ad-top"><!-- AdSense --></div>
+            <div id="savings" style="position:absolute; visibility:hidden;"></div>
+            <div id="college" style="position:absolute; visibility:hidden;"></div>
             <h1>Parenting & <span style="color: var(--accent2);">Development</span></h1>
             <p class="subtitle">Financial and growth planning tools for every stage of childhood.</p>
 
-            <section style="background: var(--surface); border: 1px solid var(--border); border-radius: 24px; padding: 40px; margin-bottom: 40px;">
-                <h2 style="font-size: 24px; margin-bottom: 24px; color: var(--text);">Parenting <span style="color: var(--accent);">Intelligence Suite</span></h2>
-                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 32px;">
-                    <div><h3 style="color: var(--accent); margin-bottom: 12px; font-size: 18px;">First-Year Prep</h3><p style="color: var(--muted); line-height: 1.6; font-size: 14px;">The average first-year cost exceeds $15,000. Planning for childcare, which accounts for ~60% of expenses, is critical for household stability.</p></div>
-                    <div><h3 style="color: var(--accent); margin-bottom: 12px; font-size: 18px;">Financial Literacy</h3><p style="color: var(--muted); line-height: 1.6; font-size: 14px;">The "Age Rule" ($1/week per year of age) is a proven method to introduce children to budgeting and delayed gratification concepts.</p></div>
-                    <div><h3 style="color: var(--accent); margin-bottom: 12px; font-size: 18px;">Insurance Reality</h3><p style="color: var(--muted); line-height: 1.6; font-size: 14px;">Adding a teen driver typically doubles premiums. Many providers offer "Good Student" discounts (3.0+ GPA) that can save over $500/year.</p></div>
+            </section>
+
+            <!-- Editorial Content Block -->
+            <section class="content-block">
+                <h3>Parenting and Development Math: Planning for the Future</h3>
+                <p>Parenting is a journey of transition — from the immediate financial shock of a first year to the long-term planning required for education and independence. While many aspects of parenting are emotional and intuitive, the logistical and financial components benefit from clear mathematical modeling. The tools in this section are designed to help parents quantify the costs, milestones, and development markers that define the childhood years.</p>
+                <p>From estimating the true cost of a new baby in your specific city to determining when a child is old enough for kindergarten, our calculators provide the data needed to make informed household decisions. We focus on verified standards from the USDA, CDC, and financial literacy experts to provide a reliable baseline for your family's planning.</p>
+                
+                <h4>The True Cost of the First Year</h4>
+                <p>The first year of life is often the most expensive in a child's history, second only to university tuition. According to the USDA and various independent studies, the average middle-income family spends between $15,000 and $20,000 during the first twelve months. Our Baby Cost calculator breaks this down into four critical buckets: Childcare, Feeding, Gear, and Healthcare.</p>
+                <p>Childcare is the dominant variable, often accounting for 60% or more of the total budget in high-cost cities. By modeling different scenarios — center-based daycare versus a nanny or a stay-at-home parent — you can visualize the impact on your household's net income. Seeing these numbers upfront allows for "pre-funding" your HSA or savings account before the delivery date.</p>
+                
+                <h4>Financial Literacy: The Allowance Strategy</h4>
+                <p>Teaching children about money is one of the most important long-term parenting tasks. Our Allowance calculator implements the widely recommended "Age Rule": $1 per week for every year of age (e.g., a 10-year-old receives $10/week). This provided baseline helps remove the negotiation and "whim" from the process, turning the allowance into a predictable tool for learning about saving, spending, and giving.</p>
+                <p>The tool also projects the total cost of an allowance over the child's life until age 18. For a child starting at age 5, the total investment is approximately $8,000. This is a small price to pay for the financial literacy skills — like delayed gratification and budgeting — that the child will carry into adulthood.</p>
+                
+                <h4>School Readiness and the "Cut-off" Math</h4>
+                <p>Deciding when to start school is a decision that affects a child's social and academic trajectory for a decade. Most states have a "cutoff date" (often September 1st). Our School Age calculator helps you determine which academic year your child belongs in and, more importantly, whether they will be among the oldest or youngest in their class (the "Redshirting" decision).</p>
+                <p>Being the "oldest in the class" is often correlated with higher athletic participation and initial academic confidence (the Matthew Effect). Using the calculator to visualize your child's age relative to the grade level provides the baseline needed for a conversation with your pediatrician or local school board.</p>
+                
+                <h4>Health Tracking: Child BMI-for-Age</h4>
+                <p>Child growth is not linear, and standard adult BMI calculations are inappropriate for children and teens. Our Child BMI calculator implements the CDC's "BMI-for-Age" growth charts. Instead of a single number, the result is expressed as a percentile. A child in the 85th percentile has a higher BMI than 85% of other children of the same age and sex.</p>
+                <p>Tracking these percentiles over time is more important than any single measurement. It helps identify "growth curves" and provides a data-driven baseline for discussions about nutrition and physical activity. Always remember that children come in all shapes and sizes, and the percentile is a tool for tracking development, not a moral judgment.</p>
+
+                <div class="faq-section">
+                    <dl>
+                        <div class="faq-block">
+                            <dt>How does location affect the baby cost estimate?</dt>
+                            <dd>Our calculator uses a cost-of-living index multiplier. A "High-Cost" city like NYC or San Francisco typically carries a 40% premium on childcare and healthcare services compared to the US average. If you are planning a move, use the tool to see the "lifestyle inflation" your new city might impose on your parenting budget.</dd>
+                        </div>
+                        <div class="faq-block">
+                            <dt>Should an allowance be tied to chores?</dt>
+                            <dd>Many experts, including those from the American Academy of Pediatrics, recommend *not* tying a basic allowance to chores. The logic: chores are a responsibility of being part of a family, and an allowance is a tool for learning financial management. Tying them together can lead to "strike" scenarios where the child refuses to work if they don't need the money. Use our calculator to set the baseline, then add "extra" pay for work that goes above and beyond daily responsibilities.</dd>
+                        </div>
+                        <div class="faq-block">
+                            <dt>What is the impact of being the youngest in a grade level?</dt>
+                            <dd>While many children thrive as the youngest, studies have shown a higher rate of ADHD diagnoses in the youngest cohort of a class, often because they are compared to children who are nearly a full year more developmentally mature. Our School Age tool helps you identify if your child falls into this "bridge" month, allowing you to monitor their progress more closely.</dd>
+                        </div>
+                        <div class="faq-block">
+                            <dt>Does the child BMI tool account for puberty?</dt>
+                            <dd>Puberty causes significant shifts in body composition. The CDC growth charts (used in our tool) are designed to account for the typical developmental shifts from age 2 to 20. However, during peak growth spurts, BMI can fluctuate wildly. Use the 6-month tracking method rather than reacting to a single measurement during a growth spurt.</dd>
+                        </div>
+                    </dl>
+                </div>
+
+                <div class="use-tags">
+                    <span>Early childhood planning</span><span>Financial literacy</span><span>Academic readiness</span><span>Developmental tracking</span><span>Growth curves</span>
                 </div>
             </section>
 
@@ -148,32 +191,40 @@
             </div>
         </div>
 
-            <!-- Educational Content Section -->
-            <section class="educational-content" style="margin-top: 60px; border-top: 1px solid var(--border); padding-top: 40px; padding-bottom: 60px;">
-                <h2 style="font-size: 28px; color: var(--text); margin-bottom: 24px;">Navigating the <span style="color: var(--accent);">Financial & Developmental</span> Milestones</h2>
-                
-                <div style="color: var(--muted); line-height: 1.8;">
-                    <div style="margin-bottom: 32px;">
-                        <h3 style="color: var(--text); margin-bottom: 12px; font-size: 20px;">The Hidden Economics of Early Childhood</h3>
-                        <p>The first year of a child's life is often the most financially volatile. Between hospital delivery fees, specialized childcare, and the continuous need for diapers and formula, the "sticker shock" can be significant. Our <strong>Baby Cost Projection Tool</strong> accounts for regional cost-of-living adjustments and different childcare scenarios. In many urban areas, childcare alone can exceed the cost of a mortgage. By visualizing these expenses early, parents can build a realistic <strong>Emergency Fund</strong> and adjust their household budget before the baby arrives.</p>
-                        <p style="margin-top: 16px;">Long-term planning is equally vital. The "Cost to Raise a Child to 18" often excludes college tuition, yet it still reaches hundreds of thousands of dollars. Our calculator includes a 3% annual inflation adjustment to show the <em>real</em> future value of these costs. While these numbers can be intimidating, they serve as a roadmap for prioritizing savings and making informed lifestyle choices that support both the child's development and the parents' financial stability.</p>
-                    </div>
+            <!-- Editorial Content Section -->
+            <section class="editorial-section">
+                <div class="editorial-label">
+                    <span class="editorial-tag">Category</span>
+                    <span class="editorial-title">Parenting &amp; Child Development</span>
+                </div>
 
-                    <div style="margin-bottom: 32px;">
-                        <h3 style="color: var(--text); margin-bottom: 12px; font-size: 20px;">Growth Metrics: Understanding CDC Percentiles</h3>
-                        <p>Unlike adult BMI, which uses fixed categories, <strong>Childhood BMI</strong> is age and sex-specific. A child's body fatness changes significantly as they grow, and boys and girls develop at different rates. Our <strong>Growth Analysis Tool</strong> compares your child's data to the CDC's clinical growth charts. If a child is in the "85th percentile," it means they have a higher BMI than 85% of children of the same age and sex. These percentiles are screening tools used by pediatricians to track growth trends over time, rather than a diagnostic of health on a single day.</p>
-                        <p style="margin-top: 16px;">The focus in pediatric health is always on the "Growth Curve." A single high or low reading is less important than a sudden shift in percentile. Consistent tracking helps identify potential metabolic or nutritional issues early, allowing for gentle interventions that promote lifelong healthy habits. Always discuss these metrics with your pediatrician during routine wellness visits for a complete clinical picture.</p>
+                <div class="content-block">
+                    <h3>About These Parenting Calculators</h3>
+                    <p>Parenting is a journey that is as emotionally profound as it is logistically complex. From the immediate financial shock of a child's first year to the long-term project of building financial literacy through allowances, the quantitative side of family life requires constant adjustment. Our tools are built to help parents navigate these milestones with data-driven confidence.</p>
+                    <p>Our Parenting Intelligence Suite includes a Baby Cost estimator that factors in regional cost-of-living adjustments, an Allowance projector to help visualize the impact of saving habits, and specialized health tools like our CDC-aligned Child BMI tracker. We also provide a Teen Insurance calculator to help parents prepare for the "premium spike" that occurs when a new driver joins the family policy.</p>
+                    <p>For reference: the baby cost models use current US average baselines adjusted for location, and our Child BMI logic follows the specific age-and-sex-weighted percentiles used by pediatricians and the CDC.</p>
+                    <div class="use-cases">
+                        <span>First-year baby budget planning</span>
+                        <span>Allowance & financial literacy modeling</span>
+                        <span>Kindergarten start date verification</span>
+                        <span>Child growth (BMI) percentile tracking</span>
+                        <span>Teen driver insurance cost projection</span>
                     </div>
+                </div>
 
-                    <div style="margin-bottom: 32px;">
-                        <h3 style="color: var(--text); margin-bottom: 12px; font-size: 20px;">The Teen Years: Insurance and Financial Literacy</h3>
-                        <p>As children enter their teens, the financial focus shifts to independence. Adding a teen driver to an auto policy can increase premiums by 50% to 100%. Our <strong>Teen Insurance Estimator</strong> helps parents prepare for this "insurance spike" and identifies ways to mitigate it, such as "Good Student Discounts." Similarly, our <strong>Allowance Logic Tool</strong> provides a framework for teaching financial literacy. By linking allowance to savings goals, parents can teach the value of compound interest and delayed gratification—skills that are far more valuable than the money itself.</p>
-                    </div>
+                <div class="faq-block">
+                    <dt>How much does the first year of a baby really cost?</dt>
+                    <dd>While estimates vary, the first year typically costs between $12,000 and $20,000 in the US. Childcare is the single largest variable, often accounting for 50–70% of total expenses in urban areas. Our calculator helps you model different scenarios—from stay-at-home parenting to full-time nanny care—to see the true impact on your household cash flow.</dd>
+                </div>
 
-                    <div>
-                        <h3 style="color: var(--text); margin-bottom: 12px; font-size: 20px;">Data-Driven Parenting</h3>
-                        <p>Parenting is an art, but it's increasingly supported by science and data. Our <strong>Parenting Tools Suite</strong> is designed to provide clarity on everything from school start dates to long-term savings goals. By using data to handle the quantitative side of family life, you free up mental energy for the qualitative side—building memories and supporting your child's unique journey. Stay informed, stay prepared, and let the data support your intuition.</p>
-                    </div>
+                <div class="faq-block">
+                    <dt>What is the 'Age Rule' for allowances?</dt>
+                    <dd>A common expert recommendation is $1 per week for every year of age (e.g., $10/week for a 10-year-old). This provides enough for small "wants" while allowing room for mandatory savings. Our tool projects this logic forward, showing how a 30% savings rate can build a significant "college starter fund" by the time the child reaches 18.</dd>
+                </div>
+
+                <div class="faq-block">
+                    <dt>How can I lower my teen's insurance premiums?</dt>
+                    <dd>Adding a teen driver typically increases premiums by 50–100%. However, many providers offer "Good Student" discounts (typically for a 3.0+ GPA) that can save 15–20% annually. Our estimator factors in these discounts and sex-based risk profiles to give you a realistic baseline for your new monthly budget.</dd>
                 </div>
             </section>
         </div>

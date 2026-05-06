@@ -1,12 +1,55 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="dark">
 <head>
     <meta charset="UTF-8">
-    <title>The Science of Body Fat Percentage | YourCalc</title>
+    <title>The Science of Body Fat & Composition: Beyond the Scale | YourCalc</title>
+    <meta name="description" content="Learn why body fat percentage is more accurate than BMI and how to use the US Navy method for precision health tracking.">
+    <meta name="keywords" content="body fat percentage, BMI vs body fat, US navy method, body composition, health metrics">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="canonical" href="https://yourcalc.info/blog/{{FILENAME}}">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://yourcalc.info/blog/{{FILENAME}}">
+    <meta property="og:title" content="The Science of Body Fat & Composition: Beyond the Scale">
+    <meta property="og:description" content="Learn why body fat percentage is more accurate than BMI and how to use the US Navy method for precision health tracking.">
+    <meta property="og:image" content="https://yourcalc.info/blog/assets/body-fat.png">
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://yourcalc.info/blog/{{FILENAME}}">
+    <meta property="twitter:title" content="The Science of Body Fat & Composition: Beyond the Scale">
+    <meta property="twitter:description" content="Learn why body fat percentage is more accurate than BMI and how to use the US Navy method for precision health tracking.">
+    <meta property="twitter:image" content="https://yourcalc.info/blog/assets/body-fat.png">
+
     <link rel="icon" href="../favicon.svg" type="image/svg+xml">
     <link rel="stylesheet" href="../global.css">
     <script src="../sidebar.js" defer></script>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Article",
+      "headline": "The Science of Body Fat & Composition: Beyond the Scale",
+      "image": ["https://yourcalc.info/blog/assets/body-fat.png"],
+      "description": "Learn why body fat percentage is more accurate than BMI and how to use the US Navy method for precision health tracking.",
+      "author": {
+        "@type": "Organization",
+        "name": "YourCalc"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "YourCalc",
+        "logo": {
+          "@type": "ImageObject",
+          "url": "https://yourcalc.info/favicon.svg"
+        }
+      },
+      "datePublished": "2026-05-01"
+    }
+    </script>
     <script>
         (function() {
             const saved = localStorage.getItem('calcTheme') || 'dark';
@@ -14,122 +57,122 @@
         })();
     </script>
     <style>
-        body { background-color: var(--bg); color: var(--text); font-family: 'Outfit', sans-serif; display: flex; flex-direction: column; min-height: 100vh; }
-        main { flex: 1; padding: 160px 40px 80px 40px; display: flex; flex-direction: column; align-items: center; }
-        .article-container { max-width: 800px; width: 100%; }
-        .article-header { margin-bottom: 40px; text-align: left; border-bottom: 1px solid var(--border); padding-bottom: 40px; }
-        .article-meta { display: flex; align-items: center; gap: 12px; margin-bottom: 16px; font-size: 14px; color: var(--muted); }
-        .category-tag { background: rgba(245, 166, 35, 0.1); color: var(--accent); font-weight: 700; padding: 4px 10px; border-radius: 8px; text-transform: uppercase; font-size: 11px; }
-        h1 { font-size: 42px; font-weight: 700; line-height: 1.1; margin-bottom: 24px; letter-spacing: -0.02em; }
-        .content { line-height: 1.7; font-size: 18px; color: var(--text); }
-        .content h2 { font-size: 28px; margin: 48px 0 24px; color: var(--text); font-weight: 700; }
-        .content p { margin-bottom: 24px; opacity: 0.9; }
-        .content ul { margin-bottom: 24px; padding-left: 24px; }
-        .content li { margin-bottom: 12px; }
-        .example-box { background: var(--surface); border: 1px solid var(--border); border-radius: 20px; padding: 32px; margin: 40px 0; }
-        .example-box h3 { margin-top: 0; color: var(--accent); font-size: 20px; margin-bottom: 16px; }
-        .cta-box { background: linear-gradient(135deg, var(--surface), #1a1d26); border: 1px solid var(--accent); border-radius: 24px; padding: 40px; text-align: center; margin-top: 64px; }
-        .cta-box h3 { font-size: 24px; margin-bottom: 16px; }
-        .cta-btn { background: var(--accent); color: #000; padding: 16px 32px; border-radius: 12px; text-decoration: none; font-weight: 700; display: inline-block; transition: transform 0.2s; }
-        .cta-btn:hover { transform: scale(1.05); }
-        @media (max-width: 768px) { main { padding: 100px 20px 60px 20px; } h1 { font-size: 32px; } }
+        body { background-color: var(--bg); color: var(--text); font-family: 'Outfit', sans-serif; line-height: 1.6; display: flex; flex-direction: column; min-height: 100vh; }
+        main { flex: 1; padding: 140px 20px 80px 20px; max-width: 800px; margin: 0 auto; width: 100%; box-sizing: border-box; }
+        
+        .breadcrumb { display: flex; gap: 8px; font-size: 14px; color: var(--muted); margin-bottom: 24px; font-weight: 500; }
+        .breadcrumb a { color: var(--accent); text-decoration: none; }
+        
+        .article-header { margin-bottom: 48px; }
+        .article-category { display: inline-block; background: rgba(245, 166, 35, 0.1); color: var(--accent); font-size: 12px; font-weight: 700; padding: 6px 14px; border-radius: 10px; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 20px; }
+        .article-header h1 { font-size: clamp(32px, 5vw, 64px); font-weight: 700; line-height: 1.05; margin-bottom: 20px; letter-spacing: -0.04em; }
+        .article-subtitle { font-size: clamp(18px, 3vw, 26px); color: var(--muted); font-weight: 400; line-height: 1.5; letter-spacing: -0.01em; }
+        
+        .hero-image { 
+            width: 100%; height: 500px; border-radius: 32px; overflow: hidden; margin-bottom: 64px; 
+            border: 1px solid var(--border); box-shadow: 0 40px 100px rgba(0,0,0,0.5);
+            position: relative; background: var(--surface);
+        }
+        .hero-image img { width: 100%; height: 100%; object-fit: cover; }
+        .hero-image::after {
+            content: ''; position: absolute; inset: 0;
+            background: linear-gradient(180deg, rgba(10,11,14,0) 0%, rgba(10,11,14,0.6) 100%);
+        }
+
+        .article-content { font-size: 19px; color: var(--text-dim); }
+        .article-content p { margin-bottom: 28px; line-height: 1.8; }
+        .article-content h2 { color: var(--text); font-size: 36px; font-weight: 700; margin: 56px 0 28px 0; letter-spacing: -0.03em; }
+        .article-content h3 { color: var(--text); font-size: 26px; font-weight: 600; margin: 32px 0 16px 0; }
+        
+        .math-block { 
+            background: var(--surface); border: 1px solid var(--border); border-radius: 24px; 
+            padding: 40px; margin: 48px 0; overflow-x: auto; text-align: center; font-size: 22px;
+            box-shadow: inset 0 0 40px rgba(0,0,0,0.2);
+        }
+        
+        .pro-tip { 
+            background: linear-gradient(135deg, rgba(245, 166, 35, 0.1), rgba(245, 166, 35, 0.05));
+            border-left: 4px solid var(--accent); padding: 40px; border-radius: 0 32px 32px 0;
+            margin: 64px 0; font-size: 18px;
+        }
+        .pro-tip strong { color: var(--accent); display: block; margin-bottom: 12px; text-transform: uppercase; font-size: 13px; letter-spacing: 0.12em; }
+        .pro-tip a { color: var(--text); font-weight: 600; text-decoration-color: var(--accent); }
+        
+        @media (max-width: 768px) {
+            main { padding-top: 100px; padding-bottom: 60px; }
+            .hero-image { height: 300px; border-radius: 24px; margin-bottom: 40px; }
+            .article-content { font-size: 17px; }
+            .article-content h2 { font-size: 28px; }
+            .pro-tip { padding: 24px; border-radius: 16px; }
+            .math-block { padding: 24px; font-size: 18px; }
+        }
     </style>
 </head>
 <body>
     <nav class="sidebar"></nav>
+    <div class="bottom-nav"></div>
+    
     <main>
-        <div class="article-container">
-            <div class="article-header">
-                <div class="article-meta">
-                    <span class="category-tag">Fitness</span>
-                    <span>&bull;</span> <span>Jun 16, 2026</span> <span>&bull;</span> <span>9 min read</span>
-                </div>
-                <h1>The Science of Body Fat Percentage</h1>
-                <p style="font-size: 20px; color: var(--muted); line-height: 1.5;">Why body fat % is a better health marker than weight or BMI.</p>
-            </div>
-            <div class="content">
-            <h2>The Adipose Organ: More Than Just Storage</h2>
-            <p>For decades, body fat was viewed as a passive energy reservoir—merely a place where the body "tucked away" extra calories for a rainy day. However, modern endocrinology has revealed that adipose tissue is actually one of the body's most complex and active endocrine organs. It produces critical hormones like <b>leptin</b> (which regulates hunger and satiety) and <b>adiponectin</b> (which influences insulin sensitivity).</p>
-            <p>When we talk about "Body Fat Percentage," we are discussing the ratio of this adipose tissue to the rest of your body (muscle, bone, water, and organs). Understanding this ratio is far more valuable than knowing your total weight, as it provides a direct window into your metabolic health and hormonal environment.</p>
-
-            <h2>Essential Fat: The Survival Threshold</h2>
-            <p>While society often focuses on losing fat, it is vital to remember that some fat is biologically non-negotiable. This is known as <b>Essential Fat</b>. It is the fat found in the brain, nerves, bone marrow, and around the heart. Without it, the body's systems will literally begin to shut down.</p>
-            <ul>
-                <li><strong>For Men:</strong> Essential fat is roughly 2% to 5%. Competitive bodybuilders on stage may touch the lower end of this range, but it is unsustainable and often accompanied by severe lethargy and suppressed testosterone.</li>
-                <li><strong>For Women:</strong> Essential fat is significantly higher, around 10% to 13%. This higher threshold is required for reproductive health and the regulation of estrogen. Dropping below this level often leads to amenorrhea (loss of menstrual cycle) and decreased bone density.</li>
-            </ul>
-
-            <h2>The Navy Method: A Scientific Heuristic</h2>
-            <p>Our Body Fat Calculator uses the "U.S. Navy Method," developed by Dr. Hodgdon and Dr. Beckett at the Naval Health Research Center. It is a mathematical heuristic that uses circumference measurements (neck and waist for men; neck, waist, and hips for women) combined with height to estimate body fat. While it has a 3-5% margin of error compared to a DEXA scan, it is incredibly consistent—making it perfect for tracking <i>relative change</i> over time without expensive equipment.</p>
-
-            <h2>Visceral vs. Subcutaneous Fat: Location Matters</h2>
-            <p>Not all fat is created equal. The distribution of your body fat is a better predictor of disease than the total amount.</p>
-            <h3>1. Subcutaneous Fat</h3>
-            <p>This is the fat found directly under the skin. It is what you "pinch" with calipers. While it affects your appearance, it is relatively benign from a metabolic standpoint. In fact, subcutaneous fat in the hips and thighs (gynoid pattern) may even have some protective metabolic properties.</p>
-            <h3>2. Visceral Fat</h3>
-            <p>This is the "toxic" fat. It resides deep within the abdominal cavity, wrapping around the liver, kidneys, and heart. It is highly inflammatory and is a primary driver of insulin resistance, Type 2 diabetes, and atherosclerosis. Even an individual with a "normal" BMI can be at risk if they carry a disproportionate amount of visceral fat (the TOFI phenomenon).</p>
-
-            <h2>White Fat vs. Brown Fat: The Metabolic Engine</h2>
-            <p>Another fascinating layer of the science is the distinction between <b>White Adipose Tissue (WAT)</b> and <b>Brown Adipose Tissue (BAT)</b>. White fat is the primary energy storage tissue. Brown fat, however, is packed with mitochondria and its primary function is <b>thermogenesis</b>—burning energy to produce heat. Adults have very small amounts of brown fat (mostly around the neck and upper back), but research is ongoing into how we might "brown" our white fat through cold exposure or exercise to boost metabolic rate.</p>
-
-            <h2>The Limits of the Scale</h2>
-            <div class='example-box'>
-                <h3>Why Composition Wins</h3>
-                <p>Consider two men, both weighing 200 lbs at 6'0".</p>
-                <ul>
-                    <li><strong>Person A:</strong> 30% Body Fat. He carries 60 lbs of fat and 140 lbs of lean mass. He is at high risk for metabolic disease.</li>
-                    <li><strong>Person B:</strong> 12% Body Fat. He carries 24 lbs of fat and 176 lbs of lean mass. He is a high-performing athlete.</li>
-                </ul>
-                <p>The scale sees no difference. Their BMI is identical. Only body fat percentage reveals the truth.</p>
-            </div>
-
-            <h2>Methodologies: From Calipers to DEXA</h2>
-            <p>How do we measure this ratio? The accuracy varies wildly depending on the tool:</p>
-            <ul>
-                <li><strong>Bioelectrical Impedance (BIA):</strong> Found in most "smart scales." They send a small electrical current through the body. They are highly sensitive to hydration levels—if you are dehydrated, your body fat will appear higher.</li>
-                <li><strong>Hydrostatic Weighing:</strong> You are submerged in a water tank. It relies on the principle that fat floats and muscle sinks. It is very accurate but difficult to access.</li>
-                <li><strong>DEXA (Dual-Energy X-ray Absorptiometry):</strong> The gold standard. It uses low-level X-rays to map every gram of fat, muscle, and bone in the body. It can even tell you exactly how much visceral fat you have.</li>
-            </ul>
-
-            <h2>The Body Fat Set Point</h2>
-            <p>Many researchers believe in the "Set Point Theory," which suggests that the body has a preferred body fat range it tries to maintain through hormonal regulation. When you diet aggressively, your brain increases hunger signals and decreases NEAT to defend that set point. To successfully lower your set point, one must focus on slow, sustainable weight loss (0.5% to 1% of body weight per week) and prioritize protein and strength training to signal to the body that muscle mass must be preserved.</p>
-
-            <h2>Conclusion: Consistency Over Perfection</h2>
-            <p>Your body fat percentage is a dynamic number. It will fluctuate based on hydration, glycogen storage, and the time of day. The key is not to obsess over a single measurement but to look at the trend over weeks and months. By shifting your focus from "weight loss" to "fat loss," you are choosing the path of long-term metabolic health and athletic performance.</p>
-            <p>Ready to see where you stand? Use our <a href="../fitness.html#bf">Navy Method Body Fat Calculator</a> to establish your baseline and start your journey toward a stronger, leaner you.</p>
+        <div class="breadcrumb">
+            <a href="../index.html">Home</a> / <a href="index.html">Guides</a> / Health & Longevity
         </div>
-            <div class="cta-box">
-                <h3>Ready to calculate your own numbers?</h3>
-                <p style="margin-bottom: 24px; color: var(--muted);">Use our free professional tool to get instant, accurate results.</p>
-                <a href="../fitness.html#bf" class="cta-btn">Try the Calculator →</a>
+
+        <article>
+            <header class="article-header">
+                <span class="article-category">Health & Longevity</span>
+                <h1>The Science of Body Fat & Composition: Beyond the Scale</h1>
+                <p class="article-subtitle">Why Body Fat Percentage is a superior health metric to BMI, and how to measure it.</p>
+            </header>
+
+            <div class="hero-image">
+                <img src="assets/body-fat.png" alt="The Science of Body Fat & Composition: Beyond the Scale" onerror="this.style.display='none'; this.parentElement.style.background='radial-gradient(circle at 50% 50%, var(--accent-light), var(--bg))'">
             </div>
-            <div style="margin-top: 48px; padding-top: 32px; border-top: 1px solid var(--border); display: flex; justify-content: space-between;">
-                <a href="index.html" style="color: var(--muted); text-decoration: none;">&larr; Back to Guides</a>
-                <a href="one-percent-rule-of-real-estate.html" style="color: var(--accent); text-decoration: none;">Next Guide: The 1% Rule of Real Estate &rarr;</a>
+
+            <div class="article-content">
+                
+            <p>The number on your bathroom scale is the least important data point in your fitness journey. In 2026, health science has moved toward "Body Composition"—the ratio of Lean Mass to Fat Mass. You can weigh the same as someone else but have a radically different health profile based on your body fat percentage.</p>
+            
+            <div class="pro-tip">
+                Get an instant estimate of your composition using our <a href="../health.html#bmi">Body Fat % Calculator (US Navy Method)</a>.
             </div>
-        </div>
+
+            <h2>Why BMI Fails the Individual</h2>
+            <p>Body Mass Index (BMI) is a population-level tool. It fails individuals because it does not distinguish between muscle and fat. An athlete with high muscle mass might be classified as "Obese" by BMI, while a "Skinny Fat" individual with low muscle mass might be classified as "Healthy" despite having metabolic risks.</p>
+
+            <h3>The US Navy Method: Precision at Home</h3>
+            <p>While DEXA scans are the gold standard, the US Navy Circumference Method is surprisingly accurate (within 3%). It uses your height and measurements of your neck, waist, and (for women) hips to estimate density.</p>
+            <div class="math-block">
+                \[BF\%_{male} = 86.010 \log_{10}(waist - neck) - 70.041 \log_{10}(height) + 36.76\]
+            </div>
+
+            <div class="pro-tip">
+                Compare your BMI vs. your Body Fat % side-by-side with our <a href="../health.html#bmi">Health Metrics Dashboard</a>.
+            </div>
+
+            <h2>The 'Essential Fat' Threshold</h2>
+            <p>It is dangerous to aim for 0% body fat. Your body requires "Essential Fat" for hormonal function and vitamin absorption. For men, this is roughly 2-5%; for women, it's 10-13%. Dropping below these levels can lead to severe metabolic damage and long-term health issues.</p>
+        
+            </div>
+        </article>
     </main>
-    <footer class="page-footer" style="margin-top: 80px; padding: 40px 20px; border-top: 1px solid var(--border); text-align: center;">
-        <div style="margin-bottom: 24px; display: flex; justify-content: center; gap: 24px; font-size: 14px;">
-            <a href="../index.html" style="color: var(--muted); text-decoration: none;">Home</a>
-            <a href="../about.html" style="color: var(--muted); text-decoration: none;">About</a>
-            <a href="../privacy.html" style="color: var(--muted); text-decoration: none;">Privacy</a>
-            <a href="../contact.html" style="color: var(--muted); text-decoration: none;">Contact</a>
+
+    <footer class="site-footer" style="margin-top: 120px; padding: 80px 20px; border-top: 1px solid var(--border); text-align: center;">
+        <div class="footer-links" style="margin-bottom: 32px; display: flex; justify-content: center; gap: 40px; font-size: 15px; font-weight: 600;">
+            <a href="../index.html" style="color: var(--muted); text-decoration: none; transition: color 0.2s;">Home</a>
+            <a href="../about.html" style="color: var(--muted); text-decoration: none; transition: color 0.2s;">About</a>
+            <a href="../privacy.html" style="color: var(--muted); text-decoration: none; transition: color 0.2s;">Privacy</a>
+            <a href="../contact.html" style="color: var(--muted); text-decoration: none; transition: color 0.2s;">Contact</a>
         </div>
-        <p style="color: var(--muted); font-size: 12px;">&copy; 2026 YourCalc — A KnotStranded LLC Product.</p>
+        <p style="color: var(--muted); font-size: 13px; opacity: 0.8;">&copy; 2026 YourCalc — Professional Mathematical Resources.</p>
     </footer>
+
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             setTimeout(() => {
                 document.querySelectorAll('.logo-container').forEach(el => el.onclick = () => location.href='../index.html');
                 document.querySelectorAll('.nav-item').forEach(el => {
                     const href = el.getAttribute('href');
-                    if (href && !href.startsWith('http')) el.setAttribute('href', '../' + href);
-                });
-                document.querySelectorAll('.header-links a').forEach(el => {
-                    const href = el.getAttribute('href');
-                    if (href === 'blog/index.html') el.setAttribute('href', 'index.html');
-                    else if (href && !href.startsWith('http')) el.setAttribute('href', '../' + href);
+                    if (href && !href.startsWith('http') && !href.startsWith('#')) el.setAttribute('href', '../' + href);
                 });
             }, 100);
         });
