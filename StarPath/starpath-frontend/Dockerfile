@@ -19,6 +19,9 @@ COPY . .
 # Build the application
 RUN npm run build
 
+# Ensure public directory exists
+RUN mkdir -p /app/public
+
 # Production stage
 FROM node:18-alpine
 
