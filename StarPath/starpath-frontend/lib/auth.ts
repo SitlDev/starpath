@@ -97,6 +97,3 @@ export async function getCurrentUser(token: string): Promise<User> {
 
   return response.json()
 }
-
-// Re-export useAuth hook from the hooks module
-export { useAuth } from './useAuth'
