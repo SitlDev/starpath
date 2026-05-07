@@ -8,11 +8,6 @@ import Sidebar from '@/components/Sidebar'
 import { getToken, getCurrentUser, type User as UserType } from '@/lib/auth'
 import { API_URL } from '@/lib/api-config'
 
-interface UserProfile extends UserType {
-  created_at?: string
-  updated_at?: string
-}
-
 interface ActivityLog {
   id: string
   action: string
@@ -22,7 +17,7 @@ interface ActivityLog {
 
 export default function ProfilePage() {
   const router = useRouter()
-  const [user, setUser] = useState<UserProfile | null>(null)
+  const [user, setUser] = useState<UserType | null>(null)
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState('')
   const [activeTab, setActiveTab] = useState<'profile' | 'security' | 'activity'>('profile')
