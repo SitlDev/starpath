@@ -125,10 +125,10 @@ export default function FacilitiesPage() {
 
           {/* Stats */}
           <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-8">
-            <StatCard title="Total Facilities" value={facilities.length.toString()} />
-            <StatCard title="Active Facilities" value={facilities.filter(f => f.is_active).length.toString()} />
-            <StatCard title="Avg Beds" value={facilities.length > 0 ? Math.round(facilities.reduce((sum, f) => sum + (f.bed_count || 0), 0) / facilities.length).toString() : '0'} />
-            <StatCard title="Last Updated" value="Today" />
+            <StatCard label="Total Facilities" value={facilities.length.toString()} />
+            <StatCard label="Active Facilities" value={facilities.filter(f => f.is_active).length.toString()} />
+            <StatCard label="Avg Beds" value={facilities.length > 0 ? Math.round(facilities.reduce((sum, f) => sum + (f.bed_count || 0), 0) / facilities.length).toString() : '0'} />
+            <StatCard label="Last Updated" value="Today" />
           </div>
 
           {/* Error Message */}
