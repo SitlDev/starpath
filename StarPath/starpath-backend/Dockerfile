@@ -26,18 +26,18 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     libpq5 \
     && rm -rf /var/lib/apt/lists/*
 
-# Copy Python dependencies from builder
-COPY --from=builder --chown=appuser:appuser /root/.local /home/appuser/.local
-
-# Create non-root user first
+# Create non-root user first (before copying files)
 RUN useradd -m -u 1000 appuser
+
+# Copy Python dependencies from builder with correct ownership
+COPY --from=builder --chown=appuser:appuser /root/.local /home/appuser/.local
 
 # Set environment PATH
 ENV PATH=/home/appuser/.local/bin:$PATH
 ENV PYTHONUNBUFFERED=1
 ENV PYTHONDONTWRITEBYTECODE=1
 
-# Copy application code
+# Copy application code with correct ownership
 COPY --chown=appuser:appuser . .
 
 USER appuser
@@ -50,4 +50,4 @@ HEALTHCHECK --interval=30s --timeout=10s --start-period=5s --retries=3 \
   CMD python -c "import requests; requests.get('http://localhost:8000/health')" || exit 1
 
 # Run the application
-CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8000"]
+CMD ["python", "-m", "uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8000"]
