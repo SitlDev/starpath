@@ -231,22 +231,22 @@ export default function DashboardPage() {
               {/* Key Metrics */}
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
                 <StatCard
-                  title="Total Facilities"
+                  label="Total Facilities"
                   value={metrics.totalFacilities.toString()}
                   subtitle={`${metrics.activeFacilities} active`}
                 />
                 <StatCard
-                  title="Avg Star Rating"
+                  label="Avg Star Rating"
                   value={metrics.averageRating.toFixed(1)}
                   subtitle="across all facilities"
                 />
                 <StatCard
-                  title="Total Beds"
+                  label="Total Beds"
                   value={metrics.totalBeds.toString()}
                   subtitle="licensed capacity"
                 />
                 <StatCard
-                  title="Alerts"
+                  label="Alerts"
                   value={metrics.lowRatingCount.toString()}
                   subtitle={`${metrics.lowRatingCount} low ratings`}
                 />
