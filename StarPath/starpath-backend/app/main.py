@@ -45,13 +45,27 @@ async def health_check():
 @app.get("/debug/config")
 async def debug_config():
     """Debug endpoint to see what env vars are actually set"""
+    import json
+    all_vars = {k: v for k, v in os.environ.items()}
+    
+    # Filter out sensitive ones but show database-related vars
+    safe_vars = {}
+    for k, v in all_vars.items():
+        if any(x in k.upper() for x in ['DATABASE', 'DB', 'MYSQL', 'SQL', 'URL']):
+            safe_vars[k] = v
+        elif k in ['ALGORITHM', 'NODE_ENV', 'ENVIRONMENT']:
+            safe_vars[k] = v
+    
     return {
-        "DATABASE_URL": os.getenv("DATABASE_URL", "NOT SET"),
-        "SECRET_KEY": "***HIDDEN***" if os.getenv("SECRET_KEY") else "NOT SET",
-        "ALLOWED_ORIGINS": os.getenv("ALLOWED_ORIGINS", "NOT SET"),
-        "ALGORITHM": os.getenv("ALGORITHM", "NOT SET"),
-        # List all env vars that contain 'DB' or 'DATABASE'
-        "database_related_vars": {k: v for k, v in os.environ.items() if 'DATABASE' in k.upper() or 'DB' in k.upper()},
+        "status": "debug",
+        "database_like_vars": safe_vars,
+        "all_var_keys": sorted(all_vars.keys()),
+        "config": {
+            "SECRET_KEY": "***HIDDEN***" if os.getenv("SECRET_KEY") else "NOT SET",
+            "DATABASE_URL": os.getenv("DATABASE_URL", "NOT SET"),
+            "ALLOWED_ORIGINS": os.getenv("ALLOWED_ORIGINS", "NOT SET"),
+            "ALGORITHM": os.getenv("ALGORITHM", "NOT SET"),
+        }
     }
 
 # Include routers
