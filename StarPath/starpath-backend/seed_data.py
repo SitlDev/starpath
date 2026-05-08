@@ -3,15 +3,18 @@ Sample data seeding script for StarPath backend.
 Run with: python seed_data.py
 """
 
+import json
 from datetime import datetime, timedelta
 import random
+import uuid
 from sqlalchemy.orm import Session
 from app.database import SessionLocal, engine
 from app.models.facility import Facility
 from app.models.health_inspection import HealthInspection, SurveyType
 from app.models.star_rating import StarRating
 from app.models.deficiency import Deficiency
-from app.models.user import User
+from app.models.user import User, UserRole
+from app.models.notification import Notification, NotificationType
 from app.utils.security import get_password_hash
 from app.database import Base
 
@@ -56,6 +59,7 @@ def seed_database():
 
     try:
         # Clear existing data
+        db.query(Notification).delete()
         db.query(StarRating).delete()
         db.query(Deficiency).delete()
         db.query(HealthInspection).delete()
@@ -63,18 +67,48 @@ def seed_database():
         db.query(User).delete()
         db.commit()
 
-        print("Creating sample user...")
-        # Create a sample user
-        user = User(
-            email="demo@starpath.com",
-            full_name="Demo Administrator",
-            hashed_password=get_password_hash("demo123456"),
+        print("Creating sample users...")
+        # Create multiple test users with different roles
+        admin_user = User(
+            email="admin@starpath.com",
+            full_name="Admin User",
+            hashed_password=get_password_hash("AdminPassword123!"),
             is_active=True,
-            is_superuser=False,
+            role=UserRole.ADMIN,
         )
-        db.add(user)
+        
+        manager_user = User(
+            email="manager@starpath.com",
+            full_name="Facility Manager",
+            hashed_password=get_password_hash("ManagerPass123!"),
+            is_active=True,
+            role=UserRole.FACILITY_MANAGER,
+        )
+        
+        demo_user = User(
+            email="demo@starpath.com",
+            full_name="Demo User",
+            hashed_password=get_password_hash("DemoPassword123!"),
+            is_active=True,
+            role=UserRole.AUDITOR,
+        )
+        
+        test_user = User(
+            email="anacius@gmail.com",
+            full_name="Test User",
+            hashed_password=get_password_hash("TestPassword123!"),
+            is_active=True,
+            role=UserRole.AUDITOR,
+        )
+        
+        db.add_all([admin_user, manager_user, demo_user, test_user])
         db.commit()
-        print(f"✓ Created user: demo@starpath.com (password: demo123456)")
+        users = [admin_user, manager_user, demo_user, test_user]
+        print(f"✓ Created {len(users)} test users")
+        print(f"  - admin@starpath.com (Admin)")
+        print(f"  - manager@starpath.com (Facility Manager)")
+        print(f"  - demo@starpath.com (Auditor)")
+        print(f"  - anacius@gmail.com (Auditor)")
 
         print("\nCreating sample facilities...")
         facilities = []
@@ -96,9 +130,11 @@ def seed_database():
             facilities.append(facility)
 
         db.commit()
-        print(f"✓ Created {len(facilities)} facilities")
+        print(f"✓ Created {len(facilities)} facilities with realistic data")
 
-        print("\nCreating health inspections and ratings...")
+        print("\nCreating health inspections, deficiencies, and ratings...")
+        notifications_to_create = []
+        
         for facility in facilities:
             # Create 3 inspection cycles for each facility
             base_date = datetime.utcnow().date() - timedelta(days=365)
@@ -181,28 +217,56 @@ def seed_database():
                     },
                 )
                 db.add(rating)
+                
+                # Create notifications for significant rating changes
+                if cycle > 1 and random.random() > 0.5:
+                    notification = Notification(
+                        user_id=demo_user.id,
+                        facility_id=facility.id,
+                        type=NotificationType.RATING_CHANGE,
+                        title=f"Rating Update: {facility.name}",
+                        message=f"Your facility's overall rating has changed to {overall_rating} stars.",
+                        data=json.dumps({
+                            "facility_id": str(facility.id),
+                            "new_rating": overall_rating,
+                            "previous_rating": overall_rating + random.randint(-1, 1),
+                        }),
+                    )
+                    notifications_to_create.append(notification)
 
             db.commit()
             print(f"✓ Created inspections and ratings for {facility.name}")
 
-        print("\n" + "=" * 50)
-        print("✅ Sample data seeding completed!")
-        print("=" * 50)
-        print("\nDemo Credentials:")
-        print("  Email: demo@starpath.com")
-        print("  Password: demo123456")
-        print(f"\nCreated:")
+        # Add all notifications
+        if notifications_to_create:
+            db.add_all(notifications_to_create)
+            db.commit()
+            print(f"✓ Created {len(notifications_to_create)} notifications")
+
+        print("\n" + "=" * 60)
+        print("✅ Sample data seeding completed successfully!")
+        print("=" * 60)
+        print("\nTest Credentials:")
+        print("  Admin:              admin@starpath.com / AdminPassword123!")
+        print("  Manager:            manager@starpath.com / ManagerPass123!")
+        print("  Demo User:          demo@starpath.com / DemoPassword123!")
+        print("  Test User:          anacius@gmail.com / TestPassword123!")
+        print(f"\nDatabase Summary:")
+        print(f"  • {len(users)} test users created")
         print(f"  • {len(facilities)} facilities with realistic data")
         print(f"  • 3 inspection cycles per facility")
         print(f"  • Health inspection deficiencies per cycle")
         print(f"  • Star ratings for each inspection")
+        print(f"  • {len(notifications_to_create)} sample notifications")
         print("\nYou can now:")
-        print("  1. Start the backend: python -m uvicorn app.main:app --reload")
-        print("  2. Start the frontend: npm run dev")
-        print("  3. Login with the demo credentials above")
+        print("  1. Start backend:  cd starpath-backend && railway shell")
+        print("  2. Login with test credentials above")
+        print("=" * 60)
 
     except Exception as e:
         print(f"\n❌ Error seeding database: {e}")
+        import traceback
+        traceback.print_exc()
         db.rollback()
         raise
     finally:
