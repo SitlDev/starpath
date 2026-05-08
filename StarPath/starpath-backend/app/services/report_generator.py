@@ -94,11 +94,24 @@ class ReportGenerator:
         cms_provider_id = facility_data.get('cms_provider_id', 'N/A')
         report_date = datetime.now().strftime('%B %d, %Y')
         
+        # Extract address components
+        address_dict = facility_data.get('address', {})
+        if isinstance(address_dict, dict):
+            street = address_dict.get('street', 'N/A')
+            city = address_dict.get('city', 'N/A')
+            state = address_dict.get('state', 'N/A')
+            zip_code = address_dict.get('zip', 'N/A')
+        else:
+            street = str(address_dict) if address_dict else 'N/A'
+            city = facility_data.get('city', 'N/A')
+            state = facility_data.get('state', 'N/A')
+            zip_code = facility_data.get('zip_code', 'N/A')
+        
         facility_info = [
             ['Facility Name:', facility_name],
             ['CMS Provider ID:', cms_provider_id],
-            ['Address:', facility_data.get('address', 'N/A')],
-            ['City, State, ZIP:', f"{facility_data.get('city', 'N/A')}, {facility_data.get('state', 'N/A')} {facility_data.get('zip_code', 'N/A')}"],
+            ['Address:', street],
+            ['City, State, ZIP:', f"{city}, {state} {zip_code}"],
             ['Licensed Beds:', str(facility_data.get('bed_count', 'N/A'))],
             ['Report Date:', report_date],
         ]
@@ -124,24 +137,31 @@ class ReportGenerator:
             
             story.append(Paragraph("OVERALL RATING", heading_style))
             
-            # Create star rating display
-            star_display = f"★ ★ ★ ★ ★" if overall_stars == 5 else \
-                          f"★ ★ ★ ★ ☆" if overall_stars == 4 else \
-                          f"★ ★ ★ ☆ ☆" if overall_stars == 3 else \
-                          f"★ ★ ☆ ☆ ☆" if overall_stars == 2 else \
-                          f"★ ☆ ☆ ☆ ☆" if overall_stars == 1 else "Not Rated"
+            # Create star rating display - using text-based format for better compatibility
+            star_count = int(overall_stars) if isinstance(overall_stars, (int, float)) else 0
+            empty_count = 5 - star_count
+            star_display = "[" + ("*" * star_count) + (" " * empty_count) + "]" if star_count > 0 else "Not Rated"
             
             overall_para = ParagraphStyle(
                 'OverallRating',
                 parent=styles['Normal'],
-                fontSize=20,
+                fontSize=16,
+                textColor=self.cms_blue,
+                alignment=TA_CENTER,
+                fontName='Courier-Bold'
+            )
+            
+            stars_numeric = ParagraphStyle(
+                'OverallNumeric',
+                parent=styles['Normal'],
+                fontSize=14,
                 textColor=self.cms_blue,
                 alignment=TA_CENTER,
                 fontName='Helvetica-Bold'
             )
             
             story.append(Paragraph(star_display, overall_para))
-            story.append(Paragraph(f"{overall_stars}/5 Stars", ParagraphStyle('OverallText', parent=styles['Normal'], fontSize=11, alignment=TA_CENTER, fontName='Helvetica-Bold')))
+            story.append(Paragraph(f"{int(overall_stars)}/5 Stars", stars_numeric))
             story.append(Spacer(1, 0.15*inch))
             
             # Four-Domain Star Ratings
@@ -351,23 +371,23 @@ class ReportGenerator:
             
             for i, rating in enumerate(sorted_ratings[:24]):  # Last 24 ratings (2 years)
                 date_str = str(rating.get('effective_date', 'N/A'))[:10]
-                overall = str(rating.get('overall_rating', 'N/A'))
-                health = str(rating.get('health_inspection_rating', 'N/A'))
-                staffing = str(rating.get('staffing_rating', 'N/A'))
-                qm = str(rating.get('qm_rating', 'N/A'))
+                overall = str(int(rating.get('overall_rating', 0)))
+                health = str(int(rating.get('health_inspection_rating', 0)))
+                staffing = str(int(rating.get('staffing_rating', 0)))
+                qm = str(int(rating.get('qm_rating', 0)))
                 
                 # Calculate trend
                 if i < len(sorted_ratings) - 1:
                     current_overall = rating.get('overall_rating', 0)
                     previous_overall = sorted_ratings[i + 1].get('overall_rating', 0)
                     if current_overall > previous_overall:
-                        trend = '📈 Improved'
+                        trend = 'Improved'
                     elif current_overall < previous_overall:
-                        trend = '📉 Declined'
+                        trend = 'Declined'
                     else:
-                        trend = '➡️ Stable'
+                        trend = 'Stable'
                 else:
-                    trend = '—'
+                    trend = 'Current'
                 
                 rows.append([date_str, overall, health, staffing, qm, trend])
             
@@ -398,7 +418,7 @@ class ReportGenerator:
             summary_text = f"<b>Period Reviewed:</b> {len(sorted_ratings)} rating periods<br/>" \
                           f"<b>Starting Date:</b> {str(oldest.get('effective_date', 'N/A'))[:10]}<br/>" \
                           f"<b>Current Date:</b> {str(latest.get('effective_date', 'N/A'))[:10]}<br/>" \
-                          f"<b>Overall Rating Change:</b> {overall_change:+.1f} stars"
+                          f"<b>Overall Rating Change:</b> {int(overall_change):+d} stars"
             
             story.append(Paragraph(summary_text, styles['Normal']))
         
@@ -423,19 +443,22 @@ class ReportGenerator:
         return buffer
     
     def _star_string(self, rating: int) -> str:
-        """Convert numeric rating to star string"""
-        if rating >= 5:
-            return "★ ★ ★ ★ ★"
+        """Convert numeric rating to star string - text-based format"""
+        rating = int(rating) if isinstance(rating, (int, float)) else 0
+        if rating <= 0:
+            return "[ ]"
+        elif rating >= 5:
+            return "[*****]"
         elif rating >= 4:
-            return "★ ★ ★ ★ ☆"
+            return "[****]"
         elif rating >= 3:
-            return "★ ★ ★ ☆ ☆"
+            return "[***]"
         elif rating >= 2:
-            return "★ ★ ☆ ☆ ☆"
+            return "[**]"
         elif rating >= 1:
-            return "★ ☆ ☆ ☆ ☆"
+            return "[*]"
         else:
-            return "Not Rated"
+            return "[ ]"
             
             ratings_table = Table(ratings_info, colWidths=[2*inch, 4*inch])
             ratings_table.setStyle(TableStyle([
