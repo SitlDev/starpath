@@ -234,22 +234,46 @@ def mark_all_read(
 @router.websocket("/ws/{user_id}")
 async def websocket_endpoint(user_id: str, websocket: WebSocket, db: Session = Depends(get_db)):
     """WebSocket endpoint for real-time notifications"""
-    # Verify user exists and is authenticated
-    user = db.query(UserModel).filter(UserModel.id == user_id).first()
-    if not user:
-        await websocket.close(code=4004, reason="User not found")
+    import uuid as uuid_module
+    import logging
+    logger = logging.getLogger(__name__)
+    
+    logger.info(f"WebSocket connection attempt for user_id: {user_id}")
+    
+    try:
+        # Verify user exists and is authenticated
+        # Convert string user_id to UUID for comparison
+        try:
+            user_uuid = uuid_module.UUID(user_id)
+        except (ValueError, TypeError):
+            logger.warning(f"Invalid UUID format: {user_id}")
+            await websocket.close(code=4004, reason="Invalid user ID format")
+            return
+        
+        user = db.query(UserModel).filter(UserModel.id == user_uuid).first()
+        if not user:
+            logger.warning(f"User not found for UUID: {user_uuid}")
+            await websocket.close(code=4004, reason="User not found")
+            return
+        
+        logger.info(f"WebSocket authenticated for user: {user.email}")
+    except Exception as e:
+        logger.error(f"WebSocket auth error: {str(e)}")
+        await websocket.close(code=4004, reason="Authentication failed")
         return
     
     await manager.connect(user_id, websocket)
+    logger.info(f"WebSocket manager connected for user_id: {user_id}")
     try:
         while True:
             # Keep connection alive and listen for any client messages
             data = await websocket.receive_text()
-            # Optionally handle ping/pong or other client messages
+            logger.debug(f"WebSocket message from {user_id}: {data}")
     except WebSocketDisconnect:
+        logger.info(f"WebSocket disconnected for user: {user_id}")
         manager.disconnect(user_id, websocket)
     except Exception as e:
-        print(f"WebSocket error for user {user_id}: {e}")
+        logger.error(f"WebSocket error for user {user_id}: {e}")
         manager.disconnect(user_id, websocket)
 
 # ==================== PERMISSIONS ENDPOINT ====================
