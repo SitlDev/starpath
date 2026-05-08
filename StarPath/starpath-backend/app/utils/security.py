@@ -1,7 +1,7 @@
 from datetime import datetime, timedelta
 from typing import Optional
 from jose import JWTError, jwt
-import bcrypt
+from passlib.context import CryptContext
 import os
 
 # Security settings
@@ -9,14 +9,20 @@ SECRET_KEY = os.getenv("SECRET_KEY", "your-secret-key-change-in-production")
 ALGORITHM = "HS256"
 ACCESS_TOKEN_EXPIRE_MINUTES = int(os.getenv("ACCESS_TOKEN_EXPIRE_MINUTES", 480))  # 8 days
 
+# Use passlib for password hashing (more efficient than raw bcrypt)
+pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto", bcrypt__rounds=4)
+
 def verify_password(plain_password: str, hashed_password: str) -> bool:
-    """Verify password against hash"""
-    return bcrypt.checkpw(plain_password.encode(), hashed_password.encode())
+    """Verify password against hash using passlib"""
+    try:
+        return pwd_context.verify(plain_password, hashed_password)
+    except Exception as e:
+        print(f"Password verification error: {e}")
+        return False
 
 def get_password_hash(password: str) -> str:
-    """Get bcrypt hash of password"""
-    salt = bcrypt.gensalt()
-    return bcrypt.hashpw(password.encode(), salt).decode()
+    """Get bcrypt hash of password using passlib"""
+    return pwd_context.hash(password)
 
 def create_access_token(data: dict, expires_delta: Optional[timedelta] = None) -> str:
     """Create JWT access token"""

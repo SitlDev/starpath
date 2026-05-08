@@ -61,73 +61,25 @@ def register(user_data: UserCreate, db: Session = Depends(get_db)):
 @router.post("/login", response_model=Token)
 def login(form_data: OAuth2PasswordRequestForm = Depends(), db: Session = Depends(get_db)):
     """Authenticate user and return JWT token"""
-    import logging
-    logger = logging.getLogger(__name__)
+    # Find user by email (form_data.username contains the email)
+    user = db.query(UserModel).filter(UserModel.email == form_data.username).first()
     
-    logger.info(f"🔐 LOGIN REQUEST STARTED for username: {form_data.username}")
-    
-    try:
-        # Find user by email (form_data.username contains the email)
-        logger.info(f"  → Querying database for user with email: {form_data.username}")
-        user = db.query(UserModel).filter(UserModel.email == form_data.username).first()
-        logger.info(f"  → Database query completed. User found: {user is not None}")
-        
-        if not user:
-            logger.warning(f"  ✗ User not found for email: {form_data.username}")
-            raise HTTPException(
-                status_code=status.HTTP_401_UNAUTHORIZED,
-                detail="Invalid email or password",
-                headers={"WWW-Authenticate": "Bearer"},
-            )
-        
-        logger.info(f"  → Found user: {user.email} (ID: {user.id})")
-        logger.info(f"  → Hashed password type: {type(user.hashed_password)}")
-        logger.info(f"  → Hashed password length: {len(user.hashed_password) if user.hashed_password else 'None'}")
-        
-        # DEBUG: Try password verification with timeout
-        logger.info(f"  → Starting password verification...")
-        import bcrypt
-        plain_pwd_bytes = form_data.password.encode()
-        hashed_pwd_bytes = user.hashed_password.encode() if isinstance(user.hashed_password, str) else user.hashed_password
-        
-        logger.info(f"  → Plain password bytes length: {len(plain_pwd_bytes)}")
-        logger.info(f"  → Hashed password bytes type: {type(hashed_pwd_bytes)}")
-        logger.info(f"  → Hashed password bytes length: {len(hashed_pwd_bytes)}")
-        
-        password_valid = bcrypt.checkpw(plain_pwd_bytes, hashed_pwd_bytes)
-        logger.info(f"  ✓ Password verification completed. Valid: {password_valid}")
-        
-        if not password_valid:
-            logger.warning(f"  ✗ Invalid password for user: {form_data.username}")
-            raise HTTPException(
-                status_code=status.HTTP_401_UNAUTHORIZED,
-                detail="Invalid email or password",
-                headers={"WWW-Authenticate": "Bearer"},
-            )
-        
-        if not user.is_active:
-            logger.warning(f"  ✗ User account is inactive: {form_data.username}")
-            raise HTTPException(
-                status_code=status.HTTP_403_FORBIDDEN,
-                detail="User account is inactive"
-            )
-        
-        # Create access token
-        logger.info(f"  → Creating JWT access token...")
-        access_token = create_access_token(data={"sub": user.email, "user_id": str(user.id)})
-        logger.info(f"  ✓ Access token created. Length: {len(access_token)}")
-        
-        logger.info(f"✅ LOGIN SUCCESSFUL for user: {form_data.username}")
-        return {"access_token": access_token, "token_type": "bearer"}
-        
-    except HTTPException:
-        raise
-    except Exception as e:
-        logger.error(f"❌ UNEXPECTED ERROR during login: {str(e)}", exc_info=True)
+    if not user or not verify_password(form_data.password, user.hashed_password):
         raise HTTPException(
-            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
-            detail=f"Login error: {str(e)}"
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail="Invalid email or password",
+            headers={"WWW-Authenticate": "Bearer"},
         )
+    
+    if not user.is_active:
+        raise HTTPException(
+            status_code=status.HTTP_403_FORBIDDEN,
+            detail="User account is inactive"
+        )
+    
+    # Create access token
+    access_token = create_access_token(data={"sub": user.email, "user_id": str(user.id)})
+    return {"access_token": access_token, "token_type": "bearer"}
 
 @router.get("/me", response_model=User)
 def get_current_user_info(current_user: UserModel = Depends(get_current_user)):
