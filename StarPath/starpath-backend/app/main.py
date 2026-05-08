@@ -31,6 +31,18 @@ async def root():
 async def health_check():
     return {"status": "healthy"}
 
+@app.get("/debug/config")
+async def debug_config():
+    """Debug endpoint to see what env vars are actually set"""
+    return {
+        "DATABASE_URL": os.getenv("DATABASE_URL", "NOT SET"),
+        "SECRET_KEY": "***HIDDEN***" if os.getenv("SECRET_KEY") else "NOT SET",
+        "ALLOWED_ORIGINS": os.getenv("ALLOWED_ORIGINS", "NOT SET"),
+        "ALGORITHM": os.getenv("ALGORITHM", "NOT SET"),
+        # List all env vars that contain 'DB' or 'DATABASE'
+        "database_related_vars": {k: v for k, v in os.environ.items() if 'DATABASE' in k.upper() or 'DB' in k.upper()},
+    }
+
 # Include routers
 app.include_router(auth.router, prefix="/api/v1/auth", tags=["Authentication"])
 app.include_router(facilities.router, prefix="/api/v1/facilities", tags=["Facilities"])
