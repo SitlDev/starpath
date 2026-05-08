@@ -61,25 +61,56 @@ def register(user_data: UserCreate, db: Session = Depends(get_db)):
 @router.post("/login", response_model=Token)
 def login(form_data: OAuth2PasswordRequestForm = Depends(), db: Session = Depends(get_db)):
     """Authenticate user and return JWT token"""
-    # Find user by email (form_data.username contains the email)
-    user = db.query(UserModel).filter(UserModel.email == form_data.username).first()
+    import logging
+    logger = logging.getLogger(__name__)
     
-    if not user or not verify_password(form_data.password, user.hashed_password):
+    logger.info(f"Login attempt for email: {form_data.username}")
+    
+    try:
+        # Find user by email (form_data.username contains the email)
+        logger.info("Querying database for user...")
+        user = db.query(UserModel).filter(UserModel.email == form_data.username).first()
+        logger.info(f"User found: {user is not None}")
+        
+        if not user:
+            logger.warning(f"User not found: {form_data.username}")
+            raise HTTPException(
+                status_code=status.HTTP_401_UNAUTHORIZED,
+                detail="Invalid email or password",
+                headers={"WWW-Authenticate": "Bearer"},
+            )
+        
+        logger.info("Verifying password...")
+        is_valid = verify_password(form_data.password, user.hashed_password)
+        logger.info(f"Password verification result: {is_valid}")
+        
+        if not is_valid:
+            logger.warning(f"Invalid password for user: {form_data.username}")
+            raise HTTPException(
+                status_code=status.HTTP_401_UNAUTHORIZED,
+                detail="Invalid email or password",
+                headers={"WWW-Authenticate": "Bearer"},
+            )
+        
+        if not user.is_active:
+            raise HTTPException(
+                status_code=status.HTTP_403_FORBIDDEN,
+                detail="User account is inactive"
+            )
+        
+        logger.info("Creating access token...")
+        # Create access token
+        access_token = create_access_token(data={"sub": user.email, "user_id": str(user.id)})
+        logger.info("Login successful")
+        return {"access_token": access_token, "token_type": "bearer"}
+    except HTTPException:
+        raise
+    except Exception as e:
+        logger.error(f"Login error: {str(e)}", exc_info=True)
         raise HTTPException(
-            status_code=status.HTTP_401_UNAUTHORIZED,
-            detail="Invalid email or password",
-            headers={"WWW-Authenticate": "Bearer"},
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail="Internal server error"
         )
-    
-    if not user.is_active:
-        raise HTTPException(
-            status_code=status.HTTP_403_FORBIDDEN,
-            detail="User account is inactive"
-        )
-    
-    # Create access token
-    access_token = create_access_token(data={"sub": user.email, "user_id": str(user.id)})
-    return {"access_token": access_token, "token_type": "bearer"}
 
 @router.get("/me", response_model=User)
 def get_current_user_info(current_user: UserModel = Depends(get_current_user)):
