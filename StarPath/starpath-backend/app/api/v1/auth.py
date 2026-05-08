@@ -64,28 +64,41 @@ def login(form_data: OAuth2PasswordRequestForm = Depends(), db: Session = Depend
     import logging
     logger = logging.getLogger(__name__)
     
-    logger.info(f"Login attempt for username: {form_data.username}")
+    logger.info(f"🔐 LOGIN REQUEST STARTED for username: {form_data.username}")
     
     try:
         # Find user by email (form_data.username contains the email)
-        logger.info("Querying database for user...")
+        logger.info(f"  → Querying database for user with email: {form_data.username}")
         user = db.query(UserModel).filter(UserModel.email == form_data.username).first()
-        logger.info(f"Database query completed. User found: {user is not None}")
+        logger.info(f"  → Database query completed. User found: {user is not None}")
         
         if not user:
-            logger.info(f"User not found for email: {form_data.username}")
+            logger.warning(f"  ✗ User not found for email: {form_data.username}")
             raise HTTPException(
                 status_code=status.HTTP_401_UNAUTHORIZED,
                 detail="Invalid email or password",
                 headers={"WWW-Authenticate": "Bearer"},
             )
         
-        logger.info("Verifying password...")
-        password_valid = verify_password(form_data.password, user.hashed_password)
-        logger.info(f"Password verification completed. Valid: {password_valid}")
+        logger.info(f"  → Found user: {user.email} (ID: {user.id})")
+        logger.info(f"  → Hashed password type: {type(user.hashed_password)}")
+        logger.info(f"  → Hashed password length: {len(user.hashed_password) if user.hashed_password else 'None'}")
+        
+        # DEBUG: Try password verification with timeout
+        logger.info(f"  → Starting password verification...")
+        import bcrypt
+        plain_pwd_bytes = form_data.password.encode()
+        hashed_pwd_bytes = user.hashed_password.encode() if isinstance(user.hashed_password, str) else user.hashed_password
+        
+        logger.info(f"  → Plain password bytes length: {len(plain_pwd_bytes)}")
+        logger.info(f"  → Hashed password bytes type: {type(hashed_pwd_bytes)}")
+        logger.info(f"  → Hashed password bytes length: {len(hashed_pwd_bytes)}")
+        
+        password_valid = bcrypt.checkpw(plain_pwd_bytes, hashed_pwd_bytes)
+        logger.info(f"  ✓ Password verification completed. Valid: {password_valid}")
         
         if not password_valid:
-            logger.info("Password verification failed")
+            logger.warning(f"  ✗ Invalid password for user: {form_data.username}")
             raise HTTPException(
                 status_code=status.HTTP_401_UNAUTHORIZED,
                 detail="Invalid email or password",
@@ -93,21 +106,24 @@ def login(form_data: OAuth2PasswordRequestForm = Depends(), db: Session = Depend
             )
         
         if not user.is_active:
-            logger.info("User account is inactive")
+            logger.warning(f"  ✗ User account is inactive: {form_data.username}")
             raise HTTPException(
                 status_code=status.HTTP_403_FORBIDDEN,
                 detail="User account is inactive"
             )
         
         # Create access token
-        logger.info("Creating access token...")
+        logger.info(f"  → Creating JWT access token...")
         access_token = create_access_token(data={"sub": user.email, "user_id": str(user.id)})
-        logger.info("Access token created successfully")
+        logger.info(f"  ✓ Access token created. Length: {len(access_token)}")
+        
+        logger.info(f"✅ LOGIN SUCCESSFUL for user: {form_data.username}")
         return {"access_token": access_token, "token_type": "bearer"}
+        
     except HTTPException:
         raise
     except Exception as e:
-        logger.error(f"Unexpected error during login: {str(e)}", exc_info=True)
+        logger.error(f"❌ UNEXPECTED ERROR during login: {str(e)}", exc_info=True)
         raise HTTPException(
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
             detail=f"Login error: {str(e)}"
