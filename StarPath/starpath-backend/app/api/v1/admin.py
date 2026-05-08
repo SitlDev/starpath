@@ -77,7 +77,7 @@ async def download_facility_report(
         inspections_data=[
             {
                 'inspection_date': i.survey_date.isoformat() if i.survey_date else 'N/A',
-                'inspection_type': i.survey_type or 'Unknown',
+                'inspection_type': i.survey_type.value.upper() if i.survey_type else 'Unknown',
                 'status': 'Completed',
                 'deficiencies': []
             } for i in inspections
