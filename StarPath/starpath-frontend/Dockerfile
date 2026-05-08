@@ -42,12 +42,12 @@ COPY --from=builder /app/public ./public
 RUN addgroup -g 1001 -S nodejs && adduser -S nextjs -u 1001
 USER nextjs
 
-# Expose port
+# Expose port (Railway will set PORT env var dynamically)
 EXPOSE 3000
 
 # Environment
 ENV NEXT_TELEMETRY_DISABLED=1
 ENV NODE_ENV=production
 
-# Start the application
-CMD ["node", "server.js"]
+# Start the application - use PORT env var from Railway if set, otherwise default to 3000
+CMD ["sh", "-c", "node server.js -p ${PORT:-3000}"]

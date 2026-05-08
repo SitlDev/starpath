@@ -8,7 +8,7 @@
   },
   "deploy": {
     "numReplicas": 1,
-    "startCommand": "node server.js",
+    "startCommand": "sh -c 'node server.js -p ${PORT:-3000}'",
     "restartPolicyMaxRetries": 5,
     "healthchecks": {
       "readiness": {
