@@ -3,10 +3,9 @@ FROM python:3.13-slim AS builder
 
 WORKDIR /app
 
-# Install system dependencies (including PostgreSQL dev files for psycopg2)
+# Install system dependencies for building Python packages
 RUN apt-get update && apt-get install -y --no-install-recommends \
     build-essential \
-    libpq-dev \
     && rm -rf /var/lib/apt/lists/*
 
 # Copy requirements
@@ -20,10 +19,9 @@ FROM python:3.13-slim
 
 WORKDIR /app
 
-# Install runtime dependencies (PostgreSQL client)
+# Install runtime dependencies (minimal)
 RUN apt-get update && apt-get install -y --no-install-recommends \
-    postgresql-client \
-    libpq5 \
+    curl \
     && rm -rf /var/lib/apt/lists/*
 
 # Create non-root user first (before copying files)
@@ -45,9 +43,9 @@ USER appuser
 # Expose port
 EXPOSE 8000
 
-# Health check
-HEALTHCHECK --interval=30s --timeout=10s --start-period=5s --retries=3 \
-  CMD python -c "import requests; requests.get('http://localhost:8000/health')" || exit 1
+# Health check using curl
+HEALTHCHECK --interval=30s --timeout=10s --start-period=10s --retries=3 \
+  CMD curl -f http://localhost:8000/health || exit 1
 
 # Run the application
 CMD ["python", "-m", "uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8000"]

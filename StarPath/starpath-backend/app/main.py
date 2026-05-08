@@ -1,6 +1,17 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 import os
+import logging
+
+# Configure logging
+logging.basicConfig(
+    level=logging.INFO,
+    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s'
+)
+logger = logging.getLogger(__name__)
+
+logger.info("Starting StarPath backend application...")
+
 from app.api.v1 import auth, facilities, ratings, uploads, health_inspections, admin, cms
 # Import models to register them with SQLAlchemy
 from app.models import user, facility, health_inspection, deficiency, star_rating, notification, cms_submission
