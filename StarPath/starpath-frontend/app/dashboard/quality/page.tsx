@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react';
 import { useAuth } from '@/lib/useAuth';
 import { API_URL } from '@/lib/api-config';
 import { mockQualityMeasures } from '@/lib/mock-data';
-
+import Sidebar from '@/components/Sidebar';
 interface QualityMeasure {
   id: string;
   measure_name: string;
@@ -110,8 +110,11 @@ export default function QualityMeasuresPage() {
   }
 
   return (
-    <div className="min-h-screen bg-slate-900 px-4 sm:px-6 lg:px-8 py-8">
-      <div className="max-w-7xl mx-auto">
+    <div className="flex h-screen bg-slate-900">
+      <Sidebar user={user} />
+      <main className="flex-1 overflow-auto">
+        <div className="p-8">
+          <div className="max-w-7xl mx-auto">
         {/* Header with Icon Badge */}
         <div className="flex items-center gap-3 mb-2">
           <div className="p-2 bg-slate-700 rounded-lg">
@@ -358,5 +361,7 @@ export default function QualityMeasuresPage() {
         </div>
       </div>
     </div>
+    </main>
+  </div>
   );
 }
