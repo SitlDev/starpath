@@ -68,7 +68,7 @@ def seed_staffing_data(db: Session, facilities: list):
             date = datetime.now() - timedelta(days=90*i)
             staffing = StaffingData(
                 id=str(uuid.uuid4()),
-                facility_id=facility.id,
+                facility_id=str(facility.id),  # Convert UUID to string for MySQL
                 report_date=date.date(),
                 report_period=f"Q{4-i} 2025",
                 total_rn=random.randint(8, 25),
@@ -95,7 +95,7 @@ def seed_staffing_data(db: Session, facilities: list):
     
     db.add_all(staffing_records)
     db.commit()
-    print(f"  • {len(staffing_records)} staffing records created")
+    print(f"✓ Created {len(staffing_records)} staffing records")
 
 
 def seed_quality_measures(db: Session, facilities: list):
@@ -109,7 +109,7 @@ def seed_quality_measures(db: Session, facilities: list):
             date = datetime.now() - timedelta(days=90*i)
             qm = QualityMeasure(
                 id=str(uuid.uuid4()),
-                facility_id=facility.id,
+                facility_id=str(facility.id),  # Convert UUID to string for MySQL
                 report_date=date.date(),
                 report_period=f"Q{4-i} 2025",
                 pressure_ulcer_percentage=round(random.uniform(0.5, 5.0), 2),
@@ -136,7 +136,7 @@ def seed_quality_measures(db: Session, facilities: list):
     
     db.add_all(qm_records)
     db.commit()
-    print(f"  • {len(qm_records)} quality measure records created")
+    print(f"✓ Created {len(qm_records)} quality measure records")
 
 
 def seed_benchmarks(db: Session):
@@ -187,7 +187,7 @@ def seed_benchmarks(db: Session):
     
     db.add_all(benchmark_records)
     db.commit()
-    print(f"  • {len(benchmark_records)} benchmark records created")
+    print(f"✓ Created {len(benchmark_records)} benchmark records")
 
 
 def seed_database():
