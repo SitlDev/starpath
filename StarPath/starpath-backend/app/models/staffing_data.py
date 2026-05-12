@@ -11,12 +11,12 @@ class StaffingData(Base):
     """
     __tablename__ = "staffing_data"
 
-    id = Column(String, primary_key=True, index=True)
-    facility_id = Column(String, ForeignKey("facilities.id"), index=True)
+    id = Column(String(36), primary_key=True, index=True)
+    facility_id = Column(String(36), ForeignKey("facilities.id"), index=True)
     
     # Report Period Info
     report_date = Column(Date, index=True)
-    report_period = Column(String)  # e.g., "2026-Q1"
+    report_period = Column(String(20))  # e.g., "2026-Q1"
     
     # Staffing Counts
     total_rn = Column(Integer, default=0)           # Registered Nurses
@@ -42,7 +42,7 @@ class StaffingData(Base):
     cna_adequate = Column(Boolean, default=True)
     
     # Data Metadata
-    data_source = Column(String)  # CMS|Self-Reported|Calculated
+    data_source = Column(String(100))  # CMS|Self-Reported|Calculated
     data_source_date = Column(Date, nullable=True)
     
     # Timestamps

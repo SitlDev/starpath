@@ -10,12 +10,12 @@ class Benchmark(Base):
     """
     __tablename__ = "benchmarks"
 
-    id = Column(String, primary_key=True, index=True)
+    id = Column(String(36), primary_key=True, index=True)
     
     # Geographic Scope
-    state = Column(String, nullable=True, index=True)  # Null for national, State name for state-level
+    state = Column(String(100), nullable=True, index=True)  # Null for national, State name for state-level
     report_date = Column(Date, index=True)
-    report_period = Column(String)  # e.g., "2026-Q1"
+    report_period = Column(String(20))  # e.g., "2026-Q1"
     
     # Overall Rating Benchmarks (median, percentiles)
     overall_rating_median = Column(Float, nullable=True)
@@ -55,12 +55,12 @@ class Benchmark(Base):
     antipsychotic_median = Column(Float, nullable=True)
     
     # Number of facilities in benchmark
-    facility_count = Column(String, nullable=True)  # E.g., "4,250 facilities"
+    facility_count = Column(String(50), nullable=True)  # E.g., "4,250 facilities"
     
     # Data Source Info
-    data_source = Column(String)  # CMS|Industry
-    source_url = Column(String, nullable=True)
-    notes = Column(String, nullable=True)
+    data_source = Column(String(100))  # CMS|Industry
+    source_url = Column(String(500), nullable=True)
+    notes = Column(String(500), nullable=True)
     
     # Timestamps
     created_at = Column(DateTime, default=datetime.utcnow)

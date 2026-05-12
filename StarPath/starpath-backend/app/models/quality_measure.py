@@ -11,12 +11,12 @@ class QualityMeasure(Base):
     """
     __tablename__ = "quality_measures"
 
-    id = Column(String, primary_key=True, index=True)
-    facility_id = Column(String, ForeignKey("facilities.id"), index=True)
+    id = Column(String(36), primary_key=True, index=True)
+    facility_id = Column(String(36), ForeignKey("facilities.id"), index=True)
     
     # Report Period Info
     report_date = Column(Date, index=True)
-    report_period = Column(String)  # e.g., "2026-Q1"
+    report_period = Column(String(20))  # e.g., "2026-Q1"
     
     # Long-Stay Resident Measures (percentage or rate)
     pressure_ulcer_percentage = Column(Float, nullable=True)           # High-risk residents with pressure ulcers
@@ -40,9 +40,9 @@ class QualityMeasure(Base):
     staff_responsiveness_score = Column(Float, nullable=True)          # Staff responsiveness
     
     # Data Metadata
-    data_source = Column(String)  # CMS|Calculated|Reported
+    data_source = Column(String(100))  # CMS|Calculated|Reported
     data_source_date = Column(Date, nullable=True)
-    notes = Column(String, nullable=True)
+    notes = Column(String(500), nullable=True)
     
     # Timestamps
     created_at = Column(DateTime, default=datetime.utcnow)
