@@ -30,8 +30,7 @@ export default function RatingBadge({ rating, label, size = 'md' }: RatingBadgeP
       style={{ boxShadow: GLOW[r] }}
     >
       {label && <span className="opacity-70">{label}</span>}
-      <span>{r}</span>
-      <span className="opacity-60 text-xs">★</span>
+      <span>{'★'.repeat(r)}</span>
     </span>
   )
 }
