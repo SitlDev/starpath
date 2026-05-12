@@ -126,7 +126,7 @@ export default function HomePage() {
                   <div className="h-full rounded-full transition-all duration-1000"
                        style={{ width: `${d.pct}%`, background: d.color, boxShadow: `0 0 10px ${d.color}60` }} />
                 </div>
-                <p className="text-right text-xs font-mono text-white/30 mt-2">{d.stars}/5 stars</p>
+                <p className="text-right text-xs font-mono text-white/30 mt-2">{'★'.repeat(d.stars)}</p>
               </div>
             ))}
           </div>

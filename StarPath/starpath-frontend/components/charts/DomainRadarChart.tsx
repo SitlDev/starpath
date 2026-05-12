@@ -26,7 +26,7 @@ export default function DomainRadarChart({ data }: DomainRadarChartProps) {
             borderRadius: '12px',
             color: '#fff',
           }}
-          formatter={(value: number) => [`${value} stars`, 'Rating']}
+          formatter={(value: number) => [`${'★'.repeat(Math.round(value))}`, 'Rating']}
         />
         <Radar name="Rating" dataKey="score" stroke="#3366f4" fill="#3366f4" fillOpacity={0.25} strokeWidth={2} dot={{ fill: '#3366f4', r: 4 }} />
       </RadarChart>
