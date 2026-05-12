@@ -16,6 +16,7 @@ from app.api.v1 import auth, facilities, ratings, uploads, health_inspections, a
 # Import models to register them with SQLAlchemy
 from app.models import user, facility, health_inspection, deficiency, star_rating, notification, cms_submission, staffing_data, quality_measure, benchmark
 from app.database import Base, engine
+from sqlalchemy import text
 
 app = FastAPI(
     title="StarPath SNF API",
@@ -38,10 +39,43 @@ app.add_middleware(
 # Create all tables on startup
 @app.on_event("startup")
 async def create_tables():
-    """Create all database tables on application startup"""
+    """Create all database tables and apply schema updates on application startup"""
     try:
+        # First, create all tables from declarative models
         Base.metadata.create_all(bind=engine)
         logger.info("✅ Database tables created/verified successfully")
+        
+        # Add missing columns to deficiencies table if they don't exist (for CMS compliance)
+        try:
+            with engine.begin() as connection:
+                # Get database type
+                db_url = os.getenv("DATABASE_URL", "sqlite:///test.db")
+                is_mysql = "mysql" in db_url.lower()
+                
+                if is_mysql:
+                    # Check and add columns for MySQL
+                    inspector_result = connection.execute(text(
+                        "SELECT COLUMN_NAME FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = 'deficiencies' AND TABLE_SCHEMA = DATABASE()"
+                    ))
+                    existing_columns = [row[0] for row in inspector_result]
+                    
+                    columns_to_add = [
+                        ("severity_level", "VARCHAR(100)"),
+                        ("regulatory_citation", "VARCHAR(255)"),
+                        ("remediation_date", "DATE"),
+                        ("remediation_verified", "BOOLEAN"),
+                        ("remediation_notes", "TEXT"),
+                    ]
+                    
+                    for col_name, col_type in columns_to_add:
+                        if col_name not in existing_columns:
+                            logger.info(f"Adding column {col_name} to deficiencies table...")
+                            connection.execute(text(f"ALTER TABLE deficiencies ADD COLUMN {col_name} {col_type}"))
+                    
+                    logger.info("✅ Deficiencies table schema updated successfully")
+        except Exception as e:
+            logger.warning(f"⚠️  Could not update deficiencies schema: {str(e)}")
+            
     except Exception as e:
         logger.error(f"❌ Failed to create database tables: {str(e)}")
         raise
