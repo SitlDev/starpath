@@ -39,8 +39,14 @@ async def download_facility_report(
             detail="You don't have permission to download reports"
         )
     
+    # Convert facility_id string to UUID for proper database matching
+    try:
+        facility_uuid = uuid.UUID(facility_id)
+    except ValueError:
+        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="Invalid facility ID format")
+    
     # Get facility
-    facility = db.query(Facility).filter(Facility.id == facility_id).first()
+    facility = db.query(Facility).filter(Facility.id == facility_uuid).first()
     if not facility:
         raise HTTPException(
             status_code=status.HTTP_404_NOT_FOUND,
@@ -49,12 +55,12 @@ async def download_facility_report(
     
     # Get latest ratings
     ratings = db.query(StarRating).filter(
-        StarRating.facility_id == facility_id
+        StarRating.facility_id == facility_uuid
     ).order_by(StarRating.effective_date.desc()).limit(12).all()
     
     # Get recent inspections
     inspections = db.query(HealthInspection).filter(
-        HealthInspection.facility_id == facility_id
+        HealthInspection.facility_id == facility_uuid
     ).order_by(HealthInspection.survey_date.desc()).limit(10).all()
     
     # Generate PDF
@@ -108,7 +114,13 @@ async def download_ratings_trend_report(
             detail="You don't have permission to download reports"
         )
     
-    facility = db.query(Facility).filter(Facility.id == facility_id).first()
+    # Convert facility_id string to UUID for proper database matching
+    try:
+        facility_uuid = uuid.UUID(facility_id)
+    except ValueError:
+        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="Invalid facility ID format")
+    
+    facility = db.query(Facility).filter(Facility.id == facility_uuid).first()
     if not facility:
         raise HTTPException(
             status_code=status.HTTP_404_NOT_FOUND,
@@ -116,7 +128,7 @@ async def download_ratings_trend_report(
         )
     
     ratings = db.query(StarRating).filter(
-        StarRating.facility_id == facility_id
+        StarRating.facility_id == facility_uuid
     ).order_by(StarRating.effective_date.desc()).limit(24).all()
     
     generator = ReportGenerator("Ratings Trend Report")
@@ -156,13 +168,19 @@ async def download_staffing_report(
     if not permissions.get("download_reports"):
         raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail="Permission denied")
     
-    facility = db.query(Facility).filter(Facility.id == facility_id).first()
+    # Convert facility_id string to UUID for proper database matching
+    try:
+        facility_uuid = uuid.UUID(facility_id)
+    except ValueError:
+        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="Invalid facility ID format")
+    
+    facility = db.query(Facility).filter(Facility.id == facility_uuid).first()
     if not facility:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Facility not found")
     
     # Get staffing data
     staffing_records = db.query(StaffingData).filter(
-        StaffingData.facility_id == facility_id
+        StaffingData.facility_id == str(facility_uuid)  # StaffingData stores facility_id as string
     ).order_by(StaffingData.report_date.desc()).limit(12).all()
     
     # Get benchmark data
@@ -248,13 +266,19 @@ async def download_quality_measures_report(
     if not permissions.get("download_reports"):
         raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail="Permission denied")
     
-    facility = db.query(Facility).filter(Facility.id == facility_id).first()
+    # Convert facility_id string to UUID for proper database matching
+    try:
+        facility_uuid = uuid.UUID(facility_id)
+    except ValueError:
+        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="Invalid facility ID format")
+    
+    facility = db.query(Facility).filter(Facility.id == facility_uuid).first()
     if not facility:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Facility not found")
     
     # Get quality measures data
     qm_records = db.query(QualityMeasure).filter(
-        QualityMeasure.facility_id == facility_id
+        QualityMeasure.facility_id == str(facility_uuid)  # QualityMeasure stores facility_id as string
     ).order_by(QualityMeasure.report_date.desc()).limit(12).all()
     
     # Get benchmark data
@@ -337,13 +361,19 @@ async def download_comparative_report(
     if not permissions.get("download_reports"):
         raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail="Permission denied")
     
-    facility = db.query(Facility).filter(Facility.id == facility_id).first()
+    # Convert facility_id string to UUID for proper database matching
+    try:
+        facility_uuid = uuid.UUID(facility_id)
+    except ValueError:
+        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="Invalid facility ID format")
+    
+    facility = db.query(Facility).filter(Facility.id == facility_uuid).first()
     if not facility:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Facility not found")
     
     # Get latest facility ratings
     latest_rating = db.query(StarRating).filter(
-        StarRating.facility_id == facility_id
+        StarRating.facility_id == facility_uuid
     ).order_by(StarRating.effective_date.desc()).first()
     
     # Get state benchmarks (first state found)
