@@ -16,10 +16,20 @@ interface Facility {
 
 interface Report {
   id: string
-  type: 'facility' | 'ratings_trend'
+  type: 'facility' | 'ratings_trend' | 'staffing' | 'quality_measures' | 'comparative'
   name: string
   description: string
   icon: React.ReactNode
+  sections?: string[]
+}
+
+interface ReportOptions {
+  includeDeficiencies: boolean
+  includeStaffingDetails: boolean
+  includeQualityMeasures: boolean
+  includeComparative: boolean
+  timeRange: 'quarterly' | 'annual' | 'all'
+  format: 'pdf' | 'csv' | 'excel'
 }
 
 export default function ReportsPage() {
@@ -29,6 +39,15 @@ export default function ReportsPage() {
   const [loading, setLoading] = useState(true)
   const [downloading, setDownloading] = useState<string>('')
   const [error, setError] = useState('')
+  const [showCustomization, setShowCustomization] = useState<string | null>(null)
+  const [reportOptions, setReportOptions] = useState<ReportOptions>({
+    includeDeficiencies: true,
+    includeStaffingDetails: true,
+    includeQualityMeasures: true,
+    includeComparative: false,
+    timeRange: 'quarterly',
+    format: 'pdf',
+  })
 
   const reports: Report[] = [
     {
@@ -37,6 +56,7 @@ export default function ReportsPage() {
       name: 'Comprehensive Facility Report',
       description: 'Complete facility overview including ratings, inspections, and deficiencies',
       icon: <FileText size={20} />,
+      sections: ['Overall Rating', 'Four-Domain Ratings', 'Health Inspections', 'Deficiencies', 'Staffing Summary'],
     },
     {
       id: 'ratings_trend',
@@ -44,6 +64,31 @@ export default function ReportsPage() {
       name: 'Ratings Trend Analysis',
       description: 'Historical ratings trends and performance analysis',
       icon: <TrendingUp size={20} />,
+      sections: ['Rating History', 'Trend Analysis', 'Summary Statistics'],
+    },
+    {
+      id: 'staffing',
+      type: 'staffing',
+      name: 'Staffing Domain Report',
+      description: 'Detailed staffing ratios, turnover, and adequacy analysis',
+      icon: <FileText size={20} />,
+      sections: ['Staffing Levels', 'RN/LPN/CNA Ratios', 'Turnover Rate', 'State/National Comparison'],
+    },
+    {
+      id: 'quality_measures',
+      type: 'quality_measures',
+      name: 'Quality Measures Report',
+      description: 'Long-stay and short-stay quality indicators with trend analysis',
+      icon: <TrendingUp size={20} />,
+      sections: ['Long-Stay Indicators', 'Short-Stay Indicators', 'Trend Analysis', 'Benchmarking'],
+    },
+    {
+      id: 'comparative',
+      type: 'comparative',
+      name: 'Comparative Analysis Report',
+      description: 'Facility performance vs. state and national benchmarks',
+      icon: <FileText size={20} />,
+      sections: ['State Comparison', 'National Comparison', 'Percentile Ranking', 'Performance Summary'],
     },
   ]
 
@@ -87,15 +132,33 @@ export default function ReportsPage() {
     try {
       let endpoint = ''
       let filename = ''
+      const facility = facilities.find((f) => f.id === selectedFacility)
+      const facilityName = facility?.name || 'Facility'
+
+      // Build query params from options
+      const params = new URLSearchParams()
+      params.append('include_deficiencies', reportOptions.includeDeficiencies.toString())
+      params.append('include_staffing_details', reportOptions.includeStaffingDetails.toString())
+      params.append('include_quality_measures', reportOptions.includeQualityMeasures.toString())
+      params.append('include_comparative', reportOptions.includeComparative.toString())
+      params.append('time_range', reportOptions.timeRange)
+      params.append('format', reportOptions.format)
 
       if (reportType === 'facility') {
-        endpoint = `/api/v1/reports/facility/${selectedFacility}`
-        const facility = facilities.find((f) => f.id === selectedFacility)
-        filename = `${facility?.name || 'Facility'}_Report.pdf`
+        endpoint = `/api/v1/reports/facility/${selectedFacility}?${params}`
+        filename = `${facilityName}_Report_${new Date().toISOString().split('T')[0]}.${reportOptions.format}`
       } else if (reportType === 'ratings_trend') {
-        endpoint = `/api/v1/reports/ratings-trend/${selectedFacility}`
-        const facility = facilities.find((f) => f.id === selectedFacility)
-        filename = `${facility?.name || 'Facility'}_Ratings_Trend.pdf`
+        endpoint = `/api/v1/reports/ratings-trend/${selectedFacility}?${params}`
+        filename = `${facilityName}_Ratings_Trend_${new Date().toISOString().split('T')[0]}.${reportOptions.format}`
+      } else if (reportType === 'staffing') {
+        endpoint = `/api/v1/reports/staffing/${selectedFacility}?${params}`
+        filename = `${facilityName}_Staffing_Report_${new Date().toISOString().split('T')[0]}.${reportOptions.format}`
+      } else if (reportType === 'quality_measures') {
+        endpoint = `/api/v1/reports/quality-measures/${selectedFacility}?${params}`
+        filename = `${facilityName}_Quality_Measures_${new Date().toISOString().split('T')[0]}.${reportOptions.format}`
+      } else if (reportType === 'comparative') {
+        endpoint = `/api/v1/reports/comparative/${selectedFacility}?${params}`
+        filename = `${facilityName}_Comparative_Analysis_${new Date().toISOString().split('T')[0]}.${reportOptions.format}`
       }
 
       const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}${endpoint}`, {
@@ -114,6 +177,7 @@ export default function ReportsPage() {
         link.click()
         document.body.removeChild(link)
         window.URL.revokeObjectURL(url)
+        setShowCustomization(null)
       } else {
         setError('Failed to download report')
       }
@@ -187,55 +251,195 @@ export default function ReportsPage() {
           </div>
 
           {/* Reports Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
             {reports.map((report) => (
               <div
                 key={report.id}
-                className="bg-slate-800 border border-slate-700 rounded-lg p-6 hover:border-slate-600 transition"
+                className="bg-slate-800 border border-slate-700 rounded-lg p-6 hover:border-slate-600 transition flex flex-col"
               >
                 <div className="flex items-start justify-between mb-4">
                   <div className="p-3 bg-indigo-500/20 rounded-lg text-indigo-400">
                     {report.icon}
                   </div>
-                  {selectedFacility && (
-                    <button
-                      onClick={() => downloadReport(report.type)}
-                      disabled={downloading === report.type}
-                      className="inline-flex items-center gap-2 px-4 py-2 bg-indigo-600 hover:bg-indigo-700 disabled:bg-slate-700 disabled:text-slate-500 text-white text-sm font-medium rounded-lg transition"
-                    >
-                      <Download size={16} />
-                      {downloading === report.type ? 'Downloading...' : 'Download'}
-                    </button>
-                  )}
                 </div>
 
                 <h3 className="text-lg font-semibold text-white mb-2">{report.name}</h3>
-                <p className="text-slate-400 text-sm">{report.description}</p>
+                <p className="text-slate-400 text-sm mb-4 flex-grow">{report.description}</p>
 
-                <div className="mt-4 pt-4 border-t border-slate-700">
-                  <ul className="text-xs text-slate-400 space-y-1">
-                    <li>✓ PDF format</li>
-                    <li>✓ Professional layout</li>
-                    <li>✓ Ready to print</li>
-                  </ul>
+                {report.sections && (
+                  <div className="mb-4 p-3 bg-slate-700/50 rounded-lg">
+                    <p className="text-xs font-semibold text-slate-300 mb-2">Includes:</p>
+                    <ul className="text-xs text-slate-400 space-y-1">
+                      {report.sections.map((section, i) => (
+                        <li key={i}>• {section}</li>
+                      ))}
+                    </ul>
+                  </div>
+                )}
+
+                <div className="flex gap-2">
+                  {selectedFacility && (
+                    <>
+                      <button
+                        onClick={() => setShowCustomization(showCustomization === report.id ? null : report.id)}
+                        className="flex-1 px-3 py-2 bg-slate-700 hover:bg-slate-600 text-white text-sm font-medium rounded-lg transition"
+                      >
+                        Customize
+                      </button>
+                      <button
+                        onClick={() => downloadReport(report.type)}
+                        disabled={downloading === report.type}
+                        className="flex-1 inline-flex items-center justify-center gap-2 px-3 py-2 bg-indigo-600 hover:bg-indigo-700 disabled:bg-slate-700 disabled:text-slate-500 text-white text-sm font-medium rounded-lg transition"
+                      >
+                        <Download size={16} />
+                        {downloading === report.type ? 'Downloading...' : 'Download'}
+                      </button>
+                    </>
+                  )}
                 </div>
+
+                {/* Customization Panel */}
+                {showCustomization === report.id && selectedFacility && (
+                  <div className="mt-4 pt-4 border-t border-slate-700 space-y-3">
+                    <div className="space-y-2">
+                      <label className="text-xs font-semibold text-slate-300">Report Format:</label>
+                      <select
+                        value={reportOptions.format}
+                        onChange={(e) => setReportOptions({ ...reportOptions, format: e.target.value as any })}
+                        className="w-full px-2 py-1 bg-slate-700 border border-slate-600 rounded text-white text-xs focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                      >
+                        <option value="pdf">PDF (Printable)</option>
+                        <option value="csv">CSV (Data)</option>
+                        <option value="excel">Excel (Spreadsheet)</option>
+                      </select>
+                    </div>
+
+                    <div className="space-y-2">
+                      <label className="text-xs font-semibold text-slate-300">Time Range:</label>
+                      <select
+                        value={reportOptions.timeRange}
+                        onChange={(e) => setReportOptions({ ...reportOptions, timeRange: e.target.value as any })}
+                        className="w-full px-2 py-1 bg-slate-700 border border-slate-600 rounded text-white text-xs focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                      >
+                        <option value="quarterly">Last Quarter</option>
+                        <option value="annual">Last Year</option>
+                        <option value="all">All Time</option>
+                      </select>
+                    </div>
+
+                    <div className="space-y-2">
+                      <label className="text-xs font-semibold text-slate-300">Report Sections:</label>
+                      <div className="space-y-1">
+                        <label className="flex items-center gap-2 text-xs text-slate-300">
+                          <input
+                            type="checkbox"
+                            checked={reportOptions.includeDeficiencies}
+                            onChange={(e) => setReportOptions({ ...reportOptions, includeDeficiencies: e.target.checked })}
+                            className="w-3 h-3 rounded"
+                          />
+                          Include Deficiencies
+                        </label>
+                        <label className="flex items-center gap-2 text-xs text-slate-300">
+                          <input
+                            type="checkbox"
+                            checked={reportOptions.includeStaffingDetails}
+                            onChange={(e) => setReportOptions({ ...reportOptions, includeStaffingDetails: e.target.checked })}
+                            className="w-3 h-3 rounded"
+                          />
+                          Include Staffing Details
+                        </label>
+                        <label className="flex items-center gap-2 text-xs text-slate-300">
+                          <input
+                            type="checkbox"
+                            checked={reportOptions.includeQualityMeasures}
+                            onChange={(e) => setReportOptions({ ...reportOptions, includeQualityMeasures: e.target.checked })}
+                            className="w-3 h-3 rounded"
+                          />
+                          Include Quality Measures
+                        </label>
+                        <label className="flex items-center gap-2 text-xs text-slate-300">
+                          <input
+                            type="checkbox"
+                            checked={reportOptions.includeComparative}
+                            onChange={(e) => setReportOptions({ ...reportOptions, includeComparative: e.target.checked })}
+                            className="w-3 h-3 rounded"
+                          />
+                          Include Benchmarking
+                        </label>
+                      </div>
+                    </div>
+                  </div>
+                )}
               </div>
             ))}
           </div>
 
           {/* Info Section */}
-          <div className="mt-8 bg-blue-500/10 border border-blue-500/30 rounded-lg p-6">
-            <div className="flex items-start gap-4">
-              <div className="p-2 bg-blue-500/20 rounded-lg text-blue-400 flex-shrink-0">
-                <FileText size={20} />
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div className="bg-blue-500/10 border border-blue-500/30 rounded-lg p-6">
+              <div className="flex items-start gap-4">
+                <div className="p-2 bg-blue-500/20 rounded-lg text-blue-400 flex-shrink-0">
+                  <FileText size={20} />
+                </div>
+                <div>
+                  <h4 className="font-semibold text-blue-300 mb-2">CMS-Compliant Reports</h4>
+                  <p className="text-blue-200/80 text-sm">
+                    All reports follow official CMS Five-Star Quality Rating System standards from Medicare.gov Nursing Home Compare, ensuring professional compliance and accuracy.
+                  </p>
+                </div>
               </div>
-              <div>
-                <h4 className="font-semibold text-blue-300 mb-1">About These Reports</h4>
-                <p className="text-blue-200/80 text-sm">
-                  These reports provide comprehensive facility analysis, including current star ratings, recent
-                  inspections, identified deficiencies, and trend analysis. Reports are generated on-demand and can be
-                  downloaded as PDF files for printing or distribution.
-                </p>
+            </div>
+
+            <div className="bg-green-500/10 border border-green-500/30 rounded-lg p-6">
+              <div className="flex items-start gap-4">
+                <div className="p-2 bg-green-500/20 rounded-lg text-green-400 flex-shrink-0">
+                  <Download size={20} />
+                </div>
+                <div>
+                  <h4 className="font-semibold text-green-300 mb-2">Multiple Export Formats</h4>
+                  <p className="text-green-200/80 text-sm">
+                    Download reports as PDF for printing, CSV for data analysis, or Excel for spreadsheet integration. Customize sections and time ranges before downloading.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Report Features Section */}
+          <div className="mt-8">
+            <h3 className="text-xl font-bold text-white mb-4">Report Features</h3>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+              <div className="bg-slate-800/50 border border-slate-700 rounded-lg p-4">
+                <h4 className="font-semibold text-indigo-400 mb-2 text-sm">Facility Report</h4>
+                <ul className="text-xs text-slate-400 space-y-1">
+                  <li>✓ Current star ratings</li>
+                  <li>✓ Four-domain analysis</li>
+                  <li>✓ Recent inspections</li>
+                  <li>✓ Deficiency details</li>
+                  <li>✓ Staffing summary</li>
+                </ul>
+              </div>
+
+              <div className="bg-slate-800/50 border border-slate-700 rounded-lg p-4">
+                <h4 className="font-semibold text-green-400 mb-2 text-sm">Trend Analysis</h4>
+                <ul className="text-xs text-slate-400 space-y-1">
+                  <li>✓ Historical ratings</li>
+                  <li>✓ Performance trends</li>
+                  <li>✓ 24-month history</li>
+                  <li>✓ Trend indicators</li>
+                  <li>✓ Summary statistics</li>
+                </ul>
+              </div>
+
+              <div className="bg-slate-800/50 border border-slate-700 rounded-lg p-4">
+                <h4 className="font-semibold text-blue-400 mb-2 text-sm">Comparative Analysis</h4>
+                <ul className="text-xs text-slate-400 space-y-1">
+                  <li>✓ State benchmarks</li>
+                  <li>✓ National averages</li>
+                  <li>✓ Percentile ranking</li>
+                  <li>✓ Performance gaps</li>
+                  <li>✓ Improvement areas</li>
+                </ul>
               </div>
             </div>
           </div>
