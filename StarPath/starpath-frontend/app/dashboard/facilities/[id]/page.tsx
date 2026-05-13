@@ -145,10 +145,10 @@ export default function FacilityDetailPage() {
 
   if (loading) {
     return (
-      <div className="flex h-screen bg-slate-900">
+      <div className="flex h-screen bg-slate-50">
         <Sidebar user={user} />
         <main className="flex-1 flex items-center justify-center">
-          <div className="text-slate-300">Loading facility details...</div>
+          <div className="text-slate-700">Loading facility details...</div>
         </main>
       </div>
     )
@@ -156,12 +156,12 @@ export default function FacilityDetailPage() {
 
   if (error || !facility) {
     return (
-      <div className="flex h-screen bg-slate-900">
+      <div className="flex h-screen bg-slate-50">
         <Sidebar user={user} />
         <main className="flex-1 flex items-center justify-center">
           <div className="text-center">
-            <p className="text-red-400 mb-4">{error || 'Facility not found'}</p>
-            <Link href="/dashboard/facilities" className="text-blue-400 hover:text-blue-300">
+            <p className="text-red-600 mb-4">{error || 'Facility not found'}</p>
+            <Link href="/dashboard/facilities" className="text-blue-600 hover:text-blue-300">
               ← Back to Facilities
             </Link>
           </div>
@@ -174,7 +174,7 @@ export default function FacilityDetailPage() {
   const latestInspection = inspections[0]
 
   return (
-    <div className="flex h-screen bg-slate-900">
+    <div className="flex h-screen bg-slate-50">
       <Sidebar user={user} />
       <main className="flex-1 overflow-auto">
         <div className="p-8">
@@ -183,12 +183,12 @@ export default function FacilityDetailPage() {
             <div>
               <Link
                 href="/dashboard/facilities"
-                className="text-blue-400 hover:text-blue-300 text-sm mb-4 inline-block"
+                className="text-blue-600 hover:text-blue-300 text-sm mb-4 inline-block"
               >
                 ← Back to Facilities
               </Link>
-              <h1 className="text-4xl font-bold text-white mb-2">{facility.name}</h1>
-              <p className="text-slate-400">Provider ID: {facility.cms_provider_id}</p>
+              <h1 className="text-4xl font-bold text-slate-900 mb-2">{facility.name}</h1>
+              <p className="text-slate-600">Provider ID: {facility.cms_provider_id}</p>
             </div>
             {facility.is_active && (
               <span className="px-3 py-1 bg-green-500/20 text-green-300 text-sm font-medium rounded">
@@ -206,29 +206,29 @@ export default function FacilityDetailPage() {
           </div>
 
           {/* Facility Info Card */}
-          <div className="bg-slate-800 border border-slate-700 rounded-lg p-6 mb-8">
-            <h2 className="text-xl font-bold text-white mb-4">Facility Information</h2>
+          <div className="bg-white border border-slate-200 rounded-lg p-6 mb-8">
+            <h2 className="text-xl font-bold text-slate-900 mb-4">Facility Information</h2>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div>
-                <p className="text-sm text-slate-400 mb-1">Provider ID</p>
-                <p className="text-white font-medium">{facility.cms_provider_id}</p>
+                <p className="text-sm text-slate-600 mb-1">Provider ID</p>
+                <p className="text-slate-900 font-medium">{facility.cms_provider_id}</p>
               </div>
               <div>
-                <p className="text-sm text-slate-400 mb-1">Bed Count</p>
-                <p className="text-white font-medium">{facility.bed_count || 'N/A'}</p>
+                <p className="text-sm text-slate-600 mb-1">Bed Count</p>
+                <p className="text-slate-900 font-medium">{facility.bed_count || 'N/A'}</p>
               </div>
               <div>
-                <p className="text-sm text-slate-400 mb-1">Ownership</p>
-                <p className="text-white font-medium">{facility.ownership || 'N/A'}</p>
+                <p className="text-sm text-slate-600 mb-1">Ownership</p>
+                <p className="text-slate-900 font-medium">{facility.ownership || 'N/A'}</p>
               </div>
               <div>
-                <p className="text-sm text-slate-400 mb-1">Status</p>
-                <p className="text-white font-medium">{facility.is_active ? 'Active' : 'Inactive'}</p>
+                <p className="text-sm text-slate-600 mb-1">Status</p>
+                <p className="text-slate-900 font-medium">{facility.is_active ? 'Active' : 'Inactive'}</p>
               </div>
               {facility.address?.street && (
                 <div className="md:col-span-2">
-                  <p className="text-sm text-slate-400 mb-1">Address</p>
-                  <p className="text-white font-medium">
+                  <p className="text-sm text-slate-600 mb-1">Address</p>
+                  <p className="text-slate-900 font-medium">
                     {facility.address.street}
                     {facility.address.city && `, ${facility.address.city}`}
                     {facility.address.state && `, ${facility.address.state}`}
@@ -241,15 +241,15 @@ export default function FacilityDetailPage() {
 
           {/* Tabs */}
           <div className="mb-6">
-            <div className="flex gap-4 border-b border-slate-700">
+            <div className="flex gap-4 border-b border-slate-200">
               {(['overview', 'inspections', 'ratings'] as const).map((tab) => (
                 <button
                   key={tab}
                   onClick={() => setActiveTab(tab)}
                   className={`px-4 py-3 font-medium border-b-2 transition-colors ${
                     activeTab === tab
-                      ? 'text-blue-400 border-blue-400'
-                      : 'text-slate-400 border-transparent hover:text-slate-300'
+                      ? 'text-blue-600 border-blue-400'
+                      : 'text-slate-600 border-transparent hover:text-slate-700'
                   }`}
                 >
                   {tab.charAt(0).toUpperCase() + tab.slice(1)}
@@ -262,8 +262,8 @@ export default function FacilityDetailPage() {
           {activeTab === 'overview' && (
             <div className="space-y-6">
               {latestRating && (
-                <div className="bg-slate-800 border border-slate-700 rounded-lg p-6">
-                  <h3 className="text-xl font-bold text-white mb-6">Star Rating Breakdown</h3>
+                <div className="bg-white border border-slate-200 rounded-lg p-6">
+                  <h3 className="text-xl font-bold text-slate-900 mb-6">Star Rating Breakdown</h3>
 
                   <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
                     {/* Radar Chart */}
@@ -296,13 +296,13 @@ export default function FacilityDetailPage() {
                       />
 
                       <div className="flex items-center justify-between p-4 bg-blue-500/10 border border-blue-500/30 rounded-lg mt-6">
-                        <p className="text-slate-300 font-medium">Overall Rating</p>
+                        <p className="text-slate-700 font-medium">Overall Rating</p>
                         <RatingBadge rating={latestRating.overall_rating} size="lg" />
                       </div>
                     </div>
                   </div>
 
-                  <p className="text-xs text-slate-400 mt-6">
+                  <p className="text-xs text-slate-600 mt-6">
                     Last updated: {new Date(latestRating.effective_date).toLocaleDateString()}
                   </p>
                 </div>
@@ -311,19 +311,19 @@ export default function FacilityDetailPage() {
           )}
 
           {activeTab === 'inspections' && (
-            <div className="bg-slate-800 border border-slate-700 rounded-lg p-6">
-              <h3 className="text-xl font-bold text-white mb-4">Health Inspections</h3>
+            <div className="bg-white border border-slate-200 rounded-lg p-6">
+              <h3 className="text-xl font-bold text-slate-900 mb-4">Health Inspections</h3>
 
               {inspections.length === 0 ? (
-                <p className="text-slate-400">No inspections recorded yet.</p>
+                <p className="text-slate-600">No inspections recorded yet.</p>
               ) : (
                 <div className="space-y-4">
                   {inspections.map((inspection, idx) => (
-                    <div key={inspection.id} className="border border-slate-700 rounded-lg p-4 hover:border-slate-600 transition-colors">
+                    <div key={inspection.id} className="border border-slate-200 rounded-lg p-4 hover:border-slate-300 transition-colors">
                       <div className="flex items-start justify-between mb-2">
                         <div>
-                          <p className="text-sm text-slate-400">Cycle {inspection.cycle}</p>
-                          <p className="text-white font-medium">{inspection.survey_type} Survey</p>
+                          <p className="text-sm text-slate-600">Cycle {inspection.cycle}</p>
+                          <p className="text-slate-900 font-medium">{inspection.survey_type} Survey</p>
                         </div>
                         {idx === 0 && (
                           <span className="px-2 py-1 bg-blue-500/20 text-blue-300 text-xs rounded">
@@ -331,27 +331,27 @@ export default function FacilityDetailPage() {
                           </span>
                         )}
                       </div>
-                      <p className="text-slate-300 text-sm mb-2">
+                      <p className="text-slate-700 text-sm mb-2">
                         Survey Date: {new Date(inspection.survey_date).toLocaleDateString()}
                       </p>
                       {inspection.deficiencies && inspection.deficiencies.length > 0 && (
-                        <div className="mt-3 pt-3 border-t border-slate-700">
-                          <p className="text-sm text-slate-300 mb-2">
-                            Deficiencies: <span className="text-red-400 font-medium">{inspection.deficiencies.length}</span>
+                        <div className="mt-3 pt-3 border-t border-slate-200">
+                          <p className="text-sm text-slate-700 mb-2">
+                            Deficiencies: <span className="text-red-600 font-medium">{inspection.deficiencies.length}</span>
                           </p>
                           <div className="space-y-2">
                             {inspection.deficiencies.slice(0, 3).map((def) => (
                               <button
                                 key={def.id}
                                 onClick={() => setSelectedDeficiency(def)}
-                                className="text-xs text-slate-400 flex items-start gap-2 hover:text-blue-300 hover:bg-slate-700/50 p-2 rounded transition w-full text-left"
+                                className="text-xs text-slate-600 flex items-start gap-2 hover:text-blue-300 hover:bg-slate-100/50 p-2 rounded transition w-full text-left"
                               >
                                 <span className="text-slate-500 mt-0.5">•</span>
                                 <span className="line-clamp-2">{def.description} ({def.severity})</span>
                               </button>
                             ))}
                             {inspection.deficiencies.length > 3 && (
-                              <p className="text-xs text-slate-500 cursor-pointer hover:text-slate-400 transition">
+                              <p className="text-xs text-slate-500 cursor-pointer hover:text-slate-600 transition">
                                 +{inspection.deficiencies.length - 3} more deficiencies
                               </p>
                             )}
@@ -368,8 +368,8 @@ export default function FacilityDetailPage() {
           {activeTab === 'ratings' && (
             <div className="space-y-6">
               {ratings.length > 0 && (
-                <div className="bg-slate-800 border border-slate-700 rounded-lg p-6">
-                  <h3 className="text-xl font-bold text-white mb-6">Rating Trends</h3>
+                <div className="bg-white border border-slate-200 rounded-lg p-6">
+                  <h3 className="text-xl font-bold text-slate-900 mb-6">Rating Trends</h3>
                   <RatingTrendChart
                     data={ratings.map(r => ({
                       date: new Date(r.effective_date).toLocaleDateString(),
@@ -382,27 +382,27 @@ export default function FacilityDetailPage() {
                 </div>
               )}
 
-              <div className="bg-slate-800 border border-slate-700 rounded-lg p-6">
-                <h3 className="text-xl font-bold text-white mb-4">Rating History</h3>
+              <div className="bg-white border border-slate-200 rounded-lg p-6">
+                <h3 className="text-xl font-bold text-slate-900 mb-4">Rating History</h3>
 
                 {ratings.length === 0 ? (
-                  <p className="text-slate-400">No ratings available yet.</p>
+                  <p className="text-slate-600">No ratings available yet.</p>
                 ) : (
                   <div className="overflow-x-auto">
                     <table className="w-full text-sm">
-                      <thead className="border-b border-slate-700">
+                      <thead className="border-b border-slate-200">
                         <tr>
-                          <th className="text-left py-3 px-4 text-slate-400">Date</th>
-                          <th className="text-center py-3 px-4 text-slate-400">Health</th>
-                          <th className="text-center py-3 px-4 text-slate-400">Staffing</th>
-                          <th className="text-center py-3 px-4 text-slate-400">Quality</th>
-                          <th className="text-center py-3 px-4 text-slate-400">Overall</th>
+                          <th className="text-left py-3 px-4 text-slate-600">Date</th>
+                          <th className="text-center py-3 px-4 text-slate-600">Health</th>
+                          <th className="text-center py-3 px-4 text-slate-600">Staffing</th>
+                          <th className="text-center py-3 px-4 text-slate-600">Quality</th>
+                          <th className="text-center py-3 px-4 text-slate-600">Overall</th>
                         </tr>
                       </thead>
                       <tbody>
                         {ratings.map((rating) => (
-                          <tr key={rating.id} className="border-b border-slate-700 hover:bg-slate-700/30 transition-colors">
-                            <td className="py-3 px-4 text-slate-300">
+                          <tr key={rating.id} className="border-b border-slate-200 hover:bg-slate-100/30 transition-colors">
+                            <td className="py-3 px-4 text-slate-700">
                               {new Date(rating.effective_date).toLocaleDateString()}
                             </td>
                             <td className="text-center py-3 px-4">

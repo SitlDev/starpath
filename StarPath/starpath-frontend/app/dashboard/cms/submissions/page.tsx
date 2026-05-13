@@ -121,7 +121,7 @@ export default function SubmissionsPage() {
           <p className="text-gray-600 mt-2">Track all submissions to CMS</p>
         </div>
         <Link href="/dashboard/cms">
-          <button className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
+          <button className="px-4 py-2 bg-blue-600 text-slate-900 rounded-lg hover:bg-blue-700">
             Back to CMS
           </button>
         </Link>
@@ -141,7 +141,7 @@ export default function SubmissionsPage() {
           <button
             onClick={() => setStatusFilter('')}
             className={`px-4 py-2 rounded-lg font-medium transition-colors ${
-              statusFilter === '' ? 'bg-blue-600 text-white' : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+              statusFilter === '' ? 'bg-blue-600 text-slate-900' : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
             }`}
           >
             All
@@ -151,7 +151,7 @@ export default function SubmissionsPage() {
               key={status}
               onClick={() => setStatusFilter(status)}
               className={`px-4 py-2 rounded-lg font-medium transition-colors ${
-                statusFilter === status ? 'bg-blue-600 text-white' : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                statusFilter === status ? 'bg-blue-600 text-slate-900' : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
               }`}
             >
               {status}

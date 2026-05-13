@@ -197,7 +197,7 @@ export default function ExportPage() {
           <p className="text-gray-600 mt-2">Export, validate, and submit facility data to CMS</p>
         </div>
         <Link href="/dashboard/cms">
-          <button className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
+          <button className="px-4 py-2 bg-blue-600 text-slate-900 rounded-lg hover:bg-blue-700">
             Back to CMS
           </button>
         </Link>
@@ -277,7 +277,7 @@ export default function ExportPage() {
             <button
               onClick={handleValidate}
               disabled={validating}
-              className="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 disabled:bg-gray-400"
+              className="px-6 py-2 bg-blue-600 text-slate-900 rounded-lg hover:bg-blue-700 disabled:bg-gray-400"
             >
               {validating ? 'Validating...' : 'Validate Data'}
             </button>
@@ -318,7 +318,7 @@ export default function ExportPage() {
               <button
                 onClick={handleExport}
                 disabled={exporting}
-                className="px-6 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700 disabled:bg-gray-400"
+                className="px-6 py-2 bg-purple-600 text-slate-900 rounded-lg hover:bg-purple-700 disabled:bg-gray-400"
               >
                 {exporting ? 'Exporting...' : 'Export Data'}
               </button>
@@ -331,7 +331,7 @@ export default function ExportPage() {
                   </pre>
                   <button
                     onClick={downloadExport}
-                    className="mt-3 px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 text-sm"
+                    className="mt-3 px-4 py-2 bg-green-600 text-slate-900 rounded-lg hover:bg-green-700 text-sm"
                   >
                     Download Export
                   </button>
@@ -353,7 +353,7 @@ export default function ExportPage() {
               <button
                 onClick={handleSubmit}
                 disabled={submitting}
-                className="px-6 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 disabled:bg-gray-400"
+                className="px-6 py-2 bg-green-600 text-slate-900 rounded-lg hover:bg-green-700 disabled:bg-gray-400"
               >
                 {submitting ? 'Submitting...' : 'Submit to CMS'}
               </button>

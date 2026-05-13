@@ -136,7 +136,7 @@ export default function HealthInspectionsPage() {
   }
 
   return (
-    <div className="flex h-screen bg-slate-900">
+    <div className="flex h-screen bg-slate-50">
       <Sidebar user={user} />
       <main className="flex-1 overflow-auto">
         <div className="p-8">
@@ -146,14 +146,14 @@ export default function HealthInspectionsPage() {
           <div className="flex items-center justify-between mb-4">
             <div>
               <div className="flex items-center gap-3 mb-2">
-                <div className="p-2 bg-slate-700 rounded-lg">
-                  <svg className="w-6 h-6 text-blue-400" fill="currentColor" viewBox="0 0 20 20">
+                <div className="p-2 bg-primary-100 rounded-lg">
+                  <svg className="w-6 h-6 text-primary-600" fill="currentColor" viewBox="0 0 20 20">
                     <path d="M10.894 2.553a1 1 0 00-1.788 0l-7 14a1 1 0 001.169 1.409l5.951-1.429 5.951 1.429a1 1 0 001.169-1.409l-7-14z" />
                   </svg>
                 </div>
-                <h1 className="text-3xl sm:text-4xl font-bold text-white">Health Inspections</h1>
+                <h1 className="text-3xl sm:text-4xl font-bold text-slate-900">Health Inspections</h1>
               </div>
-              <p className="text-slate-400 text-base sm:text-lg ml-11">
+              <p className="text-slate-600 text-base sm:text-lg ml-11">
                 Track compliance, deficiencies, and health scores across all facility inspections
               </p>
             </div>
@@ -163,89 +163,89 @@ export default function HealthInspectionsPage() {
         {/* Summary Stats - Enhanced */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
           {/* Total Inspections */}
-          <div className="relative bg-slate-800 border border-slate-700 rounded-2xl p-6 hover:border-slate-600 transition-all duration-300">
+          <div className="relative bg-white border border-slate-200 rounded-2xl p-6 hover:border-slate-300 transition-all duration-300">
             <div className="flex items-center justify-between mb-3">
-              <span className="text-xs font-semibold text-slate-400 uppercase tracking-wide">Total Inspections</span>
-              <div className="p-2 bg-slate-700 rounded-lg">
-                <svg className="w-5 h-5 text-blue-400" fill="currentColor" viewBox="0 0 20 20">
+              <span className="text-xs font-semibold text-slate-600 uppercase tracking-wide">Total Inspections</span>
+              <div className="p-2 bg-blue-100 rounded-lg">
+                <svg className="w-5 h-5 text-blue-600" fill="currentColor" viewBox="0 0 20 20">
                   <path fillRule="evenodd" d="M4 4a2 2 0 00-2 2v4a1 1 0 001 1h12a1 1 0 001-1V6a2 2 0 00-2-2H4zm12 8H4v2a2 2 0 002 2h8a2 2 0 002-2v-2z" clipRule="evenodd" />
                 </svg>
               </div>
             </div>
-            <div className="text-4xl font-bold text-blue-400">{stats.totalInspections}</div>
-            <div className="mt-3 text-xs text-slate-500">Facility surveys completed</div>
+            <div className="text-4xl font-bold text-blue-600">{stats.totalInspections}</div>
+            <div className="mt-3 text-xs text-slate-600">Facility surveys completed</div>
           </div>
 
           {/* Average Health Score */}
-          <div className="relative bg-slate-800 border border-slate-700 rounded-2xl p-6 hover:border-slate-600 transition-all duration-300">
+          <div className="relative bg-white border border-slate-200 rounded-2xl p-6 hover:border-slate-300 transition-all duration-300">
             <div className="flex items-center justify-between mb-3">
-              <span className="text-xs font-semibold text-slate-400 uppercase tracking-wide">Avg Health Score</span>
-              <div className="p-2 bg-slate-700 rounded-lg">
-                <svg className="w-5 h-5 text-green-400" fill="currentColor" viewBox="0 0 20 20">
+              <span className="text-xs font-semibold text-slate-600 uppercase tracking-wide">Avg Health Score</span>
+              <div className="p-2 bg-green-100 rounded-lg">
+                <svg className="w-5 h-5 text-green-600" fill="currentColor" viewBox="0 0 20 20">
                   <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
                 </svg>
               </div>
             </div>
-            <div className="text-4xl font-bold text-green-400">{stats.averageScore}%</div>
-            <div className="mt-3 text-xs text-slate-500">Across all inspections</div>
+            <div className="text-4xl font-bold text-green-600">{stats.averageScore}%</div>
+            <div className="mt-3 text-xs text-slate-600">Across all inspections</div>
           </div>
 
           {/* Total Deficiencies */}
-          <div className="relative bg-slate-800 border border-slate-700 rounded-2xl p-6 hover:border-slate-600 transition-all duration-300">
+          <div className="relative bg-white border border-slate-200 rounded-2xl p-6 hover:border-slate-300 transition-all duration-300">
             <div className="flex items-center justify-between mb-3">
-              <span className="text-xs font-semibold text-slate-400 uppercase tracking-wide">Total Deficiencies</span>
-              <div className="p-2 bg-slate-700 rounded-lg">
-                <svg className="w-5 h-5 text-orange-400" fill="currentColor" viewBox="0 0 20 20">
+              <span className="text-xs font-semibold text-slate-600 uppercase tracking-wide">Total Deficiencies</span>
+              <div className="p-2 bg-orange-100 rounded-lg">
+                <svg className="w-5 h-5 text-orange-600" fill="currentColor" viewBox="0 0 20 20">
                   <path fillRule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clipRule="evenodd" />
                 </svg>
               </div>
             </div>
-            <div className="text-4xl font-bold text-orange-400">{stats.totalDeficiencies}</div>
-            <div className="mt-3 text-xs text-slate-500">Identified issues</div>
+            <div className="text-4xl font-bold text-orange-600">{stats.totalDeficiencies}</div>
+            <div className="mt-3 text-xs text-slate-600">Identified issues</div>
           </div>
 
           {/* Critical Issues */}
-          <div className="relative bg-slate-800 border border-slate-700 rounded-2xl p-6 hover:border-slate-600 transition-all duration-300">
+          <div className="relative bg-white border border-slate-200 rounded-2xl p-6 hover:border-slate-300 transition-all duration-300">
             <div className="flex items-center justify-between mb-3">
-              <span className="text-xs font-semibold text-slate-400 uppercase tracking-wide">Critical Issues</span>
-              <div className="p-2 bg-slate-700 rounded-lg">
-                <svg className="w-5 h-5 text-red-400" fill="currentColor" viewBox="0 0 20 20">
+              <span className="text-xs font-semibold text-slate-600 uppercase tracking-wide">Critical Issues</span>
+              <div className="p-2 bg-red-100 rounded-lg">
+                <svg className="w-5 h-5 text-red-600" fill="currentColor" viewBox="0 0 20 20">
                   <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clipRule="evenodd" />
                 </svg>
               </div>
             </div>
-            <div className="text-4xl font-bold text-red-400">{stats.criticalDeficiencies}</div>
-            <div className="mt-3 text-xs text-slate-500">Immediate action needed</div>
+            <div className="text-4xl font-bold text-red-600">{stats.criticalDeficiencies}</div>
+            <div className="mt-3 text-xs text-slate-600">Immediate action needed</div>
           </div>
         </div>
 
         {/* Error Message */}
         {error && (
-          <div className="bg-red-900 bg-opacity-20 border border-red-700 rounded-xl p-4 mb-8">
+          <div className="bg-red-50 border border-red-200 rounded-xl p-4 mb-8">
             <div className="flex items-center gap-3">
-              <svg className="w-5 h-5 text-red-400 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+              <svg className="w-5 h-5 text-red-600 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
                 <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clipRule="evenodd" />
               </svg>
-              <p className="text-red-200 font-medium">{error}</p>
+              <p className="text-red-700 font-medium">{error}</p>
             </div>
           </div>
         )}
 
         {/* Filters Section - Enhanced */}
-        <div className="bg-slate-800 border border-slate-700 rounded-2xl p-6 mb-8 shadow-sm">
-          <h3 className="text-lg font-semibold text-white mb-4 flex items-center gap-2">
-            <svg className="w-5 h-5 text-blue-400" fill="currentColor" viewBox="0 0 20 20">
+        <div className="bg-white border border-slate-200 rounded-2xl p-6 mb-8 shadow-sm">
+          <h3 className="text-lg font-semibold text-slate-900 mb-4 flex items-center gap-2">
+            <svg className="w-5 h-5 text-primary-600" fill="currentColor" viewBox="0 0 20 20">
               <path fillRule="evenodd" d="M3 3a1 1 0 011-1h12a1 1 0 011 1v3a1 1 0 01-.293.707L13 11.414V19a1 1 0 01-1.447.894l-4-2A1 1 0 007 17v-5.586L3.293 6.707A1 1 0 013 6V3z" clipRule="evenodd" />
             </svg>
             Filter & Sort
           </h3>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div>
-              <label className="block text-sm font-semibold text-slate-300 mb-2">Inspection Type</label>
+              <label className="block text-sm font-semibold text-slate-700 mb-2">Inspection Type</label>
               <select
                 value={filterType}
                 onChange={(e) => setFilterType(e.target.value)}
-                className="w-full px-4 py-2.5 border border-slate-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-slate-700 text-white transition-colors"
+                className="w-full px-4 py-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent bg-white text-slate-900 transition-colors"
               >
                 <option value="all">All Types</option>
                 <option value="STANDARD">Standard</option>
@@ -253,11 +253,11 @@ export default function HealthInspectionsPage() {
               </select>
             </div>
             <div>
-              <label className="block text-sm font-semibold text-slate-300 mb-2">Sort By</label>
+              <label className="block text-sm font-semibold text-slate-700 mb-2">Sort By</label>
               <select
                 value={sortBy}
                 onChange={(e) => setSortBy(e.target.value)}
-                className="w-full px-4 py-2.5 border border-slate-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-slate-700 text-white transition-colors"
+                className="w-full px-4 py-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent bg-white text-slate-900 transition-colors"
               >
                 <option value="recent">Most Recent</option>
                 <option value="deficiencies">Most Deficiencies</option>
@@ -270,8 +270,8 @@ export default function HealthInspectionsPage() {
         {/* Inspections List - Enhanced */}
         <div>
           <div className="flex items-center justify-between mb-4">
-            <h2 className="text-xl font-bold text-white flex items-center gap-2">
-              <span className="inline-flex items-center justify-center w-8 h-8 bg-blue-900 bg-opacity-40 text-blue-400 rounded-lg text-sm font-semibold">
+            <h2 className="text-xl font-bold text-slate-900 flex items-center gap-2">
+              <span className="inline-flex items-center justify-center w-8 h-8 bg-primary-100 text-primary-600 rounded-lg text-sm font-semibold">
                 {filteredInspections.length}
               </span>
               Inspections Found
@@ -281,21 +281,21 @@ export default function HealthInspectionsPage() {
           {loading ? (
             <div className="flex justify-center items-center py-16">
               <div className="space-y-4 text-center">
-                <div className="inline-flex items-center justify-center w-12 h-12 bg-slate-700 rounded-full">
-                  <svg className="w-6 h-6 text-blue-400 animate-spin" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <div className="inline-flex items-center justify-center w-12 h-12 bg-slate-200 rounded-full">
+                  <svg className="w-6 h-6 text-primary-600 animate-spin" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
                   </svg>
                 </div>
-                <p className="text-slate-300 font-medium">Loading inspections...</p>
+                <p className="text-slate-600 font-medium">Loading inspections...</p>
               </div>
             </div>
           ) : filteredInspections.length === 0 ? (
             <div className="flex justify-center items-center py-16">
               <div className="text-center">
-                <svg className="w-16 h-16 text-slate-600 mx-auto mb-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <svg className="w-16 h-16 text-slate-300 mx-auto mb-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
                 </svg>
-                <p className="text-slate-300 font-medium">No inspections found</p>
+                <p className="text-slate-600 font-medium">No inspections found</p>
                 <p className="text-slate-500 text-sm mt-1">Try adjusting your filters</p>
               </div>
             </div>

@@ -308,7 +308,7 @@ export default function DemoPage() {
                       </div>
                     </div>
                     {alert.resolved && (
-                      <span className="bg-green-600 text-white px-3 py-1 rounded-full text-xs font-semibold">
+                      <span className="bg-green-600 text-slate-900 px-3 py-1 rounded-full text-xs font-semibold">
                         Resolved
                       </span>
                     )}

@@ -84,12 +84,12 @@ function ResetPasswordFormContent() {
 
   if (tokenError) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 flex items-center justify-center p-4">
+      <div className="min-h-screen bg-gradient-to-br from-slate-50 via-slate-100 to-slate-900 flex items-center justify-center p-4">
         <div className="w-full max-w-md">
-          <div className="bg-slate-800 border border-slate-700 rounded-lg shadow-xl p-8">
+          <div className="bg-white border border-slate-200 rounded-lg shadow-xl p-8">
             <div className="bg-red-500/10 border border-red-500/30 rounded-lg p-4 mb-6">
               <div className="flex items-start gap-3">
-                <AlertCircle size={20} className="text-red-400 flex-shrink-0 mt-0.5" />
+                <AlertCircle size={20} className="text-red-600 flex-shrink-0 mt-0.5" />
                 <div>
                   <h3 className="font-semibold text-red-300 mb-1">Invalid Reset Link</h3>
                   <p className="text-red-200/80 text-sm">{error}</p>
@@ -97,7 +97,7 @@ function ResetPasswordFormContent() {
               </div>
             </div>
             <div className="pt-4">
-              <p className="text-center text-slate-400 text-sm">
+              <p className="text-center text-slate-600 text-sm">
                 <Link href="/auth/forgot-password" className="text-indigo-400 hover:text-indigo-300 font-medium">
                   Request a new reset link
                 </Link>
@@ -110,18 +110,18 @@ function ResetPasswordFormContent() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 flex items-center justify-center p-4">
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-slate-100 to-slate-900 flex items-center justify-center p-4">
       <div className="w-full max-w-md">
-        <div className="bg-slate-800 border border-slate-700 rounded-lg shadow-xl p-8">
-          <h1 className="text-2xl font-bold text-white mb-2">Reset Password</h1>
-          <p className="text-slate-400 mb-6">
+        <div className="bg-white border border-slate-200 rounded-lg shadow-xl p-8">
+          <h1 className="text-2xl font-bold text-slate-900 mb-2">Reset Password</h1>
+          <p className="text-slate-600 mb-6">
             Enter your new password below.
           </p>
 
           {success ? (
             <div className="bg-emerald-500/10 border border-emerald-500/30 rounded-lg p-4 mb-6">
               <div className="flex items-start gap-3">
-                <CheckCircle size={20} className="text-emerald-400 flex-shrink-0 mt-0.5" />
+                <CheckCircle size={20} className="text-emerald-600 flex-shrink-0 mt-0.5" />
                 <div>
                   <h3 className="font-semibold text-emerald-300 mb-1">Password Reset Successful</h3>
                   <p className="text-emerald-200/80 text-sm">
@@ -135,7 +135,7 @@ function ResetPasswordFormContent() {
           {error ? (
             <div className="bg-red-500/10 border border-red-500/30 rounded-lg p-4 mb-6">
               <div className="flex items-start gap-3">
-                <AlertCircle size={20} className="text-red-400 flex-shrink-0 mt-0.5" />
+                <AlertCircle size={20} className="text-red-600 flex-shrink-0 mt-0.5" />
                 <p className="text-red-200 text-sm">{error}</p>
               </div>
             </div>
@@ -144,7 +144,7 @@ function ResetPasswordFormContent() {
           {!success ? (
             <form onSubmit={handleSubmit} className="space-y-4">
               <div>
-                <label htmlFor="password" className="block text-sm font-medium text-slate-300 mb-2">
+                <label htmlFor="password" className="block text-sm font-medium text-slate-700 mb-2">
                   New Password
                 </label>
                 <div className="relative">
@@ -155,13 +155,13 @@ function ResetPasswordFormContent() {
                     onChange={(e) => setPassword(e.target.value)}
                     placeholder="At least 6 characters"
                     required
-                    className="w-full px-4 py-2 bg-slate-700 border border-slate-600 rounded-lg text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent pr-10"
+                    className="w-full px-4 py-2 bg-slate-100 border border-slate-300 rounded-lg text-slate-900 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent pr-10"
                     disabled={loading}
                   />
                   <button
                     type="button"
                     onClick={() => setShowPassword(!showPassword)}
-                    className="absolute right-3 top-2.5 text-slate-400 hover:text-slate-300"
+                    className="absolute right-3 top-2.5 text-slate-600 hover:text-slate-700"
                     tabIndex={-1}
                   >
                     {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
@@ -170,7 +170,7 @@ function ResetPasswordFormContent() {
               </div>
 
               <div>
-                <label htmlFor="confirmPassword" className="block text-sm font-medium text-slate-300 mb-2">
+                <label htmlFor="confirmPassword" className="block text-sm font-medium text-slate-700 mb-2">
                   Confirm Password
                 </label>
                 <div className="relative">
@@ -181,13 +181,13 @@ function ResetPasswordFormContent() {
                     onChange={(e) => setConfirmPassword(e.target.value)}
                     placeholder="Re-enter your password"
                     required
-                    className="w-full px-4 py-2 bg-slate-700 border border-slate-600 rounded-lg text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent pr-10"
+                    className="w-full px-4 py-2 bg-slate-100 border border-slate-300 rounded-lg text-slate-900 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent pr-10"
                     disabled={loading}
                   />
                   <button
                     type="button"
                     onClick={() => setShowConfirmPassword(!showConfirmPassword)}
-                    className="absolute right-3 top-2.5 text-slate-400 hover:text-slate-300"
+                    className="absolute right-3 top-2.5 text-slate-600 hover:text-slate-700"
                     tabIndex={-1}
                   >
                     {showConfirmPassword ? <EyeOff size={20} /> : <Eye size={20} />}
@@ -198,15 +198,15 @@ function ResetPasswordFormContent() {
               <button
                 type="submit"
                 disabled={loading || !password || !confirmPassword}
-                className="w-full py-2 px-4 bg-indigo-600 hover:bg-indigo-700 disabled:bg-slate-700 disabled:text-slate-500 text-white font-medium rounded-lg transition duration-200"
+                className="w-full py-2 px-4 bg-indigo-600 hover:bg-indigo-700 disabled:bg-slate-100 disabled:text-slate-500 text-slate-900 font-medium rounded-lg transition duration-200"
               >
                 {loading ? 'Resetting...' : 'Reset Password'}
               </button>
             </form>
           ) : null}
 
-          <div className="mt-6 pt-6 border-t border-slate-700">
-            <p className="text-center text-slate-400 text-sm">
+          <div className="mt-6 pt-6 border-t border-slate-200">
+            <p className="text-center text-slate-600 text-sm">
               <Link href="/auth/login" className="text-indigo-400 hover:text-indigo-300 font-medium">
                 Back to login
               </Link>
@@ -220,7 +220,7 @@ function ResetPasswordFormContent() {
 
 export default function ResetPasswordPage() {
   return (
-    <Suspense fallback={<div className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 flex items-center justify-center p-4"><div className="text-slate-300">Loading...</div></div>}>
+    <Suspense fallback={<div className="min-h-screen bg-gradient-to-br from-slate-50 via-slate-100 to-slate-900 flex items-center justify-center p-4"><div className="text-slate-700">Loading...</div></div>}>
       <ResetPasswordFormContent />
     </Suspense>
   )

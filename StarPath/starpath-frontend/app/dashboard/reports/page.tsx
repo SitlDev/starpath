@@ -191,14 +191,14 @@ export default function ReportsPage() {
 
   if (loading) {
     return (
-      <div className="flex h-screen bg-slate-900">
+      <div className="flex h-screen bg-slate-50">
         <Sidebar />
         <div className="flex-1 flex items-center justify-center">
           <div className="text-center">
             <div className="animate-spin mb-4">
               <FileText size={32} className="text-indigo-500" />
             </div>
-            <p className="text-slate-400">Loading reports...</p>
+            <p className="text-slate-600">Loading reports...</p>
           </div>
         </div>
       </div>
@@ -206,31 +206,31 @@ export default function ReportsPage() {
   }
 
   return (
-    <div className="flex h-screen bg-slate-900">
+    <div className="flex h-screen bg-slate-50">
       <Sidebar />
 
       <div className="flex-1 overflow-auto">
         <div className="max-w-6xl mx-auto p-6">
           {/* Header */}
           <div className="mb-8">
-            <h1 className="text-3xl font-bold text-white mb-2">Reports & Exports</h1>
-            <p className="text-slate-400">Download facility reports and analysis data</p>
+            <h1 className="text-3xl font-bold text-slate-900 mb-2">Reports & Exports</h1>
+            <p className="text-slate-600">Download facility reports and analysis data</p>
           </div>
 
           {error && (
             <div className="bg-red-500/10 border border-red-500/30 rounded-lg p-4 mb-6 flex items-start gap-3">
-              <AlertCircle size={20} className="text-red-400 flex-shrink-0 mt-0.5" />
+              <AlertCircle size={20} className="text-red-600 flex-shrink-0 mt-0.5" />
               <p className="text-red-200">{error}</p>
             </div>
           )}
 
           {/* Facility Selection */}
-          <div className="bg-slate-800 border border-slate-700 rounded-lg p-6 mb-8">
-            <label className="block text-sm font-medium text-slate-300 mb-3">Select Facility</label>
+          <div className="bg-white border border-slate-200 rounded-lg p-6 mb-8">
+            <label className="block text-sm font-medium text-slate-700 mb-3">Select Facility</label>
             <select
               value={selectedFacility}
               onChange={(e) => setSelectedFacility(e.target.value)}
-              className="w-full px-4 py-2 bg-slate-700 border border-slate-600 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-indigo-500"
+              className="w-full px-4 py-2 bg-slate-100 border border-slate-300 rounded-lg text-slate-900 focus:outline-none focus:ring-2 focus:ring-indigo-500"
             >
               <option value="">-- Choose a facility --</option>
               {facilities.map((facility) => (
@@ -241,8 +241,8 @@ export default function ReportsPage() {
             </select>
 
             {selectedFacility && (
-              <div className="mt-4 p-4 bg-slate-700/50 rounded-lg">
-                <p className="text-sm text-slate-300">
+              <div className="mt-4 p-4 bg-slate-100/50 rounded-lg">
+                <p className="text-sm text-slate-700">
                   <strong>Selected:</strong>{' '}
                   {facilities.find((f) => f.id === selectedFacility)?.name}
                 </p>
@@ -255,7 +255,7 @@ export default function ReportsPage() {
             {reports.map((report) => (
               <div
                 key={report.id}
-                className="bg-slate-800 border border-slate-700 rounded-lg p-6 hover:border-slate-600 transition flex flex-col"
+                className="bg-white border border-slate-200 rounded-lg p-6 hover:border-slate-300 transition flex flex-col"
               >
                 <div className="flex items-start justify-between mb-4">
                   <div className="p-3 bg-indigo-500/20 rounded-lg text-indigo-400">
@@ -263,13 +263,13 @@ export default function ReportsPage() {
                   </div>
                 </div>
 
-                <h3 className="text-lg font-semibold text-white mb-2">{report.name}</h3>
-                <p className="text-slate-400 text-sm mb-4 flex-grow">{report.description}</p>
+                <h3 className="text-lg font-semibold text-slate-900 mb-2">{report.name}</h3>
+                <p className="text-slate-600 text-sm mb-4 flex-grow">{report.description}</p>
 
                 {report.sections && (
-                  <div className="mb-4 p-3 bg-slate-700/50 rounded-lg">
-                    <p className="text-xs font-semibold text-slate-300 mb-2">Includes:</p>
-                    <ul className="text-xs text-slate-400 space-y-1">
+                  <div className="mb-4 p-3 bg-slate-100/50 rounded-lg">
+                    <p className="text-xs font-semibold text-slate-700 mb-2">Includes:</p>
+                    <ul className="text-xs text-slate-600 space-y-1">
                       {report.sections.map((section, i) => (
                         <li key={i}>• {section}</li>
                       ))}
@@ -282,14 +282,14 @@ export default function ReportsPage() {
                     <>
                       <button
                         onClick={() => setShowCustomization(showCustomization === report.id ? null : report.id)}
-                        className="flex-1 px-3 py-2 bg-slate-700 hover:bg-slate-600 text-white text-sm font-medium rounded-lg transition"
+                        className="flex-1 px-3 py-2 bg-slate-100 hover:bg-slate-600 text-slate-900 text-sm font-medium rounded-lg transition"
                       >
                         Customize
                       </button>
                       <button
                         onClick={() => downloadReport(report.type)}
                         disabled={downloading === report.type}
-                        className="flex-1 inline-flex items-center justify-center gap-2 px-3 py-2 bg-indigo-600 hover:bg-indigo-700 disabled:bg-slate-700 disabled:text-slate-500 text-white text-sm font-medium rounded-lg transition"
+                        className="flex-1 inline-flex items-center justify-center gap-2 px-3 py-2 bg-indigo-600 hover:bg-indigo-700 disabled:bg-slate-100 disabled:text-slate-500 text-slate-900 text-sm font-medium rounded-lg transition"
                       >
                         <Download size={16} />
                         {downloading === report.type ? 'Downloading...' : 'Download'}
@@ -300,13 +300,13 @@ export default function ReportsPage() {
 
                 {/* Customization Panel */}
                 {showCustomization === report.id && selectedFacility && (
-                  <div className="mt-4 pt-4 border-t border-slate-700 space-y-3">
+                  <div className="mt-4 pt-4 border-t border-slate-200 space-y-3">
                     <div className="space-y-2">
-                      <label className="text-xs font-semibold text-slate-300">Report Format:</label>
+                      <label className="text-xs font-semibold text-slate-700">Report Format:</label>
                       <select
                         value={reportOptions.format}
                         onChange={(e) => setReportOptions({ ...reportOptions, format: e.target.value as any })}
-                        className="w-full px-2 py-1 bg-slate-700 border border-slate-600 rounded text-white text-xs focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                        className="w-full px-2 py-1 bg-slate-100 border border-slate-300 rounded text-slate-900 text-xs focus:outline-none focus:ring-2 focus:ring-indigo-500"
                       >
                         <option value="pdf">PDF (Printable)</option>
                         <option value="csv">CSV (Data)</option>
@@ -315,11 +315,11 @@ export default function ReportsPage() {
                     </div>
 
                     <div className="space-y-2">
-                      <label className="text-xs font-semibold text-slate-300">Time Range:</label>
+                      <label className="text-xs font-semibold text-slate-700">Time Range:</label>
                       <select
                         value={reportOptions.timeRange}
                         onChange={(e) => setReportOptions({ ...reportOptions, timeRange: e.target.value as any })}
-                        className="w-full px-2 py-1 bg-slate-700 border border-slate-600 rounded text-white text-xs focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                        className="w-full px-2 py-1 bg-slate-100 border border-slate-300 rounded text-slate-900 text-xs focus:outline-none focus:ring-2 focus:ring-indigo-500"
                       >
                         <option value="quarterly">Last Quarter</option>
                         <option value="annual">Last Year</option>
@@ -328,9 +328,9 @@ export default function ReportsPage() {
                     </div>
 
                     <div className="space-y-2">
-                      <label className="text-xs font-semibold text-slate-300">Report Sections:</label>
+                      <label className="text-xs font-semibold text-slate-700">Report Sections:</label>
                       <div className="space-y-1">
-                        <label className="flex items-center gap-2 text-xs text-slate-300">
+                        <label className="flex items-center gap-2 text-xs text-slate-700">
                           <input
                             type="checkbox"
                             checked={reportOptions.includeDeficiencies}
@@ -339,7 +339,7 @@ export default function ReportsPage() {
                           />
                           Include Deficiencies
                         </label>
-                        <label className="flex items-center gap-2 text-xs text-slate-300">
+                        <label className="flex items-center gap-2 text-xs text-slate-700">
                           <input
                             type="checkbox"
                             checked={reportOptions.includeStaffingDetails}
@@ -348,7 +348,7 @@ export default function ReportsPage() {
                           />
                           Include Staffing Details
                         </label>
-                        <label className="flex items-center gap-2 text-xs text-slate-300">
+                        <label className="flex items-center gap-2 text-xs text-slate-700">
                           <input
                             type="checkbox"
                             checked={reportOptions.includeQualityMeasures}
@@ -357,7 +357,7 @@ export default function ReportsPage() {
                           />
                           Include Quality Measures
                         </label>
-                        <label className="flex items-center gap-2 text-xs text-slate-300">
+                        <label className="flex items-center gap-2 text-xs text-slate-700">
                           <input
                             type="checkbox"
                             checked={reportOptions.includeComparative}
@@ -378,7 +378,7 @@ export default function ReportsPage() {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div className="bg-blue-500/10 border border-blue-500/30 rounded-lg p-6">
               <div className="flex items-start gap-4">
-                <div className="p-2 bg-blue-500/20 rounded-lg text-blue-400 flex-shrink-0">
+                <div className="p-2 bg-blue-500/20 rounded-lg text-blue-600 flex-shrink-0">
                   <FileText size={20} />
                 </div>
                 <div>
@@ -392,7 +392,7 @@ export default function ReportsPage() {
 
             <div className="bg-green-500/10 border border-green-500/30 rounded-lg p-6">
               <div className="flex items-start gap-4">
-                <div className="p-2 bg-green-500/20 rounded-lg text-green-400 flex-shrink-0">
+                <div className="p-2 bg-green-500/20 rounded-lg text-green-600 flex-shrink-0">
                   <Download size={20} />
                 </div>
                 <div>
@@ -407,11 +407,11 @@ export default function ReportsPage() {
 
           {/* Report Features Section */}
           <div className="mt-8">
-            <h3 className="text-xl font-bold text-white mb-4">Report Features</h3>
+            <h3 className="text-xl font-bold text-slate-900 mb-4">Report Features</h3>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-              <div className="bg-slate-800/50 border border-slate-700 rounded-lg p-4">
+              <div className="bg-white/50 border border-slate-200 rounded-lg p-4">
                 <h4 className="font-semibold text-indigo-400 mb-2 text-sm">Facility Report</h4>
-                <ul className="text-xs text-slate-400 space-y-1">
+                <ul className="text-xs text-slate-600 space-y-1">
                   <li>✓ Current star ratings</li>
                   <li>✓ Four-domain analysis</li>
                   <li>✓ Recent inspections</li>
@@ -420,9 +420,9 @@ export default function ReportsPage() {
                 </ul>
               </div>
 
-              <div className="bg-slate-800/50 border border-slate-700 rounded-lg p-4">
-                <h4 className="font-semibold text-green-400 mb-2 text-sm">Trend Analysis</h4>
-                <ul className="text-xs text-slate-400 space-y-1">
+              <div className="bg-white/50 border border-slate-200 rounded-lg p-4">
+                <h4 className="font-semibold text-green-600 mb-2 text-sm">Trend Analysis</h4>
+                <ul className="text-xs text-slate-600 space-y-1">
                   <li>✓ Historical ratings</li>
                   <li>✓ Performance trends</li>
                   <li>✓ 24-month history</li>
@@ -431,9 +431,9 @@ export default function ReportsPage() {
                 </ul>
               </div>
 
-              <div className="bg-slate-800/50 border border-slate-700 rounded-lg p-4">
-                <h4 className="font-semibold text-blue-400 mb-2 text-sm">Comparative Analysis</h4>
-                <ul className="text-xs text-slate-400 space-y-1">
+              <div className="bg-white/50 border border-slate-200 rounded-lg p-4">
+                <h4 className="font-semibold text-blue-600 mb-2 text-sm">Comparative Analysis</h4>
+                <ul className="text-xs text-slate-600 space-y-1">
                   <li>✓ State benchmarks</li>
                   <li>✓ National averages</li>
                   <li>✓ Percentile ranking</li>

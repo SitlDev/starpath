@@ -28,9 +28,9 @@ export default function AlertsPage() {
     const stars = [];
     for (let i = 1; i <= 5; i++) {
       if (i <= Math.floor(percentage)) {
-        stars.push(<span key={i} className="text-yellow-400">★</span>);
+        stars.push(<span key={i} className="text-yellow-600">★</span>);
       } else if (i - percentage < 1 && i - percentage > 0) {
-        stars.push(<span key={i} className="text-yellow-400">★</span>);
+        stars.push(<span key={i} className="text-yellow-600">★</span>);
       } else {
         stars.push(<span key={i} className="text-slate-600">★</span>);
       }
@@ -119,33 +119,33 @@ export default function AlertsPage() {
   if (!user) {
     return (
       <div className="p-8 text-center">
-        <p className="text-slate-300">Please log in to access alerts.</p>
+        <p className="text-slate-700">Please log in to access alerts.</p>
       </div>
     );
   }
 
   return (
-    <div className="flex h-screen bg-slate-900">
+    <div className="flex h-screen bg-slate-50">
       <Sidebar user={user} />
       <main className="flex-1 overflow-auto">
         <div className="p-8">
           <div className="max-w-7xl mx-auto">
         {/* Header with Icon Badge */}
         <div className="flex items-center gap-3 mb-2">
-          <div className="p-2 bg-slate-700 rounded-lg">
-            <svg className="w-6 h-6 text-red-400" fill="currentColor" viewBox="0 0 20 20">
+          <div className="p-2 bg-slate-100 rounded-lg">
+            <svg className="w-6 h-6 text-red-600" fill="currentColor" viewBox="0 0 20 20">
               <path fillRule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clipRule="evenodd" />
             </svg>
           </div>
-          <h1 className="text-3xl sm:text-4xl font-bold text-white">Alerts & Notifications</h1>
+          <h1 className="text-3xl sm:text-4xl font-bold text-slate-900">Alerts & Notifications</h1>
         </div>
-        <p className="text-slate-400 text-lg mb-8">Track important notifications and facility alerts by severity level</p>
+        <p className="text-slate-600 text-lg mb-8">Track important notifications and facility alerts by severity level</p>
 
         {/* Error Message */}
         {error && (
           <div className="bg-red-900 bg-opacity-20 border border-red-700 rounded-xl p-4 mb-8">
             <div className="flex items-center gap-3">
-              <svg className="w-5 h-5 text-red-400 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+              <svg className="w-5 h-5 text-red-600 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
                 <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clipRule="evenodd" />
               </svg>
               <p className="text-red-200 font-medium">{error}</p>
@@ -158,16 +158,16 @@ export default function AlertsPage() {
           {/* Critical Stat */}
           <div className="group relative">
             <div className="absolute inset-0 bg-gradient-to-r from-red-600 to-red-700 rounded-2xl opacity-0 group-hover:opacity-10 transition-opacity duration-300" />
-            <div className="relative bg-slate-800 border border-slate-700 rounded-2xl p-4 hover:border-slate-600 transition-all duration-300">
+            <div className="relative bg-white border border-slate-200 rounded-2xl p-4 hover:border-slate-300 transition-all duration-300">
               <div className="flex items-center justify-between mb-2">
-                <span className="text-xs font-semibold text-slate-400 uppercase tracking-wide">Critical</span>
-                <div className="p-1.5 bg-slate-700 rounded">
-                  <svg className="w-4 h-4 text-red-400" fill="currentColor" viewBox="0 0 20 20">
+                <span className="text-xs font-semibold text-slate-600 uppercase tracking-wide">Critical</span>
+                <div className="p-1.5 bg-slate-100 rounded">
+                  <svg className="w-4 h-4 text-red-600" fill="currentColor" viewBox="0 0 20 20">
                     <path fillRule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clipRule="evenodd" />
                   </svg>
                 </div>
               </div>
-              <div className="text-3xl font-bold text-red-400">{alertStats.critical}</div>
+              <div className="text-3xl font-bold text-red-600">{alertStats.critical}</div>
               <div className="text-xs text-slate-500 mt-1">unresolved</div>
             </div>
           </div>
@@ -175,16 +175,16 @@ export default function AlertsPage() {
           {/* High Stat */}
           <div className="group relative">
             <div className="absolute inset-0 bg-gradient-to-r from-orange-600 to-orange-700 rounded-2xl opacity-0 group-hover:opacity-10 transition-opacity duration-300" />
-            <div className="relative bg-slate-800 border border-slate-700 rounded-2xl p-4 hover:border-slate-600 transition-all duration-300">
+            <div className="relative bg-white border border-slate-200 rounded-2xl p-4 hover:border-slate-300 transition-all duration-300">
               <div className="flex items-center justify-between mb-2">
-                <span className="text-xs font-semibold text-slate-400 uppercase tracking-wide">High</span>
-                <div className="p-1.5 bg-slate-700 rounded">
-                  <svg className="w-4 h-4 text-orange-400" fill="currentColor" viewBox="0 0 20 20">
+                <span className="text-xs font-semibold text-slate-600 uppercase tracking-wide">High</span>
+                <div className="p-1.5 bg-slate-100 rounded">
+                  <svg className="w-4 h-4 text-orange-600" fill="currentColor" viewBox="0 0 20 20">
                     <path fillRule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clipRule="evenodd" />
                   </svg>
                 </div>
               </div>
-              <div className="text-3xl font-bold text-orange-400">{alertStats.high}</div>
+              <div className="text-3xl font-bold text-orange-600">{alertStats.high}</div>
               <div className="text-xs text-slate-500 mt-1">unresolved</div>
             </div>
           </div>
@@ -192,16 +192,16 @@ export default function AlertsPage() {
           {/* Medium Stat */}
           <div className="group relative">
             <div className="absolute inset-0 bg-gradient-to-r from-yellow-600 to-yellow-700 rounded-2xl opacity-0 group-hover:opacity-10 transition-opacity duration-300" />
-            <div className="relative bg-slate-800 border border-slate-700 rounded-2xl p-4 hover:border-slate-600 transition-all duration-300">
+            <div className="relative bg-white border border-slate-200 rounded-2xl p-4 hover:border-slate-300 transition-all duration-300">
               <div className="flex items-center justify-between mb-2">
-                <span className="text-xs font-semibold text-slate-400 uppercase tracking-wide">Medium</span>
-                <div className="p-1.5 bg-slate-700 rounded">
-                  <svg className="w-4 h-4 text-yellow-400" fill="currentColor" viewBox="0 0 20 20">
+                <span className="text-xs font-semibold text-slate-600 uppercase tracking-wide">Medium</span>
+                <div className="p-1.5 bg-slate-100 rounded">
+                  <svg className="w-4 h-4 text-yellow-600" fill="currentColor" viewBox="0 0 20 20">
                     <path fillRule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clipRule="evenodd" />
                   </svg>
                 </div>
               </div>
-              <div className="text-3xl font-bold text-yellow-400">{alertStats.medium}</div>
+              <div className="text-3xl font-bold text-yellow-600">{alertStats.medium}</div>
               <div className="text-xs text-slate-500 mt-1">unresolved</div>
             </div>
           </div>
@@ -209,11 +209,11 @@ export default function AlertsPage() {
           {/* Low Stat */}
           <div className="group relative">
             <div className="absolute inset-0 bg-gradient-to-r from-blue-600 to-blue-700 rounded-2xl opacity-0 group-hover:opacity-10 transition-opacity duration-300" />
-            <div className="relative bg-slate-800 border border-slate-700 rounded-2xl p-4 hover:border-slate-600 transition-all duration-300">
+            <div className="relative bg-white border border-slate-200 rounded-2xl p-4 hover:border-slate-300 transition-all duration-300">
               <div className="flex items-center justify-between mb-2">
-                <span className="text-xs font-semibold text-slate-400 uppercase tracking-wide">Low</span>
-                <div className="p-1.5 bg-slate-700 rounded">
-                  <svg className="w-4 h-4 text-blue-400" fill="currentColor" viewBox="0 0 20 20">
+                <span className="text-xs font-semibold text-slate-600 uppercase tracking-wide">Low</span>
+                <div className="p-1.5 bg-slate-100 rounded">
+                  <svg className="w-4 h-4 text-blue-600" fill="currentColor" viewBox="0 0 20 20">
                     <path fillRule="evenodd" d="M18.355 7.369a.5.5 0 00-.646-.646l-8.612 8.612a.5.5 0 00.646.646l8.612-8.612zM9.172 4.828a.75.75 0 11-1.06-1.06L15.939 9.576a.75.75 0 111.06-1.06L9.172 4.829zm6.364 1.637a.75.75 0 111.06-1.06l6.364 6.364a.75.75 0 11-1.06 1.06l-6.364-6.364zM4.172 9.172a.75.75 0 11-1.06-1.06L9.476 3.808a.75.75 0 111.06 1.06L4.172 9.172z" clipRule="evenodd" />
                   </svg>
                 </div>
@@ -247,8 +247,8 @@ export default function AlertsPage() {
             onClick={() => setFilter('unresolved')}
             className={`px-4 py-2.5 rounded-lg font-semibold transition-all ${
               filter === 'unresolved'
-                ? 'bg-red-600 text-white shadow-md'
-                : 'bg-slate-700 border border-slate-600 text-slate-300 hover:bg-slate-600'
+                ? 'bg-red-600 text-slate-900 shadow-md'
+                : 'bg-slate-100 border border-slate-300 text-slate-700 hover:bg-slate-600'
             }`}
           >
             Unresolved ({alertStats.unresolved})
@@ -257,8 +257,8 @@ export default function AlertsPage() {
             onClick={() => setFilter('resolved')}
             className={`px-4 py-2.5 rounded-lg font-semibold transition-all ${
               filter === 'resolved'
-                ? 'bg-green-600 text-white shadow-md'
-                : 'bg-slate-700 border border-slate-600 text-slate-300 hover:bg-slate-600'
+                ? 'bg-green-600 text-slate-900 shadow-md'
+                : 'bg-slate-100 border border-slate-300 text-slate-700 hover:bg-slate-600'
             }`}
           >
             Resolved ({alertStats.resolved})
@@ -267,8 +267,8 @@ export default function AlertsPage() {
             onClick={() => setFilter('all')}
             className={`px-4 py-2.5 rounded-lg font-semibold transition-all ${
               filter === 'all'
-                ? 'bg-slate-600 text-white shadow-md'
-                : 'bg-slate-700 border border-slate-600 text-slate-300 hover:bg-slate-600'
+                ? 'bg-slate-600 text-slate-900 shadow-md'
+                : 'bg-slate-100 border border-slate-300 text-slate-700 hover:bg-slate-600'
             }`}
           >
             All ({alertStats.total})
@@ -279,12 +279,12 @@ export default function AlertsPage() {
         {loading ? (
           <div className="flex justify-center items-center py-16">
             <div className="space-y-4 text-center">
-              <div className="inline-flex items-center justify-center w-12 h-12 bg-slate-700 rounded-full">
-                <svg className="w-6 h-6 text-blue-400 animate-spin" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <div className="inline-flex items-center justify-center w-12 h-12 bg-slate-100 rounded-full">
+                <svg className="w-6 h-6 text-blue-600 animate-spin" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
                 </svg>
               </div>
-              <p className="text-slate-300 font-medium">Loading alerts...</p>
+              <p className="text-slate-700 font-medium">Loading alerts...</p>
             </div>
           </div>
         ) : filteredAlerts.length === 0 ? (
@@ -293,7 +293,7 @@ export default function AlertsPage() {
               <svg className="w-16 h-16 text-slate-600 mx-auto mb-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 12l2 2 4-4m7 0a9 9 0 11-18 0 9 9 0 0118 0z" />
               </svg>
-              <p className="text-slate-300 font-medium">{filter === 'unresolved' ? 'No unresolved alerts. Great job!' : 'No alerts to display.'}</p>
+              <p className="text-slate-700 font-medium">{filter === 'unresolved' ? 'No unresolved alerts. Great job!' : 'No alerts to display.'}</p>
               <p className="text-slate-500 text-sm mt-1">Alerts will appear as needed</p>
             </div>
           </div>
@@ -309,7 +309,7 @@ export default function AlertsPage() {
               return (
                 <div
                   key={alert.id}
-                  className={`${borderColorMap[alert.severity as keyof typeof borderColorMap]} bg-slate-800 border border-slate-700 rounded-2xl p-6 hover:border-slate-600 transition-all duration-300`}
+                  className={`${borderColorMap[alert.severity as keyof typeof borderColorMap]} bg-white border border-slate-200 rounded-2xl p-6 hover:border-slate-300 transition-all duration-300`}
                 >
                   <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-4">
                     <div className="flex-1">
@@ -328,9 +328,9 @@ export default function AlertsPage() {
                           </span>
                         )}
                       </div>
-                      <h3 className="text-lg font-bold text-white">{alert.title}</h3>
-                      <p className="text-slate-300 text-sm mt-2">{alert.description}</p>
-                      <div className="flex items-center gap-4 mt-3 text-xs text-slate-400 flex-wrap">
+                      <h3 className="text-lg font-bold text-slate-900">{alert.title}</h3>
+                      <p className="text-slate-700 text-sm mt-2">{alert.description}</p>
+                      <div className="flex items-center gap-4 mt-3 text-xs text-slate-600 flex-wrap">
                         <span className="font-medium">Facility: {alert.facility_id}</span>
                         <span>•</span>
                         <span>Type: {alert.type}</span>
@@ -346,35 +346,35 @@ export default function AlertsPage() {
         )}
 
         {/* Severity Legend */}
-        <div className="bg-slate-800 rounded-2xl border border-slate-700 p-6 mt-8">
-          <h3 className="font-bold text-white mb-4 text-lg">Alert Severity Levels</h3>
+        <div className="bg-white rounded-2xl border border-slate-200 p-6 mt-8">
+          <h3 className="font-bold text-slate-900 mb-4 text-lg">Alert Severity Levels</h3>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
             <div className="flex items-start gap-3 p-3 bg-red-900 bg-opacity-20 rounded-lg border border-red-400">
               <span className="inline-block w-3 h-3 bg-red-400 rounded-full mt-1.5 flex-shrink-0"></span>
               <div>
-                <div className="font-semibold text-white">Critical</div>
-                <div className="text-slate-400 text-xs mt-0.5">Immediate attention required</div>
+                <div className="font-semibold text-slate-900">Critical</div>
+                <div className="text-slate-600 text-xs mt-0.5">Immediate attention required</div>
               </div>
             </div>
             <div className="flex items-start gap-3 p-3 bg-orange-900 bg-opacity-20 rounded-lg border border-orange-400">
               <span className="inline-block w-3 h-3 bg-orange-400 rounded-full mt-1.5 flex-shrink-0"></span>
               <div>
-                <div className="font-semibold text-white">High</div>
-                <div className="text-slate-400 text-xs mt-0.5">Urgent action needed</div>
+                <div className="font-semibold text-slate-900">High</div>
+                <div className="text-slate-600 text-xs mt-0.5">Urgent action needed</div>
               </div>
             </div>
             <div className="flex items-start gap-3 p-3 bg-yellow-900 bg-opacity-20 rounded-lg border border-yellow-400">
               <span className="inline-block w-3 h-3 bg-yellow-400 rounded-full mt-1.5 flex-shrink-0"></span>
               <div>
-                <div className="font-semibold text-white">Medium</div>
-                <div className="text-slate-400 text-xs mt-0.5">Moderate priority follow-up</div>
+                <div className="font-semibold text-slate-900">Medium</div>
+                <div className="text-slate-600 text-xs mt-0.5">Moderate priority follow-up</div>
               </div>
             </div>
             <div className="flex items-start gap-3 p-3 bg-blue-900 bg-opacity-20 rounded-lg border border-blue-400">
               <span className="inline-block w-3 h-3 bg-blue-400 rounded-full mt-1.5 flex-shrink-0"></span>
               <div>
-                <div className="font-semibold text-white">Low</div>
-                <div className="text-slate-400 text-xs mt-0.5">Informational notification</div>
+                <div className="font-semibold text-slate-900">Low</div>
+                <div className="text-slate-600 text-xs mt-0.5">Informational notification</div>
               </div>
             </div>
           </div>

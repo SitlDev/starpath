@@ -113,14 +113,14 @@ export default function FacilitiesPage() {
     })
 
   return (
-    <div className="flex h-screen bg-slate-900">
+    <div className="flex h-screen bg-slate-50">
       <Sidebar user={user} />
       <main className="flex-1 overflow-auto">
         <div className="p-8">
           {/* Header */}
           <div className="mb-8">
-            <h1 className="text-4xl font-bold text-white mb-2">Facilities</h1>
-            <p className="text-slate-400">Manage and monitor all your skilled nursing facilities</p>
+            <h1 className="text-4xl font-bold text-slate-900 mb-2">Facilities</h1>
+            <p className="text-slate-600">Manage and monitor all your skilled nursing facilities</p>
           </div>
 
           {/* Stats */}
@@ -146,11 +146,11 @@ export default function FacilitiesPage() {
                 placeholder="Search by facility name or provider ID..."
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-                className="flex-1 px-4 py-2 bg-slate-700 border border-slate-600 rounded-lg text-white placeholder-slate-400 focus:outline-none focus:border-blue-500"
+                className="flex-1 px-4 py-2 bg-slate-100 border border-slate-300 rounded-lg text-slate-900 placeholder-slate-400 focus:outline-none focus:border-blue-500"
               />
               <button
                 onClick={() => setShowAddForm(true)}
-                className="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg transition-colors font-medium"
+                className="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-slate-900 rounded-lg transition-colors font-medium"
               >
                 + New Facility
               </button>
@@ -158,11 +158,11 @@ export default function FacilitiesPage() {
 
             <div className="flex gap-4 flex-wrap">
               <div>
-                <label className="block text-xs text-slate-400 mb-1">Sort By</label>
+                <label className="block text-xs text-slate-600 mb-1">Sort By</label>
                 <select
                   value={sortBy}
                   onChange={(e) => setSortBy(e.target.value as any)}
-                  className="px-3 py-2 bg-slate-700 border border-slate-600 rounded-lg text-white text-sm focus:outline-none focus:border-blue-500"
+                  className="px-3 py-2 bg-slate-100 border border-slate-300 rounded-lg text-slate-900 text-sm focus:outline-none focus:border-blue-500"
                 >
                   <option value="name">Name</option>
                   <option value="rating">Rating (High to Low)</option>
@@ -171,11 +171,11 @@ export default function FacilitiesPage() {
               </div>
 
               <div>
-                <label className="block text-xs text-slate-400 mb-1">Filter by Rating</label>
+                <label className="block text-xs text-slate-600 mb-1">Filter by Rating</label>
                 <select
                   value={filterRating}
                   onChange={(e) => setFilterRating(e.target.value === '' ? '' : parseInt(e.target.value))}
-                  className="px-3 py-2 bg-slate-700 border border-slate-600 rounded-lg text-white text-sm focus:outline-none focus:border-blue-500"
+                  className="px-3 py-2 bg-slate-100 border border-slate-300 rounded-lg text-slate-900 text-sm focus:outline-none focus:border-blue-500"
                 >
                   <option value="">All Ratings</option>
                   <option value="5">5 Stars</option>
@@ -190,16 +190,16 @@ export default function FacilitiesPage() {
 
           {/* Facilities Grid */}
           {loading ? (
-            <div className="text-slate-300">Loading facilities...</div>
+            <div className="text-slate-700">Loading facilities...</div>
           ) : filteredFacilities.length === 0 ? (
             <div className="text-center py-12">
-              <p className="text-slate-400 mb-4">
+              <p className="text-slate-600 mb-4">
                 {facilities.length === 0 ? 'No facilities yet.' : 'No facilities match your search.'}
               </p>
               {facilities.length === 0 && (
                 <button
                   onClick={() => router.push('/dashboard')}
-                  className="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg transition"
+                  className="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-slate-900 rounded-lg transition"
                 >
                   Add Your First Facility
                 </button>
@@ -211,12 +211,12 @@ export default function FacilitiesPage() {
                 <Link
                   key={facility.id}
                   href={`/dashboard/facilities/${facility.id}`}
-                  className="block bg-slate-800 border border-slate-700 rounded-lg p-6 hover:border-blue-500 hover:shadow-lg hover:shadow-blue-500/20 transition-all duration-200"
+                  className="block bg-white border border-slate-200 rounded-lg p-6 hover:border-blue-500 hover:shadow-lg hover:shadow-blue-500/20 transition-all duration-200"
                 >
                   <div className="flex items-start justify-between mb-4">
                     <div className="flex-1">
-                      <h3 className="text-lg font-bold text-white truncate">{facility.name}</h3>
-                      <p className="text-sm text-slate-400">Provider ID: {facility.cms_provider_id}</p>
+                      <h3 className="text-lg font-bold text-slate-900 truncate">{facility.name}</h3>
+                      <p className="text-sm text-slate-600">Provider ID: {facility.cms_provider_id}</p>
                     </div>
                     {facility.is_active && (
                       <span className="px-2 py-1 bg-green-500/20 text-green-300 text-xs font-medium rounded">
@@ -227,28 +227,28 @@ export default function FacilitiesPage() {
 
                   <div className="space-y-2 mb-4 text-sm">
                     {facility.address?.city && facility.address?.state && (
-                      <p className="text-slate-300">
+                      <p className="text-slate-700">
                         📍 {facility.address.city}, {facility.address.state}
                       </p>
                     )}
                     {facility.bed_count && (
-                      <p className="text-slate-300">
+                      <p className="text-slate-700">
                         🛏️ {facility.bed_count} beds
                       </p>
                     )}
                     {facility.ownership && (
-                      <p className="text-slate-300 text-xs truncate">
+                      <p className="text-slate-700 text-xs truncate">
                         🏢 {facility.ownership}
                       </p>
                     )}
                   </div>
 
-                  <div className="flex items-center justify-between pt-4 border-t border-slate-700">
+                  <div className="flex items-center justify-between pt-4 border-t border-slate-200">
                     <div className="flex items-center gap-2">
-                      <span className="text-slate-400 text-sm">Rating:</span>
+                      <span className="text-slate-600 text-sm">Rating:</span>
                       <RatingBadge rating={ratings[facility.id] || 0} />
                     </div>
-                    <span className="text-blue-400 hover:text-blue-300 text-sm font-medium">
+                    <span className="text-blue-600 hover:text-blue-300 text-sm font-medium">
                       View Details →
                     </span>
                   </div>

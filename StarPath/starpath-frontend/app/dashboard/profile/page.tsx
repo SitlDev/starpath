@@ -178,10 +178,10 @@ export default function ProfilePage() {
 
   if (loading) {
     return (
-      <div className="flex h-screen bg-slate-900">
+      <div className="flex h-screen bg-slate-50">
         <Sidebar user={user} />
         <main className="flex-1 flex items-center justify-center">
-          <div className="text-slate-300">Loading profile...</div>
+          <div className="text-slate-700">Loading profile...</div>
         </main>
       </div>
     )
@@ -189,12 +189,12 @@ export default function ProfilePage() {
 
   if (!user) {
     return (
-      <div className="flex h-screen bg-slate-900">
+      <div className="flex h-screen bg-slate-50">
         <Sidebar user={user} />
         <main className="flex-1 flex items-center justify-center">
           <div className="text-center">
-            <p className="text-red-400 mb-4">Failed to load profile</p>
-            <Link href="/dashboard" className="text-blue-400 hover:text-blue-300">
+            <p className="text-red-600 mb-4">Failed to load profile</p>
+            <Link href="/dashboard" className="text-blue-600 hover:text-blue-300">
               ← Back to Dashboard
             </Link>
           </div>
@@ -204,18 +204,18 @@ export default function ProfilePage() {
   }
 
   return (
-    <div className="flex h-screen bg-slate-900">
+    <div className="flex h-screen bg-slate-50">
       <Sidebar user={user} />
       <main className="flex-1 overflow-auto">
         <div className="p-8">
           {/* Header */}
           <div className="mb-8 flex items-center gap-6">
             <div className="w-16 h-16 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-lg flex items-center justify-center">
-              <User size={32} className="text-white" />
+              <User size={32} className="text-slate-900" />
             </div>
             <div>
-              <h1 className="text-4xl font-bold text-white">{user.full_name || 'User'}</h1>
-              <p className="text-slate-400">{user.email}</p>
+              <h1 className="text-4xl font-bold text-slate-900">{user.full_name || 'User'}</h1>
+              <p className="text-slate-600">{user.email}</p>
             </div>
           </div>
 
@@ -233,15 +233,15 @@ export default function ProfilePage() {
 
           {/* Tabs */}
           <div className="mb-8">
-            <div className="flex gap-4 border-b border-slate-700">
+            <div className="flex gap-4 border-b border-slate-200">
               {(['profile', 'security', 'activity'] as const).map((tab) => (
                 <button
                   key={tab}
                   onClick={() => setActiveTab(tab)}
                   className={`px-4 py-3 font-medium border-b-2 transition-colors ${
                     activeTab === tab
-                      ? 'text-blue-400 border-blue-400'
-                      : 'text-slate-400 border-transparent hover:text-slate-300'
+                      ? 'text-blue-600 border-blue-400'
+                      : 'text-slate-600 border-transparent hover:text-slate-700'
                   }`}
                 >
                   {tab.charAt(0).toUpperCase() + tab.slice(1)}
@@ -254,12 +254,12 @@ export default function ProfilePage() {
           {activeTab === 'profile' && (
             <div className="space-y-6">
               {/* Profile Info Card */}
-              <div className="bg-slate-800 border border-slate-700 rounded-lg p-6">
+              <div className="bg-white border border-slate-200 rounded-lg p-6">
                 <div className="flex items-center justify-between mb-6">
-                  <h2 className="text-xl font-bold text-white">Personal Information</h2>
+                  <h2 className="text-xl font-bold text-slate-900">Personal Information</h2>
                   <button
                     onClick={() => setEditMode(!editMode)}
-                    className="px-3 py-1 bg-blue-600 hover:bg-blue-700 text-white text-sm rounded transition"
+                    className="px-3 py-1 bg-blue-600 hover:bg-blue-700 text-slate-900 text-sm rounded transition"
                   >
                     {editMode ? 'Cancel' : 'Edit'}
                   </button>
@@ -268,15 +268,15 @@ export default function ProfilePage() {
                 {!editMode ? (
                   <div className="space-y-4">
                     <div>
-                      <p className="text-sm text-slate-400 mb-1">Full Name</p>
-                      <p className="text-white font-medium">{user.full_name || 'Not provided'}</p>
+                      <p className="text-sm text-slate-600 mb-1">Full Name</p>
+                      <p className="text-slate-900 font-medium">{user.full_name || 'Not provided'}</p>
                     </div>
                     <div>
-                      <p className="text-sm text-slate-400 mb-1">Email Address</p>
-                      <p className="text-white font-medium">{user.email}</p>
+                      <p className="text-sm text-slate-600 mb-1">Email Address</p>
+                      <p className="text-slate-900 font-medium">{user.email}</p>
                     </div>
                     <div>
-                      <p className="text-sm text-slate-400 mb-1">Account Status</p>
+                      <p className="text-sm text-slate-600 mb-1">Account Status</p>
                       <span className="inline-block px-3 py-1 bg-green-500/20 text-green-300 text-sm rounded">
                         Active
                       </span>
@@ -285,36 +285,36 @@ export default function ProfilePage() {
                 ) : (
                   <div className="space-y-4">
                     <div>
-                      <label className="block text-sm text-slate-400 mb-2">Full Name</label>
+                      <label className="block text-sm text-slate-600 mb-2">Full Name</label>
                       <input
                         type="text"
                         name="full_name"
                         value={formData.full_name}
                         onChange={handleProfileChange}
-                        className="w-full px-3 py-2 bg-slate-700 border border-slate-600 rounded-lg text-white placeholder-slate-500 focus:outline-none focus:border-blue-500"
+                        className="w-full px-3 py-2 bg-slate-100 border border-slate-300 rounded-lg text-slate-900 placeholder-slate-500 focus:outline-none focus:border-blue-500"
                       />
                     </div>
                     <div>
-                      <label className="block text-sm text-slate-400 mb-2">Email Address</label>
+                      <label className="block text-sm text-slate-600 mb-2">Email Address</label>
                       <input
                         type="email"
                         name="email"
                         value={formData.email}
                         onChange={handleProfileChange}
-                        className="w-full px-3 py-2 bg-slate-700 border border-slate-600 rounded-lg text-white placeholder-slate-500 focus:outline-none focus:border-blue-500"
+                        className="w-full px-3 py-2 bg-slate-100 border border-slate-300 rounded-lg text-slate-900 placeholder-slate-500 focus:outline-none focus:border-blue-500"
                       />
                     </div>
                     <div className="flex gap-3 pt-4">
                       <button
                         onClick={handleProfileSave}
                         disabled={isSaving}
-                        className="px-4 py-2 bg-green-600 hover:bg-green-700 disabled:bg-slate-600 text-white rounded-lg transition"
+                        className="px-4 py-2 bg-green-600 hover:bg-green-700 disabled:bg-slate-600 text-slate-900 rounded-lg transition"
                       >
                         {isSaving ? 'Saving...' : 'Save Changes'}
                       </button>
                       <button
                         onClick={() => setEditMode(false)}
-                        className="px-4 py-2 bg-slate-700 hover:bg-slate-600 text-slate-200 rounded-lg transition"
+                        className="px-4 py-2 bg-slate-100 hover:bg-slate-600 text-slate-200 rounded-lg transition"
                       >
                         Cancel
                       </button>
@@ -324,11 +324,11 @@ export default function ProfilePage() {
               </div>
 
               {/* Account Info */}
-              <div className="bg-slate-800 border border-slate-700 rounded-lg p-6">
-                <h3 className="text-lg font-bold text-white mb-4">Account Information</h3>
+              <div className="bg-white border border-slate-200 rounded-lg p-6">
+                <h3 className="text-lg font-bold text-slate-900 mb-4">Account Information</h3>
                 <div className="space-y-3 text-sm">
                   <div className="flex justify-between">
-                    <span className="text-slate-400">Member Since</span>
+                    <span className="text-slate-600">Member Since</span>
                     <span className="text-slate-200">
                       {user.created_at
                         ? new Date(user.created_at).toLocaleDateString()
@@ -336,7 +336,7 @@ export default function ProfilePage() {
                     </span>
                   </div>
                   <div className="flex justify-between">
-                    <span className="text-slate-400">Last Updated</span>
+                    <span className="text-slate-600">Last Updated</span>
                     <span className="text-slate-200">
                       {user.updated_at
                         ? new Date(user.updated_at).toLocaleDateString()
@@ -352,17 +352,17 @@ export default function ProfilePage() {
           {activeTab === 'security' && (
             <div className="space-y-6">
               {/* Password Section */}
-              <div className="bg-slate-800 border border-slate-700 rounded-lg p-6">
-                <h2 className="text-xl font-bold text-white mb-6">Password Management</h2>
+              <div className="bg-white border border-slate-200 rounded-lg p-6">
+                <h2 className="text-xl font-bold text-slate-900 mb-6">Password Management</h2>
 
                 {!showPasswordForm ? (
                   <div>
-                    <p className="text-slate-400 mb-4">
+                    <p className="text-slate-600 mb-4">
                       Protect your account with a strong password
                     </p>
                     <button
                       onClick={() => setShowPasswordForm(true)}
-                      className="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg transition"
+                      className="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-slate-900 rounded-lg transition"
                     >
                       Change Password
                     </button>
@@ -375,42 +375,42 @@ export default function ProfilePage() {
                       </div>
                     )}
                     <div>
-                      <label className="block text-sm text-slate-400 mb-2">Current Password</label>
+                      <label className="block text-sm text-slate-600 mb-2">Current Password</label>
                       <input
                         type="password"
                         name="current_password"
                         value={passwordData.current_password}
                         onChange={handlePasswordChange}
                         placeholder="Enter current password"
-                        className="w-full px-3 py-2 bg-slate-700 border border-slate-600 rounded-lg text-white placeholder-slate-500 focus:outline-none focus:border-blue-500"
+                        className="w-full px-3 py-2 bg-slate-100 border border-slate-300 rounded-lg text-slate-900 placeholder-slate-500 focus:outline-none focus:border-blue-500"
                       />
                     </div>
                     <div>
-                      <label className="block text-sm text-slate-400 mb-2">New Password</label>
+                      <label className="block text-sm text-slate-600 mb-2">New Password</label>
                       <input
                         type="password"
                         name="new_password"
                         value={passwordData.new_password}
                         onChange={handlePasswordChange}
                         placeholder="Enter new password (min 6 characters)"
-                        className="w-full px-3 py-2 bg-slate-700 border border-slate-600 rounded-lg text-white placeholder-slate-500 focus:outline-none focus:border-blue-500"
+                        className="w-full px-3 py-2 bg-slate-100 border border-slate-300 rounded-lg text-slate-900 placeholder-slate-500 focus:outline-none focus:border-blue-500"
                       />
                     </div>
                     <div>
-                      <label className="block text-sm text-slate-400 mb-2">Confirm New Password</label>
+                      <label className="block text-sm text-slate-600 mb-2">Confirm New Password</label>
                       <input
                         type="password"
                         name="confirm_password"
                         value={passwordData.confirm_password}
                         onChange={handlePasswordChange}
                         placeholder="Confirm new password"
-                        className="w-full px-3 py-2 bg-slate-700 border border-slate-600 rounded-lg text-white placeholder-slate-500 focus:outline-none focus:border-blue-500"
+                        className="w-full px-3 py-2 bg-slate-100 border border-slate-300 rounded-lg text-slate-900 placeholder-slate-500 focus:outline-none focus:border-blue-500"
                       />
                     </div>
                     <div className="flex gap-3 pt-4">
                       <button
                         onClick={handlePasswordSubmit}
-                        className="px-4 py-2 bg-green-600 hover:bg-green-700 text-white rounded-lg transition"
+                        className="px-4 py-2 bg-green-600 hover:bg-green-700 text-slate-900 rounded-lg transition"
                       >
                         Update Password
                       </button>
@@ -424,7 +424,7 @@ export default function ProfilePage() {
                           })
                           setPasswordError('')
                         }}
-                        className="px-4 py-2 bg-slate-700 hover:bg-slate-600 text-slate-200 rounded-lg transition"
+                        className="px-4 py-2 bg-slate-100 hover:bg-slate-600 text-slate-200 rounded-lg transition"
                       >
                         Cancel
                       </button>
@@ -450,26 +450,26 @@ export default function ProfilePage() {
           {/* Activity Tab */}
           {activeTab === 'activity' && (
             <div>
-              <div className="bg-slate-800 border border-slate-700 rounded-lg p-6">
-                <h2 className="text-xl font-bold text-white mb-6">Activity Log</h2>
+              <div className="bg-white border border-slate-200 rounded-lg p-6">
+                <h2 className="text-xl font-bold text-slate-900 mb-6">Activity Log</h2>
 
                 {activityLog.length === 0 ? (
-                  <p className="text-slate-400">No activity recorded yet.</p>
+                  <p className="text-slate-600">No activity recorded yet.</p>
                 ) : (
                   <div className="space-y-3">
                     {activityLog.map((log) => (
                       <div
                         key={log.id}
-                        className="flex items-center justify-between p-4 bg-slate-700/30 border border-slate-600 rounded-lg hover:border-slate-500 transition"
+                        className="flex items-center justify-between p-4 bg-slate-100/30 border border-slate-300 rounded-lg hover:border-slate-500 transition"
                       >
                         <div>
                           <p className="text-slate-200 font-medium">{log.action}</p>
                           {log.details && (
-                            <p className="text-xs text-slate-400 mt-1">{log.details}</p>
+                            <p className="text-xs text-slate-600 mt-1">{log.details}</p>
                           )}
                         </div>
                         <div className="text-right">
-                          <p className="text-xs text-slate-400">
+                          <p className="text-xs text-slate-600">
                             {new Date(log.timestamp).toLocaleDateString()}
                           </p>
                           <p className="text-xs text-slate-500">
