@@ -46,14 +46,14 @@ function LoginFormContent() {
   return (
     <>
       {success && (
-        <div className="p-3 bg-green-900 border border-green-700 rounded-lg text-green-100 text-sm mb-4">
+        <div className="p-3 bg-green-50 border border-green-200 rounded-lg text-green-700 text-sm mb-4">
           {success}
         </div>
       )}
 
       <form onSubmit={handleLogin} className="space-y-4">
         <div>
-          <label htmlFor="email" className="block text-sm font-medium text-slate-300 mb-2">
+          <label htmlFor="email" className="block text-sm font-medium text-slate-700 mb-2">
             Email
           </label>
           <input
@@ -61,14 +61,14 @@ function LoginFormContent() {
             type="email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
-            className="w-full px-4 py-2 bg-slate-700 border border-slate-600 rounded-lg text-white placeholder-slate-400 focus:outline-none focus:border-blue-500"
+            className="w-full px-4 py-2 bg-white border border-slate-300 rounded-lg text-slate-900 placeholder-slate-400 focus:outline-none focus:border-primary-500 focus:ring-1 focus:ring-primary-500"
             placeholder="your@email.com"
             required
           />
         </div>
 
         <div>
-          <label htmlFor="password" className="block text-sm font-medium text-slate-300 mb-2">
+          <label htmlFor="password" className="block text-sm font-medium text-slate-700 mb-2">
             Password
           </label>
           <input
@@ -76,19 +76,19 @@ function LoginFormContent() {
             type="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
-            className="w-full px-4 py-2 bg-slate-700 border border-slate-600 rounded-lg text-white placeholder-slate-400 focus:outline-none focus:border-blue-500"
+            className="w-full px-4 py-2 bg-white border border-slate-300 rounded-lg text-slate-900 placeholder-slate-400 focus:outline-none focus:border-primary-500 focus:ring-1 focus:ring-primary-500"
             placeholder="••••••••"
             required
           />
           <div className="text-right mt-2">
-            <Link href="/auth/forgot-password" className="text-blue-400 hover:text-blue-300 text-sm font-medium">
+            <Link href="/auth/forgot-password" className="text-primary-600 hover:text-primary-700 text-sm font-medium">
               Forgot password?
             </Link>
           </div>
         </div>
 
         {error && (
-          <div className="p-3 bg-red-900 border border-red-700 rounded-lg text-red-100 text-sm">
+          <div className="p-3 bg-red-50 border border-red-200 rounded-lg text-red-700 text-sm">
             {error}
           </div>
         )}
@@ -96,15 +96,15 @@ function LoginFormContent() {
         <button
           type="submit"
           disabled={loading}
-          className="w-full py-2 px-4 bg-blue-600 hover:bg-blue-700 disabled:bg-slate-600 text-white font-medium rounded-lg transition duration-200"
+          className="w-full py-2 px-4 bg-primary-600 hover:bg-primary-700 disabled:bg-slate-300 text-white font-medium rounded-lg transition duration-200"
         >
           {loading ? 'Signing in...' : 'Sign In'}
         </button>
       </form>
 
-      <p className="mt-6 text-center text-slate-400 text-sm">
+      <p className="mt-6 text-center text-slate-600 text-sm">
         Don't have an account?{' '}
-        <Link href="/auth/register" className="text-blue-400 hover:text-blue-300">
+        <Link href="/auth/register" className="text-primary-600 hover:text-primary-700 font-medium">
           Sign up
         </Link>
       </p>
@@ -114,14 +114,19 @@ function LoginFormContent() {
 
 export default function LoginPage() {
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-slate-900 to-slate-800">
-      <div className="w-full max-w-md bg-slate-800 rounded-lg shadow-xl p-8 border border-slate-700">
+    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-slate-50 to-slate-100 p-4">
+      <div className="w-full max-w-md bg-white rounded-lg shadow-md p-8 border border-slate-200">
         <div className="text-center mb-8">
-          <h1 className="text-3xl font-bold text-white mb-2">StarPath SNF</h1>
-          <p className="text-slate-300">CMS Five-Star Rating Optimizer</p>
+          <div className="flex justify-center mb-4">
+            <div className="w-12 h-12 bg-primary-600 rounded-lg flex items-center justify-center">
+              <span className="text-white font-bold text-lg">S</span>
+            </div>
+          </div>
+          <h1 className="text-2xl font-bold text-slate-900 mb-1">StarPath SNF</h1>
+          <p className="text-slate-600 text-sm">CMS Five-Star Rating Optimizer</p>
         </div>
 
-        <Suspense fallback={<div className="text-slate-300">Loading...</div>}>
+        <Suspense fallback={<div className="text-slate-600 text-center">Loading...</div>}>
           <LoginFormContent />
         </Suspense>
       </div>
