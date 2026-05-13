@@ -266,7 +266,7 @@ export default function DashboardPage() {
                           <p key={alert.facilityId}>
                             • {alert.facilityName}:{' '}
                             <span className="font-medium">
-                              {alert.rating} ★
+                              {'★'.repeat(Math.max(1, Math.min(5, Math.round(alert.rating))))}
                             </span>
                           </p>
                         ))}
