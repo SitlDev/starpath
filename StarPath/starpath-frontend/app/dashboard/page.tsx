@@ -207,25 +207,25 @@ export default function DashboardPage() {
   }, [router])
 
   return (
-    <div className="flex h-screen bg-slate-900">
+    <div className="flex h-screen bg-slate-50">
       <Sidebar user={user} />
       <main className="flex-1 overflow-auto">
         <div className="p-8">
           <div className="mb-8">
-            <h1 className="text-4xl font-bold text-white mb-2">Dashboard</h1>
-            <p className="text-slate-400">
+            <h1 className="text-4xl font-bold text-slate-900 mb-2">Dashboard</h1>
+            <p className="text-slate-600">
               Welcome back, {user?.full_name || 'User'}! Here's your facility overview.
             </p>
           </div>
 
           {error && (
-            <div className="p-4 bg-red-900 border border-red-700 rounded-lg text-red-100 mb-6">
+            <div className="p-4 bg-red-50 border border-red-200 rounded-lg text-red-700 mb-6">
               {error}
             </div>
           )}
 
           {loading ? (
-            <div className="text-slate-300">Loading analytics...</div>
+            <div className="text-slate-600">Loading analytics...</div>
           ) : (
             <>
               {/* Key Metrics */}
@@ -254,14 +254,14 @@ export default function DashboardPage() {
 
               {/* Low Rating Alerts */}
               {lowRatingAlerts.length > 0 && (
-                <div className="mb-8 p-4 bg-red-500/10 border border-red-500/30 rounded-lg">
+                <div className="mb-8 p-4 bg-red-50 border border-red-200 rounded-lg">
                   <div className="flex items-start gap-3">
-                    <AlertCircle className="text-red-400 mt-1 flex-shrink-0" />
+                    <AlertCircle className="text-red-600 mt-1 flex-shrink-0" />
                     <div className="flex-1">
-                      <h3 className="font-semibold text-red-300 mb-2">
+                      <h3 className="font-semibold text-red-900 mb-2">
                         Facilities with Low Ratings
                       </h3>
-                      <div className="space-y-1 text-sm text-red-200">
+                      <div className="space-y-1 text-sm text-red-800">
                         {lowRatingAlerts.map((alert) => (
                           <p key={alert.facilityId}>
                             • {alert.facilityName}:{' '}
